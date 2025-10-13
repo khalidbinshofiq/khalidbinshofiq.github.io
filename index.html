@@ -8,168 +8,121 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --maxw: 1100px;
-    --fg: #2C3E50;
-    --muted:#7F8C8D;
-    --link:#2980B9;
-    --card:#ECF0F1;
-    --border:#BDC3C7;
-    --pill:#D5DBDB;
-    --background:#F4F6F6;
-    --highlight:#323232; /* Highlight color set to black */
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0; 
-    font-family: 'Times New Roman', Times, serif;  /* Changed to Times New Roman */
-    color:var(--fg); 
-    line-height:1.6; 
-    background-color: var(--background);
-  }
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:50px 20px; font-size:16px;}
-  a{color:var(--link); text-decoration:none}
-  a:hover{text-decoration:underline}
-  header{
-    display:flex; justify-content:flex-start; align-items:center; margin-bottom:40px;
-    background-color: var(--highlight); padding:20px; border-radius:10px;
-  }
-  .avatar{
-    width:180px; height:180px; border-radius:50%; object-fit:cover; /* Perfect circle with no border */
-    box-shadow:0 6px 18px rgba(0,0,0,.12); /* Subtle shadow effect */
-    margin-right: 30px;
-  }
-  h1{font-size:36px; color: white; margin:0;}
-  .tagline{margin-top:8px; font-size:18px; color: white; font-style:italic;}
-  .description{
-    font-size: 16px;
-    color: white;
-    margin-top: 10px;
-  }
-  .address{
-    font-size: 16px;
-    color: white;
-    margin-top: 10px;
-  }
-  .tabs {
-    display: flex;
-    justify-content: center;
-    background-color: #fff;
-    padding: 10px 0;
-    border-radius: 20px;
-    margin-bottom: 40px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  .tabs a {
-    padding: 12px 20px;
-    margin: 0 10px;
-    color: #333;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .tabs a:hover {
-    background-color: var(--highlight);
-    color: white;
-  }
-  .tabs a.active {
-    background-color: var(--highlight);
-    color: white;
-  }
-  section{
-    background-color: white;
-    margin-bottom:40px;
-    padding:25px;
-    border-radius:15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-  h2{font-size:26px; margin-bottom:20px; color: var(--highlight);}
-  ul{margin-top:10px; padding-left:20px; line-height:1.6;}
-  .card{
-    background:var(--card); border:1px solid var(--border); border-radius:12px;
-    padding:16px; margin-top:16px; box-shadow:0 4px 8px rgba(0,0,0,.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .card:hover{
-    transform:scale(1.02);
-    box-shadow: 0 8px 18px rgba(0,0,0,.12);
-  }
-  .card a{
-    font-weight: bold;
-    color: var(--link);
-    display:block;
-    margin-top:10px;
-  }
-  footer{
-    background-color: var(--highlight);
-    color:white;
-    text-align:center;
-    padding:25px;
-    margin-top:40px;
-    border-radius:10px;
-  }
-  footer a{
-    color:white;
-    font-weight:bold;
-  }
+  <style>
+    :root{
+      --maxw: 1100px;
+      --fg: #2C3E50;
+      --muted:#7F8C8D;
+      --link:#2980B9;
+      --card:#ECF0F1;
+      --border:#BDC3C7;
+      --pill:#D5DBDB;
+      --background:#F4F6F6;
+      --highlight:#323232; /* used for dark headings/accents */
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Times New Roman", Times, serif;
+      color:var(--fg);
+      line-height:1.6;
+      background-color:var(--background);
+    }
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:50px 20px; font-size:16px;}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
 
-  /* Education Section Styling */
-  #education {
-    margin-top: 40px;
-  }
+    /* Tabs */
+    .tabs{
+      display:flex; justify-content:center; background:#fff; padding:10px 0;
+      border-radius:20px; margin-bottom:40px; box-shadow:0 4px 12px rgba(0,0,0,.1);
+      gap:8px; flex-wrap:wrap;
+    }
+    .tabs a{
+      padding:10px 14px; color:#333; font-weight:600; border-radius:8px; transition:color .2s;
+    }
+    .tabs a.active{font-weight:800; color:var(--highlight);} /* bold only, no background */
+    .tabs a:hover{color:var(--highlight);}
 
-  .education-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #BDC3C7;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
+    /* Header (About Me card) – now WHITE */
+    header{
+      display:flex; justify-content:flex-start; align-items:center; gap:30px;
+      margin-bottom:40px; background:#fff; padding:24px; border-radius:16px;
+      box-shadow:0 6px 18px rgba(0,0,0,.10);
+    }
+    .avatar{
+      width:180px; height:180px; border-radius:50%; object-fit:cover;
+      box-shadow:0 6px 18px rgba(0,0,0,.10);
+      flex:0 0 auto;
+    }
+    h1{font-size:36px; color:var(--highlight); margin:0;}
+    .tagline{margin-top:8px; font-size:18px; color:var(--highlight); font-style:normal; text-align:justify;}
+    .description{font-size:16px; color:var(--fg); margin-top:10px;}
 
-  .education-logo {
-    margin-right: 20px;
-  }
+    /* Sections */
+    section{
+      background:#fff; margin-bottom:40px; padding:25px; border-radius:15px;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+    }
+    h2{font-size:26px; margin-bottom:20px; color:var(--highlight);}
+    ul{margin-top:10px; padding-left:20px; line-height:1.6;}
 
-  .education-details {
-    font-size: 16px;
-    color: #333;
-  }
+    /* Cards */
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:12px;
+      padding:16px; margin-top:16px; box-shadow:0 4px 8px rgba(0,0,0,.1);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .card:hover{transform:scale(1.02); box-shadow:0 8px 18px rgba(0,0,0,.12);}
+    .card a{font-weight:bold; color:var(--link); display:block; margin-top:10px;}
 
-  .education-details h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #2C3E50;
-  }
+    /* Education */
+    #education{margin-top:40px;}
+    .education-item{
+      display:flex; align-items:center; gap:16px; margin-bottom:20px; padding:14px;
+      border:1px solid #BDC3C7; border-radius:10px; background:#f9f9f9;
+    }
+    .education-logo img{width:60px; height:auto; display:block;}
+    .education-details{font-size:16px; color:#333;}
+    .education-details h3{margin:0 0 6px 0; font-size:18px; color:#2C3E50;}
+    .education-details p{margin:4px 0;}
 
-  .education-details p {
-    margin: 5px 0;
-  }
-</style>
+    /* Footer */
+    footer{
+      background:var(--highlight); color:#fff; text-align:center; padding:25px;
+      margin-top:40px; border-radius:10px;
+    }
+    footer a{color:#fff; font-weight:bold;}
 
+    /* Responsive */
+    @media (max-width: 700px){
+      header{flex-direction:column; text-align:center;}
+      .tagline,.description{text-align:left;}
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
-    <!-- Tabs Navigation -->
-    <div class="tabs">
+    <!-- Tabs -->
+    <nav class="tabs">
       <a href="#home" class="tab-link active">Home</a>
       <a href="#research-areas" class="tab-link">Research</a>
       <a href="#academic-projects" class="tab-link">Academic Projects</a>
       <a href="#education" class="tab-link">Education</a>
       <a href="#professional-experience" class="tab-link">Experience</a>
-      <a href="#contact" class="tab-link">Contact</a> <!-- New Contact tab -->
-    </div>
+      <a href="#contact" class="tab-link">Contact</a>
+    </nav>
 
-    <!-- Hero / Header -->
-    <header>
-      <img class="avatar" src="images/profile.jpg" alt="Khalid-Bin-Shofiq photo" />
+    <!-- Header / About Me -->
+    <header id="home">
+      <img class="avatar" src="images/profile.jpg" alt="Khalid-Bin-Shofiq portrait" />
       <div>
         <h1><strong>Khalid-Bin-Shofiq</strong></h1>
-        <p class="tagline"><b>Urban & Regional Planner</b></p>
+        <p class="tagline"><b>Urban &amp; Regional Planner</b></p>
         <p class="description">
-          Urban and Regional Planning graduate with experience in empirical and spatial analysis. Intending to pursue a PhD to advance evidence-based strategies for sustainable development.
+          Urban and Regional Planning graduate with experience in empirical and spatial analysis.
+          Intending to pursue a PhD to advance evidence-based strategies for sustainable development.
         </p>
       </div>
     </header>
@@ -178,12 +131,12 @@
     <section id="research-areas">
       <h2>🎯 Research Areas</h2>
       <ul>
-        <li>Deep learning & machine learning–based prediction models</li>
-        <li>Urban growth & land use forecasting</li>
+        <li>Deep learning &amp; machine learning–based prediction models</li>
+        <li>Urban growth &amp; land use forecasting</li>
         <li>Transit-Oriented Development (TOD) potential</li>
-        <li>Remote sensing & environmental sustainability</li>
-        <li>Spatial analysis & land use planning</li>
-        <li>Qualitative & policy-oriented urban research</li>
+        <li>Remote sensing &amp; environmental sustainability</li>
+        <li>Spatial analysis &amp; land use planning</li>
+        <li>Qualitative &amp; policy-oriented urban research</li>
       </ul>
     </section>
 
@@ -207,12 +160,13 @@
       </ul>
     </section>
 
-    <!-- Education Section -->
+    <!-- Education -->
     <section id="education">
       <h2>🎓 Education</h2>
+
       <div class="education-item">
         <div class="education-logo">
-          <img src="images/buet-logo.png" alt="BUET Logo" style="width: 60px; vertical-align: middle;" />
+          <img src="images/buet-logo.png" alt="BUET logo" />
         </div>
         <div class="education-details">
           <h3>Bachelor of Urban and Regional Planning (BURP)</h3>
@@ -224,7 +178,7 @@
 
       <div class="education-item">
         <div class="education-logo">
-          <img src="images/rajshahi-college-logo.png" alt="Rajshahi College Logo" style="width: 60px; vertical-align: middle;" />
+          <img src="images/rajshahi-college-logo.png" alt="Rajshahi College logo" />
         </div>
         <div class="education-details">
           <h3>Higher Secondary Certificate (General Scholarship)</h3>
@@ -236,7 +190,7 @@
 
       <div class="education-item">
         <div class="education-logo">
-          <img src="images/shiroil-logo.png" alt="Shiroil Government High School Logo" style="width: 60px; vertical-align: middle;" />
+          <img src="images/shiroil-logo.png" alt="Shiroil Government High School logo" />
         </div>
         <div class="education-details">
           <h3>Secondary School Certificate (General Scholarship)</h3>
@@ -266,14 +220,18 @@
       </ul>
     </section>
 
+    <!-- IELTS -->
     <section id="IELTS">
-  <h2><img src="il.png" alt="IELTS Logo" style="width: 80px; height: auto; margin-right: 10px;"></h2>
-  <ul>
-    <li>
-      <b>Overall Band: 7</b> (Listening: 7.5, Reading: 7, Writing: 7, Speaking: 7)
-    </li>
+      <h2>
+        <img src="il.png" alt="IELTS logo" style="width:80px;height:auto;vertical-align:middle;margin-right:10px;">
+        IELTS
+      </h2>
+      <ul>
+        <li><b>Overall Band: 7</b> (Listening: 7.5, Reading: 7, Writing: 7, Speaking: 7)</li>
+      </ul>
+    </section>
 
-    <!-- Professional Experience -->
+    <!-- Experience -->
     <section id="professional-experience">
       <h2>💼 Professional Experience</h2>
       <ul>
@@ -281,12 +239,12 @@
       </ul>
     </section>
 
-    <!-- Contact Section (Email, LinkedIn) -->
+    <!-- Contact -->
     <section id="contact">
       <h2>📬 Contact</h2>
       <p>
         <strong>Email:</strong> <a href="mailto:khalidbinshofiq29@gmail.com">khalidbinshofiq29@gmail.com</a><br />
-        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/khalid-bin-shofiq-a81a6826b" target="_blank">Khalid-Bin-Shofiq</a>
+        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/khalid-bin-shofiq-a81a6826b" target="_blank" rel="noopener">Khalid-Bin-Shofiq</a>
       </p>
     </section>
 
@@ -296,6 +254,24 @@
     </footer>
   </div>
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Tabs: set active on click & on scroll
+    const links = Array.from(document.querySelectorAll('.tab-link'));
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+    function setActiveById(id){
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    }
+    links.forEach(a => a.addEventListener('click', () => setActiveById(a.getAttribute('href').slice(1))));
+
+    const obs = new IntersectionObserver((entries)=>{
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+      if(visible){ setActiveById(visible.target.id); }
+    }, { rootMargin: "-20% 0px -60% 0px", threshold:[0,.25,.5,.75,1] });
+    sections.forEach(s => s && obs.observe(s));
+  </script>
 </body>
 </html>
