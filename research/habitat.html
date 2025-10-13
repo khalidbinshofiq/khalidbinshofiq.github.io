@@ -13,7 +13,7 @@
             margin-bottom: 20px;
             font-size: 24px; /* Make the heading a little bigger */
         }
-        
+
         /* Centering the images and making them larger */
         .image-container {
             display: flex;
@@ -24,6 +24,8 @@
 
         .image-container img {
             width: 30%; /* Making the images larger and more prominent */
+            height: auto; /* Ensures aspect ratio is maintained */
+            object-fit: cover; /* Ensures the image covers the container without distortion */
         }
     </style>
 </head>
@@ -31,7 +33,10 @@
 
     <h2>Habitat Maps of Cox's Bazar, Maheshkhali Island and Kutubdia, Bangladesh</h2>
     <div class="image-container">
-        <img src="./cox.jpg" alt="Bhawal LST 2000">
-        <img src="./mahesh.jpg" alt="Bhawal LST 2005">
-        <img src="./kutub.jpg" alt="Bhawal LST 2010">
+        <img src="./cox.jpg" alt="Cox's Bazar Habitat Map">
+        <img src="./mahesh.jpg" alt="Maheshkhali Habitat Map">
+        <img src="./kutub.jpg" alt="Kutubdia Habitat Map">
     </div>
+
+</body>
+</html>
