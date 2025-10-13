@@ -10,72 +10,96 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --maxw: 1000px;
-      --fg: #1c1e21;
-      --muted:#58606a;
-      --link:#0b66c3;
-      --card:#f8fafc;
-      --border:#e5e7eb;
-      --pill:#eef2ff;
+      --maxw: 1100px;
+      --fg: #2C3E50;
+      --muted:#7F8C8D;
+      --link:#2980B9;
+      --card:#ECF0F1;
+      --border:#BDC3C7;
+      --pill:#D5DBDB;
+      --background:#F4F6F6;
+      --highlight:#3498DB;
     }
     *{box-sizing:border-box}
     body{
       margin:0; font-family:Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--fg); line-height:1.6; background:#fff;
+      color:var(--fg); line-height:1.6; background-color: var(--background);
     }
-    .wrap{max-width:var(--maxw); margin:0 auto; padding:32px 18px 50px}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:50px 20px; font-size:16px;}
     a{color:var(--link); text-decoration:none}
     a:hover{text-decoration:underline}
     header{
-      display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;
+      display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;
+      background-color: var(--highlight); padding:20px; border-radius:10px;
     }
     .avatar{
       width:150px; height:150px; border-radius:50%; object-fit:cover; border:3px solid #fff;
-      box-shadow:0 0 0 1px var(--border), 0 6px 18px rgba(0,0,0,.08);
+      box-shadow:0 0 0 2px var(--border), 0 6px 18px rgba(0,0,0,.12);
     }
-    h1{margin:0; font-size:32px; line-height:1.25}
-    .tagline{margin:6px 0 0; color:var(--muted); font-style:italic; font-size:16px;}
-    .contact a{margin-right:14px; color: #0b66c3;}
+    h1{font-size:36px; color: white; margin:0;}
+    .tagline{margin-top:8px; font-size:18px; color: white; font-style:italic;}
+    .contact a{color:white; margin-right:15px; font-weight:bold;}
     .tabs {
       display: flex;
-      justify-content: space-evenly;
-      background-color: #f4f4f4;
-      padding: 12px;
-      border-radius: 10px;
+      justify-content: center;
+      background-color: #fff;
+      padding: 10px 0;
+      border-radius: 20px;
       margin-bottom: 40px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     }
     .tabs a {
+      padding: 12px 20px;
+      margin: 0 10px;
       color: #333;
-      padding: 10px 20px;
+      font-weight: bold;
       border-radius: 8px;
-      font-weight: 500;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, color 0.3s;
     }
     .tabs a:hover {
-      background-color: #0b66c3;
+      background-color: var(--highlight);
       color: white;
     }
     .tabs a.active {
-      font-weight: 600;
-      background-color: #e5e7eb;
+      background-color: var(--highlight);
+      color: white;
     }
-    section{margin-bottom:40px;}
-    h2{font-size:24px; margin:0 0 20px; display:flex; align-items:center; gap:8px}
-    ul{margin:10px 0 0 0; padding-left:20px; line-height:1.6;}
+    section{
+      background-color: white;
+      margin-bottom:40px;
+      padding:25px;
+      border-radius:15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h2{font-size:26px; margin-bottom:20px; color: var(--highlight);}
+    ul{margin-top:10px; padding-left:20px; line-height:1.6;}
     .card{
       background:var(--card); border:1px solid var(--border); border-radius:12px;
-      padding:16px; margin-top:16px; box-shadow:0 4px 12px rgba(0,0,0,.08);
+      padding:16px; margin-top:16px; box-shadow:0 4px 8px rgba(0,0,0,.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover{
+      transform:scale(1.02);
+      box-shadow: 0 8px 18px rgba(0,0,0,.12);
     }
     .card a{
       font-weight: bold;
       color: var(--link);
+      display:block;
+      margin-top:10px;
     }
-    .center{text-align:center}
-    .footer{margin-top:30px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:14px}
-    .footer a{color:var(--link);}
-    .avatar-section{display: flex; align-items: center; gap: 20px;}
-    .avatar-section div{max-width: 600px;}
-    .responsive{max-width:100%; height:auto;}
+    footer{
+      background-color: var(--highlight);
+      color:white;
+      text-align:center;
+      padding:25px;
+      margin-top:40px;
+      border-radius:10px;
+    }
+    footer a{
+      color:white;
+      font-weight:bold;
+    }
   </style>
 </head>
 <body>
@@ -92,12 +116,14 @@
 
     <!-- Hero / Header -->
     <header>
-      <div class="avatar-section">
-        <img class="avatar" src="images/profile.jpg" alt="Khalid-Bin-Shofiq photo" />
-        <div>
-          <h1><strong>Khalid-Bin-Shofiq</strong></h1>
-          <p class="tagline">Urban & Regional Planner (BUET)</p>
-        </div>
+      <img class="avatar" src="images/profile.jpg" alt="Khalid-Bin-Shofiq photo" />
+      <div>
+        <h1><strong>Khalid-Bin-Shofiq</strong></h1>
+        <p class="tagline">Urban & Regional Planner (BUET)</p>
+        <p class="contact">
+          <a href="mailto:khalidbinshofiq29@gmail.com">Email</a> ·
+          <a href="https://www.linkedin.com/in/khalid-bin-shofiq-a81a6826b" target="_blank">LinkedIn</a>
+        </p>
       </div>
     </header>
 
@@ -141,15 +167,6 @@
         <li><a href="Academic/Participatory/Participatory.md">Participatory Planning Studio</a> ↗</li>
         <li><a href="Academic/Project/Project.md">Project Planning Studio</a> ↗</li>
         <li><a href="Academic/Transportation/Transportation.md">Transportation Planning Studio</a> ↗</li>
-        <li><a href="Academic/Regional/Regional.md">Regional Planning Studio</a> ↗</li>
-        <li><a href="Academic/Rural/Rural.md">Rural Planning Studio</a> ↗</li>
-        <li><a href="Academic/Program/Program.md">Programming Studio</a> ↗</li>
-        <li><a href="Academic/GIS/GIS.md">GIS and Remote Sensing Studio</a> ↗</li>
-        <li><a href="Academic/Urban/Urban.md">Urban Planning Studio</a> ↗</li>
-        <li><a href="Academic/Landscape/Landscape.md">Landscape Planning Studio</a> ↗</li>
-        <li><a href="Academic/Site/Site.md">Site and Area Planning Studio</a> ↗</li>
-        <li><a href="Academic/Social/Social.md">Social and Physical Surveys</a> ↗</li>
-        <li><a href="Academic/Carto/Carto.md">Cartography Workshop</a> ↗</li>
       </ul>
     </section>
 
@@ -161,34 +178,12 @@
       </ul>
     </section>
 
-    <!-- Tools & Platforms -->
-    <section id="tools-platforms">
-      <h2>🔧 Tools & Platforms</h2>
-      <p align="left">
-        <img src="https://img.shields.io/badge/ArcMap-4479A1?style=for-the-badge&logo=esri&logoColor=white" alt="ArcMap"/>
-        <img src="https://img.shields.io/badge/ArcGIS%20Pro-005C97?style=for-the-badge&logo=esri&logoColor=white" alt="ArcGIS Pro"/>
-        <img src="https://img.shields.io/badge/QGIS-589632?style=for-the-badge&logo=qgis&logoColor=white" alt="QGIS"/>
-        <img src="https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black" alt="Google Colab"/>
-        <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
-        <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="TensorFlow"/>
-        <img src="https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white" alt="Keras"/>
-        <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas"/>
-        <img src="https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=plotly&logoColor=white" alt="Matplotlib"/>
-        <img src="https://img.shields.io/badge/R%20Studio-75AADB?style=for-the-badge&logo=rstudio&logoColor=white" alt="R Studio"/>
-      </p>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-      <h2>📫 Contact</h2>
-      <p>📧 Email: khalidbinshofiq29@gmail.com</p>
-      <p>🔗 LinkedIn Profile: <a href="https://www.linkedin.com/in/khalid-bin-shofiq-a81a6826b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BEfNHAFBMSN2BVzuA90HUcA%3D%3D">View LinkedIn</a></p>
-    </section>
-
-    <footer class="footer">
+    <!-- Footer -->
+    <footer>
       © <span id="y"></span> Khalid-Bin-Shofiq · <a href="https://github.com/Khalid-Bin-Shofiq">GitHub</a>
     </footer>
   </div>
+
   <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
 </body>
 </html>
