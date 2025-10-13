@@ -17,21 +17,13 @@
       margin:0;
       background:#fff;
       color:var(--fg);
+      font-family: Georgia, 'Times New Roman', Times, serif; /* Applied Georgia font to the entire body */
       line-height:1.6;
     }
     .wrap{
       max-width:var(--maxw);
       margin:32px auto 80px;
       padding:0 16px;
-    }
-
-    /* Keep each block's font exactly as requested */
-    .block-times{
-      font-family:'Times New Roman', Times, serif;
-    }
-    .block-georgia{
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      margin-top:48px; /* visual separation between the two blocks */
     }
 
     /* Markdown-like spacing */
@@ -65,7 +57,7 @@
   <main class="wrap">
 
     <!-- ===== Block 1: Times New Roman ===== -->
-    <div class="block-times">
+    <div>
       <h1>Framework for Predicting Urban Growth Pattern in Data Scarce Region</h1>
 
       <h2>🔑 Objective</h2>
@@ -78,7 +70,7 @@
     </div>
 
     <!-- ===== Block 2: Georgia / Times hybrid ===== -->
-    <div class="block-georgia">
+    <div>
       <h1>Growth Pattern Analysis by Maximum Likelihood Supervised Classification</h1>
 
       <h2>🗺️ Land Cover Maps</h2>
