@@ -1,1 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fariha Aktar</title>
+  <meta name="description" content="Urban & Regional Planner" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --maxw: 1000px;
+      --fg: #1c1e21;
+      --muted:#58606a;
+      --link:#0b66c3;
+      --card:#f8fafc;
+      --border:#e5e7eb;
+      --pill:#eef2ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--fg); line-height:1.6; background:#fff;
+    }
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:32px 18px 50px}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{
+      display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;
+    }
+    .avatar{
+      width:150px; height:150px; border-radius:50%; object-fit:cover; border:3px solid #fff;
+      box-shadow:0 0 0 1px var(--border), 0 6px 18px rgba(0,0,0,.08);
+    }
+    h1{margin:0; font-size:32px; line-height:1.25}
+    .tagline{margin:6px 0 0; color:var(--muted); font-style:italic; font-size:16px;}
+    .contact a{margin-right:14px; color: #0b66c3;}
+    .tabs {
+      display: flex;
+      justify-content: space-evenly;
+      background-color: #f4f4f4;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+    .tabs a {
+      color: #333;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    .tabs a:hover {
+      background-color: #0b66c3;
+      color: white;
+    }
+    .tabs a.active {
+      font-weight: 600;
+      background-color: #e5e7eb;
+    }
+    section{margin-bottom:40px;}
+    h2{font-size:24px; margin:0 0 20px; display:flex; align-items:center; gap:8px}
+    ul{margin:10px 0 0 0; padding-left:20px; line-height:1.6;}
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:12px;
+      padding:16px; margin-top:16px; box-shadow:0 4px 12px rgba(0,0,0,.08);
+    }
+    .card a{
+      font-weight: bold;
+      color: var(--link);
+    }
+    .center{text-align:center}
+    .footer{margin-top:30px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:14px}
+    .footer a{color:var(--link);}
+    .avatar-section{display: flex; align-items: center; gap: 20px;}
+    .avatar-section div{max-width: 600px;}
+    .responsive{max-width:100%; height:auto;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Tabs Navigation -->
+    <div class="tabs">
+      <a href="#home" class="tab-link active">Home</a>
+      <a href="#research-areas" class="tab-link">Research</a>
+      <a href="#academic-projects" class="tab-link">Academic Projects</a>
+      <a href="#education" class="tab-link">Education</a>
+      <a href="#professional-experience" class="tab-link">Professional Experience</a>
+      <a href="#achievements" class="tab-link">Achievements</a>
+    </div>
+
+    <!-- Hero / Header -->
+    <header>
+      <div class="avatar-section">
+        <img class="avatar" src="images/profile.jpg" alt="Fariha Aktar photo" />
+        <div>
+          <h1><strong>Fariha Aktar</strong></h1>
+          <p class="tagline">An aspiring Urban and Regional Planner with a focus on sustainable development, climate resilience, and the integration of geospatial technologies in urban planning.</p>
+          <p class="tagline">I hold a Bachelor’s degree in Urban and Regional Planning from the Bangladesh University of Engineering & Technology (BUET).</p>
+          <div class="contact">
+            <a href="mailto:aktarfariha1999@gmail.com">Email</a> ·
+            <a href="https://www.linkedin.com/in/fariha-aktar-378794187/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Research Areas -->
+    <section id="research-areas">
+      <h2>🔬 Research Areas</h2>
+      <ul>
+        <li>Protected Areas & Urban Forest Conservation</li>
+        <li>Land Surface Temperature & Urban Heat Island Analysis</li>
+        <li>Urban Expansion & Growth in Developing Countries</li>
+        <li>Remote Sensing & Geo-AI Based Urban Solutions</li>
+        <li>Transit-Oriented Development (TOD)</li>
+        <li>Climate Change Adaptation</li>
+      </ul>
+    </section>
+
+    <!-- Recent Projects -->
+    <section id="recent-projects">
+      <h2>🧩 Recent Projects</h2>
+      <div class="card">
+        <ul>
+          <li><a href="https://drive.google.com/file/d/1-YVh3saNmY9x3E0jgSx83rYcvYmydEM0/view?usp=drive_link" target="_blank" rel="noopener">3D Flood Simulation 🌊</a></li>
+          <li><a href="Research/lst/lst.html" target="_blank" rel="noopener">Land Surface Temperature (LST) Map 🏜️</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Academic Projects -->
+    <section id="academic-projects">
+      <h2>📘 Academic Projects</h2>
+      <ul>
+        <li><a href="Academic/Coastal.html">Climate Change Adaptation</a> ↗</li>
+        <li><a href="Academic/Participatory.html">Participatory Planning Studio</a> ↗</li>
+        <li><a href="Academic/Project/project.html">Project Planning Studio</a> ↗</li>
+      </ul>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+      <h2>🎓 Education</h2>
+      <div class="card">
+        <div style="display: flex; align-items: center;">
+          <img src="buet.png" alt="BUET Logo" style="width: 40px; margin-right: 15px;">
+          <div>
+            <h3>Bachelor of Urban and Regional Planning (BURP)</h3>
+            <p><a href="https://urp.buet.ac.bd/" target="_blank">Bangladesh University of Engineering & Technology (BUET)</a> · 🗓️ 2019–2024</p>
+            <p><strong>CGPA:</strong> 3.64/4.00</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievements -->
+    <section id="achievements">
+      <h2>🏆 Achievements</h2>
+      <ul>
+        <li>🎤 Key Speaker at Planning Week 2024: Just Urban Transition</li>
+        <li>🥈 2nd Runner Up – EnvoFrame SDG Awareness Competition</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      © <span id="y"></span> Fariha Aktar · <a href="https://github.com/FARIHA1999">GitHub</a> · <a href="https://www.linkedin.com/in/fariha-aktar-378794187/" target="_blank" rel="noopener">LinkedIn</a>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>
 
