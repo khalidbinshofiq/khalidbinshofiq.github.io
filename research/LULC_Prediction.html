@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Urban Growth Framework & Analysis</title>
+  <style>
+    :root{
+      --maxw: 980px;
+      --fg: #1c1e21;
+      --muted:#58606a;
+      --border:#e5e7eb;
+      --gap: 24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:#fff;
+      color:var(--fg);
+      line-height:1.6;
+    }
+    .wrap{
+      max-width:var(--maxw);
+      margin:32px auto 80px;
+      padding:0 16px;
+    }
+
+    /* Keep each block's font exactly as requested */
+    .block-times{
+      font-family:'Times New Roman', Times, serif;
+    }
+    .block-georgia{
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      margin-top:48px; /* visual separation between the two blocks */
+    }
+
+    /* Markdown-like spacing */
+    .wrap h1{font-size:1.9rem; line-height:1.25; margin:0 0 12px}
+    .wrap h2{font-size:1.35rem; line-height:1.3; margin:28px 0 8px}
+    .wrap p{margin:12px 0}
+    .wrap ul{margin:12px 0 12px 24px}
+    .wrap li{margin:6px 0}
+    .rule{border:0; height:1px; background:var(--border); margin:28px 0}
+
+    /* Images: responsive + neat spacing */
+    img{max-width:100%; height:auto; display:block}
+    .img-gap{margin:12px 0}
+
+    /* Two-column table for the uncertainty images (keeps the exact table intent) */
+    table{border-collapse:collapse; width:100%; margin:12px 0}
+    th, td{
+      border:1px solid var(--border);
+      padding:10px;
+      vertical-align:top;
+      text-align:center;
+    }
+
+    /* Keep bold emphasis as-is */
+    strong, b{font-weight:700}
+    /* Preserve the visual feel of the original bullets and dashes */
+    .small-note{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- ===== Block 1: Times New Roman ===== -->
+    <div class="block-times">
+      <h1>Framework for Predicting Urban Growth Pattern in Data Scarce Region</h1>
+
+      <h2>🔑 Objective</h2>
+      <ol>
+        <li>To predict land use/land cover (LULC) changes of a municipality in Bangladesh using a ConvLSTM model with static drivers (DEM, distance to road).</li>
+        <li>Comparison of the Predicted Growth with the proposals of Municipalitie's master plan.</li>
+      </ol>
+
+      <p class="small-note">...</p>
+    </div>
+
+    <!-- ===== Block 2: Georgia / Times hybrid ===== -->
+    <div class="block-georgia">
+      <h1>Growth Pattern Analysis by Maximum Likelihood Supervised Classification</h1>
+
+      <h2>🗺️ Land Cover Maps</h2>
+      <div class="img-gap">
+        <img src="../Figure_7.jpg" alt="Land Cover Maps">
+      </div>
+
+      <h2>🔄 Land Use Transitions</h2>
+      <p><strong>Sankey Diagram (2004–2014–2024):</strong></p>
+      <div class="img-gap">
+        <img src="../sankey_transition.jpg" alt="Sankey Diagram of Land Use Transitions">
+      </div>
+      <ul>
+        <li>Vegetation and agriculture were the major sources of built-up growth.</li>
+        <li>Bidirectional transitions observed between vegetation and agriculture.</li>
+        <li>Built-up areas increased from <strong>0.88 km² (4.01%) in 2004 → 2.22 km² (10.07%) in 2024</strong>.</li>
+      </ul>
+
+      <hr class="rule" />
+
+      <h2>📉 Change &amp; Comparison Maps</h2>
+      <p><strong>Change Detection:</strong></p>
+      <div class="img-gap">
+        <img src="../change_maps.jpg" alt="Change Detection Maps">
+      </div>
+
+      <p><strong>Comparison of Actual vs Predicted (2024):</strong></p>
+      <div class="img-gap">
+        <img src="../comparison_map.jpg" alt="Actual vs Predicted 2024 Comparison Map">
+      </div>
+      <ul>
+        <li>Actual built-up: <strong>2.22 km²</strong></li>
+        <li>Predicted built-up: <strong>2.48 km²</strong> (well aligned, slight overestimation)</li>
+      </ul>
+
+      <hr class="rule" />
+
+      <h2>🏗️ Model Architecture</h2>
+      <div class="img-gap">
+        <img src="../model_architecture.jpg" alt="Model Architecture Diagram">
+      </div>
+
+      <p><strong>ConvLSTM Setup</strong></p>
+      <ul>
+        <li>Inputs: LULC (2004, 2014), DEM, Distance-to-road (patches 128×128)</li>
+        <li>Layers: 2 × ConvLSTM2D (filters: 32, 64), batch norm, dropout, up/down-sampling</li>
+        <li>Loss: Categorical Cross-Entropy, Optimizer: Adam (lr=0.0001)</li>
+        <li>Metrics: Overall Accuracy (65%), F1 Score (66%), QADI (0.09–0.13)</li>
+      </ul>
+
+      <hr class="rule" />
+
+      <h2>🔮 Prediction Maps</h2>
+      <p><strong>Predicted LULC (2031):</strong></p>
+      <div class="img-gap">
+        <img src="../prediction_2031.jpg" alt="Predicted LULC 2031">
+      </div>
+
+      <p><strong>Comparison with Master Plan (2031):</strong></p>
+      <div class="img-gap">
+        <img src="../comparison_masterplan.jpg" alt="Comparison with Master Plan 2031">
+      </div>
+
+      <ul>
+        <li>Model forecasts built-up growth to <strong>3.53 km² by 2031</strong>.</li>
+        <li>Some “urban deferred” zones in the master plan showed discrepancies with actual growth direction.</li>
+      </ul>
+
+      <hr class="rule" />
+
+      <h2>⚠️ Uncertainty Analysis</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Entropy Map</th>
+            <th>Uncertainty Map</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><img src="../uncertainty_entropy.jpg" alt="Entropy Map"></td>
+            <td><img src="../uncertainty_simple.jpg" alt="Uncertainty Map"></td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>Low entropy &amp; high confidence in <strong>central built-up zones</strong>.</li>
+        <li>Higher uncertainty in transitional zones (vegetation/agriculture).</li>
+      </ul>
+
+      <hr class="rule" />
+
+      <h2>📌 Key Findings</h2>
+      <ul>
+        <li>Built-up growth followed a <strong>linear, road-oriented pattern</strong> (N7 highway, Chitra river).</li>
+        <li><strong>Vegetation decreased</strong> (30.04% → 23.31%), while agriculture remained mostly stable.</li>
+        <li><strong>Waterbodies</strong> declined from 1.74 km² (2014) → 0.81 km² (2024), reflecting weak enforcement of conservation policies.</li>
+        <li>ConvLSTM predictions aligned closely with actual 2024 LULC, outperforming CA–ANN.</li>
+        <li><strong>Uncertainty analysis</strong> confirmed reliable classification in central urban zones.</li>
+        <li>Master plan (2031) projections did not fully capture growth in “deferred” areas.</li>
+      </ul>
+
+      <hr class="rule" />
+
+      <h2>📖 Takeaways</h2>
+      <ul>
+        <li>ConvLSTM provides a robust framework for <strong>predicting small-town urban growth</strong> using freely available imagery.</li>
+        <li>Results highlight the <strong>importance of integrating ML/DL with planning</strong> to reduce reliance on outdated population-based projections.</li>
+        <li>Findings can guide <strong>policy-makers</strong> in revising master plans and adopting <strong>evidence-based zoning</strong> for sustainable development.</li>
+      </ul>
+    </div>
+
+  </main>
+</body>
+</html>
