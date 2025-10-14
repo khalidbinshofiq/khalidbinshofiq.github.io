@@ -75,53 +75,31 @@
       transition:transform .2s, box-shadow .2s;
     }
     .card:hover{transform:scale(1.02); box-shadow:0 8px 18px rgba(0,0,0,.12);}
+    .card a{font-weight:bold; color:var(--link); display:block; margin-top:10px;}
 
-    /* Academic Projects Section (3 columns, 4 rows) */
-    #academic-projects{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 30px;
-      margin-bottom: 40px;
+    /* Education */
+    #education{margin-top:40px;}
+    .education-item{
+      display:flex; align-items:center; gap:16px; margin-bottom:20px; padding:14px;
+      border:1px solid #BDC3C7; border-radius:10px; background:#f9f9f9;
     }
-    .project-card{
-      background-color: var(--card);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
+    .education-logo img{width:60px; height:auto; display:block;}
+    .education-details{font-size:16px; color:#333;}
+    .education-details h3{margin:0 0 6px 0; font-size:18px; color:#2C3E50;}
+    .education-details p{margin:4px 0;}
+
+    /* Footer */
+    footer{
+      background:var(--highlight); color:#fff; text-align:center; padding:25px;
+      margin-top:40px; border-radius:10px;
     }
-    .project-card:hover{
-      transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    }
-    .project-card img{
-      max-width: 60px;
-      height: auto;
-      margin-bottom: 15px;
-    }
-    .project-card h3{
-      font-size: 18px;
-      color: var(--highlight);
-      margin-bottom: 10px;
-    }
-    .project-card a{
-      font-weight: bold;
-      color: var(--link);
-    }
+    footer a{color:#fff; font-weight:bold;}
 
     /* Responsive */
-    @media (max-width: 900px) {
-      #academic-projects {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    @media (max-width: 700px){
+      header{flex-direction:column; text-align:center;}
+      .tagline,.description{text-align:left;}
     }
-    @media (max-width: 600px) {
-      #academic-projects {
-        grid-template-columns: 1fr;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -179,14 +157,15 @@
       <h2>📖 Current Research</h2>
       <ul>
         <li><a href="research/LULC_Prediction.html"><strong>Framework for Predicting Urban Growth Pattern in Data Scarce Region</strong></a> ↗</li>
-        <li><a href="research/Regional.html"><strong>Exploring the Influence of Potential Factors of Urban Change in Bangladesh.</strong></a> ↗</li>
-        <li><a href="research/tod.html"><strong>Mapping Temporal Variation of TOD Potential in Dhaka Using ACT/PCT.</strong></a> ↗</li>
+        <li><a href="research/regional.html"><strong>Exploring the Influence of Potential Factors of Urban Change in Bangladesh.</strong></a> ↗</li>
+        <li><a href="research/tod.html"><strong>Assessing Transit Oriented Development (TOD) Potential of Dhaka:.</strong></a> ↗</li>
       </ul>
     </section>
 
     <!-- Education -->
     <section id="education">
       <h2>🎓 Education</h2>
+
       <div class="education-item">
         <div class="education-logo">
           <img src="images/buet-logo.png" alt="BUET logo" />
@@ -227,54 +206,20 @@
     <!-- Academic Projects -->
     <section id="academic-projects">
       <h2>📘 Academic Projects</h2>
-      <div class="project-card">
-        <img src="images/participatory-icon.png" alt="Participatory Planning Studio" />
-        <h3><a href="Academic/Participatory/Participatory.html">Participatory Planning Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/project-icon.png" alt="Project Planning Studio" />
-        <h3><a href="Academic/Project/Project.html">Project Planning Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/transportation-icon.png" alt="Transportation Planning Studio" />
-        <h3><a href="Academic/Transportation/Transportation.html">Transportation Planning Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/regional-icon.png" alt="Regional Planning Studio" />
-        <h3><a href="Academic/Regional/Regional.html">Regional Planning Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/rural-icon.png" alt="Rural Planning Studio" />
-        <h3><a href="Academic/Rural/Rural.html">Rural Planning Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/program-icon.png" alt="Programming Studio" />
-        <h3><a href="Academic/Program/Program.html">Programming Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/gis-icon.png" alt="GIS and Remote Sensing Studio" />
-        <h3><a href="Academic/GIS/GIS.html">GIS and Remote Sensing Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/urban-icon.png" alt="Urban Planning Studio" />
-        <h3><a href="Academic/Urban/Urban.html">Urban Planning Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/landscape-icon.png" alt="Landscape Planning Studio" />
-        <h3><a href="Academic/Landscape/Landscape.html">Landscape Planning Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/site-icon.png" alt="Site and Area Planning Studio" />
-        <h3><a href="Academic/Site/Site.html">Site and Area Planning Studio</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/social-icon.png" alt="Social and Physical Surveys" />
-        <h3><a href="Academic/Social/Social.html">Social and Physical Surveys</a></h3>
-      </div>
-      <div class="project-card">
-        <img src="images/carto-icon.png" alt="Cartography Workshop" />
-        <h3><a href="Academic/Carto/Carto.html">Cartography Workshop</a></h3>
-      </div>
+      <ul>
+        <li><a href="Academic/Participatory/Participatory.html">Participatory Planning Studio</a> ↗</li>
+        <li><a href="Academic/Project/Project.html">Project Planning Studio</a> ↗</li>
+        <li><a href="Academic/Transportation/Transportation.html">Transportation Planning Studio</a> ↗</li>
+        <li><a href="Academic/Regional/Regional.html">Regional Planning Studio</a> ↗</li>
+        <li><a href="Academic/Rural/Rural.html">Rural Planning Studio</a> ↗</li>
+        <li><a href="Academic/Program/Program.html">Programming Studio</a> ↗</li>
+        <li><a href="Academic/GIS/GIS.html">GIS and Remote Sensing Studio</a> ↗</li>
+        <li><a href="Academic/Urban/Urban.html">Urban Planning Studio</a> ↗</li>
+        <li><a href="Academic/Landscape/Landscape.html">Landscape Planning Studio</a> ↗</li>
+        <li><a href="Academic/Site/Site.html">Site and Area Planning Studio</a> ↗</li>
+        <li><a href="Academic/Social/Social.html">Social and Physical Surveys</a> ↗</li>
+        <li><a href="Academic/Carto/Carto.html">Cartography Workshop</a> ↗</li>
+      </ul>
     </section>
 
     <!-- IELTS -->
