@@ -100,8 +100,8 @@
       header{flex-direction:column; text-align:center;}
       .tagline,.description{text-align:left;}
     }
-
-    /* Academic Projects Section */
+<style>
+  /* Academic Projects Section */
   #academic-projects h2 {
     font-size: 26px;
     margin-bottom: 20px;
@@ -111,17 +111,19 @@
   .project-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 20px; /* spacing between items */
+    gap: 10px; /* Reduced gap to make tiles smaller */
     margin-bottom: 40px;
   }
 
   .project-card {
     background-color: var(--card);
-    border-radius: 12px;
-    padding: 15px;
+    border-radius: 10px; /* Smaller border radius for compact tiles */
+    padding: 10px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
+    max-width: 180px; /* Limit width of the tiles */
+    margin: 0 auto;
   }
 
   .project-card:hover {
@@ -130,15 +132,15 @@
   }
 
   .project-card img {
-    max-width: 50px; /* Size of the icons */
+    max-width: 40px; /* Smaller icon size */
     height: auto;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   .project-card h3 {
-    font-size: 16px;
+    font-size: 14px; /* Smaller text size */
     color: var(--highlight);
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
 
   .project-card a {
@@ -158,6 +160,9 @@
     .project-grid {
       grid-template-columns: 1fr; /* 1 column on small screens */
     }
+  }
+</style>
+   
   }
   </style>
 </head>
@@ -262,20 +267,20 @@
       </div>
     </section>
 
-  <!-- Academic Projects -->
+ <!-- Academic Projects -->
 <section id="academic-projects">
   <h2>📘 Academic Projects</h2>
   <div class="project-grid">
     <div class="project-card">
-      <img src="https://img.icons8.com/ios/50/000000/school-building.png" alt="Participatory Planning Studio"/>
+      <img src="https://img.icons8.com/ios/50/000000/participatory-planning.png" alt="Participatory Planning Studio"/>
       <h3><a href="Academic/Participatory/Participatory.html">Participatory Planning Studio</a></h3>
     </div>
     <div class="project-card">
-      <img src="https://img.icons8.com/ios/50/000000/planning.png" alt="Project Planning Studio"/>
+      <img src="https://img.icons8.com/ios/50/000000/project-planning.png" alt="Project Planning Studio"/>
       <h3><a href="Academic/Project/Project.html">Project Planning Studio</a></h3>
     </div>
     <div class="project-card">
-      <img src="https://img.icons8.com/ios/50/000000/car.png" alt="Transportation Planning Studio"/>
+      <img src="https://img.icons8.com/ios/50/000000/transport.png" alt="Transportation Planning Studio"/>
       <h3><a href="Academic/Transportation/Transportation.html">Transportation Planning Studio</a></h3>
     </div>
     <div class="project-card">
@@ -287,19 +292,19 @@
       <h3><a href="Academic/Rural/Rural.html">Rural Planning Studio</a></h3>
     </div>
     <div class="project-card">
-      <img src="https://img.icons8.com/ios/50/000000/coding.png" alt="Programming Studio"/>
+      <img src="https://img.icons8.com/ios/50/000000/code.png" alt="Programming Studio"/>
       <h3><a href="Academic/Program/Program.html">Programming Studio</a></h3>
     </div>
     <div class="project-card">
-      <img src="https://img.icons8.com/ios/50/000000/earth.png" alt="GIS and Remote Sensing Studio"/>
+      <img src="https://img.icons8.com/ios/50/000000/gis.png" alt="GIS and Remote Sensing Studio"/>
       <h3><a href="Academic/GIS/GIS.html">GIS and Remote Sensing Studio</a></h3>
     </div>
     <div class="project-card">
-      <img src="https://img.icons8.com/ios/50/000000/building.png" alt="Urban Planning Studio"/>
+      <img src="https://img.icons8.com/ios/50/000000/urban.png" alt="Urban Planning Studio"/>
       <h3><a href="Academic/Urban/Urban.html">Urban Planning Studio</a></h3>
     </div>
     <div class="project-card">
-      <img src="https://img.icons8.com/ios/50/000000/plant.png" alt="Landscape Planning Studio"/>
+      <img src="https://img.icons8.com/ios/50/000000/landscape.png" alt="Landscape Planning Studio"/>
       <h3><a href="Academic/Landscape/Landscape.html">Landscape Planning Studio</a></h3>
     </div>
     <div class="project-card">
