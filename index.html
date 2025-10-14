@@ -100,6 +100,65 @@
       header{flex-direction:column; text-align:center;}
       .tagline,.description{text-align:left;}
     }
+
+    /* Academic Projects Section */
+  #academic-projects h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: var(--highlight);
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 20px; /* spacing between items */
+    margin-bottom: 40px;
+  }
+
+  .project-card {
+    background-color: var(--card);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .project-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .project-card img {
+    max-width: 50px; /* Size of the icons */
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .project-card h3 {
+    font-size: 16px;
+    color: var(--highlight);
+    margin-bottom: 10px;
+  }
+
+  .project-card a {
+    font-weight: bold;
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 900px) {
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+  }
+
+  @media (max-width: 600px) {
+    .project-grid {
+      grid-template-columns: 1fr; /* 1 column on small screens */
+    }
+  }
   </style>
 </head>
 <body>
@@ -203,24 +262,61 @@
       </div>
     </section>
 
-    <!-- Academic Projects -->
-    <section id="academic-projects">
-      <h2>📘 Academic Projects</h2>
-      <ul>
-        <li><a href="Academic/Participatory/Participatory.html">Participatory Planning Studio</a> ↗</li>
-        <li><a href="Academic/Project/Project.html">Project Planning Studio</a> ↗</li>
-        <li><a href="Academic/Transportation/Transportation.html">Transportation Planning Studio</a> ↗</li>
-        <li><a href="Academic/Regional/Regional.html">Regional Planning Studio</a> ↗</li>
-        <li><a href="Academic/Rural/Rural.html">Rural Planning Studio</a> ↗</li>
-        <li><a href="Academic/Program/Program.html">Programming Studio</a> ↗</li>
-        <li><a href="Academic/GIS/GIS.html">GIS and Remote Sensing Studio</a> ↗</li>
-        <li><a href="Academic/Urban/Urban.html">Urban Planning Studio</a> ↗</li>
-        <li><a href="Academic/Landscape/Landscape.html">Landscape Planning Studio</a> ↗</li>
-        <li><a href="Academic/Site/Site.html">Site and Area Planning Studio</a> ↗</li>
-        <li><a href="Academic/Social/Social.html">Social and Physical Surveys</a> ↗</li>
-        <li><a href="Academic/Carto/Carto.html">Cartography Workshop</a> ↗</li>
-      </ul>
-    </section>
+  <!-- Academic Projects -->
+<section id="academic-projects">
+  <h2>📘 Academic Projects</h2>
+  <div class="project-grid">
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/school-building.png" alt="Participatory Planning Studio"/>
+      <h3><a href="Academic/Participatory/Participatory.html">Participatory Planning Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/planning.png" alt="Project Planning Studio"/>
+      <h3><a href="Academic/Project/Project.html">Project Planning Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/car.png" alt="Transportation Planning Studio"/>
+      <h3><a href="Academic/Transportation/Transportation.html">Transportation Planning Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/earth-globe.png" alt="Regional Planning Studio"/>
+      <h3><a href="Academic/Regional/Regional.html">Regional Planning Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/farm.png" alt="Rural Planning Studio"/>
+      <h3><a href="Academic/Rural/Rural.html">Rural Planning Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/coding.png" alt="Programming Studio"/>
+      <h3><a href="Academic/Program/Program.html">Programming Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/earth.png" alt="GIS and Remote Sensing Studio"/>
+      <h3><a href="Academic/GIS/GIS.html">GIS and Remote Sensing Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/building.png" alt="Urban Planning Studio"/>
+      <h3><a href="Academic/Urban/Urban.html">Urban Planning Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/plant.png" alt="Landscape Planning Studio"/>
+      <h3><a href="Academic/Landscape/Landscape.html">Landscape Planning Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/warehouse.png" alt="Site and Area Planning Studio"/>
+      <h3><a href="Academic/Site/Site.html">Site and Area Planning Studio</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/survey.png" alt="Social and Physical Surveys"/>
+      <h3><a href="Academic/Social/Social.html">Social and Physical Surveys</a></h3>
+    </div>
+    <div class="project-card">
+      <img src="https://img.icons8.com/ios/50/000000/map.png" alt="Cartography Workshop"/>
+      <h3><a href="Academic/Carto/Carto.html">Cartography Workshop</a></h3>
+    </div>
+  </div>
+</section>
+
 
     <!-- IELTS -->
     <section id="IELTS">
