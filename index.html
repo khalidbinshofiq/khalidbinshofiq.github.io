@@ -278,72 +278,154 @@
       </div>
     </section>
 
-    <!-- Academic Projects (UPDATED 4x3 with your icons) -->
-    <section id="academic-projects">
-      <h2>📘 Academic Projects</h2>
-      
-      <div class="project-grid">
-        <div class="project-card">
-          <img src="images/icons/1.jpg" alt="Participatory Planning Studio icon">
-          <h3><a href="Academic/Participatory/Participatory.html">Participatory Planning Studio</a></h3>
-        </div>
+    <!-- ====== Academic Projects (cards + modal) ====== -->
+<section id="academic-projects">
+  <h2>📘 Academic Projects</h2>
+  <p class="project-intro">Click a project to see details.</p>
 
-        <div class="project-card">
-          <img src="images/icons/2.png" alt="Project Planning Studio icon">
-          <h3><a href="Academic/Project/Project.html">Project Planning Studio</a></h3>
-        </div>
+  <div class="project-grid">
+    <!-- Card 1 -->
+    <button class="project-card"
+      data-title="Participatory Planning Studio"
+      data-img="assets/icons/participatory.svg"
+      data-summary="Community mapping, PRA/FGDs across 6 wards; translated insights into zoning guidelines and amenity plans."
+      data-tags="Participatory • PRA • Zoning"
+      data-link="Academic/Participatory/Participatory.html">
+      <img src="assets/icons/participatory.svg" alt="" aria-hidden="true">
+      <h3>Participatory Planning Studio</h3>
+    </button>
 
-        <div class="project-card">
-          <img src="images/icons/3.jpg" alt="Transportation Planning Studio icon">
-          <h3><a href="Academic/Transportation/Transportation.html">Transportation Planning Studio</a></h3>
-        </div>
+    <!-- Card 2 -->
+    <button class="project-card"
+      data-title="Transportation Planning Studio"
+      data-img="assets/icons/transport.svg"
+      data-summary="Household O-D survey, junction counts, V/C analysis; bus priority corridors with TOD scenarios."
+      data-tags="Transport • V/C • TOD"
+      data-link="Academic/Transportation/Transportation.html">
+      <img src="assets/icons/transport.svg" alt="" aria-hidden="true">
+      <h3>Transportation Planning Studio</h3>
+    </button>
 
-        <div class="project-card">
-          <img src="images/icons/12.jpg" alt="Regional Planning Studio icon">
-          <h3><a href="Academic/Regional/Regional.html">Regional Planning Studio</a></h3>
-        </div>
+    <!-- Card 3 -->
+    <button class="project-card"
+      data-title="Regional Planning Studio"
+      data-img="assets/icons/regional.svg"
+      data-summary="Growth pole strategy, settlement hierarchy, industrial land suitability using AHP–GIS."
+      data-tags="Regional • AHP • Suitability"
+      data-link="Academic/Regional/Regional.html">
+      <img src="assets/icons/regional.svg" alt="" aria-hidden="true">
+      <h3>Regional Planning Studio</h3>
+    </button>
 
-        <div class="project-card">
-          <img src="images/icons/4.jpg" alt="Rural Planning Studio icon">
-          <h3><a href="Academic/Rural/Rural.html">Rural Planning Studio</a></h3>
-        </div>
+    <!-- Card 4 -->
+    <button class="project-card"
+      data-title="GIS & Remote Sensing Studio"
+      data-img="assets/icons/gisrs.svg"
+      data-summary="LULC (2000–2024), LST & NDVI trends in GEE; accuracy assessment and policy implications."
+      data-tags="GIS • GEE • LULC"
+      data-link="Academic/GIS/GIS.html">
+      <img src="assets/icons/gisrs.svg" alt="" aria-hidden="true">
+      <h3>GIS & Remote Sensing Studio</h3>
+    </button>
 
-        <div class="project-card">
-          <img src="images/icons/11.jpg" alt="Programming Studio icon">
-          <h3><a href="Academic/Program/Program.html">Programming Studio</a></h3>
-        </div>
+    <!-- …add the rest the same way -->
+  </div>
 
-        <div class="project-card">
-          <img src="images/icons/8.jpg" alt="GIS and Remote Sensing icon">
-          <h3><a href="Academic/GIS/GIS.html">GIS and Remote Sensing Studio</a></h3>
-        </div>
-
-        <div class="project-card">
-          <img src="images/icons/5.jpg" alt="Urban Planning Studio icon">
-          <h3><a href="Academic/Urban/Urban.html">Urban Planning Studio</a></h3>
-        </div>
-
-        <div class="project-card">
-          <img src="images/icons/7.jpg" alt="Landscape Planning Studio icon">
-          <h3><a href="Academic/Landscape/Landscape.html">Landscape Planning Studio</a></h3>
-        </div>
-
-        <div class="project-card">
-          <img src="images/icons/6.jpg" alt="Site and Area Planning Studio icon">
-          <h3><a href="Academic/Site/Site.html">Site and Area Planning Studio</a></h3>
-        </div>
-
-        <div class="project-card">
-          <img src="images/icons/10.jpg" alt="Social and Physical Surveys icon">
-          <h3><a href="Academic/Social/Social.html">Social and Physical Surveys</a></h3>
-        </div>
-
-        <div class="project-card">
-          <img src="images/icons/9.jpg" alt="Cartography Workshop icon">
-          <h3><a href="Academic/Carto/Carto.html">Cartography Workshop</a></h3>
-        </div>
+  <!-- Modal -->
+  <dialog id="project-modal" aria-labelledby="proj-title">
+    <form method="dialog" id="modal-surface">
+      <header class="proj-header">
+        <img id="proj-img" src="" alt="" />
+        <h3 id="proj-title"></h3>
+      </header>
+      <p id="proj-summary"></p>
+      <p class="proj-tags" id="proj-tags"></p>
+      <div class="proj-actions">
+        <a id="proj-link" class="btn" href="#" target="_blank" rel="noopener">Open project ↗</a>
+        <button class="btn-outline" value="close" aria-label="Close dialog">Close</button>
       </div>
-    </section>
+    </form>
+  </dialog>
+</section>
+
+<style>
+  /* Modal styles (uses your color variables) */
+  #project-modal {
+    width: min(720px, 92vw);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 24px 60px rgba(0,0,0,.25);
+  }
+  #project-modal::backdrop { background: rgba(0,0,0,.35); }
+
+  #modal-surface { padding: 18px 18px 16px; }
+
+  .proj-header{
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .proj-header img{
+    width:56px; height:56px; object-fit:contain;
+    background:#fff; border:1px solid var(--border); border-radius:10px; padding:6px;
+  }
+  #proj-title{ margin:0; color:var(--highlight); font-size:18px; line-height:1.2; }
+  #proj-summary{ color:var(--fg); margin:8px 0 10px; }
+  .proj-tags{ color:var(--muted); font-size:13px; margin:0 0 14px; }
+  .proj-actions{ display:flex; gap:10px; justify-content:flex-end; }
+  .btn, .btn-outline{
+    padding:8px 12px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer;
+    border:1px solid transparent; text-decoration:none; display:inline-block;
+  }
+  .btn{ background:var(--highlight); color:#fff; }
+  .btn:hover{ filter:brightness(0.95); }
+  .btn-outline{ background:#fff; color:var(--highlight); border-color:var(--highlight); }
+  .btn-outline:hover{ background:#f5f8ff; }
+  /* Make cards look like buttons but keep your design */
+  .project-card{ cursor:pointer; border-color:var(--border); }
+  .project-card:focus-visible{ outline:2px solid var(--highlight); outline-offset:2px; }
+</style>
+
+<script>
+  (function(){
+    const modal = document.getElementById('project-modal');
+    const titleEl = document.getElementById('proj-title');
+    const imgEl   = document.getElementById('proj-img');
+    const sumEl   = document.getElementById('proj-summary');
+    const tagsEl  = document.getElementById('proj-tags');
+    const linkEl  = document.getElementById('proj-link');
+
+    // Open
+    document.querySelector('.project-grid').addEventListener('click', (e)=>{
+      const card = e.target.closest('.project-card');
+      if(!card) return;
+
+      titleEl.textContent = card.dataset.title || 'Project';
+      sumEl.textContent   = card.dataset.summary || '';
+      tagsEl.textContent  = card.dataset.tags || '';
+      linkEl.href         = card.dataset.link || '#';
+      imgEl.src           = card.dataset.img || '';
+      imgEl.alt           = (card.dataset.title || 'Project') + ' icon';
+
+      if(typeof modal.showModal === 'function'){ modal.showModal(); }
+      else { alert('Your browser does not support modal dialogs.'); }
+    });
+
+    // Close on backdrop click
+    modal.addEventListener('click', (e)=>{
+      const rect = modal.getBoundingClientRect();
+      const inDialog = (
+        e.clientX >= rect.left && e.clientX <= rect.right &&
+        e.clientY >= rect.top  && e.clientY <= rect.bottom
+      );
+      if(!inDialog) modal.close();
+    });
+  })();
+</script>
+
 
  <section id="skills-badges" class="skills-card">
    <h2>🛠️ Tools & Platforms </h2>
