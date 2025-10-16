@@ -346,16 +346,28 @@
       </div>
     </section>
 
- <section id="skills-badges">
+ <section id="skills-badges" class="skills-card">
   <style>
-    /* Grid: 7 columns, 2 rows */
+    /* Card that contains the grid (the light rectangle) */
+    #skills-badges.skills-card{
+      max-width: 980px;         /* keep inside your page layout */
+      margin: 0 auto;
+      padding: 18px 20px;       /* smaller padding so the grid has room */
+      background: #F8FAFC;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      overflow: hidden;         /* prevents hover lift from overflowing */
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    /* Grid: exactly 7 columns, wraps to 2 rows with 14 items */
     #skills-badges .badge-grid{
       display: grid;
-      grid-template-columns: repeat(7, 1fr); /* 7 columns */
-      gap: 18px 16px;
+      grid-template-columns: repeat(7, minmax(0,1fr));
+      gap: 12px 12px;           /* tighter gaps */
       justify-items: center;
       align-items: start;
-      font-family: "Times New Roman", Times, serif;
     }
 
     /* Each item */
@@ -365,160 +377,138 @@
       align-items: center;
       gap: 4px;
       text-align: center;
+      min-width: 0;             /* avoid overflow from long labels */
     }
 
-    /* Circular badge */
+    /* Circular badge (smaller) */
     #skills-badges .icon{
-      width: 76px;
-      height: 76px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
-      background: var(--bg, #e5e7eb);
+      background: var(--bg,#e5e7eb);
       border: 1px solid rgba(0,0,0,.08);
       box-shadow: 0 3px 10px rgba(0,0,0,.08);
       display: grid;
       place-items: center;
-      transition: transform .15s ease, box-shadow .15s ease;
+      transition: transform .12s ease, box-shadow .12s ease;
     }
     #skills-badges .icon:hover{
       transform: translateY(-2px);
       box-shadow: 0 8px 18px rgba(0,0,0,.15);
     }
 
-    /* Brand logo inside circle */
+    /* Logo inside circle (slightly smaller) */
     #skills-badges .icon img{
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 1px 0 rgba(0,0,0,.05));
     }
 
-    /* Label */
+    /* Label (smaller font to stop wrapping pushing layout) */
     #skills-badges .label{
-      font-size: 14px;
-      line-height: 1.25;
+      font-size: 12px;
+      line-height: 1.2;
       color: #2C3E50;
+      white-space: nowrap;      /* keep labels on one line */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
     }
 
-    /* Responsive tweaks (optional) */
+    /* Responsive: relax columns sooner so it never overflows the card */
     @media (max-width: 1100px){
-      #skills-badges .badge-grid{ grid-template-columns: repeat(6, 1fr); }
+      #skills-badges .badge-grid{ grid-template-columns: repeat(6, minmax(0,1fr)); }
     }
     @media (max-width: 900px){
-      #skills-badges .badge-grid{ grid-template-columns: repeat(5, 1fr); }
+      #skills-badges .badge-grid{ grid-template-columns: repeat(5, minmax(0,1fr)); }
     }
     @media (max-width: 700px){
-      #skills-badges .badge-grid{ grid-template-columns: repeat(4, 1fr); }
+      #skills-badges .badge-grid{ grid-template-columns: repeat(4, minmax(0,1fr)); }
     }
-    @media (max-width: 480px){
-      #skills-badges .badge-grid{ grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 520px){
+      #skills-badges .badge-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
   </style>
 
   <div class="badge-grid" aria-label="Skills and tools">
-
-    <!-- Row 1 (GIS & Platforms) -->
-    <figure class="skill" style="--bg:#4479A1"> <!-- ArcMap -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="ArcMap logo">
-      </div>
+    <!-- Row 1 -->
+    <figure class="skill" style="--bg:#4479A1">
+      <div class="icon"><img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="ArcMap logo"></div>
       <figcaption class="label">ArcMap</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#005C97"> <!-- ArcGIS Pro -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="ArcGIS Pro logo">
-      </div>
+    <figure class="skill" style="--bg:#005C97">
+      <div class="icon"><img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="ArcGIS Pro logo"></div>
       <figcaption class="label">ArcGIS Pro</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#589632"> <!-- QGIS -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/qgis/FFFFFF" alt="QGIS logo">
-      </div>
+    <figure class="skill" style="--bg:#589632">
+      <div class="icon"><img src="https://cdn.simpleicons.org/qgis/FFFFFF" alt="QGIS logo"></div>
       <figcaption class="label">QGIS</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#1A73E8"> <!-- Google Earth (for Earth Engine) -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/googleearth/FFFFFF" alt="Google Earth Engine logo">
-      </div>
+    <figure class="skill" style="--bg:#1A73E8">
+      <div class="icon"><img src="https://cdn.simpleicons.org/googleearth/FFFFFF" alt="Google Earth Engine logo"></div>
       <figcaption class="label">Google Earth Engine</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#F9AB00"> <!-- Google Colab -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/googlecolab/000000" alt="Google Colab logo">
-      </div>
+    <figure class="skill" style="--bg:#F9AB00">
+      <div class="icon"><img src="https://cdn.simpleicons.org/googlecolab/000000" alt="Google Colab logo"></div>
       <figcaption class="label">Google Colab</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#E4002B"> <!-- AutoCAD -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/autodesk/FFFFFF" alt="AutoCAD logo">
-      </div>
+    <figure class="skill" style="--bg:#E4002B">
+      <div class="icon"><img src="https://cdn.simpleicons.org/autodesk/FFFFFF" alt="AutoCAD logo"></div>
       <figcaption class="label">AutoCAD</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#2E7D32"> <!-- CityEngine (Esri mark) -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="CityEngine logo">
-      </div>
+    <figure class="skill" style="--bg:#2E7D32">
+      <div class="icon"><img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="CityEngine logo"></div>
       <figcaption class="label">CityEngine</figcaption>
     </figure>
 
-    <!-- Row 2 (Data Science & ML) -->
-    <figure class="skill" style="--bg:#3776AB"> <!-- Python -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/python/FFFFFF" alt="Python logo">
-      </div>
+    <!-- Row 2 -->
+    <figure class="skill" style="--bg:#3776AB">
+      <div class="icon"><img src="https://cdn.simpleicons.org/python/FFFFFF" alt="Python logo"></div>
       <figcaption class="label">Python</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#FF6F00"> <!-- TensorFlow -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/tensorflow/FFFFFF" alt="TensorFlow logo">
-      </div>
+    <figure class="skill" style="--bg:#FF6F00">
+      <div class="icon"><img src="https://cdn.simpleicons.org/tensorflow/FFFFFF" alt="TensorFlow logo"></div>
       <figcaption class="label">TensorFlow</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#D00000"> <!-- Keras -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/keras/FFFFFF" alt="Keras logo">
-      </div>
+    <figure class="skill" style="--bg:#D00000">
+      <div class="icon"><img src="https://cdn.simpleicons.org/keras/FFFFFF" alt="Keras logo"></div>
       <figcaption class="label">Keras</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#150458"> <!-- Pandas -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/pandas/FFFFFF" alt="Pandas logo">
-      </div>
+    <figure class="skill" style="--bg:#150458">
+      <div class="icon"><img src="https://cdn.simpleicons.org/pandas/FFFFFF" alt="Pandas logo"></div>
       <figcaption class="label">Pandas</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#11557C"> <!-- Matplotlib -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/matplotlib/FFFFFF" alt="Matplotlib logo">
-      </div>
+    <!-- ✅ Matplotlib (added) -->
+    <figure class="skill" style="--bg:#11557C">
+      <div class="icon"><img src="https://cdn.simpleicons.org/matplotlib/FFFFFF" alt="Matplotlib logo"></div>
       <figcaption class="label">Matplotlib</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#F89939"> <!-- scikit-learn -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/scikitlearn/FFFFFF" alt="scikit-learn logo">
-      </div>
+    <figure class="skill" style="--bg:#F89939">
+      <div class="icon"><img src="https://cdn.simpleicons.org/scikitlearn/FFFFFF" alt="scikit-learn logo"></div>
       <figcaption class="label">scikit-learn</figcaption>
     </figure>
 
-    <figure class="skill" style="--bg:#75AADB"> <!-- RStudio -->
-      <div class="icon">
-        <img src="https://cdn.simpleicons.org/rstudio/FFFFFF" alt="RStudio logo">
-      </div>
+    <!-- ✅ RStudio (added) -->
+    <figure class="skill" style="--bg:#75AADB">
+      <div class="icon"><img src="https://cdn.simpleicons.org/rstudio/FFFFFF" alt="RStudio logo"></div>
       <figcaption class="label">R Studio</figcaption>
     </figure>
-
   </div>
 </section>
+
 
 
     <!-- IELTS -->
