@@ -3,7 +3,7 @@
  </p>
 
 <p align="justify">
-The Cox’s Bazar Development Authority initiated the "Master Plan Preparation of Cox’s Bazar District" project, which includes the preparation of a Habitat Map as outlined in the terms of reference. To complete this task, the Adhoc Construction Supervision Consultant (CSC), in collaboration with their sub-contractor, Marine Consultancy Service (MCS), assigned the task to environmental expert Dr. Kazi Ahsan Habib. Dr. Habib supervised us for the creation of habitat maps for three specific areas: Cox's Bazar, Maheshkhali Island and Kutubdia.
+The Cox’s Bazar Development Authority initiated the "Master Plan Preparation of Cox’s Bazar District" project, which includes the preparation of a Habitat Map as outlined in the terms of reference. To complete this task, the Adhoc Construction Supervision Consultant (CSC), in collaboration with their sub-contractor, Marine Consultancy Service (MCS), assigned the task to environmental expert Dr. Kazi Ahsan Habib. Dr. Habib supervised me and my group mate Fariha Aktar for the creation of habitat maps for three specific areas: Cox's Bazar, Maheshkhali Island and Kutubdia.
 </p>
 
 <p align="justify">
