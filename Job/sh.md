@@ -32,15 +32,15 @@
 
     <!-- Heatmaps (e.g., different time bands / days) -->
     <figure class="g-item" data-cat="heatmap">
-      <img loading="lazy" src="images/surveys/heatmap_am_peak_day1.png" alt="AM peak traffic heatmap for Day 1">
+      <img loading="lazy" src="images/surveys/heatmap_am_peak_day1.png" alt="Traffic Count Heatmap for Day 1">
       <figcaption>Heatmap — AM Peak (Day 1)</figcaption>
     </figure>
     <figure class="g-item" data-cat="heatmap">
-      <img loading="lazy" src="images/surveys/heatmap_midday_day2.png" alt="Midday traffic heatmap for Day 2">
+      <img loading="lazy" src="images/surveys/heatmap_midday_day2.png" alt="Traffic Count Heatmap for Day 2">
       <figcaption>Heatmap — Midday (Day 2)</figcaption>
     </figure>
     <figure class="g-item" data-cat="heatmap">
-      <img loading="lazy" src="images/surveys/heatmap_pm_peak_day3.png" alt="PM peak traffic heatmap for Day 3">
+      <img loading="lazy" src="images/surveys/heatmap_pm_peak_day3.png" alt="Traffic Count Heatmap for Day 3">
       <figcaption>Heatmap — PM Peak (Day 3)</figcaption>
     </figure>
 
@@ -48,10 +48,6 @@
     <figure class="g-item" data-cat="od">
       <img loading="lazy" src="images/surveys/od_matrix_overall.png" alt="Origin-Destination matrix overall flows">
       <figcaption>OD Matrix — Overall</figcaption>
-    </figure>
-    <figure class="g-item" data-cat="od">
-      <img loading="lazy" src="images/surveys/od_matrix_peak.png" alt="Origin-Destination matrix peak hour flows">
-      <figcaption>OD Matrix — Peak Hour</figcaption>
     </figure>
 
     <!-- Accident Maps -->
