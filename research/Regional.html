@@ -32,7 +32,7 @@
       padding: 28px 18px 48px;
     }
 
-    /* Header (matches your site style) */
+    /* Header */
     .site-title{
       text-align:center;
       font-size: 34px;
@@ -58,7 +58,7 @@
       gap:10px;
     }
 
-    /* Description block under the title */
+    /* Description under title */
     .title-description{
       background: var(--panel);
       border: 1px solid rgba(26,115,232,.25);
@@ -86,7 +86,9 @@
       color:#2b3742;
     }
 
-    /* ===== Selected Factors grid: 5 columns x 2 rows on desktop ===== */
+    /* ===== Grids ===== */
+
+    /* Selected Factors: 5 columns × 2 rows */
     .grid{
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -104,7 +106,7 @@
       display:block;
     }
 
-    /* Single / wide images remain unchanged */
+    /* Wide / single images */
     .grid.single{
       grid-template-columns: 1fr;
     }
@@ -112,7 +114,6 @@
       width: min(780px, 100%);
       justify-self: center;
     }
-
     .grid.wide{
       grid-template-columns: 1fr;
     }
@@ -121,7 +122,7 @@
       justify-self: center;
     }
 
-    /* Responsive fallbacks */
+    /* Responsive fallback */
     @media (max-width: 1200px){
       .grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
@@ -167,23 +168,21 @@
         level to capture and compare regional heterogeneity in the determinants of urban change across Bangladesh.
       </p>
       <p>
-        The findings provide several policy-relevant insights. Across most divisions, population, elevation, and distance to waterbodies
-        consistently emerged as the most influential predictors of built-up expansion. Notably, Barishal exhibits a distinct spatial pattern
-        in which built-up growth is strongly associated with proximity to the national highway. Earth observation analysis, supported by field
-        verification, indicates that a major river constrains urban expansion and channels growth toward highway corridors. These insights
+        Across most divisions, population, elevation, and distance to waterbodies consistently emerged as the most influential
+        predictors of built-up expansion. Notably, Barishal exhibits a distinct spatial pattern in which built-up growth is
+        strongly associated with proximity to the national highway. Earth observation analysis, supported by field verification,
+        indicates that a major river constrains urban expansion and channels growth toward highway corridors. These insights
         support context-sensitive and sustainable urban planning.
       </p>
     </div>
 
     <h3>Selected Factors</h3>
-    <!-- All 10 maps are now in ONE grid => 5 columns x 2 rows -->
     <div class="grid">
       <img src="./1.png" alt="Selected factor 1">
       <img src="./2.png" alt="Selected factor 2">
       <img src="./3.png" alt="Selected factor 3">
       <img src="./4.png" alt="Selected factor 4">
       <img src="./5.png" alt="Selected factor 5">
-
       <img src="./6.png" alt="Selected factor 6">
       <img src="./7.png" alt="Selected factor 7">
       <img src="./8.png" alt="Selected factor 8">
@@ -191,15 +190,9 @@
       <img src="./10.png" alt="Selected factor 10">
     </div>
 
-    <h3>Sampling Points</h3>
-    <div class="grid single">
-      <img src="./11.png" alt="Sampling points">
-    </div>
-
     <h2>Results</h2>
 
     <h3>Urban Density Change</h3>
-    <!-- This grid will also use the responsive grid rules (5 cols on desktop, but only 3 images here) -->
     <div class="grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
       <img src="./12.png" alt="Urban density change 1">
       <img src="./13.png" alt="Urban density change 2">
@@ -226,4 +219,5 @@
   </div>
 </body>
 </html>
+
 
