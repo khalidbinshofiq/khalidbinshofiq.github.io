@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -391,65 +391,6 @@
     @media (max-width: 780px){ .project-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
     @media (max-width: 480px){ .project-grid{ grid-template-columns: 1fr; } }
 
-    /* ===== Current Research preview cards ===== */
-    .research-grid{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .research-card{
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,.06);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 14px;
-      transition: transform .16s ease, box-shadow .16s ease;
-    }
-    .research-card:hover{
-      transform: translateY(-2px);
-      box-shadow: var(--shadow2);
-    }
-    .research-meta{ min-width: 0; }
-    .research-title{
-      font-weight: 900;
-      color: var(--highlight);
-      font-size: 14.5px;
-      line-height: 1.35;
-    }
-    .research-tags{
-      margin-top: 6px;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 12px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .research-teaser{
-      margin-top: 10px;
-      color: var(--fg);
-      font-size: 13px;
-      line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .research-actions{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 0 0 auto;
-    }
-    @media (max-width: 860px){
-      .research-grid{ grid-template-columns: 1fr; }
-      .research-actions{ flex-direction: row; }
-    }
-
     /* Skills Badges */
     #skills-badges .badge-grid{
       display:grid;
@@ -554,7 +495,7 @@
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .reveal{ transition:none; }
-      .btn, .card, .project-card, .education-item, .research-card{ transition:none; }
+      .btn, .card, .project-card, .education-item{ transition:none; }
     }
 
     /* Back to top */
@@ -567,7 +508,7 @@
     }
     .to-top.show{ display:block; }
 
-    /* Modal */
+    /* Modal (kept for Academic Projects) */
     .modal-backdrop{
       position: fixed;
       inset: 0;
@@ -616,7 +557,7 @@
     }
 
     /* =========================================================
-       Recent Projects (FIXED): 2 columns × 2 rows + clean previews
+       Recent Projects: 2 columns × 2 rows + clean previews
        ========================================================= */
     .projects-grid{
       display: grid;
@@ -711,7 +652,6 @@
       transform: scale(1);
       transition: transform .25s ease;
     }
-
     .proj-thumb:hover img{
       transform: scale(1.03);
     }
@@ -735,6 +675,101 @@
     }
 
     .proj-note{
+      padding: 10px 14px 12px;
+      font-size: 12px;
+      color: #5f6b76;
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       Current Research (NEW): same preview-style cards as Recent Projects
+       ========================================================= */
+    .research-projects-grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .research-projects-grid{ grid-template-columns: 1fr; }
+    }
+
+    .research-card2{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .research-head2{
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.02);
+    }
+
+    .research-title2{
+      font-weight: 900;
+      font-size: 14.5px;
+      line-height: 1.35;
+      color: var(--highlight);
+      margin: 0;
+    }
+
+    .research-tags2{
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .research-open2{
+      text-decoration: none;
+      font-weight: 800;
+      padding: 8px 11px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      color: inherit;
+      transition: transform .12s ease, box-shadow .12s ease;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+    .research-open2:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
+      text-decoration: none;
+    }
+
+    .research-preview2{
+      width: 100%;
+      height: 240px;
+      background: #f3f6f8;
+    }
+    @media (max-width: 900px){
+      .research-preview2{ height: 230px; }
+    }
+    .research-preview2 iframe{
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .research-note2{
       padding: 10px 14px 12px;
       font-size: 12px;
       color: #5f6b76;
@@ -823,7 +858,7 @@
       </ul>
     </section>
 
-    <!-- Recent Projects (FIXED) -->
+    <!-- Recent Projects -->
     <section id="recent-projects" class="reveal">
       <h2>Recent Projects</h2>
 
@@ -894,7 +929,7 @@
           </div>
         </article>
 
-        <!-- 4) JPG image preview (FIXED) -->
+        <!-- 4) JPG image preview -->
         <article class="proj-card">
           <div class="proj-head">
             <div class="proj-title">3D Land Cover Map</div>
@@ -913,72 +948,100 @@
       </div>
     </section>
 
-    <!-- Current Research (with preview + modal) -->
+    <!-- Current Research (UPDATED: preview cards like Recent Projects) -->
     <section id="current-research" class="reveal">
       <h2>Current Research</h2>
 
-      <div class="research-grid" id="researchGrid">
-        <article class="research-card"
-          data-title="Framework for Predicting Urban Growth Pattern in Data Scarce Region"
-          data-link="research/LULC_Prediction.html"
-          data-summary="A remote sensing and GeoAI framework to predict urban expansion where historical datasets are limited. Focuses on building reliable predictors, validating model performance, and producing interpretable growth scenarios for planning decisions."
-          data-tags="Urban Growth, GeoAI, Remote Sensing">
-          <div class="research-meta">
-            <div class="research-title">Framework for Predicting Urban Growth Pattern in Data Scarce Region</div>
-            <div class="research-tags">Urban Growth · GeoAI · Remote Sensing</div>
-            <div class="research-teaser">Predict urban expansion with limited historical data using remote sensing + GeoAI.</div>
+      <div class="research-projects-grid">
+        <!-- 1 -->
+        <article class="research-card2">
+          <div class="research-head2">
+            <div style="min-width:0;">
+              <div class="research-title2">Framework for Predicting Urban Growth Pattern in Data Scarce Region</div>
+              <div class="research-tags2">Urban Growth · GeoAI · Remote Sensing</div>
+            </div>
+            <a class="research-open2" href="research/LULC_Prediction.html">Open</a>
           </div>
-          <div class="research-actions">
-            <button class="btn secondary preview-research" type="button">Preview</button>
-            <a class="btn" href="research/LULC_Prediction.html">Open</a>
+
+          <div class="research-preview2">
+            <iframe
+              title="LULC Prediction Preview"
+              src="research/LULC_Prediction.html"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="research-note2">
+            Preview of the research page. If it appears blank, open the page directly.
           </div>
         </article>
 
-        <article class="research-card"
-          data-title="Exploring the Influence of Potential Factors of Urban Change in Bangladesh"
-          data-link="research/Regional.html"
-          data-summary="Analyzes key drivers of urban change in Bangladesh (accessibility, land market signals, services, environment) and how factor interactions vary spatially. Produces policy-relevant evidence to support regional planning and land management."
-          data-tags="Regional Planning, Drivers, Policy">
-          <div class="research-meta">
-            <div class="research-title">Exploring the Influence of Potential Factors of Urban Change in Bangladesh</div>
-            <div class="research-tags">Regional Planning · Drivers · Policy</div>
-            <div class="research-teaser">Evidence on how accessibility, services and environment influence urban change patterns.</div>
+        <!-- 2 -->
+        <article class="research-card2">
+          <div class="research-head2">
+            <div style="min-width:0;">
+              <div class="research-title2">Exploring the Influence of Potential Factors of Urban Change in Bangladesh</div>
+              <div class="research-tags2">Regional Planning · Drivers · Policy</div>
+            </div>
+            <a class="research-open2" href="research/Regional.html">Open</a>
           </div>
-          <div class="research-actions">
-            <button class="btn secondary preview-research" type="button">Preview</button>
-            <a class="btn" href="research/Regional.html">Open</a>
+
+          <div class="research-preview2">
+            <iframe
+              title="Regional Factors Preview"
+              src="research/Regional.html"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="research-note2">
+            Preview of the research page. Open for full reading and figures.
           </div>
         </article>
 
-        <article class="research-card"
-          data-title="Mapping Temporal Variation of TOD Potential in Dhaka Using ACT/PCT"
-          data-link="research/tod.html"
-          data-summary="Maps how TOD suitability changes over time using ACT/PCT metrics. Identifies high-potential station areas, reveals temporal shifts, and supports targeted investments for transit-supportive growth and accessibility."
-          data-tags="TOD, Accessibility, Dhaka">
-          <div class="research-meta">
-            <div class="research-title">Mapping Temporal Variation of TOD Potential in Dhaka Using ACT/PCT</div>
-            <div class="research-tags">TOD · Accessibility · Dhaka</div>
-            <div class="research-teaser">Track how TOD suitability evolves over time and identify priority station areas.</div>
+        <!-- 3 -->
+        <article class="research-card2">
+          <div class="research-head2">
+            <div style="min-width:0;">
+              <div class="research-title2">Mapping Temporal Variation of TOD Potential in Dhaka Using ACT/PCT</div>
+              <div class="research-tags2">TOD · Accessibility · Dhaka</div>
+            </div>
+            <a class="research-open2" href="research/tod.html">Open</a>
           </div>
-          <div class="research-actions">
-            <button class="btn secondary preview-research" type="button">Preview</button>
-            <a class="btn" href="research/tod.html">Open</a>
+
+          <div class="research-preview2">
+            <iframe
+              title="TOD Preview"
+              src="research/tod.html"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="research-note2">
+            Preview of the research page. Open for full methodology and results.
           </div>
         </article>
 
-        <article class="research-card"
-          data-title="COVID-Induced Trip Reduction Behavior in United States"
-          data-link="research/Trip.html"
-          data-summary="Examines travel behavior changes during COVID across population groups and trip purposes. Highlights equity impacts and provides insights for resilient transport policy and service planning."
-          data-tags="Transport, Behavior, COVID">
-          <div class="research-meta">
-            <div class="research-title">COVID-Induced Trip Reduction Behavior in United States</div>
-            <div class="research-tags">Transport · Behavior · COVID</div>
-            <div class="research-teaser">Understand trip reduction patterns by group and purpose during the pandemic.</div>
+        <!-- 4 -->
+        <article class="research-card2">
+          <div class="research-head2">
+            <div style="min-width:0;">
+              <div class="research-title2">COVID-Induced Trip Reduction Behavior in United States</div>
+              <div class="research-tags2">Transport · Behavior · COVID</div>
+            </div>
+            <a class="research-open2" href="research/Trip.html">Open</a>
           </div>
-          <div class="research-actions">
-            <button class="btn secondary preview-research" type="button">Preview</button>
-            <a class="btn" href="research/Trip.html">Open</a>
+
+          <div class="research-preview2">
+            <iframe
+              title="Trip Reduction Preview"
+              src="research/Trip.html"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="research-note2">
+            Preview of the research page. Open for full discussion.
           </div>
         </article>
       </div>
@@ -1280,7 +1343,7 @@
     <button class="btn" type="button" id="toTopBtn" aria-label="Back to top">Top</button>
   </div>
 
-  <!-- Modal (shared by Academic Projects + Current Research previews) -->
+  <!-- Modal (kept for Academic Projects) -->
   <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
@@ -1448,20 +1511,6 @@
           e.preventDefault();
           openModal(payload);
         }
-      });
-    });
-
-    // ===== Current Research Preview modal binding =====
-    document.querySelectorAll('.preview-research').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('.research-card');
-        if(!card) return;
-
-        openModal({
-          title: card.dataset.title || 'Research',
-          desc: (card.dataset.summary || '').trim(),
-          link: card.dataset.link || '#'
-        });
       });
     });
   </script>
