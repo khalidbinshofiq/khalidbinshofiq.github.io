@@ -134,9 +134,8 @@
       justify-content:center;
       gap:8px;
       line-height:1;
-      text-decoration:none;
     }
-    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow2); text-decoration:none; }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow2); }
     .btn:active{ transform: translateY(0); }
     .btn.secondary{
       background: color-mix(in srgb, var(--surface) 75%, transparent);
@@ -172,7 +171,6 @@
       border-radius: 10px;
       transition: background .2s, color .2s;
       border: 1px solid transparent;
-      text-decoration:none;
     }
     .tabs a.active{
       background: color-mix(in srgb, var(--fg) 10%, transparent);
@@ -212,7 +210,6 @@
         font-weight: 800;
         color: var(--fg);
         background: color-mix(in srgb, var(--surface) 90%, transparent);
-        text-decoration:none;
       }
       .drawer a.active{
         background: color-mix(in srgb, var(--fg) 10%, transparent);
@@ -295,110 +292,106 @@
     ul{ margin: 10px 0 0; padding-left: 20px; }
     li{ margin: 6px 0; }
 
-    /* ===== Recent Projects: preview accordion ===== */
-    .project-accordion{
-      display: grid;
-      gap: 12px;
-    }
-    .proj{
-      border: 1px solid var(--border);
-      border-radius: 14px;
+    /* Cards */
+    .card{
       background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 14px;
+      margin-top: 14px;
       box-shadow: 0 4px 10px rgba(0,0,0,.08);
-      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
     }
-    .proj summary{
-      list-style: none;
-      cursor: pointer;
-      padding: 14px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      user-select: none;
-      font-weight: 900;
-      color: var(--highlight);
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow2);
     }
-    .proj summary::-webkit-details-marker{ display:none; }
-    .proj .meta{
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 0;
-    }
-    .proj .meta .title{
-      font-size: 14.5px;
-      line-height: 1.35;
-    }
-    .proj .meta .sub{
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 700;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 70ch;
-    }
-    .proj .right{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      flex: 0 0 auto;
-    }
-    .proj .open-btn{
-      padding: 9px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      font-weight: 900;
-      color: var(--highlight);
-      box-shadow: 0 3px 10px rgba(0,0,0,.08);
-      text-decoration: none;
-    }
-    .proj .open-btn:hover{ text-decoration: none; transform: translateY(-1px); box-shadow: var(--shadow2); }
-    .proj .chev{
-      width: 34px; height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: color-mix(in srgb, var(--surface) 85%, transparent);
-      font-weight: 900;
-      color: var(--muted);
-    }
-    .proj[open] .chev{ color: var(--highlight); }
-    .proj .body{
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-      padding: 12px 12px 14px;
-    }
-    .preview-frame{
-      width: 100%;
-      height: 340px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: color-mix(in srgb, var(--surface) 92%, transparent);
-      box-shadow: 0 4px 10px rgba(0,0,0,.06);
-      overflow: hidden;
-    }
-    .preview-frame iframe{
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    .preview-note{
-      margin: 10px 2px 0;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 700;
-    }
-    @media (max-width: 640px){
-      .preview-frame{ height: 280px; }
-      .proj summary{ padding: 12px; }
-      .proj .open-btn{ padding: 8px 10px; }
-    }
+    .card a{ font-weight: 800; display: inline-block; margin-top: 8px; }
 
-    /* Current Research cards */
+    /* Education */
+    .education-item{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .education-item:hover{
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+    .education-logo img{
+      width: 58px;
+      height: auto;
+      display:block;
+    }
+    .education-details h3{
+      margin: 0 0 6px 0;
+      font-size: 16.5px;
+      color: var(--highlight);
+    }
+    .education-details p{ margin: 4px 0; color: var(--fg); }
+
+    /* Academic Projects */
+    .project-intro{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .project-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+    .project-card{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align:center;
+      box-shadow: 0 4px 10px rgba(0,0,0,.06);
+      transition: transform .16s ease, box-shadow .16s ease;
+      display:flex;
+      flex-direction: column;
+      justify-content:center;
+      min-height: 160px;
+      cursor: pointer;
+      position: relative;
+      outline: none;
+    }
+    .project-card:hover{ transform: translateY(-2px); box-shadow: var(--shadow2); }
+    .project-card:focus-visible{
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--fg) 20%, transparent), var(--shadow2);
+    }
+    .project-card img{
+      width: 62px; height: 62px;
+      object-fit: contain;
+      margin: 2px auto 10px;
+      display:block;
+      filter: drop-shadow(0 1px 0 rgba(0,0,0,.05));
+    }
+    .project-card h3{
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--highlight);
+      margin: 0;
+      font-weight: 800;
+    }
+    .project-card .hint{
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media (max-width: 1024px){ .project-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (max-width: 780px){ .project-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 480px){ .project-grid{ grid-template-columns: 1fr; } }
+
+    /* ===== Current Research preview cards ===== */
     .research-grid{
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -457,6 +450,78 @@
       .research-actions{ flex-direction: row; }
     }
 
+    /* Skills Badges */
+    #skills-badges .badge-grid{
+      display:grid;
+      grid-template-columns: repeat(7, minmax(0,1fr));
+      gap: 12px;
+      justify-items:center;
+      align-items:start;
+    }
+    #skills-badges .skill{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 6px;
+      text-align:center;
+      min-width: 0;
+      user-select:none;
+    }
+    #skills-badges .icon{
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--fg) 8%, transparent);
+      border: 1px solid var(--border);
+      box-shadow: 0 3px 10px rgba(0,0,0,.08);
+      display:grid;
+      place-items:center;
+      transition: transform .12s ease, box-shadow .12s ease;
+      position: relative;
+    }
+    #skills-badges .skill:hover .icon{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow2);
+    }
+    #skills-badges .icon img{
+      width: 34px; height: 34px;
+      object-fit: contain;
+      display:block;
+    }
+    #skills-badges .label{
+      font-size: 12px;
+      line-height: 1.2;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      font-weight: 800;
+    }
+    #skills-badges .tooltip{
+      position:absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      font-size: 12px;
+      color: var(--fg);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .12s ease;
+      z-index: 5;
+    }
+    #skills-badges .skill:hover .tooltip{ opacity: 1; }
+    @media (max-width: 1100px){ #skills-badges .badge-grid{ grid-template-columns: repeat(6, minmax(0,1fr)); } }
+    @media (max-width: 900px){ #skills-badges .badge-grid{ grid-template-columns: repeat(5, minmax(0,1fr)); } }
+    @media (max-width: 700px){ #skills-badges .badge-grid{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
+    @media (max-width: 520px){ #skills-badges .badge-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
     /* Footer */
     footer{
       background: var(--surface);
@@ -489,7 +554,7 @@
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .reveal{ transition:none; }
-      .btn, .proj, .research-card{ transition:none; }
+      .btn, .card, .project-card, .education-item, .research-card{ transition:none; }
     }
 
     /* Back to top */
@@ -502,7 +567,7 @@
     }
     .to-top.show{ display:block; }
 
-    /* Modal (shared) */
+    /* Modal */
     .modal-backdrop{
       position: fixed;
       inset: 0;
@@ -560,7 +625,7 @@
     <div class="topbar-inner">
       <div class="brand" title="Khalid-Bin-Shofiq">
         <strong>Khalid-Bin-Shofiq</strong>
-        <span>Urban &amp; Regional Planner</span>
+        <span>Urban & Regional Planner</span>
       </div>
 
       <div class="actions">
@@ -573,11 +638,9 @@
     <nav class="tabs" aria-label="Primary">
       <a href="#home" class="tab-link active">Home</a>
       <a href="#research-areas" class="tab-link">Research</a>
-      <a href="#recent-projects" class="tab-link">Projects</a>
-      <a href="#current-research" class="tab-link">Current</a>
       <a href="#thesis" class="tab-link">Thesis</a>
       <a href="#education" class="tab-link">Education</a>
-      <a href="#academic-projects" class="tab-link">Academic</a>
+      <a href="#academic-projects" class="tab-link">Academic Projects</a>
       <a href="#skills-badges" class="tab-link">Tools</a>
       <a href="#professional-experience" class="tab-link">Experience</a>
       <a href="#achievements" class="tab-link">Achievement</a>
@@ -591,11 +654,9 @@
     <button class="btn secondary" id="closeDrawer" type="button">Close</button>
     <a href="#home" class="tab-link active">Home</a>
     <a href="#research-areas" class="tab-link">Research</a>
-    <a href="#recent-projects" class="tab-link">Projects</a>
-    <a href="#current-research" class="tab-link">Current</a>
     <a href="#thesis" class="tab-link">Thesis</a>
     <a href="#education" class="tab-link">Education</a>
-    <a href="#academic-projects" class="tab-link">Academic</a>
+    <a href="#academic-projects" class="tab-link">Academic Projects</a>
     <a href="#skills-badges" class="tab-link">Tools</a>
     <a href="#professional-experience" class="tab-link">Experience</a>
     <a href="#achievements" class="tab-link">Achievement</a>
@@ -608,7 +669,7 @@
       <img class="avatar" src="images/profile.jpg" alt="Khalid-Bin-Shofiq portrait" />
       <div>
         <h1><strong>Khalid-Bin-Shofiq</strong></h1>
-        <div class="tagline"><strong>Urban &amp; Regional Planner</strong></div>
+        <div class="tagline"><strong>Urban & Regional Planner</strong></div>
         <p class="description">
           Welcome! I am an urban planner currently working in a consultancy firm.
           Having grown up in an organized town and shifting towards a haphazard one shaped my curiosity about urban growth trends,
@@ -618,7 +679,7 @@
 
         <div class="hero-actions">
           <a class="btn" href="#contact">Contact</a>
-          <a class="btn secondary" href="#recent-projects">View projects</a>
+          <a class="btn secondary" href="#current-research">View research</a>
         </div>
       </div>
     </header>
@@ -627,123 +688,29 @@
     <section id="research-areas" class="reveal">
       <h2>Research Areas</h2>
       <ul>
-        <li>Deep Learning &amp; Machine Learning–based Prediction Models</li>
-        <li>Urban Growth Dynamics &amp; Land Use Planning</li>
+        <li>Deep Learning & Machine Learning–based Prediction Models</li>
+        <li>Urban Growth Dynamics & Land Use Planning</li>
         <li>Transit Oriented Development (TOD)</li>
         <li>Remote Sensing</li>
-        <li>Spatial Analysis &amp; Geo-AI Based Solutions</li>
-        <li>Qualitative &amp; Policy-oriented Urban Research</li>
+        <li>Spatial Analysis & Geo-AI Based Solutions</li>
+        <li>Qualitative & Policy-oriented Urban Research</li>
       </ul>
     </section>
 
-    <!-- Recent Projects (with preview + open) -->
+    <!-- Recent Projects -->
     <section id="recent-projects" class="reveal">
       <h2>Recent Projects</h2>
-
-      <div class="project-accordion">
-
-        <!-- 1) 3D Terrain/Bathymetry -->
-        <details class="proj">
-          <summary>
-            <div class="meta">
-              <div class="title">3D Bangladesh Terrain and Bathymetry</div>
-              <div class="sub">Open to preview; click “Open” for full page.</div>
-            </div>
-            <div class="right">
-              <a class="open-btn" href="https://khalidbinshofiq.github.io/khalidbinshofiq/" target="_blank" rel="noopener">Open</a>
-              <span class="chev">▾</span>
-            </div>
-          </summary>
-          <div class="body">
-            <div class="preview-frame">
-              <iframe
-                title="3D Bangladesh Terrain and Bathymetry Preview"
-                data-src="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-              </iframe>
-            </div>
-            <div class="preview-note">
-              If the preview does not load, the project page may block embedding. Click “Open”.
-            </div>
-          </div>
-        </details>
-
-        <!-- 2) 3D Flood Simulation (Google Drive preview) -->
-        <details class="proj">
-          <summary>
-            <div class="meta">
-              <div class="title">3D Flood Simulation</div>
-              <div class="sub">Embedded Drive preview; click “Open” for full access.</div>
-            </div>
-            <div class="right">
-              <a class="open-btn" href="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing" target="_blank" rel="noopener">Open</a>
-              <span class="chev">▾</span>
-            </div>
-          </summary>
-          <div class="body">
-            <div class="preview-frame">
-              <iframe
-                title="3D Flood Simulation Preview"
-                data-src="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-              </iframe>
-            </div>
-            <div class="preview-note">If Drive requests permission, click “Open”.</div>
-          </div>
-        </details>
-
-        <!-- 3) Habitat mapping (internal page) -->
-        <details class="proj">
-          <summary>
-            <div class="meta">
-              <div class="title">Habitat Mapping of Coastal Regions of Bangladesh</div>
-              <div class="sub">Preview the project page below, then open for full details.</div>
-            </div>
-            <div class="right">
-              <a class="open-btn" href="research/habitat.html">Open</a>
-              <span class="chev">▾</span>
-            </div>
-          </summary>
-          <div class="body">
-            <div class="preview-frame">
-              <iframe
-                title="Habitat Mapping Preview"
-                data-src="research/habitat.html"
-                loading="lazy">
-              </iframe>
-            </div>
-            <div class="preview-note">Internal page preview loads directly.</div>
-          </div>
-        </details>
-
-        <!-- 4) 3D Land Cover Map (image preview) -->
-        <details class="proj">
-          <summary>
-            <div class="meta">
-              <div class="title">3D Land Cover Map</div>
-              <div class="sub">Image preview; click “Open” for full resolution.</div>
-            </div>
-            <div class="right">
-              <a class="open-btn" href="3DKaliganj.jpg" target="_blank" rel="noopener">Open</a>
-              <span class="chev">▾</span>
-            </div>
-          </summary>
-          <div class="body">
-            <div class="preview-frame" style="display:grid;place-items:center;padding:10px;">
-              <img src="3DKaliganj.jpg" alt="3D Land Cover Map preview"
-                   style="max-width:100%;max-height:100%;border-radius:12px;border:1px solid var(--border);"
-                   loading="lazy">
-            </div>
-            <div class="preview-note">Click “Open” to view the full-size image.</div>
-          </div>
-        </details>
-
+      <div class="card">
+        <ul>
+          <li><a href="https://khalidbinshofiq.github.io/khalidbinshofiq/">3D Bangladesh Terrain and Bathymetry</a></li>
+          <li><a href="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing">3D Flood Simulation</a></li>
+          <li><a href="research/habitat.html"><strong>Habitat Mapping of Coastal Regions of Bangladesh</strong></a></li>
+          <li><a href="3DKaliganj.jpg"><strong>3D Land Cover Map</strong></a></li>
+        </ul>
       </div>
     </section>
 
-    <!-- Current Research (preview modal) -->
+    <!-- Current Research (with preview + modal) -->
     <section id="current-research" class="reveal">
       <h2>Current Research</h2>
 
@@ -766,17 +733,17 @@
 
         <article class="research-card"
           data-title="Exploring the Influence of Potential Factors of Urban Change in Bangladesh"
-          data-link="research/regional.html"
-          data-summary="Applies and compares Logistic Regression, Random Forest, XGBoost and Artificial Neural Networks to quantify how population, elevation, accessibility and waterbodies influence built-up change. Results are reported division-wise to capture regional heterogeneity, including a distinctive highway-driven pattern in Barishal."
-          data-tags="Urban Change, ML Models, Bangladesh">
+          data-link="research/Regional.html"
+          data-summary="Analyzes key drivers of urban change in Bangladesh (accessibility, land market signals, services, environment) and how factor interactions vary spatially. Produces policy-relevant evidence to support regional planning and land management."
+          data-tags="Regional Planning, Drivers, Policy">
           <div class="research-meta">
             <div class="research-title">Exploring the Influence of Potential Factors of Urban Change in Bangladesh</div>
-            <div class="research-tags">Urban Change · ML Models · Bangladesh</div>
-            <div class="research-teaser">Compare drivers of built-up change across divisions using ML and interpretable insights.</div>
+            <div class="research-tags">Regional Planning · Drivers · Policy</div>
+            <div class="research-teaser">Evidence on how accessibility, services and environment influence urban change patterns.</div>
           </div>
           <div class="research-actions">
             <button class="btn secondary preview-research" type="button">Preview</button>
-            <a class="btn" href="research/regional.html">Open</a>
+            <a class="btn" href="research/Regional.html">Open</a>
           </div>
         </article>
 
@@ -818,48 +785,251 @@
     <section id="thesis" class="reveal">
       <h2>Thesis</h2>
       <p style="text-align:center;">
-        <img src="./Thesis.jpg" alt="Thesis image"
-             style="max-width: 90%; border-radius: 14px; border: 1px solid var(--border); box-shadow: var(--shadow);" />
+        <img src="./Thesis.jpg" alt="Thesis image" style="max-width: 90%; border-radius: 14px; border: 1px solid var(--border); box-shadow: var(--shadow);" />
       </p>
     </section>
 
     <!-- Education -->
     <section id="education" class="reveal">
       <h2>Education</h2>
-      <ul>
-        <li><strong>Bangladesh University of Engineering &amp; Technology (BUET)</strong> — Bachelor of Urban and Regional Planning (2019–2024), CGPA 3.61/4.00</li>
-        <li><strong>Rajshahi College</strong> — Higher Secondary Certificate (2016–2018), GPA 5.00/5.00</li>
-        <li><strong>Shiroil Government High School</strong> — Secondary School Certificate (2014–2016), GPA 5.00/5.00</li>
-      </ul>
+
+      <div class="education-item">
+        <div class="education-logo">
+          <img src="images/buet-logo.png" alt="BUET logo" />
+        </div>
+        <div class="education-details">
+          <h3>Bachelor of Urban and Regional Planning (BURP)</h3>
+          <p><strong>Institution:</strong> Bangladesh University of Engineering & Technology (BUET), Dhaka-1000, Bangladesh</p>
+          <p><strong>Duration:</strong> 2019–2024</p>
+          <p><strong>CGPA:</strong> 3.61/4.00</p>
+        </div>
+      </div>
+
+      <div class="education-item">
+        <div class="education-logo">
+          <img src="images/rajshahi-college-logo.png" alt="Rajshahi College logo" />
+        </div>
+        <div class="education-details">
+          <h3>Higher Secondary Certificate (General Scholarship)</h3>
+          <p><strong>Institution:</strong> Rajshahi College, Rajshahi, Bangladesh</p>
+          <p><strong>Duration:</strong> 2016–2018</p>
+          <p><strong>GPA:</strong> 5.00/5.00</p>
+        </div>
+      </div>
+
+      <div class="education-item">
+        <div class="education-logo">
+          <img src="images/shiroil-logo.png" alt="Shiroil Government High School logo" />
+        </div>
+        <div class="education-details">
+          <h3>Secondary School Certificate (General Scholarship)</h3>
+          <p><strong>Institution:</strong> Shiroil Government High School, Rajshahi, Bangladesh</p>
+          <p><strong>Duration:</strong> 2014–2016</p>
+          <p><strong>GPA:</strong> 5.00/5.00</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Academic Projects (kept as simple list here; you can re-add your grid if needed) -->
+    <!-- Academic Projects -->
     <section id="academic-projects" class="reveal">
       <h2>Academic Projects</h2>
-      <ul>
-        <li><a href="Academic/Participatory/Participatory.html">Participatory Planning Studio</a></li>
-        <li><a href="Academic/Project/Project.html">Project Planning Studio</a></li>
-        <li><a href="Academic/Transportation/Transportation.html">Transportation Planning Studio</a></li>
-        <li><a href="Academic/Regional/Regional.html">Regional Planning Studio</a></li>
-        <li><a href="Academic/Rural/Rural.html">Rural Planning Studio</a></li>
-        <li><a href="Academic/Program/Program.html">Programming Studio</a></li>
-        <li><a href="Academic/GIS/GIS.html">GIS and Remote Sensing Studio</a></li>
-        <li><a href="Academic/Urban/Urban.html">Urban Planning Studio</a></li>
-        <li><a href="Academic/Landscape/Landscape.html">Landscape Planning Studio</a></li>
-        <li><a href="Academic/Site/Site.html">Site and Area Planning Studio</a></li>
-        <li><a href="Academic/Social/Social.html">Social and Physical Surveys</a></li>
-        <li><a href="Academic/Carto/Carto.html">Cartography Workshop</a></li>
-      </ul>
+      <p class="project-intro">Click a card to preview details and open the project page.</p>
+
+      <div class="project-grid" id="projectGrid">
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Participatory Planning Studio"
+             data-link="Academic/Participatory/Participatory.html"
+             data-desc="Participatory methods, stakeholder engagement, and community-driven spatial strategy development.">
+          <img src="images/icons/1.jpg" alt="Participatory Planning Studio icon">
+          <h3>Participatory Planning Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Project Planning Studio"
+             data-link="Academic/Project/Project.html"
+             data-desc="Project-cycle planning, appraisal, and evidence-based prioritization for implementation.">
+          <img src="images/icons/2.png" alt="Project Planning Studio icon">
+          <h3>Project Planning Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Transportation Planning Studio"
+             data-link="Academic/Transportation/Transportation.html"
+             data-desc="Transport diagnostics, accessibility analysis, and corridor-level planning considerations.">
+          <img src="images/icons/3.jpg" alt="Transportation Planning Studio icon">
+          <h3>Transportation Planning Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Regional Planning Studio"
+             data-link="Academic/Regional/Regional.html"
+             data-desc="Regional systems analysis and scenario-driven planning across economy, environment, and infrastructure.">
+          <img src="images/icons/12.jpg" alt="Regional Planning Studio icon">
+          <h3>Regional Planning Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Rural Planning Studio"
+             data-link="Academic/Rural/Rural.html"
+             data-desc="Rural settlement planning, service access analysis, and resilience-aware local strategies.">
+          <img src="images/icons/4.jpg" alt="Rural Planning Studio icon">
+          <h3>Rural Planning Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Programming Studio"
+             data-link="Academic/Program/Program.html"
+             data-desc="Programming foundations and analytical workflows for planning and geospatial applications.">
+          <img src="images/icons/11.jpg" alt="Programming Studio icon">
+          <h3>Programming Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="GIS and Remote Sensing Studio"
+             data-link="Academic/GIS/GIS.html"
+             data-desc="Remote sensing classification, GIS mapping, and spatial analysis for planning and environment.">
+          <img src="images/icons/8.jpg" alt="GIS and Remote Sensing icon">
+          <h3>GIS and Remote Sensing Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Urban Planning Studio"
+             data-link="Academic/Urban/Urban.html"
+             data-desc="Urban diagnostics, land use proposals, public realm improvements, and implementation framing.">
+          <img src="images/icons/5.jpg" alt="Urban Planning Studio icon">
+          <h3>Urban Planning Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Landscape Planning Studio"
+             data-link="Academic/Landscape/Landscape.html"
+             data-desc="Landscape systems thinking, ecological structuring, and resilient design strategies.">
+          <img src="images/icons/7.jpg" alt="Landscape Planning Studio icon">
+          <h3>Landscape Planning Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Site and Area Planning Studio"
+             data-link="Academic/Site/Site.html"
+             data-desc="Site-level planning, design controls, feasibility and contextual constraints integration.">
+          <img src="images/icons/6.jpg" alt="Site and Area Planning Studio icon">
+          <h3>Site and Area Planning Studio</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Social and Physical Surveys"
+             data-link="Academic/Social/Social.html"
+             data-desc="Survey design, field methods, data analysis and reporting for planning evidence.">
+          <img src="images/icons/10.jpg" alt="Social and Physical Surveys icon">
+          <h3>Social and Physical Surveys</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+
+        <div class="project-card" tabindex="0" role="button"
+             data-title="Cartography Workshop"
+             data-link="Academic/Carto/Carto.html"
+             data-desc="Cartographic design principles and map production for clear communication.">
+          <img src="images/icons/9.jpg" alt="Cartography Workshop icon">
+          <h3>Cartography Workshop</h3>
+          <div class="hint">Click to preview</div>
+        </div>
+      </div>
     </section>
 
-    <!-- Tools (kept minimal) -->
+    <!-- Skills Badges -->
     <section id="skills-badges" class="reveal">
-      <h2>Tools &amp; Platforms</h2>
+      <h2>Tools & Platforms</h2>
+      <div class="badge-grid" aria-label="Skills and tools" id="toolsGrid">
+        <figure class="skill" data-name="ArcMap">
+          <div class="icon"><img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="ArcMap logo"><span class="tooltip">ArcMap</span></div>
+          <figcaption class="label">ArcMap</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="ArcGIS Pro">
+          <div class="icon"><img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="ArcGIS Pro logo"><span class="tooltip">ArcGIS Pro</span></div>
+          <figcaption class="label">ArcGIS Pro</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="QGIS">
+          <div class="icon"><img src="https://cdn.simpleicons.org/qgis/FFFFFF" alt="QGIS logo"><span class="tooltip">QGIS</span></div>
+          <figcaption class="label">QGIS</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="Google Earth Engine">
+          <div class="icon"><img src="https://cdn.simpleicons.org/googleearth/FFFFFF" alt="Google Earth Engine logo"><span class="tooltip">Google Earth Engine</span></div>
+          <figcaption class="label">Google Earth Engine</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="Google Colab">
+          <div class="icon"><img src="https://cdn.simpleicons.org/googlecolab/000000" alt="Google Colab logo"><span class="tooltip">Google Colab</span></div>
+          <figcaption class="label">Google Colab</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="AutoCAD">
+          <div class="icon"><img src="https://cdn.simpleicons.org/autodesk/FFFFFF" alt="AutoCAD logo"><span class="tooltip">AutoCAD</span></div>
+          <figcaption class="label">AutoCAD</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="CityEngine">
+          <div class="icon"><img src="https://cdn.simpleicons.org/esri/FFFFFF" alt="CityEngine logo"><span class="tooltip">CityEngine</span></div>
+          <figcaption class="label">CityEngine</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="Python">
+          <div class="icon"><img src="https://cdn.simpleicons.org/python/FFFFFF" alt="Python logo"><span class="tooltip">Python</span></div>
+          <figcaption class="label">Python</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="TensorFlow">
+          <div class="icon"><img src="https://cdn.simpleicons.org/tensorflow/FFFFFF" alt="TensorFlow logo"><span class="tooltip">TensorFlow</span></div>
+          <figcaption class="label">TensorFlow</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="Keras">
+          <div class="icon"><img src="https://cdn.simpleicons.org/keras/FFFFFF" alt="Keras logo"><span class="tooltip">Keras</span></div>
+          <figcaption class="label">Keras</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="Pandas">
+          <div class="icon"><img src="https://cdn.simpleicons.org/pandas/FFFFFF" alt="Pandas logo"><span class="tooltip">Pandas</span></div>
+          <figcaption class="label">Pandas</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="Matplotlib">
+          <div class="icon"><img src="images/icons/15.png" alt="Matplotlib logo"><span class="tooltip">Matplotlib</span></div>
+          <figcaption class="label">Matplotlib</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="scikit-learn">
+          <div class="icon"><img src="https://cdn.simpleicons.org/scikitlearn/FFFFFF" alt="scikit-learn logo"><span class="tooltip">scikit-learn</span></div>
+          <figcaption class="label">scikit-learn</figcaption>
+        </figure>
+
+        <figure class="skill" data-name="R Studio">
+          <div class="icon"><img src="images/icons/16.png" alt="RStudio logo"><span class="tooltip">R Studio</span></div>
+          <figcaption class="label">R Studio</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- IELTS -->
+    <section id="IELTS" class="reveal">
+      <h2>
+        <img src="il.png" alt="IELTS logo" style="width:76px;height:auto;vertical-align:middle;margin-right:10px;">
+        IELTS
+      </h2>
       <ul>
-        <li>ArcMap, ArcGIS Pro, QGIS, Google Earth Engine, Google Colab</li>
-        <li>AutoCAD, CityEngine</li>
-        <li>Python, TensorFlow, Keras, Pandas, Matplotlib, scikit-learn</li>
-        <li>R Studio</li>
+        <li><strong>Overall Band: 7</strong> (Listening: 7.5, Reading: 7, Writing: 7, Speaking: 7)</li>
       </ul>
     </section>
 
@@ -867,15 +1037,25 @@
     <section id="professional-experience" class="reveal">
       <h2>Professional Experience</h2>
       <ul>
-        <li><a href="Job/sh.html"><em>Assistant Urban Planner — Sheltech Consultants (Pvt.) Ltd.</em></a></li>
+        <li><a href="Job/sh.html"><em>Assistant Urban Planner - Sheltech Consultants (Pvt.) Ltd.</em></a></li>
       </ul>
     </section>
 
     <!-- Achievements -->
     <section id="achievements" class="reveal">
       <h2>Achievements</h2>
-      <p><strong>2nd Runner Up:</strong> <em>EnvoFrame SDG Awareness Videography Competition</em>, North South University (2023).</p>
-      <p><strong>Finalist:</strong> Climate Science Olympiad (2023).</p>
+      <p><strong>- 2nd Runner Up:</strong> <em>EnvoFrame SDG Awareness Videography Competition</em>, North South University (2023).</p>
+      <p><a href="https://drive.google.com/file/d/130041lShgllPN3RiPhry0x18BGaW3SC4/view?usp=drive_link" target="_blank" rel="noopener"><strong>Videography on Ensuring Sustainable Development in Dhaka City</strong></a></p>
+      <p style="text-align:center;">
+        <img src="./1.png" alt="Achievement image 1" style="width:45%; max-width: 420px; border-radius: 12px; border: 1px solid var(--border);">
+        <img src="./2.jpeg" alt="Achievement image 2" style="width:19.5%; max-width: 220px; border-radius: 12px; border: 1px solid var(--border);">
+      </p>
+      <br>
+      <p><strong>- Finalist:</strong> <a href="https://climatescience.org/olympiad/cso23">Climate Science Olympiad (2023)</a></p>
+      <p style="text-align:center;">
+        <img src="./Picture1.jpg" alt="Climate Science Olympiad certificate" style="width:45%; max-width: 420px; border-radius: 12px; border: 1px solid var(--border);">
+      </p>
+      <br>
     </section>
 
     <!-- Contact -->
@@ -888,7 +1068,7 @@
     </section>
 
     <footer class="reveal">
-      © <span id="y"></span> Khalid-Bin-Shofiq · <a href="https://github.com/Khalid-Bin-Shofiq" target="_blank" rel="noopener">GitHub</a>
+      © <span id="y"></span> Khalid-Bin-Shofiq · <a href="https://github.com/Khalid-Bin-Shofiq">GitHub</a>
     </footer>
   </div>
 
@@ -897,11 +1077,11 @@
     <button class="btn" type="button" id="toTopBtn" aria-label="Back to top">Top</button>
   </div>
 
-  <!-- Modal (shared by Current Research previews) -->
+  <!-- Modal (shared by Academic Projects + Current Research previews) -->
   <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
-        <h3 id="modalTitle">Item</h3>
+        <h3 id="modalTitle">Project</h3>
         <button class="btn secondary" id="modalClose" type="button" aria-label="Close">Close</button>
       </div>
       <div class="modal-body">
@@ -922,12 +1102,14 @@
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme');
     if(savedTheme){ document.documentElement.setAttribute('data-theme', savedTheme); }
-    themeToggle.addEventListener('click', () => {
+
+    function toggleTheme(){
       const cur = document.documentElement.getAttribute('data-theme') || 'light';
       const next = (cur === 'dark') ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
-    });
+    }
+    themeToggle.addEventListener('click', toggleTheme);
 
     // ===== Mobile drawer =====
     const menuBtn = document.getElementById('menuBtn');
@@ -990,6 +1172,7 @@
     }
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
+
     toTopBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
     // ===== Reveal on scroll =====
@@ -1042,10 +1225,27 @@
       }
     });
 
+    // Escape closes drawer OR modal if open
     window.addEventListener('keydown', (e)=>{
       if(e.key !== 'Escape') return;
       if(modalBackdrop.classList.contains('show')) closeModal();
       else hideDrawer();
+    });
+
+    // ===== Academic Projects modal binding =====
+    document.querySelectorAll('.project-card').forEach(card=>{
+      const payload = {
+        title: card.dataset.title,
+        desc: card.dataset.desc,
+        link: card.dataset.link
+      };
+      card.addEventListener('click', ()=> openModal(payload));
+      card.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openModal(payload);
+        }
+      });
     });
 
     // ===== Current Research Preview modal binding =====
@@ -1061,17 +1261,6 @@
         });
       });
     });
-
-    // ===== Recent Projects: lazy-load iframe previews only when opened =====
-    document.querySelectorAll('#recent-projects details.proj').forEach(d => {
-      d.addEventListener('toggle', () => {
-        if (!d.open) return;
-        d.querySelectorAll('iframe[data-src]').forEach(fr => {
-          if (!fr.getAttribute('src')) fr.setAttribute('src', fr.dataset.src);
-        });
-      });
-    });
   </script>
 </body>
 </html>
-
