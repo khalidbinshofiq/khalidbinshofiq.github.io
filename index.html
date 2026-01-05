@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -614,6 +614,132 @@
       flex-wrap: wrap;
       margin-top: 10px;
     }
+
+    /* =========================================================
+       Recent Projects (FIXED): 2 columns × 2 rows + clean previews
+       ========================================================= */
+    .projects-grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .projects-grid{ grid-template-columns: 1fr; }
+    }
+
+    .proj-card{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .proj-head{
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.02);
+    }
+
+    .proj-title{
+      font-weight: 800;
+      font-size: 14.5px;
+      line-height: 1.35;
+    }
+
+    .proj-open{
+      text-decoration: none;
+      font-weight: 800;
+      padding: 8px 11px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      color: inherit;
+      transition: transform .12s ease, box-shadow .12s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+    .proj-open:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
+      text-decoration: none;
+    }
+
+    .proj-preview{
+      width: 100%;
+      height: 260px;
+      background: #f3f6f8;
+    }
+    @media (max-width: 900px){
+      .proj-preview{ height: 240px; }
+    }
+
+    .proj-preview iframe{
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Image preview (3D Land Cover): fixed height, clean crop */
+    .proj-thumb{
+      position: relative;
+      display: block;
+      height: 260px;
+      background: #f3f6f8;
+      overflow: hidden;
+    }
+    @media (max-width: 900px){
+      .proj-thumb{ height: 240px; }
+    }
+
+    .proj-thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1);
+      transition: transform .25s ease;
+    }
+
+    .proj-thumb:hover img{
+      transform: scale(1.03);
+    }
+
+    .proj-thumb-overlay{
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+    .proj-thumb:hover .proj-thumb-overlay{
+      opacity: 1;
+    }
+
+    .proj-note{
+      padding: 10px 14px 12px;
+      font-size: 12px;
+      color: #5f6b76;
+      font-weight: 600;
+    }
   </style>
 </head>
 
@@ -696,179 +822,96 @@
         <li>Qualitative & Policy-oriented Urban Research</li>
       </ul>
     </section>
-<!-- Recent Projects -->
-<section id="recent-projects" class="reveal">
-  <h2>Recent Projects</h2>
 
-  <div class="projects-grid">
+    <!-- Recent Projects (FIXED) -->
+    <section id="recent-projects" class="reveal">
+      <h2>Recent Projects</h2>
 
-    <!-- 1) HTML / Web page preview -->
-    <article class="proj-card">
-      <div class="proj-head">
-        <div class="proj-title">3D Bangladesh Terrain and Bathymetry</div>
-        <a class="proj-open"
-           href="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-           target="_blank" rel="noopener">Open</a>
+      <div class="projects-grid">
+        <!-- 1) HTML / Web page preview -->
+        <article class="proj-card">
+          <div class="proj-head">
+            <div class="proj-title">3D Bangladesh Terrain and Bathymetry</div>
+            <a class="proj-open"
+               href="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+               target="_blank" rel="noopener">Open</a>
+          </div>
+
+          <div class="proj-preview">
+            <iframe
+              title="3D Bangladesh Terrain and Bathymetry Preview"
+              src="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <div class="proj-note">
+            If the preview does not load, the page may block embedding. Use “Open”.
+          </div>
+        </article>
+
+        <!-- 2) MP4 on Google Drive -->
+        <article class="proj-card">
+          <div class="proj-head">
+            <div class="proj-title">3D Flood Simulation</div>
+            <a class="proj-open"
+               href="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing"
+               target="_blank" rel="noopener">Open</a>
+          </div>
+
+          <div class="proj-preview">
+            <iframe
+              title="3D Flood Simulation Preview"
+              src="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <div class="proj-note">
+            If Drive asks for permission, click “Open”.
+          </div>
+        </article>
+
+        <!-- 3) Internal HTML page -->
+        <article class="proj-card">
+          <div class="proj-head">
+            <div class="proj-title">Habitat Mapping of Coastal Regions of Bangladesh</div>
+            <a class="proj-open" href="research/habitat.html">Open</a>
+          </div>
+
+          <div class="proj-preview">
+            <iframe
+              title="Habitat Mapping Preview"
+              src="research/habitat.html"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="proj-note">
+            Preview loads your internal page directly.
+          </div>
+        </article>
+
+        <!-- 4) JPG image preview (FIXED) -->
+        <article class="proj-card">
+          <div class="proj-head">
+            <div class="proj-title">3D Land Cover Map</div>
+            <a class="proj-open" href="3DKaliganj.jpg" target="_blank" rel="noopener">Open</a>
+          </div>
+
+          <a class="proj-thumb" href="3DKaliganj.jpg" target="_blank" rel="noopener" aria-label="Open 3D Land Cover Map full size">
+            <img src="3DKaliganj.jpg" alt="3D Land Cover Map preview" loading="lazy">
+            <div class="proj-thumb-overlay">Click to open full resolution</div>
+          </a>
+
+          <div class="proj-note">
+            The preview is cropped for presentation; open for full resolution.
+          </div>
+        </article>
       </div>
-
-      <div class="proj-preview">
-        <iframe
-          title="3D Bangladesh Terrain and Bathymetry Preview"
-          src="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-
-      <div class="proj-note">
-        If the preview does not load, the page may block embedding. Use “Open”.
-      </div>
-    </article>
-
-    <!-- 2) MP4 on Google Drive (use /preview, not /view) -->
-    <article class="proj-card">
-      <div class="proj-head">
-        <div class="proj-title">3D Flood Simulation</div>
-        <a class="proj-open"
-           href="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing"
-           target="_blank" rel="noopener">Open</a>
-      </div>
-
-      <div class="proj-preview">
-        <iframe
-          title="3D Flood Simulation Preview"
-          src="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-
-      <div class="proj-note">
-        If Drive asks for permission, click “Open”.
-      </div>
-    </article>
-
-    <!-- 3) Internal HTML page (preview iframe) -->
-    <article class="proj-card">
-      <div class="proj-head">
-        <div class="proj-title">Habitat Mapping of Coastal Regions of Bangladesh</div>
-        <a class="proj-open" href="research/habitat.html">Open</a>
-      </div>
-
-      <div class="proj-preview">
-        <iframe
-          title="Habitat Mapping Preview"
-          src="research/habitat.html"
-          loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="proj-note">
-        Preview loads your internal page directly.
-      </div>
-    </article>
-
-    <!-- 4) JPG image preview -->
-    <article class="proj-card">
-      <div class="proj-head">
-        <div class="proj-title">3D Land Cover Map</div>
-        <a class="proj-open" href="3DKaliganj.jpg" target="_blank" rel="noopener">Open</a>
-      </div>
-
-      <a class="proj-image-link" href="3DKaliganj.jpg" target="_blank" rel="noopener">
-        <img src="3DKaliganj.jpg" alt="3D Land Cover Map preview" loading="lazy">
-      </a>
-
-      <div class="proj-note">
-        Click the image to open full resolution.
-      </div>
-    </article>
-
-  </div>
-</section>
-/* ===== Recent Projects: preview cards ===== */
-.projects-grid{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.proj-card{
-  background: var(--surface, #fff);
-  border: 1px solid rgba(0,0,0,.12);
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
-  overflow: hidden;
-}
-
-.proj-head{
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid rgba(0,0,0,.10);
-  background: rgba(0,0,0,.02);
-}
-
-.proj-title{
-  font-weight: 800;
-  font-size: 14.5px;
-  line-height: 1.35;
-}
-
-.proj-open{
-  text-decoration: none;
-  font-weight: 800;
-  padding: 8px 11px;
-  border-radius: 12px;
-  border: 1px solid rgba(0,0,0,.12);
-  background: #fff;
-  color: inherit;
-}
-
-.proj-open:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(0,0,0,.10);
-}
-
-.proj-preview{
-  width: 100%;
-  height: 280px;
-  background: #f3f6f8;
-}
-
-.proj-preview iframe{
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.proj-image-link{
-  display: block;
-  background: #f3f6f8;
-}
-
-.proj-image-link img{
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  display: block;
-}
-
-.proj-note{
-  padding: 10px 14px 12px;
-  font-size: 12px;
-  color: #5f6b76;
-  font-weight: 600;
-}
-
-/* Responsive */
-@media (max-width: 900px){
-  .projects-grid{ grid-template-columns: 1fr; }
-  .proj-preview, .proj-image-link img{ height: 240px; }
-}
-
+    </section>
 
     <!-- Current Research (with preview + modal) -->
     <section id="current-research" class="reveal">
