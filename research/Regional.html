@@ -4,126 +4,194 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Exploring the Influence of Potential Factors of Urban Change in Bangladesh</title>
+
   <style>
-    body {
+    :root{
+      --ink:#1f2d3a;
+      --muted:#5f6b76;
+      --blue:#1a73e8;
+      --border:rgba(0,0,0,.12);
+      --bg:#ffffff;
+      --panel:#f6f9ff;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:14px;
+      --maxw:1100px;
+    }
+
+    body{
       font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: white;
-      color: #333;
-    }
-    h1, h2 { color: #333; }
-    h3 {
-      color: #444;
-      text-align: center; /* Center-align the h3 headings */
-    }
-    p { line-height: 1.6; }
-    img { margin: 10px 0; }
-
-    .image-container img {
-      width: 30%;
-      margin-right: 10px; /* Add some space between images */
-      margin-bottom: 10px; /* Add bottom margin to prevent overlap */
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
     }
 
-    .project-header {
-      color: #1a73e8;
-      font-size: 1.5em;
+    .page{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 28px 18px 48px;
     }
 
-    /* ADDED: new description box under title */
-    .title-description {
-      margin: 10px 0 18px;
-      padding: 14px 16px;
-      border-left: 4px solid #1a73e8;
-      background: #f6f9ff;
-      color: #333;
-      line-height: 1.75;
+    /* Header (matches your site style) */
+    .site-title{
+      text-align:center;
+      font-size: 34px;
+      font-weight: 800;
+      margin: 6px 0 10px;
     }
-
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      margin: 10px;
-      text-align: center;
+    .site-title a{
+      color: var(--blue);
       text-decoration: none;
-      color: #fff;
-      background-color: #0A66C2;
-      border-radius: 5px;
     }
-    .button:hover { opacity: 0.8; }
+    .divider{
+      height: 1px;
+      background: rgba(0,0,0,.10);
+      margin: 10px 0 18px;
+    }
+
+    .project-title{
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 700;
+      margin: 0 0 12px;
+      display:flex;
+      gap:10px;
+    }
+
+    /* Final description block (ONLY this one is kept) */
+    .title-description{
+      background: var(--panel);
+      border: 1px solid rgba(26,115,232,.25);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin: 0 0 22px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    }
+    .title-description p{
+      margin: 0 0 12px;
+    }
+    .title-description p:last-child{
+      margin-bottom: 0;
+    }
+
+    h2{
+      margin: 24px 0 12px;
+      font-size: 20px;
+    }
+    h3{
+      margin: 20px 0 10px;
+      font-size: 16px;
+      text-align:center;
+      color:#2b3742;
+    }
+
+    /* Image grids */
+    .grid{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .grid img{
+      width: calc(33.333% - 8px);
+      min-width: 220px;
+      max-width: 360px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 14px rgba(0,0,0,.06);
+    }
+    .grid.single img{
+      width: min(780px, 100%);
+    }
+    .grid.wide img{
+      width: min(980px, 100%);
+    }
+
+    @media (max-width: 760px){
+      .grid img{ width: 100%; }
+      .site-title{ font-size: 28px; }
+      .project-title{ font-size: 18px; }
+    }
   </style>
 </head>
+
 <body>
+  <div class="page">
 
-  <h1 class="project-header">📘 Project: Exploring the Influence of Potential Factors of Urban Change in Bangladesh</h1>
+    <div class="site-title">
+      <a href="../index.html">Khalid-Bin-Shofiq</a>
+    </div>
+    <div class="divider"></div>
 
-  <!-- ADDED: requested description directly under the title -->
-  <div class="title-description" align="justify">
-    Bangladesh is experiencing rapid urbanization driven by multiple interacting factors, including population dynamics,
-    economic activity and employment patterns, topography (elevation), proximity to urban centers, transportation networks,
-    and the spatial distribution of waterbodies. However, the relative influence of these drivers on patterns of urban change
-    remains insufficiently examined in the literature. To address this gap, this study applies and compares four modeling
-    approaches—Logistic Regression, Random Forest, XGBoost, and Artificial Neural Networks—to quantify how these factors shape
-    built-up land expansion.
-    <br><br>
-    Model performance was evaluated using standard classification metrics, including accuracy, precision, recall, F1-score,
-    and the area under the ROC curve (ROC–AUC). Overall, the Random Forest and XGBoost models demonstrated superior predictive
-    performance compared to Logistic Regression and the Artificial Neural Network. Results are presented at the divisional level
-    to capture and compare regional heterogeneity in the determinants of urban change across Bangladesh.
-    <br><br>
-    The findings provide several policy-relevant insights. Across most divisions, population, elevation, and distance to waterbodies
-    consistently emerged as the most influential predictors of built-up expansion. Notably, Barishal exhibits a distinct spatial pattern:
-    built-up growth there is strongly associated with proximity to the national highway, a relationship that is not observed to the same
-    extent in other divisions. Earth observation analysis, supported by field verification, suggests that this pattern is explained by a
-    major river that constrains urban expansion and channels growth preferentially toward highway corridors. These empirically grounded
-    insights can support urban planners and policymakers in designing context-sensitive strategies to guide sustainable and resilient
-    urban development.
+    <div class="project-title">
+      📝 <span>Project: Exploring the Influence of Potential Factors of Urban Change in Bangladesh.</span>
+    </div>
+
+    <!-- ONLY description kept -->
+    <div class="title-description" align="justify">
+      <p>
+        Bangladesh is experiencing rapid urbanization driven by multiple interacting factors, including population dynamics,
+        economic activity and employment patterns, topography (elevation), proximity to urban centers, transportation networks,
+        and the spatial distribution of waterbodies. However, the relative influence of these drivers on patterns of urban change
+        remains insufficiently examined in the literature. To address this gap, this study applies and compares four modeling
+        approaches—Logistic Regression, Random Forest, XGBoost, and Artificial Neural Networks—to quantify how these factors shape
+        built-up land expansion.
+      </p>
+      <p>
+        Model performance was evaluated using standard classification metrics, including accuracy, precision, recall, F1-score,
+        and the area under the ROC curve (ROC–AUC). Overall, the Random Forest and XGBoost models demonstrated superior predictive
+        performance compared to Logistic Regression and the Artificial Neural Network. Results are presented at the divisional
+        level to capture and compare regional heterogeneity in the determinants of urban change across Bangladesh.
+      </p>
+      <p>
+        Across most divisions, population, elevation, and distance to waterbodies consistently emerged as the most influential
+        predictors of built-up expansion. Notably, Barishal exhibits a distinct spatial pattern in which built-up growth is
+        strongly associated with proximity to the national highway. Earth observation analysis, supported by field verification,
+        indicates that a major river constrains urban expansion and channels growth toward highway corridors. These insights
+        support context-sensitive and sustainable urban planning.
+      </p>
+    </div>
+
+    <h3>Selected Factors</h3>
+    <div class="grid">
+      <img src="./1.png"><img src="./2.png"><img src="./3.png">
+      <img src="./4.png"><img src="./5.png"><img src="./6.png">
+      <img src="./7.png"><img src="./8.png"><img src="./9.png">
+    </div>
+    <div class="grid single">
+      <img src="./10.png">
+    </div>
+
+    <h3>Sampling Points</h3>
+    <div class="grid single">
+      <img src="./11.png">
+    </div>
+
+    <h2>Results</h2>
+
+    <h3>Urban Density Change</h3>
+    <div class="grid">
+      <img src="./12.png"><img src="./13.png"><img src="./14.png">
+    </div>
+
+    <h3>Model Outcome</h3>
+    <div class="grid wide">
+      <img src="./16.jpg">
+    </div>
+
+    <h3>K-Means Cluster</h3>
+    <div class="grid">
+      <img src="./01.png"><img src="./02.png"><img src="./03.png">
+    </div>
+
+    <h3>Seaborn Pairplot</h3>
+    <div class="grid single">
+      <img src="./04.png">
+    </div>
+
   </div>
-
-  <h3>💡 Selected Factors</h3>
-
-  <p align="center">
-    <img src="./1.png" alt="Social and Resource Map" width="30%"><img src="./2.png" alt="Social and Resource Map" width="30%"><img src="./3.png" alt="Social and Resource Map" width="30%">
-  </p>
-
-  <p align="center">
-    <img src="./4.png" alt="Social and Resource Map" width="30%"><img src="./5.png" alt="Social and Resource Map" width="30%"><img src="./6.png" alt="Social and Resource Map" width="30%">
-  </p>
-
-  <p align="center">
-    <img src="./7.png" alt="Social and Resource Map" width="30%"><img src="./8.png" alt="Social and Resource Map" width="30%"><img src="./9.png" alt="Social and Resource Map" width="30%">
-  </p>
-
-  <p align="center">
-    <img src="./10.png" alt="Social and Resource Map" width="30%">
-  </p>
-
-  <h3>🗺️ Sampling Points</h3>
-  <p align="center">
-    <img src="./11.png" alt="Social and Resource Map" width="50%">
-  </p>
-
-  <h2>📊 Results</h2>
-
-  <h3>Urban Density Change</h3>
-  <p align="center">
-    <img src="./12.png" alt="Social and Resource Map" width="30%"><img src="./13.png" alt="Social and Resource Map" width="30%"><img src="./14.png" alt="Social and Resource Map" width="30%">
-  </p>
-
-  <h3>Model Outcome</h3>
-  <p align="center">
-    <img src="./16.jpg" alt="Social and Resource Map" width="85%">
-  </p>
-
-  <h3>K-Means Cluster</h3>
-  <p align="center">
-    <img src="./01.png" alt="Social and Resource Map" width="30%"><img src="./02.png" alt="Social and Resource Map" width="30%"><img src="./03.png" alt="Social and Resource Map" width="30%">
-  </p>
-
-  <h3>Seaborn Pairplot</h3>
-  <p align="center">
-    <img src="./04.png" alt="Social and Resource Map" width="70%">
-  </p>
-
 </body>
 </html>
+
