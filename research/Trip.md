@@ -1,4 +1,4 @@
-## <i>**📘 Title:** COVID-induced trip reduction behavior in United States</i> <br>
+## <i>**📘 Title:** COVID-induced trip reduction behavior in United States2</i> <br>
 
 <p align="justify">
 This study investigates how the COVID-19 pandemic affected trip-making behavior in the United States. Using the 2022 National Household Travel Survey (NHTS), the research analyzes how factors like time, location, income, age, education, and transportation modes influenced trip reduction during the pandemic. Machine learning methods, particularly random forests, were employed to identify key determinants and their interactions.
