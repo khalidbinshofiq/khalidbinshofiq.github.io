@@ -1,105 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapping temporal variation of TOD potential using act/pct</title>
-    <style>
-        body {
-            font-family: Canva Sans, sans-serif;
-            margin: 20px;
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        h3 {
-            color: #444;
-            text-align: center; /* Center-align the h3 headings */
-        }
-        p {
-            line-height: 1.6;
-        }
-        img {
-            margin: 10px 0;
-        }
-        .project-header {
-            color: #1a73e8;
-            font-size: 1.5em;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 10px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            background-color: #0A66C2;
-            border-radius: 5px;
-        }
-        .button:hover {
-            opacity: 0.8;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapping Temporal Variation of TOD Potential Using ACT/PCT</title>
+
+  <style>
+    :root{
+      --ink:#1f2d3a;
+      --muted:#5f6b76;
+      --blue:#1a73e8;
+      --border:rgba(0,0,0,.12);
+      --bg:#ffffff;
+      --panel:#f6f9ff;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:14px;
+      --maxw:1100px;
+    }
+
+    body{
+      font-family: "Georgia","Times New Roman",Times,serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+
+    .page{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 28px 18px 48px;
+    }
+
+    .divider{
+      height: 1px;
+      background: rgba(0,0,0,.10);
+      margin: 10px 0 18px;
+    }
+
+    .project-title{
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    /* Description */
+    .title-description{
+      background: var(--panel);
+      border: 1px solid rgba(26,115,232,.25);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    }
+    .title-description p{
+      margin: 0 0 12px;
+      text-align: justify;
+    }
+    .title-description p:last-child{
+      margin-bottom: 0;
+    }
+
+    h3{
+      margin: 26px 0 14px;
+      font-size: 17px;
+      text-align: center;
+      color:#2b3742;
+    }
+
+    /* Image grids */
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: start;
+    }
+
+    .grid img{
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 14px rgba(0,0,0,.06);
+    }
+
+    .grid.single{
+      grid-template-columns: 1fr;
+    }
+
+    .grid.wide{
+      grid-template-columns: 1fr;
+    }
+    .grid.wide img{
+      width: min(900px, 100%);
+      margin: 0 auto;
+      display: block;
+    }
+
+    @media (max-width: 760px){
+      .grid{ grid-template-columns: 1fr; }
+      .project-title{ font-size: 18px; }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="page">
 
-    <h1 class="project-header">📘 Title: Mapping Temporal Variation of TOD Potential Using ACT/PCT</h1>
+    <div class="project-title">
+      📝 <span>Project: Mapping Temporal Variation of TOD Potential Using ACT/PCT</span>
+    </div>
+    <div class="divider"></div>
 
-    <p align="justify">
-        <b>🔍 Project Description</b><br>
-        Dhaka is experiencing unplanned urbanization, population surge, environmental degradation. A strategy to cope up with these situations practiced in global world called “Transit Oriented Development (TODs)”. It helps to reduce automobile dependency, green house gas emissions and integrate public transport systems for better liveability, inclusiveness and sustainable development. Hence, TOD potential needs to be assessed. Several contemporary studies were done to evaluate the TOD index but temporal variation in this index has never been explored. This study will explore the changes of this potential throughout a decade using 5D indicators (Density, Diversity, Design, Destination Accessibility, Distance to Transit) and optimization techniques (Ant Colony Optimization and Particle Swarm Optimization). 
-         </p>
-       <p align="justify">
-        Preparation of indicators for time interval is being progressed but not completed. After that, the completion of optimization will be done. Based on the compared results, we can suggest prioritize investments in specific zones and implement TOD friendly policies to improve resident’s quality of life. 
-    </p>
+    <div class="title-description">
+      <p>
+        Dhaka is experiencing rapid and largely unplanned urbanization, accompanied by population growth and environmental
+        degradation. A widely adopted strategy to address these challenges is <em>Transit-Oriented Development (TOD)</em>,
+        which aims to reduce automobile dependency, lower greenhouse gas emissions, and integrate public transportation
+        systems to promote livability, inclusiveness, and sustainable urban development.
+      </p>
+      <p>
+        While several contemporary studies have assessed TOD potential using composite indices, the <strong>temporal variation</strong>
+        of TOD potential has remained largely unexplored. This study investigates changes in TOD potential over a decade using
+        the <strong>5D framework</strong>—Density, Diversity, Design, Destination Accessibility, and Distance to Transit—
+        combined with optimization techniques, including <strong>Ant Colony Optimization (ACO)</strong> and
+        <strong>Particle Swarm Optimization (PSO)</strong>.
+      </p>
+      <p>
+        The preparation of indicators across time intervals is currently underway. Following optimization and comparative
+        analysis, the findings are expected to support prioritized investment strategies and TOD-friendly policy formulation
+        aimed at improving residents’ quality of life.
+      </p>
+    </div>
 
-    <h3>✅️ Selection of Factors</h3>
+    <h3>Selection of Factors</h3>
+    <div class="grid wide">
+      <img src="./Picture1.jpg" alt="TOD factors framework">
+    </div>
 
-    <p align="center">
-        <img src="./Picture1.jpg" alt="Social and Resource Map" width="85%">
-    </p>
-    <p align="center">
-        <img src="./PD_2011.jpg" alt="Social and Resource Map" width="40%">   <img src="./PD_2022.jpg" alt="Social and Resource Map" width="40%">
-    </p>
-     <h3>🗺️ 3D Map of Population Density</h3>
+    <div class="grid">
+      <img src="./PD_2011.jpg" alt="Population Density 2011">
+      <img src="./PD_2022.jpg" alt="Population Density 2022">
+    </div>
 
-    <p align="center">
-        <img src="./PD2011.jpg" alt="Social and Resource Map" width="40%">   <img src="./PD2022.jpg" alt="Social and Resource Map" width="40%">
-    </p>
-  
-    
+    <h3>3D Map of Population Density</h3>
+    <div class="grid">
+      <img src="./PD2011.jpg" alt="3D Population Density 2011">
+      <img src="./PD2022.jpg" alt="3D Population Density 2022">
+    </div>
 
-    <p align="center">
-        <img src="./BUD_2011.jpg" alt="Social and Resource Map" width="40%">   <img src="./BUD_2022.jpg" alt="Social and Resource Map" width="40%">
-    </p>
-   <h3>🗺️ 3D Map of Built Up Density</h3>
+    <h3>3D Map of Built-Up Density</h3>
+    <div class="grid">
+      <img src="./BUD_2011.jpg" alt="Built-Up Density 2011">
+      <img src="./BUD_2022.jpg" alt="Built-Up Density 2022">
+    </div>
 
-    <p align="center">
-        <img src="./2011.jpg" alt="Social and Resource Map" width="40%">   <img src="./2022.jpg" alt="Social and Resource Map" width="40%">
-    </p>
+    <div class="grid">
+      <img src="./2011.jpg" alt="Built-Up 3D 2011">
+      <img src="./2022.jpg" alt="Built-Up 3D 2022">
+    </div>
 
-    <p align="center">
-        <img src="./ED_2011.jpg" alt="Social and Resource Map" width="40%">   <img src="./ED_2022.jpg" alt="Social and Resource Map" width="40%">
-    </p>
+    <div class="grid">
+      <img src="./ED_2011.jpg" alt="Employment Density 2011">
+      <img src="./ED_2022.jpg" alt="Employment Density 2022">
+    </div>
 
-     <p align="center">
-        <img src="./LUM2011.jpg" alt="Social and Resource Map" width="40%">   <img src="./LUM2022.jpg" alt="Social and Resource Map" width="40%">
-    </p>
+    <div class="grid">
+      <img src="./LUM2011.jpg" alt="Land Use Mix 2011">
+      <img src="./LUM2022.jpg" alt="Land Use Mix 2022">
+    </div>
 
-    <p align="center">
-        <img src="./PME.jpg" alt="Social and Resource Map" width="40%">   <img src="./PRC.jpg" alt="Social and Resource Map" width="40%">
-    </p>
+    <div class="grid">
+      <img src="./PME.jpg" alt="Public Mixed Use Entropy">
+      <img src="./PRC.jpg" alt="Public Road Connectivity">
+    </div>
 
-    <p align="center">
-        <img src="./PSA.jpg" alt="Social and Resource Map" width="40%">   <img src="./PT.jpg" alt="Social and Resource Map" width="40%">
-    </p>
+    <div class="grid">
+      <img src="./PSA.jpg" alt="Public Service Accessibility">
+      <img src="./PT.jpg" alt="Proximity to Transit">
+    </div>
 
-    <p align="center">
-        <img src="./PCBD.jpg" alt="Social and Resource Map" width="40%">
-    </p>
+    <div class="grid single">
+      <img src="./PCBD.jpg" alt="Population Catchment Based Density">
+    </div>
 
-
+  </div>
 </body>
 </html>
