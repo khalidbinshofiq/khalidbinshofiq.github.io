@@ -682,7 +682,7 @@
     }
 
     /* =========================================================
-       Current Research (NEW): same preview-style cards as Recent Projects
+       Current Research (preview cards)
        ========================================================= */
     .research-projects-grid{
       display: grid;
@@ -774,6 +774,19 @@
       font-size: 12px;
       color: #5f6b76;
       font-weight: 600;
+    }
+
+    /* =========================================================
+       Professional Experience (NEW): same preview cards as Research
+       ========================================================= */
+    .experience-grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .experience-grid{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -948,7 +961,7 @@
       </div>
     </section>
 
-    <!-- Current Research (UPDATED: preview cards like Recent Projects) -->
+    <!-- Current Research -->
     <section id="current-research" class="reveal">
       <h2>Current Research</h2>
 
@@ -1299,12 +1312,55 @@
       </ul>
     </section>
 
-    <!-- Experience -->
+    <!-- Professional Experience (UPDATED to preview format) -->
     <section id="professional-experience" class="reveal">
       <h2>Professional Experience</h2>
-      <ul>
-        <li><a href="Job/sh.html"><em>Assistant Urban Planner - Sheltech Consultants (Pvt.) Ltd.</em></a></li>
-      </ul>
+
+      <div class="experience-grid">
+        <!-- 1: Internal HTML page -->
+        <article class="research-card2">
+          <div class="research-head2">
+            <div style="min-width:0;">
+              <div class="research-title2">Assistant Urban Planner — Sheltech Consultants (Pvt.) Ltd.</div>
+              <div class="research-tags2">GIS · Remote Sensing · Master Plan Support</div>
+            </div>
+            <a class="research-open2" href="Job/sh.html">Open</a>
+          </div>
+
+          <div class="research-preview2">
+            <iframe
+              title="Sheltech Experience Preview"
+              src="Job/sh.html"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="research-note2">
+            Preview of your experience page. If the preview appears blank, use “Open”.
+          </div>
+        </article>
+
+        <!-- Optional: Add a second experience card by duplicating the block above -->
+        <!--
+        <article class="research-card2">
+          <div class="research-head2">
+            <div style="min-width:0;">
+              <div class="research-title2">Role Title — Organization</div>
+              <div class="research-tags2">Tag · Tag · Tag</div>
+            </div>
+            <a class="research-open2" href="Job/another.html">Open</a>
+          </div>
+
+          <div class="research-preview2">
+            <iframe title="Another Experience Preview" src="Job/another.html" loading="lazy"></iframe>
+          </div>
+
+          <div class="research-note2">
+            Preview of your experience page. If the preview appears blank, use “Open”.
+          </div>
+        </article>
+        -->
+      </div>
     </section>
 
     <!-- Achievements -->
@@ -1516,3 +1572,4 @@
   </script>
 </body>
 </html>
+
