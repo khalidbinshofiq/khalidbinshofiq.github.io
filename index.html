@@ -777,7 +777,7 @@
     }
 
     /* =========================================================
-       Professional Experience (NEW): same preview cards as Research
+       Professional Experience (same preview cards as Research)
        ========================================================= */
     .experience-grid{
       display: grid;
@@ -787,6 +787,15 @@
     }
     @media (max-width: 900px){
       .experience-grid{ grid-template-columns: 1fr; }
+    }
+
+    /* (Optional) nicer bullets inside notes */
+    .note-list{
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+    .note-list li{
+      margin: 4px 0;
     }
   </style>
 </head>
@@ -1312,12 +1321,12 @@
       </ul>
     </section>
 
-    <!-- Professional Experience (UPDATED to preview format) -->
+    <!-- Professional Experience (UPDATED: add internship certificate beside existing preview) -->
     <section id="professional-experience" class="reveal">
       <h2>Professional Experience</h2>
 
       <div class="experience-grid">
-        <!-- 1: Internal HTML page -->
+        <!-- 1: Existing experience (internal HTML page) -->
         <article class="research-card2">
           <div class="research-head2">
             <div style="min-width:0;">
@@ -1340,26 +1349,32 @@
           </div>
         </article>
 
-        <!-- Optional: Add a second experience card by duplicating the block above -->
-        <!--
+        <!-- 2: Internship (PDF certificate preview + responsibilities) -->
         <article class="research-card2">
           <div class="research-head2">
             <div style="min-width:0;">
-              <div class="research-title2">Role Title — Organization</div>
-              <div class="research-tags2">Tag · Tag · Tag</div>
+              <div class="research-title2">Intern — Internship Certificate</div>
+              <div class="research-tags2">Transport Planning · Excel · Data Processing</div>
             </div>
-            <a class="research-open2" href="Job/another.html">Open</a>
+            <a class="research-open2" href="certificate.pdf" target="_blank" rel="noopener">Open</a>
           </div>
 
           <div class="research-preview2">
-            <iframe title="Another Experience Preview" src="Job/another.html" loading="lazy"></iframe>
+            <iframe
+              title="Internship Certificate Preview"
+              src="certificate.pdf#view=FitH&toolbar=0&navpanes=0"
+              loading="lazy">
+            </iframe>
           </div>
 
           <div class="research-note2">
-            Preview of your experience page. If the preview appears blank, use “Open”.
+            Key contributions:
+            <ul class="note-list">
+              <li>Reviewed the Narayanganj Comprehensive Transport Master Plan and the Freight Transport Plan of Bangladesh.</li>
+              <li>Worked on the “Axle Load Control Station Project” — data accumulation and processing in Microsoft Excel.</li>
+            </ul>
           </div>
         </article>
-        -->
       </div>
     </section>
 
@@ -1572,4 +1587,3 @@
   </script>
 </body>
 </html>
-
