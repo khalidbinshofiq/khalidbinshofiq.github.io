@@ -308,6 +308,174 @@
     }
     .card a{ font-weight: 800; display: inline-block; margin-top: 8px; }
 
+    /* Education */
+    .education-item{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .education-item:hover{
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+    .education-logo img{
+      width: 58px;
+      height: auto;
+      display:block;
+    }
+    .education-details h3{
+      margin: 0 0 6px 0;
+      font-size: 16.5px;
+      color: var(--highlight);
+    }
+    .education-details p{ margin: 4px 0; color: var(--fg); }
+
+    /* Academic Projects */
+    .project-intro{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .project-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+    .project-card{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align:center;
+      box-shadow: 0 4px 10px rgba(0,0,0,.06);
+      transition: transform .16s ease, box-shadow .16s ease;
+      display:flex;
+      flex-direction: column;
+      justify-content:center;
+      min-height: 160px;
+      cursor: pointer;
+      position: relative;
+      outline: none;
+    }
+    .project-card:hover{ transform: translateY(-2px); box-shadow: var(--shadow2); }
+    .project-card:focus-visible{
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--fg) 20%, transparent), var(--shadow2);
+    }
+    .project-card img{
+      width: 62px; height: 62px;
+      object-fit: contain;
+      margin: 2px auto 10px;
+      display:block;
+      filter: drop-shadow(0 1px 0 rgba(0,0,0,.05));
+    }
+    .project-card h3{
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--highlight);
+      margin: 0;
+      font-weight: 800;
+    }
+    .project-card .hint{
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media (max-width: 1024px){ .project-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (max-width: 780px){ .project-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 480px){ .project-grid{ grid-template-columns: 1fr; } }
+
+    /* Skills Badges */
+    #skills-badges .badge-grid{
+      display:grid;
+      grid-template-columns: repeat(7, minmax(0,1fr));
+      gap: 12px;
+      justify-items:center;
+      align-items:start;
+    }
+    #skills-badges .skill{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 6px;
+      text-align:center;
+      min-width: 0;
+      user-select:none;
+    }
+    #skills-badges .icon{
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--fg) 8%, transparent);
+      border: 1px solid var(--border);
+      box-shadow: 0 3px 10px rgba(0,0,0,.08);
+      display:grid;
+      place-items:center;
+      transition: transform .12s ease, box-shadow .12s ease;
+      position: relative;
+    }
+    #skills-badges .skill:hover .icon{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow2);
+    }
+    #skills-badges .icon img{
+      width: 34px; height: 34px;
+      object-fit: contain;
+      display:block;
+    }
+    #skills-badges .label{
+      font-size: 12px;
+      line-height: 1.2;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      font-weight: 800;
+    }
+    #skills-badges .tooltip{
+      position:absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      font-size: 12px;
+      color: var(--fg);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .12s ease;
+      z-index: 5;
+    }
+    #skills-badges .skill:hover .tooltip{ opacity: 1; }
+    @media (max-width: 1100px){ #skills-badges .badge-grid{ grid-template-columns: repeat(6, minmax(0,1fr)); } }
+    @media (max-width: 900px){ #skills-badges .badge-grid{ grid-template-columns: repeat(5, minmax(0,1fr)); } }
+    @media (max-width: 700px){ #skills-badges .badge-grid{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
+    @media (max-width: 520px){ #skills-badges .badge-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+    /* Footer */
+    footer{
+      background: var(--surface);
+      color: var(--muted);
+      text-align:center;
+      padding: 18px;
+      margin-top: 26px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    footer a{ color: var(--link); font-weight: 800; }
+
     /* Responsive header */
     @media (max-width: 740px){
       header{ flex-direction: column; text-align: left; align-items:flex-start; }
@@ -327,7 +495,7 @@
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .reveal{ transition:none; }
-      .btn, .card{ transition:none; }
+      .btn, .card, .project-card, .education-item{ transition:none; }
     }
 
     /* Back to top */
@@ -339,6 +507,179 @@
       display:none;
     }
     .to-top.show{ display:block; }
+
+    /* Modal (kept for Academic Projects) */
+    .modal-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.52);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      padding: 18px;
+    }
+    .modal-backdrop.show{ display:flex; }
+    .modal{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      width: min(760px, 100%);
+      border-radius: 16px;
+      box-shadow: var(--shadow2);
+      overflow: hidden;
+    }
+    .modal-head{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-head h3{
+      margin:0;
+      font-size: 16px;
+      color: var(--highlight);
+    }
+    .modal-body{
+      padding: 14px 16px 16px;
+      color: var(--fg);
+    }
+    .modal-body p{
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+    .modal-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    /* =========================================================
+       Recent Projects: 2 columns × 2 rows + clean previews
+       ========================================================= */
+    .projects-grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .projects-grid{ grid-template-columns: 1fr; }
+    }
+
+    .proj-card{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .proj-head{
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.02);
+    }
+
+    .proj-title{
+      font-weight: 800;
+      font-size: 14.5px;
+      line-height: 1.35;
+    }
+
+    .proj-open{
+      text-decoration: none;
+      font-weight: 800;
+      padding: 8px 11px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      color: inherit;
+      transition: transform .12s ease, box-shadow .12s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+    .proj-open:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
+      text-decoration: none;
+    }
+
+    .proj-preview{
+      width: 100%;
+      height: 260px;
+      background: #f3f6f8;
+    }
+    @media (max-width: 900px){
+      .proj-preview{ height: 240px; }
+    }
+
+    .proj-preview iframe{
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Image preview (3D Land Cover): fixed height, clean crop */
+    .proj-thumb{
+      position: relative;
+      display: block;
+      height: 260px;
+      background: #f3f6f8;
+      overflow: hidden;
+    }
+    @media (max-width: 900px){
+      .proj-thumb{ height: 240px; }
+    }
+
+    .proj-thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1);
+      transition: transform .25s ease;
+    }
+    .proj-thumb:hover img{
+      transform: scale(1.03);
+    }
+
+    .proj-thumb-overlay{
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+    .proj-thumb:hover .proj-thumb-overlay{
+      opacity: 1;
+    }
+
+    .proj-note{
+      padding: 10px 14px 12px;
+      font-size: 12px;
+      color: #5f6b76;
+      font-weight: 600;
+    }
 
     /* =========================================================
        Current Research (preview cards)
@@ -438,7 +779,7 @@
     }
 
     /* =========================================================
-       Professional Experience
+       Professional Experience (NEW): same preview cards as Research
        ========================================================= */
     .experience-grid{
       display: grid;
@@ -450,9 +791,7 @@
       .experience-grid{ grid-template-columns: 1fr; }
     }
 
-    /* =========================================================
-       PDF PREVIEW FIX (no hard-coded rotate; use data-rotate)
-       ========================================================= */
+    /* ===== PDF rotation wrapper (for sideways certificate previews) ===== */
     .pdf-rotator{
       width: 100%;
       height: 240px;
@@ -463,34 +802,14 @@
     @media (max-width: 900px){
       .pdf-rotator{ height: 230px; }
     }
-
-    /* default: no rotation */
     .pdf-rotator iframe{
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
-      transform: none;
+      transform: rotate(-90deg) scale(1.18);
       transform-origin: 50% 50%;
-    }
-
-    /* rotate +90 */
-    .pdf-rotator[data-rotate="90"] iframe{
-      width: 100vh;
-      height: 100vw;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%) rotate(90deg) scale(1.08);
-    }
-
-    /* rotate -90 */
-    .pdf-rotator[data-rotate="-90"] iframe{
-      width: 100vh;
-      height: 100vw;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%) rotate(-90deg) scale(1.08);
     }
 
     /* status overlay for missing file */
@@ -536,8 +855,12 @@
     <nav class="tabs" aria-label="Primary">
       <a href="#home" class="tab-link active">Home</a>
       <a href="#research-areas" class="tab-link">Research</a>
-      <a href="#current-research" class="tab-link">Current Research</a>
+      <a href="#thesis" class="tab-link">Thesis</a>
+      <a href="#education" class="tab-link">Education</a>
+      <a href="#academic-projects" class="tab-link">Academic Projects</a>
+      <a href="#skills-badges" class="tab-link">Tools</a>
       <a href="#professional-experience" class="tab-link">Experience</a>
+      <a href="#achievements" class="tab-link">Achievement</a>
       <a href="#contact" class="tab-link">Contact</a>
     </nav>
   </div>
@@ -548,8 +871,12 @@
     <button class="btn secondary" id="closeDrawer" type="button">Close</button>
     <a href="#home" class="tab-link active">Home</a>
     <a href="#research-areas" class="tab-link">Research</a>
-    <a href="#current-research" class="tab-link">Current Research</a>
+    <a href="#thesis" class="tab-link">Thesis</a>
+    <a href="#education" class="tab-link">Education</a>
+    <a href="#academic-projects" class="tab-link">Academic Projects</a>
+    <a href="#skills-badges" class="tab-link">Tools</a>
     <a href="#professional-experience" class="tab-link">Experience</a>
+    <a href="#achievements" class="tab-link">Achievement</a>
     <a href="#contact" class="tab-link">Contact</a>
   </div>
 
@@ -587,6 +914,86 @@
       </ul>
     </section>
 
+    <!-- Recent Projects -->
+    <section id="recent-projects" class="reveal">
+      <h2>Recent Projects</h2>
+
+      <div class="projects-grid">
+        <article class="proj-card">
+          <div class="proj-head">
+            <div class="proj-title">3D Bangladesh Terrain and Bathymetry</div>
+            <a class="proj-open"
+               href="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+               target="_blank" rel="noopener">Open</a>
+          </div>
+
+          <div class="proj-preview">
+            <iframe
+              title="3D Bangladesh Terrain and Bathymetry Preview"
+              src="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+          <div class="proj-note">
+            If the preview does not load, the page may block embedding. Use “Open”.
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-head">
+            <div class="proj-title">3D Flood Simulation</div>
+            <a class="proj-open"
+               href="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing"
+               target="_blank" rel="noopener">Open</a>
+          </div>
+
+          <div class="proj-preview">
+            <iframe
+              title="3D Flood Simulation Preview"
+              src="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+          <div class="proj-note">
+            If Drive asks for permission, click “Open”.
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-head">
+            <div class="proj-title">Habitat Mapping of Coastal Regions of Bangladesh</div>
+            <a class="proj-open" href="research/habitat.html">Open</a>
+          </div>
+
+          <div class="proj-preview">
+            <iframe title="Habitat Mapping Preview" src="research/habitat.html" loading="lazy"></iframe>
+          </div>
+
+          <div class="proj-note">
+            Preview loads your internal page directly.
+          </div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-head">
+            <div class="proj-title">3D Land Cover Map</div>
+            <a class="proj-open" href="3DKaliganj.jpg" target="_blank" rel="noopener">Open</a>
+          </div>
+
+          <a class="proj-thumb" href="3DKaliganj.jpg" target="_blank" rel="noopener" aria-label="Open 3D Land Cover Map full size">
+            <img src="3DKaliganj.jpg" alt="3D Land Cover Map preview" loading="lazy">
+            <div class="proj-thumb-overlay">Click to open full resolution</div>
+          </a>
+
+          <div class="proj-note">
+            The preview is cropped for presentation; open for full resolution.
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- Current Research -->
     <section id="current-research" class="reveal">
       <h2>Current Research</h2>
@@ -611,6 +1018,22 @@
         <article class="research-card2">
           <div class="research-head2">
             <div style="min-width:0;">
+              <div class="research-title2">Exploring the Influence of Potential Factors of Urban Change in Bangladesh</div>
+              <div class="research-tags2">Regional Planning · Drivers · Policy</div>
+            </div>
+            <a class="research-open2" href="research/Regional.html">Open</a>
+          </div>
+
+          <div class="research-preview2">
+            <iframe title="Regional Factors Preview" src="research/Regional.html" loading="lazy"></iframe>
+          </div>
+
+          <div class="research-note2">Preview of the research page. Open for full reading and figures.</div>
+        </article>
+
+        <article class="research-card2">
+          <div class="research-head2">
+            <div style="min-width:0;">
               <div class="research-title2">Mapping Temporal Variation of TOD Potential in Dhaka Using ACT/PCT</div>
               <div class="research-tags2">TOD · Accessibility · Dhaka</div>
             </div>
@@ -622,6 +1045,22 @@
           </div>
 
           <div class="research-note2">Preview of the research page. Open for full methodology and results.</div>
+        </article>
+
+        <article class="research-card2">
+          <div class="research-head2">
+            <div style="min-width:0;">
+              <div class="research-title2">COVID-Induced Trip Reduction Behavior in United States</div>
+              <div class="research-tags2">Transport · Behavior · COVID</div>
+            </div>
+            <a class="research-open2" href="research/Trip.html">Open</a>
+          </div>
+
+          <div class="research-preview2">
+            <iframe title="Trip Reduction Preview" src="research/Trip.html" loading="lazy"></iframe>
+          </div>
+
+          <div class="research-note2">Preview of the research page. Open for full discussion.</div>
         </article>
       </div>
     </section>
@@ -650,7 +1089,7 @@
           </div>
         </article>
 
-        <!-- 2: Internship certificate -->
+        <!-- 2: Internship certificate (SMEC_CERTIFICATE) -->
         <article class="research-card2">
           <div class="research-head2">
             <div style="min-width:0;">
@@ -661,10 +1100,7 @@
             <a class="research-open2" id="certOpenLink" href="#" target="_blank" rel="noopener">Open</a>
           </div>
 
-          <!-- IMPORTANT:
-               If the preview is still sideways, switch data-rotate from "90" to "-90".
-               If you upload a correctly rotated PDF, remove the data-rotate attribute entirely. -->
-          <div class="pdf-rotator" data-rotate="90" aria-label="Internship Certificate Preview">
+          <div class="pdf-rotator" aria-label="Internship Certificate Preview">
             <iframe id="certFrame" title="Internship Certificate Preview" loading="lazy"></iframe>
             <div class="cert-status" id="certStatus">
               Certificate file not found.<br>
@@ -683,6 +1119,23 @@
       </div>
     </section>
 
+    <!-- Achievements -->
+    <section id="achievements" class="reveal">
+      <h2>Achievements</h2>
+      <p><strong>- 2nd Runner Up:</strong> <em>EnvoFrame SDG Awareness Videography Competition</em>, North South University (2023).</p>
+      <p><a href="https://drive.google.com/file/d/130041lShgllPN3RiPhry0x18BGaW3SC4/view?usp=drive_link" target="_blank" rel="noopener"><strong>Videography on Ensuring Sustainable Development in Dhaka City</strong></a></p>
+      <p style="text-align:center;">
+        <img src="./1.png" alt="Achievement image 1" style="width:45%; max-width: 420px; border-radius: 12px; border: 1px solid var(--border);">
+        <img src="./2.jpeg" alt="Achievement image 2" style="width:19.5%; max-width: 220px; border-radius: 12px; border: 1px solid var(--border);">
+      </p>
+      <br>
+      <p><strong>- Finalist:</strong> <a href="https://climatescience.org/olympiad/cso23">Climate Science Olympiad (2023)</a></p>
+      <p style="text-align:center;">
+        <img src="./Picture1.jpg" alt="Climate Science Olympiad certificate" style="width:45%; max-width: 420px; border-radius: 12px; border: 1px solid var(--border);">
+      </p>
+      <br>
+    </section>
+
     <!-- Contact -->
     <section id="contact" class="reveal">
       <h2>Contact</h2>
@@ -692,7 +1145,7 @@
       </p>
     </section>
 
-    <footer class="reveal" style="background: var(--surface); color: var(--muted); text-align:center; padding: 18px; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow);">
+    <footer class="reveal">
       © <span id="y"></span> Khalid-Bin-Shofiq · <a href="https://github.com/Khalid-Bin-Shofiq">GitHub</a>
     </footer>
   </div>
@@ -700,6 +1153,23 @@
   <!-- Back to top -->
   <div class="to-top" id="toTop">
     <button class="btn" type="button" id="toTopBtn" aria-label="Back to top">Top</button>
+  </div>
+
+  <!-- Modal (kept for Academic Projects) -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h3 id="modalTitle">Project</h3>
+        <button class="btn secondary" id="modalClose" type="button" aria-label="Close">Close</button>
+      </div>
+      <div class="modal-body">
+        <p id="modalDesc"></p>
+        <div class="modal-actions">
+          <a class="btn" id="modalOpen" href="#" target="_self" rel="noopener">Open</a>
+          <button class="btn secondary" id="modalCopy" type="button">Copy link</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -780,6 +1250,7 @@
     }
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
+
     toTopBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
     // ===== Reveal on scroll =====
@@ -794,17 +1265,76 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => revealObs.observe(el));
 
+    // ===== Modal (shared) =====
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalClose = document.getElementById('modalClose');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalOpen = document.getElementById('modalOpen');
+    const modalCopy = document.getElementById('modalCopy');
+    let lastFocus = null;
+
+    function openModal({title, desc, link}){
+      lastFocus = document.activeElement;
+      modalTitle.textContent = title || 'Item';
+      modalDesc.textContent = desc || '';
+      modalOpen.href = link || '#';
+      modalBackdrop.classList.add('show');
+      modalBackdrop.setAttribute('aria-hidden','false');
+      modalClose.focus();
+    }
+    function closeModal(){
+      modalBackdrop.classList.remove('show');
+      modalBackdrop.setAttribute('aria-hidden','true');
+      if(lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+
+    modalCopy.addEventListener('click', async ()=>{
+      const link = modalOpen.href;
+      try{
+        await navigator.clipboard.writeText(link);
+        modalCopy.textContent = 'Copied';
+        setTimeout(()=> modalCopy.textContent = 'Copy link', 900);
+      }catch{
+        window.prompt('Copy this link:', link);
+      }
+    });
+
+    // Escape closes drawer OR modal if open
+    window.addEventListener('keydown', (e)=>{
+      if(e.key !== 'Escape') return;
+      if(modalBackdrop.classList.contains('show')) closeModal();
+      else hideDrawer();
+    });
+
+    // ===== Academic Projects modal binding =====
+    document.querySelectorAll('.project-card').forEach(card=>{
+      const payload = {
+        title: card.dataset.title,
+        desc: card.dataset.desc,
+        link: card.dataset.link
+      };
+      card.addEventListener('click', ()=> openModal(payload));
+      card.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openModal(payload);
+        }
+      });
+    });
+
     // =========================================================
-    // Certificate resolver
-    // Fixes the 404 Open button by trying multiple likely locations
-    // and binds BOTH the Open link and the iframe preview.
+    // Internship certificate resolver (SMEC_CERTIFICATE.*)
+    // - Tries multiple folders + extension cases
+    // - Sets the Open button + iframe preview to the first valid file
     // =========================================================
     async function urlExists(url){
       try{
         const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
         if(res.ok) return true;
-
-        // Some GitHub Pages configs may not like HEAD; fallback to GET.
         const res2 = await fetch(url, { method: 'GET', cache: 'no-store' });
         return res2.ok;
       }catch{
@@ -817,19 +1347,15 @@
       const frame = document.getElementById('certFrame');
       const status = document.getElementById('certStatus');
 
-      // Add/keep candidates so Open never points to a missing file.
-      // Put your real location first if you know it.
       const candidates = [
-        './research/SMEC_CERTIFICATE.pdf',
         './SMEC_CERTIFICATE.pdf',
-        './Job/SMEC_CERTIFICATE.pdf',
+        './SMEC_CERTIFICATE.PDF',
+        './smec_certificate.pdf',
         './files/SMEC_CERTIFICATE.pdf',
         './assets/SMEC_CERTIFICATE.pdf',
         './docs/SMEC_CERTIFICATE.pdf',
-
-        // Extension/case fallbacks (optional)
-        './research/SMEC_CERTIFICATE.PDF',
-        './SMEC_CERTIFICATE.PDF'
+        './Job/SMEC_CERTIFICATE.pdf',
+        './job/SMEC_CERTIFICATE.pdf'
       ];
 
       let found = null;
@@ -845,16 +1371,11 @@
         status.classList.add('show');
         openLink.href = '#';
         openLink.addEventListener('click', (e)=> e.preventDefault());
-        frame.removeAttribute('src');
         return;
       }
 
       status.classList.remove('show');
-
-      // Open should use the real existing file (prevents 404).
       openLink.href = found;
-
-      // Preview: keep Chrome viewer minimal; rotation handled by CSS wrapper.
       frame.src = found + '#view=FitH&toolbar=0&navpanes=0';
     }
 
