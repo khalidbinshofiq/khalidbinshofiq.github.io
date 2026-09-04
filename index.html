@@ -1,88 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Khalid-Bin-Shofiq | Urban & Regional Planner</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Khalid-Bin-Shofiq | Urban & Regional Planner
+  </title>
 
   <meta
     name="description"
-    content="Portfolio of Khalid-Bin-Shofiq — Urban & Regional Planner specializing in GeoAI, urban growth, GIS, remote sensing and transportation planning."
+    content="Portfolio of Khalid-Bin-Shofiq — Urban & Regional Planner working with GeoAI, GIS, remote sensing, urban growth modelling and transportation planning."
   >
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- =====================================================
+       FONT
+       ===================================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
 
+
+
   <style>
 
-    /* =========================================================
-       1. THEME
-       ========================================================= */
+    /* =====================================================
+       1. VARIABLES
+       ===================================================== */
 
     :root{
 
       --max-width: 1480px;
 
+      --font:
+        "Inter",
+        Arial,
+        Helvetica,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+
+
+      /* Light */
+
       --bg: #f4f7f9;
+
       --surface: #ffffff;
+
       --surface-soft: #f7f9fb;
-      --surface-hover: #f0f5f8;
 
-      --text: #18242f;
-      --text-soft: #5f6f7d;
+      --surface-hover: #eef4f7;
 
-      --accent: #176b87;
-      --accent-dark: #10546b;
-      --accent-soft: rgba(23,107,135,.10);
 
-      --green: #2f846d;
+      --text: #182631;
 
-      --border: #dfe7eb;
+      --text-soft: #647583;
+
+
+      --accent: #146f8d;
+
+      --accent-dark: #0e5870;
+
+      --accent-soft: rgba(20,111,141,.10);
+
+
+      --green: #388874;
+
+
+      --border: #dce6eb;
+
 
       --shadow:
-        0 5px 18px rgba(25, 48, 64, .07);
+        0 5px 18px rgba(30,55,70,.07);
+
 
       --shadow-hover:
-        0 14px 36px rgba(25, 48, 64, .13);
+        0 16px 40px rgba(30,55,70,.13);
+
 
       --radius: 18px;
+
       --radius-small: 12px;
 
       --nav-height: 72px;
+
     }
+
 
 
     html[data-theme="dark"]{
 
       --bg: #0d1216;
+
       --surface: #141b20;
+
       --surface-soft: #192227;
+
       --surface-hover: #202b31;
 
+
       --text: #edf3f6;
+
       --text-soft: #9cabb5;
 
-      --accent: #55b3d1;
-      --accent-dark: #79c7df;
-      --accent-soft: rgba(85,179,209,.12);
 
-      --green: #67bea5;
+      --accent: #58b7d4;
+
+      --accent-dark: #77c9e1;
+
+      --accent-soft: rgba(88,183,212,.12);
+
+
+      --green: #68bea7;
+
 
       --border: rgba(255,255,255,.09);
 
+
       --shadow:
-        0 8px 28px rgba(0,0,0,.26);
+        0 8px 28px rgba(0,0,0,.28);
+
 
       --shadow-hover:
-        0 18px 46px rgba(0,0,0,.40);
+        0 18px 48px rgba(0,0,0,.42);
+
     }
 
+
+
+    /* =====================================================
+       2. RESET
+       ===================================================== */
 
     *{
       box-sizing: border-box;
@@ -91,36 +159,50 @@
 
     html{
       scroll-behavior: smooth;
+
       scroll-padding-top: 92px;
     }
 
 
     body{
+
       margin: 0;
 
-      font-family:
-        "Inter",
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+      font-family: var(--font);
+
+      font-size: 16px;
+
+      line-height: 1.65;
+
+      color: var(--text);
+
 
       background:
+
         radial-gradient(
           circle at 0% 0%,
           var(--accent-soft),
           transparent 30%
         ),
+
         var(--bg);
 
-      color: var(--text);
 
-      line-height: 1.6;
+      -webkit-font-smoothing:
+        antialiased;
 
-      transition:
-        background .25s ease,
-        color .25s ease;
+      text-rendering:
+        optimizeLegibility;
+
+    }
+
+
+    body,
+    button,
+    input,
+    textarea,
+    select{
+      font-family: var(--font);
     }
 
 
@@ -129,14 +211,9 @@
     }
 
 
-    button,
-    input{
-      font: inherit;
-    }
-
-
     a{
       color: inherit;
+
       text-decoration: none;
     }
 
@@ -147,205 +224,367 @@
 
 
 
-    /* =========================================================
-       2. SCROLL PROGRESS
-       ========================================================= */
+    /* =====================================================
+       3. SCROLL PROGRESS
+       ===================================================== */
 
     .progress{
+
       position: fixed;
 
       top: 0;
-      left: 0;
 
-      width: 100%;
-      height: 3px;
+      left: 0;
 
       z-index: 9999;
 
+      width: 100%;
+
+      height: 3px;
+
       background: transparent;
+
     }
 
 
     #progressBar{
-      height: 100%;
+
       width: 0;
 
+      height: 100%;
+
       background:
+
         linear-gradient(
           90deg,
           var(--accent),
           var(--green)
         );
+
     }
 
 
 
-    /* =========================================================
-       3. NAVIGATION
-       ========================================================= */
+    /* =====================================================
+       4. NAVIGATION
+       ===================================================== */
 
     .navbar{
+
       position: sticky;
 
       top: 0;
 
       z-index: 2000;
 
+
+      border-bottom:
+        1px solid var(--border);
+
+
       background:
+
         color-mix(
           in srgb,
-          var(--surface) 88%,
+          var(--surface) 89%,
           transparent
         );
+
 
       backdrop-filter:
         blur(18px);
 
-      border-bottom:
-        1px solid var(--border);
     }
 
 
+
     .nav-inner{
+
       width:
         min(
           calc(100% - 48px),
           var(--max-width)
         );
 
+
       min-height:
         var(--nav-height);
 
-      margin: 0 auto;
 
-      display: flex;
+      margin:
+        0 auto;
 
-      align-items: center;
 
-      justify-content: space-between;
+      display:
+        flex;
 
-      gap: 30px;
+
+      align-items:
+        center;
+
+
+      justify-content:
+        space-between;
+
+
+      gap:
+        28px;
+
     }
 
 
+
+    /* Brand */
+
     .brand{
-      display: flex;
 
-      align-items: center;
+      min-width:
+        220px;
 
-      gap: 11px;
 
-      min-width: 220px;
+      display:
+        flex;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        12px;
+
     }
 
 
     .brand-dot{
-      width: 12px;
-      height: 12px;
 
-      border-radius: 50%;
+      width:
+        11px;
 
-      background: var(--accent);
+
+      height:
+        11px;
+
+
+      border-radius:
+        50%;
+
+
+      background:
+        var(--accent);
+
 
       box-shadow:
-        0 0 0 6px var(--accent-soft);
+
+        0 0 0 6px
+        var(--accent-soft);
+
     }
 
 
     .brand-name{
-      font-size: 14px;
 
-      font-weight: 800;
+      display:
+        block;
 
-      letter-spacing: -.15px;
+
+      font-size:
+        14px;
+
+
+      font-weight:
+        800;
+
+
+      letter-spacing:
+        -.2px;
+
     }
 
 
     .brand-role{
-      margin-top: 1px;
 
-      color: var(--text-soft);
+      display:
+        block;
 
-      font-size: 11px;
+
+      margin-top:
+        1px;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        11px;
+
     }
 
 
+
+    /* Desktop Nav */
+
     .desktop-nav{
-      display: flex;
 
-      justify-content: center;
+      flex:
+        1;
 
-      align-items: center;
 
-      gap: 5px;
+      display:
+        flex;
 
-      flex: 1;
+
+      align-items:
+        center;
+
+
+      justify-content:
+        center;
+
+
+      gap:
+        3px;
+
     }
 
 
     .desktop-nav a{
-      padding: 9px 11px;
 
-      color: var(--text-soft);
+      padding:
+        9px 10px;
 
-      border-radius: 9px;
 
-      font-size: 12px;
+      border-radius:
+        9px;
 
-      font-weight: 700;
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        12px;
+
+
+      font-weight:
+        700;
+
 
       transition:
         color .18s ease,
         background .18s ease;
+
     }
 
 
     .desktop-nav a:hover,
     .desktop-nav a.active{
-      color: var(--text);
 
-      background: var(--surface-hover);
+      color:
+        var(--text);
+
+
+      background:
+        var(--surface-hover);
+
     }
 
 
+
+    /* Nav Actions */
+
     .nav-actions{
-      display: flex;
 
-      align-items: center;
+      display:
+        flex;
 
-      gap: 8px;
+
+      align-items:
+        center;
+
+
+      gap:
+        8px;
+
     }
 
 
     .nav-button{
+
+      min-height:
+        38px;
+
+
+      padding:
+        8px 11px;
+
+
+      display:
+        inline-flex;
+
+
+      align-items:
+        center;
+
+
+      justify-content:
+        center;
+
+
+      gap:
+        6px;
+
+
       border:
         1px solid var(--border);
 
-      background: var(--surface);
 
-      padding: 9px 11px;
+      border-radius:
+        10px;
 
-      border-radius: 10px;
 
-      cursor: pointer;
+      background:
+        var(--surface);
 
-      font-weight: 700;
 
-      font-size: 12px;
+      color:
+        var(--text);
+
+
+      cursor:
+        pointer;
+
+
+      font-size:
+        11px;
+
+
+      font-weight:
+        700;
+
 
       transition:
         transform .18s ease,
         background .18s ease,
         box-shadow .18s ease;
+
     }
 
 
     .nav-button:hover{
-      transform: translateY(-1px);
 
-      background: var(--surface-hover);
+      transform:
+        translateY(-1px);
 
-      box-shadow: var(--shadow);
+
+      background:
+        var(--surface-hover);
+
+
+      box-shadow:
+        var(--shadow);
+
     }
 
 
@@ -355,2758 +594,4322 @@
 
 
 
-    /* =========================================================
-       4. MOBILE MENU
-       ========================================================= */
+    /* =====================================================
+       5. MOBILE DRAWER
+       ===================================================== */
 
     .mobile-overlay{
-      position: fixed;
 
-      inset: 0;
+      position:
+        fixed;
 
-      z-index: 4000;
+
+      inset:
+        0;
+
+
+      z-index:
+        4000;
+
+
+      visibility:
+        hidden;
+
+
+      opacity:
+        0;
+
 
       background:
         rgba(0,0,0,.45);
 
+
       backdrop-filter:
         blur(5px);
 
-      opacity: 0;
-
-      visibility: hidden;
 
       transition:
         opacity .2s ease,
         visibility .2s ease;
+
     }
 
 
     .mobile-overlay.show{
-      opacity: 1;
-      visibility: visible;
+
+      visibility:
+        visible;
+
+
+      opacity:
+        1;
+
     }
 
 
+
     .mobile-menu{
-      position: fixed;
 
-      top: 0;
-      right: 0;
+      position:
+        fixed;
 
-      z-index: 4100;
+
+      top:
+        0;
+
+
+      right:
+        0;
+
+
+      z-index:
+        4100;
+
 
       width:
-        min(350px, 88vw);
+        min(350px,88vw);
 
-      height: 100vh;
 
-      padding: 20px;
+      height:
+        100vh;
 
-      background: var(--surface);
+
+      padding:
+        20px;
+
+
+      overflow-y:
+        auto;
+
 
       border-left:
         1px solid var(--border);
 
+
+      background:
+        var(--surface);
+
+
       box-shadow:
-        -20px 0 50px rgba(0,0,0,.20);
+        -20px 0 55px rgba(0,0,0,.22);
+
 
       transform:
         translateX(100%);
 
+
       transition:
         transform .24s ease;
+
     }
 
 
     .mobile-menu.open{
+
       transform:
         translateX(0);
+
     }
 
 
     .mobile-menu-head{
-      display: flex;
 
-      align-items: center;
+      margin-bottom:
+        22px;
 
-      justify-content: space-between;
 
-      margin-bottom: 24px;
+      display:
+        flex;
+
+
+      justify-content:
+        space-between;
+
+
+      align-items:
+        center;
+
     }
 
 
     .mobile-menu nav{
-      display: grid;
 
-      gap: 8px;
+      display:
+        grid;
+
+
+      gap:
+        8px;
+
     }
 
 
     .mobile-menu nav a{
-      padding: 13px;
+
+      padding:
+        12px 13px;
+
 
       border:
         1px solid var(--border);
 
-      border-radius: 11px;
 
-      font-size: 13px;
+      border-radius:
+        10px;
 
-      font-weight: 700;
+
+      color:
+        var(--text);
+
+
+      font-size:
+        13px;
+
+
+      font-weight:
+        700;
+
     }
 
 
     .mobile-menu nav a:hover{
+
       background:
         var(--surface-hover);
+
     }
 
 
 
-    /* =========================================================
-       5. PAGE CONTAINER
-       ========================================================= */
+    /* =====================================================
+       6. PAGE
+       ===================================================== */
 
     .page{
+
       width:
+
         min(
           calc(100% - 48px),
           var(--max-width)
         );
 
-      margin: 26px auto 60px;
+
+      margin:
+        26px auto 60px;
+
     }
 
 
 
-    /* =========================================================
-       6. HERO
-       ========================================================= */
+    /* =====================================================
+       7. HERO
+       ===================================================== */
 
     .hero{
-      position: relative;
 
-      overflow: hidden;
+      position:
+        relative;
 
-      display: grid;
+
+      overflow:
+        hidden;
+
+
+      margin-bottom:
+        22px;
+
+
+      padding:
+        34px;
+
+
+      display:
+        grid;
+
 
       grid-template-columns:
-        205px minmax(0, 1fr) 320px;
+        205px minmax(0,1fr) 330px;
 
-      align-items: center;
 
-      gap: 32px;
+      gap:
+        34px;
 
-      padding: 34px;
 
-      margin-bottom: 22px;
+      align-items:
+        center;
 
-      background: var(--surface);
 
       border:
         1px solid var(--border);
 
+
       border-radius:
         24px;
 
-      box-shadow: var(--shadow);
+
+      background:
+        var(--surface);
+
+
+      box-shadow:
+        var(--shadow);
+
     }
 
 
     .hero::after{
-      content: "";
 
-      position: absolute;
+      content:
+        "";
 
-      right: -80px;
-      top: -140px;
 
-      width: 340px;
-      height: 340px;
+      position:
+        absolute;
 
-      border-radius: 50%;
+
+      top:
+        -150px;
+
+
+      right:
+        -100px;
+
+
+      width:
+        380px;
+
+
+      height:
+        380px;
+
+
+      border-radius:
+        50%;
+
+
+      pointer-events:
+        none;
+
 
       background:
+
         radial-gradient(
           circle,
           var(--accent-soft),
           transparent 70%
         );
 
-      pointer-events: none;
     }
 
 
-    .portrait-wrap{
-      position: relative;
 
-      width: 190px;
-      height: 190px;
+    /* Portrait */
+
+    .portrait-wrap{
+
+      position:
+        relative;
+
+
+      width:
+        190px;
+
+
+      height:
+        190px;
+
     }
 
 
     .portrait-wrap::before{
-      content: "";
 
-      position: absolute;
-
-      inset: -8px;
-
-      border-radius: 50%;
-
-      border:
-        1px solid
-        var(--border);
-    }
+      content:
+        "";
 
 
-    .portrait{
-      width: 190px;
-      height: 190px;
-
-      display: block;
-
-      object-fit: cover;
-
-      border-radius: 50%;
-
-      box-shadow:
-        0 12px 32px
-        rgba(20,45,60,.16);
-    }
+      position:
+        absolute;
 
 
-    .availability{
-      position: absolute;
+      inset:
+        -8px;
 
-      right: 4px;
-      bottom: 12px;
-
-      width: 17px;
-      height: 17px;
-
-      border-radius: 50%;
-
-      background: #38a169;
-
-      border:
-        4px solid var(--surface);
-    }
-
-
-    .eyebrow{
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 7px;
-
-      margin-bottom: 10px;
-
-      color: var(--accent);
-
-      font-size: 12px;
-
-      font-weight: 800;
-
-      text-transform: uppercase;
-
-      letter-spacing: .08em;
-    }
-
-
-    .hero h1{
-      margin: 0;
-
-      color: var(--text);
-
-      font-size:
-        clamp(31px, 3vw, 48px);
-
-      line-height: 1.08;
-
-      letter-spacing:
-        -1.8px;
-    }
-
-
-    .hero-role{
-      margin-top: 10px;
-
-      color: var(--text-soft);
-
-      font-size: 16px;
-
-      font-weight: 700;
-    }
-
-
-    .hero-description{
-      max-width: 780px;
-
-      margin:
-        15px 0 0;
-
-      color:
-        var(--text-soft);
-
-      font-size: 14px;
-
-      line-height: 1.75;
-    }
-
-
-    .hero-actions{
-      display: flex;
-
-      flex-wrap: wrap;
-
-      gap: 9px;
-
-      margin-top: 20px;
-    }
-
-
-    .button{
-      display: inline-flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      gap: 7px;
-
-      min-height: 40px;
-
-      padding:
-        10px 14px;
 
       border:
         1px solid var(--border);
 
+
       border-radius:
-        10px;
+        50%;
+
+    }
+
+
+    .portrait{
+
+      width:
+        190px;
+
+
+      height:
+        190px;
+
+
+      display:
+        block;
+
+
+      object-fit:
+        cover;
+
+
+      border-radius:
+        50%;
+
+
+      box-shadow:
+
+        0 12px 32px
+        rgba(20,45,60,.16);
+
+    }
+
+
+    .availability{
+
+      position:
+        absolute;
+
+
+      right:
+        4px;
+
+
+      bottom:
+        12px;
+
+
+      width:
+        18px;
+
+
+      height:
+        18px;
+
+
+      border:
+        4px solid var(--surface);
+
+
+      border-radius:
+        50%;
+
 
       background:
-        var(--surface);
+        #38a169;
+
+    }
+
+
+
+    /* Hero Text */
+
+    .eyebrow{
+
+      margin-bottom:
+        10px;
+
+
+      display:
+        inline-flex;
+
+
+      color:
+        var(--accent);
+
+
+      font-size:
+        11px;
+
+
+      font-weight:
+        800;
+
+
+      letter-spacing:
+        .09em;
+
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    .hero h1{
+
+      margin:
+        0;
+
 
       color:
         var(--text);
 
-      cursor: pointer;
+
+      font-size:
+        clamp(38px,3vw,50px);
+
+
+      line-height:
+        1.08;
+
+
+      font-weight:
+        800;
+
+
+      letter-spacing:
+        -1.7px;
+
+    }
+
+
+    .hero-role{
+
+      margin-top:
+        10px;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        17px;
+
+
+      font-weight:
+        700;
+
+    }
+
+
+    .hero-description{
+
+      max-width:
+        760px;
+
+
+      margin:
+        15px 0 0;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        15px;
+
+
+      line-height:
+        1.75;
+
+    }
+
+
+
+    .hero-actions{
+
+      margin-top:
+        20px;
+
+
+      display:
+        flex;
+
+
+      flex-wrap:
+        wrap;
+
+
+      gap:
+        9px;
+
+    }
+
+
+
+    /* =====================================================
+       8. BUTTONS
+       ===================================================== */
+
+    .button{
+
+      min-height:
+        40px;
+
+
+      padding:
+        9px 14px;
+
+
+      display:
+        inline-flex;
+
+
+      justify-content:
+        center;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        7px;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        10px;
+
+
+      background:
+        var(--surface);
+
+
+      color:
+        var(--text);
+
+
+      cursor:
+        pointer;
+
 
       font-size:
         12px;
 
+
       font-weight:
         800;
+
 
       transition:
         transform .18s ease,
         background .18s ease,
         color .18s ease,
         box-shadow .18s ease;
+
     }
 
 
     .button:hover{
+
       transform:
         translateY(-2px);
 
+
       box-shadow:
         var(--shadow);
+
     }
 
 
     .button.primary{
+
       border-color:
         var(--accent);
+
 
       background:
         var(--accent);
 
+
       color:
-        #ffffff;
+        #fff;
+
     }
 
 
     .button.primary:hover{
+
       background:
         var(--accent-dark);
+
     }
 
 
     .button.ghost:hover{
+
       background:
         var(--surface-hover);
+
     }
 
-
-
-    /* =========================================================
-       HERO FOCUS PANEL
-       ========================================================= */
-
-    .focus-panel{
-      position: relative;
-
-      z-index: 2;
-
-      padding: 19px;
-
-      background:
-        var(--surface-soft);
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        16px;
-    }
-
-
-    .mini-title{
-      margin-bottom: 12px;
-
-      color: var(--text-soft);
-
-      font-size: 10px;
-
-      font-weight: 800;
-
-      text-transform: uppercase;
-
-      letter-spacing: .10em;
-    }
-
-
-    .focus-tags{
-      display: flex;
-
-      flex-wrap: wrap;
-
-      gap: 7px;
-    }
-
-
-    .tag{
-      padding:
-        6px 9px;
-
-      border-radius:
-        999px;
-
-      background:
-        var(--surface);
-
-      border:
-        1px solid var(--border);
-
-      color:
-        var(--text);
-
-      font-size:
-        10.5px;
-
-      font-weight:
-        700;
-
-      transition:
-        transform .16s ease,
-        background .16s ease;
-    }
-
-
-    .tag:hover{
-      transform:
-        translateY(-2px);
-
-      background:
-        var(--accent-soft);
-    }
-
-
-    .stats{
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 8px;
-
-      margin-top: 16px;
-    }
-
-
-    .stat{
-      padding:
-        10px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        10px;
-
-      background:
-        var(--surface);
-    }
-
-
-    .stat strong{
-      display: block;
-
-      color: var(--text);
-
-      font-size: 17px;
-
-      line-height: 1;
-    }
-
-
-    .stat span{
-      display: block;
-
-      margin-top: 4px;
-
-      color:
-        var(--text-soft);
-
-      font-size: 9px;
-
-      line-height: 1.3;
-    }
-
-
-
-    /* =========================================================
-       7. MAIN TWO-COLUMN PORTFOLIO LAYOUT
-       ========================================================= */
-
-    .portfolio-layout{
-      display: grid;
-
-      grid-template-columns:
-        minmax(0, 1fr) 345px;
-
-      align-items: start;
-
-      gap: 22px;
-    }
-
-
-    .main-column{
-      min-width: 0;
-    }
-
-
-    .side-column{
-      min-width: 0;
-
-      display: grid;
-
-      gap: 18px;
-    }
-
-
-
-    /* =========================================================
-       8. GENERAL SECTION STYLE
-       ========================================================= */
-
-    .section-card{
-      margin-bottom: 22px;
-
-      padding: 24px;
-
-      background:
-        var(--surface);
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        var(--radius);
-
-      box-shadow:
-        var(--shadow);
-
-      scroll-margin-top:
-        90px;
-    }
-
-
-    .side-card{
-      padding: 20px;
-
-      background:
-        var(--surface);
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        var(--radius);
-
-      box-shadow:
-        var(--shadow);
-
-      scroll-margin-top:
-        90px;
-    }
-
-
-    .section-head{
-      display: flex;
-
-      align-items: flex-end;
-
-      justify-content: space-between;
-
-      gap: 20px;
-
-      margin-bottom:
-        18px;
-    }
-
-
-    .section-label{
-      margin-bottom: 5px;
-
-      color:
-        var(--accent);
-
-      font-size:
-        10px;
-
-      font-weight:
-        800;
-
-      letter-spacing:
-        .10em;
-
-      text-transform:
-        uppercase;
-    }
-
-
-    h2{
-      margin: 0;
-
-      color:
-        var(--text);
-
-      font-size:
-        21px;
-
-      line-height:
-        1.25;
-
-      letter-spacing:
-        -.5px;
-    }
-
-
-    .section-subtitle{
-      max-width:
-        600px;
-
-      margin:
-        5px 0 0;
-
-      color:
-        var(--text-soft);
-
-      font-size:
-        11.5px;
-    }
-
-
-    .view-link{
-      flex: 0 0 auto;
-
-      color:
-        var(--accent);
-
-      font-size:
-        11px;
-
-      font-weight:
-        800;
-    }
-
-
-
-    /* =========================================================
-       9. RECENT PROJECTS
-       ========================================================= */
-
-    .recent-grid{
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 14px;
-    }
-
-
-    .visual-card{
-      overflow: hidden;
-
-      background:
-        var(--surface-soft);
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        14px;
-
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        border-color .2s ease;
-    }
-
-
-    .visual-card:hover{
-      transform:
-        translateY(-4px);
-
-      border-color:
-        color-mix(
-          in srgb,
-          var(--accent) 30%,
-          var(--border)
-        );
-
-      box-shadow:
-        var(--shadow-hover);
-    }
-
-
-    .visual-preview{
-      position: relative;
-
-      height: 175px;
-
-      overflow: hidden;
-
-      background:
-        #edf2f4;
-    }
-
-
-    .visual-preview iframe{
-      width: 100%;
-      height: 100%;
-
-      border: 0;
-
-      pointer-events: none;
-    }
-
-
-    .visual-preview img{
-      width: 100%;
-      height: 100%;
-
-      display: block;
-
-      object-fit: cover;
-
-      transition:
-        transform .3s ease;
-    }
-
-
-    .visual-card:hover
-    .visual-preview img{
-      transform:
-        scale(1.025);
-    }
-
-
-    .preview-overlay{
-      position: absolute;
-
-      inset: 0;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      background:
-        rgba(10,25,35,.07);
-
-      opacity: 0;
-
-      transition:
-        opacity .18s ease;
-    }
-
-
-    .visual-card:hover
-    .preview-overlay{
-      opacity: 1;
-    }
-
-
-    .preview-pill{
-      padding:
-        8px 12px;
-
-      border-radius:
-        999px;
-
-      background:
-        rgba(255,255,255,.92);
-
-      color:
-        #15232c;
-
-      font-size:
-        10px;
-
-      font-weight:
-        800;
-
-      box-shadow:
-        0 6px 20px
-        rgba(0,0,0,.13);
-    }
-
-
-    .visual-content{
-      padding:
-        14px;
-    }
-
-
-    .visual-title{
-      margin: 0;
-
-      color:
-        var(--text);
-
-      font-size:
-        13px;
-
-      line-height:
-        1.4;
-
-      font-weight:
-        800;
-    }
-
-
-    .visual-meta{
-      margin-top:
-        6px;
-
-      color:
-        var(--text-soft);
-
-      font-size:
-        10px;
-    }
-
-
-    .card-actions{
-      display: flex;
-
-      gap: 7px;
-
-      margin-top:
-        11px;
-    }
 
 
     .mini-button{
+
       padding:
-        7px 9px;
+        7px 10px;
+
 
       border:
         1px solid var(--border);
+
 
       border-radius:
         8px;
 
+
       background:
         var(--surface);
+
 
       color:
         var(--text);
 
+
       cursor:
         pointer;
 
+
       font-size:
-        9.5px;
+        10px;
+
+
+      line-height:
+        1.2;
+
 
       font-weight:
         800;
+
+
+      transition:
+        transform .16s ease,
+        background .16s ease;
+
     }
 
 
     .mini-button:hover{
+
+      transform:
+        translateY(-1px);
+
+
       background:
         var(--surface-hover);
+
     }
 
 
 
-    /* =========================================================
-       10. RESEARCH
-       ========================================================= */
+    /* =====================================================
+       9. HERO FOCUS PANEL
+       ===================================================== */
 
-    .research-grid{
-      display: grid;
+    .focus-panel{
 
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 13px;
-    }
+      position:
+        relative;
 
 
-    .research-card{
-      position: relative;
+      z-index:
+        2;
 
-      overflow: hidden;
 
-      min-height: 185px;
+      padding:
+        20px;
 
-      display: flex;
-
-      flex-direction: column;
-
-      padding: 18px;
 
       border:
         1px solid var(--border);
 
+
       border-radius:
-        14px;
+        16px;
+
 
       background:
         var(--surface-soft);
+
+    }
+
+
+    .mini-title{
+
+      margin-bottom:
+        12px;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        10px;
+
+
+      font-weight:
+        800;
+
+
+      letter-spacing:
+        .1em;
+
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    .focus-tags{
+
+      display:
+        flex;
+
+
+      flex-wrap:
+        wrap;
+
+
+      gap:
+        7px;
+
+    }
+
+
+    .tag{
+
+      padding:
+        6px 9px;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        999px;
+
+
+      background:
+        var(--surface);
+
+
+      color:
+        var(--text);
+
+
+      font-size:
+        10.5px;
+
+
+      font-weight:
+        700;
+
+
+      transition:
+        transform .16s ease,
+        background .16s ease;
+
+    }
+
+
+    .tag:hover{
+
+      transform:
+        translateY(-2px);
+
+
+      background:
+        var(--accent-soft);
+
+    }
+
+
+
+    .stats{
+
+      margin-top:
+        16px;
+
+
+      display:
+        grid;
+
+
+      grid-template-columns:
+        repeat(2,1fr);
+
+
+      gap:
+        8px;
+
+    }
+
+
+    .stat{
+
+      padding:
+        11px;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        10px;
+
+
+      background:
+        var(--surface);
+
+    }
+
+
+    .stat strong{
+
+      display:
+        block;
+
+
+      color:
+        var(--text);
+
+
+      font-size:
+        18px;
+
+
+      line-height:
+        1;
+
+
+      font-weight:
+        800;
+
+    }
+
+
+    .stat span{
+
+      display:
+        block;
+
+
+      margin-top:
+        5px;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        9px;
+
+
+      line-height:
+        1.35;
+
+    }
+
+
+
+    /* =====================================================
+       10. MAIN GRID
+       ===================================================== */
+
+    .portfolio-layout{
+
+      display:
+        grid;
+
+
+      grid-template-columns:
+        minmax(0,1fr) 350px;
+
+
+      align-items:
+        start;
+
+
+      gap:
+        22px;
+
+    }
+
+
+    .main-column{
+
+      min-width:
+        0;
+
+    }
+
+
+    .side-column{
+
+      min-width:
+        0;
+
+
+      display:
+        grid;
+
+
+      gap:
+        18px;
+
+    }
+
+
+
+    /* =====================================================
+       11. GENERAL SECTION
+       ===================================================== */
+
+    .section-card{
+
+      margin-bottom:
+        22px;
+
+
+      padding:
+        25px;
+
+
+      scroll-margin-top:
+        90px;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        var(--radius);
+
+
+      background:
+        var(--surface);
+
+
+      box-shadow:
+        var(--shadow);
+
+    }
+
+
+    .side-card{
+
+      padding:
+        20px;
+
+
+      scroll-margin-top:
+        90px;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        var(--radius);
+
+
+      background:
+        var(--surface);
+
+
+      box-shadow:
+        var(--shadow);
+
+    }
+
+
+    .section-head{
+
+      margin-bottom:
+        19px;
+
+
+      display:
+        flex;
+
+
+      align-items:
+        flex-end;
+
+
+      justify-content:
+        space-between;
+
+
+      gap:
+        20px;
+
+    }
+
+
+    .section-label{
+
+      margin-bottom:
+        4px;
+
+
+      color:
+        var(--accent);
+
+
+      font-size:
+        10.5px;
+
+
+      font-weight:
+        800;
+
+
+      letter-spacing:
+        .1em;
+
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    h2{
+
+      margin:
+        0;
+
+
+      color:
+        var(--text);
+
+
+      font-size:
+        23px;
+
+
+      line-height:
+        1.25;
+
+
+      font-weight:
+        800;
+
+
+      letter-spacing:
+        -.5px;
+
+    }
+
+
+    .section-subtitle{
+
+      max-width:
+        650px;
+
+
+      margin:
+        6px 0 0;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        12.5px;
+
+
+      line-height:
+        1.6;
+
+    }
+
+
+
+    /* =====================================================
+       12. CURRENT RESEARCH
+       ===================================================== */
+
+    .research-grid{
+
+      display:
+        grid;
+
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+
+      gap:
+        13px;
+
+    }
+
+
+    .research-card{
+
+      position:
+        relative;
+
+
+      overflow:
+        hidden;
+
+
+      min-height:
+        195px;
+
+
+      padding:
+        18px;
+
+
+      display:
+        flex;
+
+
+      flex-direction:
+        column;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        14px;
+
+
+      background:
+        var(--surface-soft);
+
 
       transition:
         transform .2s ease,
         border-color .2s ease,
         box-shadow .2s ease;
+
     }
 
 
     .research-card::before{
-      content: "";
 
-      position: absolute;
+      content:
+        "";
 
-      left: 0;
-      top: 0;
-      bottom: 0;
 
-      width: 3px;
+      position:
+        absolute;
+
+
+      top:
+        0;
+
+
+      bottom:
+        0;
+
+
+      left:
+        0;
+
+
+      width:
+        3px;
+
 
       background:
         var(--accent);
 
-      opacity:
-        .75;
     }
 
 
     .research-card:hover{
+
       transform:
         translateY(-3px);
 
+
       border-color:
+
         color-mix(
           in srgb,
           var(--accent) 28%,
           var(--border)
         );
 
+
       box-shadow:
         var(--shadow);
+
     }
 
 
     .research-number{
+
       color:
         var(--accent);
+
 
       font-size:
         10px;
 
+
       font-weight:
         800;
+
     }
 
 
     .research-card h3{
+
       margin:
         9px 0 8px;
+
 
       color:
         var(--text);
 
+
       font-size:
-        14px;
+        15px;
+
 
       line-height:
         1.45;
 
-      letter-spacing:
-        -.2px;
+
+      font-weight:
+        800;
+
     }
 
 
     .research-card p{
-      margin: 0;
+
+      margin:
+        0;
+
 
       color:
         var(--text-soft);
 
+
       font-size:
-        10.5px;
+        11px;
+
 
       line-height:
         1.55;
+
     }
 
 
-    .research-card
     .card-actions{
+
       margin-top:
         auto;
 
+
       padding-top:
         14px;
+
+
+      display:
+        flex;
+
+
+      flex-wrap:
+        wrap;
+
+
+      gap:
+        7px;
+
     }
 
 
 
-    /* =========================================================
-       11. THESIS
-       ========================================================= */
+    /* =====================================================
+       13. RECENT PROJECTS CAROUSEL
+       ===================================================== */
 
-    .thesis-layout{
-      display: grid;
+    .projects-carousel{
 
-      grid-template-columns:
-        minmax(280px, .85fr)
-        1.15fr;
+      position:
+        relative;
 
-      align-items: center;
 
-      gap: 24px;
+      width:
+        100%;
+
     }
 
 
-    .thesis-image{
-      overflow: hidden;
+    .carousel-viewport{
 
-      border:
-        1px solid var(--border);
+      width:
+        100%;
+
+
+      overflow:
+        hidden;
+
 
       border-radius:
-        13px;
+        15px;
 
-      background:
-        var(--surface-soft);
-    }
-
-
-    .thesis-image img{
-      width: 100%;
-
-      display: block;
-
-      transition:
-        transform .3s ease;
-    }
-
-
-    .thesis-image:hover img{
-      transform:
-        scale(1.025);
-    }
-
-
-    .thesis-info h3{
-      margin:
-        0 0 10px;
-
-      font-size:
-        18px;
-
-      line-height:
-        1.35;
-    }
-
-
-    .thesis-info p{
-      margin: 0;
-
-      color:
-        var(--text-soft);
-
-      font-size:
-        11px;
-
-      line-height:
-        1.7;
-    }
-
-
-    .thesis-tags{
-      display: flex;
-
-      flex-wrap: wrap;
-
-      gap: 6px;
-
-      margin-top:
-        14px;
-    }
-
-
-
-    /* =========================================================
-       12. ACADEMIC PROJECTS
-       ========================================================= */
-
-    .project-toolbar{
-      display: flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      flex-wrap: wrap;
-
-      margin-bottom:
-        16px;
-    }
-
-
-    .project-search{
-      flex:
-        1 1 220px;
-    }
-
-
-    .project-search input{
-      width: 100%;
 
       padding:
-        9px 11px;
+        3px 2px 9px;
+
+    }
+
+
+
+    .carousel-track{
+
+      display:
+        flex;
+
+
+      gap:
+        16px;
+
+
+      will-change:
+        transform;
+
+
+      transition:
+
+        transform
+        .72s
+        cubic-bezier(.22,.61,.36,1);
+
+    }
+
+
+
+    .project-slide{
+
+      flex:
+        0 0 calc((100% - 16px) / 2);
+
+
+      min-width:
+        0;
+
+    }
+
+
+
+    .project-carousel-card{
+
+      height:
+        100%;
+
+
+      overflow:
+        hidden;
+
 
       border:
         1px solid var(--border);
 
-      border-radius:
-        9px;
 
-      outline: 0;
+      border-radius:
+        15px;
+
 
       background:
         var(--surface-soft);
 
-      color:
-        var(--text);
 
-      font-size:
-        11px;
+      transition:
+        transform .24s ease,
+        border-color .24s ease,
+        box-shadow .24s ease;
+
     }
 
 
-    .project-search input:focus{
+    .project-carousel-card:hover{
+
+      transform:
+        translateY(-4px);
+
+
       border-color:
-        var(--accent);
+
+        color-mix(
+          in srgb,
+          var(--accent) 32%,
+          var(--border)
+        );
+
 
       box-shadow:
-        0 0 0 3px
-        var(--accent-soft);
+        var(--shadow-hover);
+
     }
 
 
-    .filter-button{
+
+    /* Preview */
+
+    .project-carousel-preview{
+
+      position:
+        relative;
+
+
+      height:
+        215px;
+
+
+      overflow:
+        hidden;
+
+
+      background:
+        #edf2f4;
+
+    }
+
+
+    .project-carousel-preview iframe{
+
+      width:
+        100%;
+
+
+      height:
+        100%;
+
+
+      display:
+        block;
+
+
       border:
-        1px solid var(--border);
+        0;
+
+
+      pointer-events:
+        none;
+
+    }
+
+
+    .project-carousel-preview img{
+
+      width:
+        100%;
+
+
+      height:
+        100%;
+
+
+      display:
+        block;
+
+
+      object-fit:
+        cover;
+
+
+      transition:
+        transform .35s ease;
+
+    }
+
+
+    .project-carousel-card:hover
+    .project-carousel-preview img{
+
+      transform:
+        scale(1.035);
+
+    }
+
+
+
+    .project-badge{
+
+      position:
+        absolute;
+
+
+      top:
+        12px;
+
+
+      left:
+        12px;
+
+
+      z-index:
+        3;
+
+
+      padding:
+        6px 10px;
+
 
       border-radius:
         999px;
 
-      padding:
-        7px 9px;
 
       background:
-        var(--surface);
+        rgba(255,255,255,.93);
+
 
       color:
-        var(--text-soft);
+        #17252e;
 
-      cursor:
-        pointer;
+
+      box-shadow:
+        0 5px 15px rgba(0,0,0,.10);
+
+
+      backdrop-filter:
+        blur(7px);
+
 
       font-size:
         9.5px;
 
+
       font-weight:
         800;
+
     }
 
 
-    .filter-button:hover,
-    .filter-button.active{
-      border-color:
-        var(--accent);
 
-      background:
-        var(--accent);
+    .project-carousel-content{
+
+      padding:
+        15px 16px 17px;
+
+    }
+
+
+    .project-carousel-title{
+
+      margin:
+        0;
+
 
       color:
-        #ffffff;
+        var(--text);
+
+
+      font-size:
+        15px;
+
+
+      line-height:
+        1.4;
+
+
+      font-weight:
+        800;
+
     }
 
 
-    .academic-grid{
-      display: grid;
+    .project-carousel-meta{
 
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+      margin-top:
+        6px;
 
-      gap: 10px;
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        10.5px;
+
+
+      line-height:
+        1.45;
+
     }
 
 
-    .academic-card{
-      min-height:
-        125px;
+    .project-carousel-actions{
 
-      display: flex;
+      margin-top:
+        13px;
 
-      flex-direction:
-        column;
+
+      display:
+        flex;
+
+
+      flex-wrap:
+        wrap;
+
+
+      gap:
+        7px;
+
+    }
+
+
+
+    /* Carousel controls */
+
+    .carousel-controls{
+
+      margin-top:
+        7px;
+
+
+      display:
+        flex;
+
 
       align-items:
         center;
 
+
       justify-content:
+        space-between;
+
+
+      gap:
+        14px;
+
+    }
+
+
+    .carousel-arrows{
+
+      display:
+        flex;
+
+
+      gap:
+        7px;
+
+    }
+
+
+    .carousel-arrow{
+
+      width:
+        38px;
+
+
+      height:
+        38px;
+
+
+      display:
+        grid;
+
+
+      place-items:
         center;
 
-      gap: 8px;
-
-      padding:
-        12px 9px;
-
-      text-align:
-        center;
-
-      background:
-        var(--surface-soft);
 
       border:
         1px solid var(--border);
 
+
       border-radius:
-        11px;
+        10px;
+
+
+      background:
+        var(--surface);
+
+
+      color:
+        var(--text);
+
 
       cursor:
         pointer;
 
-      outline:
-        none;
+
+      font-size:
+        17px;
+
 
       transition:
         transform .18s ease,
         background .18s ease,
         box-shadow .18s ease;
+
     }
 
 
-    .academic-card:hover{
+    .carousel-arrow:hover{
+
       transform:
-        translateY(-3px);
+        translateY(-1px);
+
 
       background:
         var(--surface-hover);
 
+
       box-shadow:
         var(--shadow);
-    }
 
-
-    .academic-card:focus-visible{
-      box-shadow:
-        0 0 0 3px
-        var(--accent-soft);
-    }
-
-
-    .academic-card img{
-      width: 42px;
-      height: 42px;
-
-      object-fit:
-        contain;
-
-      border-radius:
-        8px;
-    }
-
-
-    .academic-card h3{
-      margin: 0;
-
-      color:
-        var(--text);
-
-      font-size:
-        10.5px;
-
-      line-height:
-        1.35;
-    }
-
-
-    .academic-card span{
-      color:
-        var(--accent);
-
-      font-size:
-        8.5px;
-
-      font-weight:
-        800;
-    }
-
-
-    .academic-card.hidden{
-      display: none;
-    }
-
-
-    .show-more-wrap{
-      text-align:
-        center;
-
-      margin-top:
-        13px;
     }
 
 
 
-    /* =========================================================
-       13. EXPERIENCE
-       ========================================================= */
+    .carousel-dots{
 
-    .experience-card{
-      display: grid;
+      flex:
+        1;
 
-      grid-template-columns:
-        minmax(0,1fr)
-        auto;
-
-      gap:
-        18px;
-
-      align-items:
-        center;
-
-      padding:
-        20px;
-
-      background:
-        var(--surface-soft);
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        13px;
-    }
-
-
-    .experience-role{
-      margin: 0;
-
-      color:
-        var(--text);
-
-      font-size:
-        15px;
-
-      font-weight:
-        800;
-    }
-
-
-    .experience-company{
-      margin-top:
-        4px;
-
-      color:
-        var(--accent);
-
-      font-size:
-        11px;
-
-      font-weight:
-        700;
-    }
-
-
-    .experience-description{
-      max-width:
-        750px;
-
-      margin:
-        9px 0 0;
-
-      color:
-        var(--text-soft);
-
-      font-size:
-        10.5px;
-
-      line-height:
-        1.65;
-    }
-
-
-
-    /* =========================================================
-       14. ACHIEVEMENTS
-       ========================================================= */
-
-    .achievement-grid{
-      display: grid;
-
-      grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-      gap:
-        12px;
-    }
-
-
-    .achievement-card{
-      overflow:
-        hidden;
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        13px;
-
-      background:
-        var(--surface-soft);
-    }
-
-
-    .achievement-images{
-      height:
-        150px;
 
       display:
         flex;
 
-      gap:
-        4px;
 
-      overflow:
-        hidden;
+      justify-content:
+        center;
 
-      background:
-        var(--surface-hover);
-    }
-
-
-    .achievement-images img{
-      width: 100%;
-
-      min-width: 0;
-
-      object-fit:
-        cover;
-    }
-
-
-    .achievement-images.two img{
-      width: 50%;
-    }
-
-
-    .achievement-info{
-      padding:
-        13px;
-    }
-
-
-    .achievement-info strong{
-      display:
-        block;
-
-      margin-bottom:
-        5px;
-
-      font-size:
-        11px;
-    }
-
-
-    .achievement-info p{
-      margin:
-        0;
-
-      color:
-        var(--text-soft);
-
-      font-size:
-        9.5px;
-
-      line-height:
-        1.5;
-    }
-
-
-
-    /* =========================================================
-       15. SIDEBAR
-       ========================================================= */
-
-    .side-heading{
-      display: flex;
 
       align-items:
         center;
 
+
+      gap:
+        6px;
+
+    }
+
+
+    .carousel-dot{
+
+      width:
+        7px;
+
+
+      height:
+        7px;
+
+
+      padding:
+        0;
+
+
+      border:
+        0;
+
+
+      border-radius:
+        999px;
+
+
+      background:
+
+        color-mix(
+          in srgb,
+          var(--text) 20%,
+          transparent
+        );
+
+
+      cursor:
+        pointer;
+
+
+      transition:
+        width .24s ease,
+        background .24s ease;
+
+    }
+
+
+    .carousel-dot.active{
+
+      width:
+        27px;
+
+
+      background:
+        var(--accent);
+
+    }
+
+
+    .carousel-status{
+
+      min-width:
+        110px;
+
+
+      color:
+        var(--text-soft);
+
+
+      text-align:
+        right;
+
+
+      font-size:
+        9.5px;
+
+
+      font-weight:
+        700;
+
+    }
+
+
+
+    .carousel-progress{
+
+      position:
+        relative;
+
+
+      width:
+        100%;
+
+
+      height:
+        2px;
+
+
+      margin-top:
+        9px;
+
+
+      overflow:
+        hidden;
+
+
+      border-radius:
+        999px;
+
+
+      background:
+
+        color-mix(
+          in srgb,
+          var(--text) 8%,
+          transparent
+        );
+
+    }
+
+
+    .carousel-progress-bar{
+
+      width:
+        0;
+
+
+      height:
+        100%;
+
+
+      background:
+        var(--accent);
+
+    }
+
+
+    .carousel-progress-bar.running{
+
+      animation:
+
+        carouselProgress
+        5s
+        linear
+        forwards;
+
+    }
+
+
+    @keyframes carouselProgress{
+
+      from{
+        width: 0%;
+      }
+
+      to{
+        width: 100%;
+      }
+
+    }
+
+
+
+    /* =====================================================
+       14. THESIS
+       ===================================================== */
+
+    .thesis-layout{
+
+      display:
+        grid;
+
+
+      grid-template-columns:
+        minmax(280px,.9fr)
+        1.1fr;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        24px;
+
+    }
+
+
+    .thesis-image{
+
+      overflow:
+        hidden;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        13px;
+
+
+      background:
+        var(--surface-soft);
+
+    }
+
+
+    .thesis-image img{
+
+      width:
+        100%;
+
+
+      display:
+        block;
+
+
+      transition:
+        transform .3s ease;
+
+    }
+
+
+    .thesis-image:hover img{
+
+      transform:
+        scale(1.025);
+
+    }
+
+
+    .thesis-info h3{
+
+      margin:
+        0 0 10px;
+
+
+      color:
+        var(--text);
+
+
+      font-size:
+        19px;
+
+
+      line-height:
+        1.4;
+
+
+      font-weight:
+        800;
+
+    }
+
+
+    .thesis-info p{
+
+      margin:
+        0;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        12px;
+
+
+      line-height:
+        1.7;
+
+    }
+
+
+    .thesis-tags{
+
+      margin-top:
+        14px;
+
+
+      display:
+        flex;
+
+
+      flex-wrap:
+        wrap;
+
+
+      gap:
+        6px;
+
+    }
+
+
+
+    /* =====================================================
+       15. ACADEMIC PROJECTS
+       ===================================================== */
+
+    .project-toolbar{
+
+      margin-bottom:
+        16px;
+
+
+      display:
+        flex;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        8px;
+
+
+      flex-wrap:
+        wrap;
+
+    }
+
+
+    .project-search{
+
+      flex:
+        1 1 230px;
+
+    }
+
+
+    .project-search input{
+
+      width:
+        100%;
+
+
+      padding:
+        9px 11px;
+
+
+      outline:
+        none;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        9px;
+
+
+      background:
+        var(--surface-soft);
+
+
+      color:
+        var(--text);
+
+
+      font-size:
+        11px;
+
+    }
+
+
+    .project-search input:focus{
+
+      border-color:
+        var(--accent);
+
+
+      box-shadow:
+
+        0 0 0 3px
+        var(--accent-soft);
+
+    }
+
+
+
+    .filter-button{
+
+      padding:
+        7px 9px;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        999px;
+
+
+      background:
+        var(--surface);
+
+
+      color:
+        var(--text-soft);
+
+
+      cursor:
+        pointer;
+
+
+      font-size:
+        9.5px;
+
+
+      font-weight:
+        800;
+
+    }
+
+
+    .filter-button:hover,
+    .filter-button.active{
+
+      border-color:
+        var(--accent);
+
+
+      background:
+        var(--accent);
+
+
+      color:
+        white;
+
+    }
+
+
+
+    .academic-grid{
+
+      display:
+        grid;
+
+
+      grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+
+      gap:
+        10px;
+
+    }
+
+
+    .academic-card{
+
+      min-height:
+        130px;
+
+
+      padding:
+        13px 9px;
+
+
+      display:
+        flex;
+
+
+      flex-direction:
+        column;
+
+
       justify-content:
-        space-between;
+        center;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        8px;
+
+
+      text-align:
+        center;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        11px;
+
+
+      background:
+        var(--surface-soft);
+
+
+      cursor:
+        pointer;
+
+
+      outline:
+        none;
+
+
+      transition:
+        transform .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
+
+    }
+
+
+    .academic-card:hover{
+
+      transform:
+        translateY(-3px);
+
+
+      background:
+        var(--surface-hover);
+
+
+      box-shadow:
+        var(--shadow);
+
+    }
+
+
+    .academic-card:focus-visible{
+
+      box-shadow:
+
+        0 0 0 3px
+        var(--accent-soft);
+
+    }
+
+
+    .academic-card img{
+
+      width:
+        44px;
+
+
+      height:
+        44px;
+
+
+      object-fit:
+        contain;
+
+
+      border-radius:
+        8px;
+
+    }
+
+
+    .academic-card h3{
+
+      margin:
+        0;
+
+
+      color:
+        var(--text);
+
+
+      font-size:
+        10.5px;
+
+
+      line-height:
+        1.35;
+
+
+      font-weight:
+        800;
+
+    }
+
+
+    .academic-card span{
+
+      color:
+        var(--accent);
+
+
+      font-size:
+        8.5px;
+
+
+      font-weight:
+        800;
+
+    }
+
+
+    .academic-card.filtered-out{
+
+      display:
+        none !important;
+
+    }
+
+
+    .show-more-wrap{
+
+      margin-top:
+        14px;
+
+
+      text-align:
+        center;
+
+    }
+
+
+
+    /* =====================================================
+       16. EXPERIENCE
+       ===================================================== */
+
+    .experience-card{
+
+      padding:
+        20px;
+
+
+      display:
+        grid;
+
+
+      grid-template-columns:
+        minmax(0,1fr) auto;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        18px;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        13px;
+
+
+      background:
+        var(--surface-soft);
+
+    }
+
+
+    .experience-role{
+
+      margin:
+        0;
+
+
+      font-size:
+        16px;
+
+
+      font-weight:
+        800;
+
+    }
+
+
+    .experience-company{
+
+      margin-top:
+        4px;
+
+
+      color:
+        var(--accent);
+
+
+      font-size:
+        11px;
+
+
+      font-weight:
+        700;
+
+    }
+
+
+    .experience-description{
+
+      max-width:
+        760px;
+
+
+      margin:
+        9px 0 0;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        11px;
+
+
+      line-height:
+        1.65;
+
+    }
+
+
+
+    /* =====================================================
+       17. ACHIEVEMENTS
+       ===================================================== */
+
+    .achievement-grid{
+
+      display:
+        grid;
+
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+
+      gap:
+        12px;
+
+    }
+
+
+    .achievement-card{
+
+      overflow:
+        hidden;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        13px;
+
+
+      background:
+        var(--surface-soft);
+
+    }
+
+
+    .achievement-images{
+
+      height:
+        160px;
+
+
+      overflow:
+        hidden;
+
+
+      display:
+        flex;
+
+
+      gap:
+        4px;
+
+
+      background:
+        var(--surface-hover);
+
+    }
+
+
+    .achievement-images img{
+
+      width:
+        100%;
+
+
+      min-width:
+        0;
+
+
+      object-fit:
+        cover;
+
+    }
+
+
+    .achievement-images.two img{
+
+      width:
+        50%;
+
+    }
+
+
+    .achievement-info{
+
+      padding:
+        14px;
+
+    }
+
+
+    .achievement-info strong{
+
+      display:
+        block;
+
+
+      margin-bottom:
+        5px;
+
+
+      font-size:
+        12px;
+
+    }
+
+
+    .achievement-info p{
+
+      margin:
+        0;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        10px;
+
+
+      line-height:
+        1.5;
+
+    }
+
+
+
+    /* =====================================================
+       18. SIDEBAR
+       ===================================================== */
+
+    .side-heading{
 
       margin-bottom:
         14px;
+
+
+      display:
+        flex;
+
+
+      justify-content:
+        space-between;
+
+
+      align-items:
+        center;
+
     }
 
 
     .side-heading h2{
+
       font-size:
-        15px;
+        17px;
+
     }
+
 
 
     /* Education */
 
     .education-list{
+
       display:
         grid;
 
+
       gap:
         10px;
+
     }
 
 
     .education-item{
-      display:
-        grid;
-
-      grid-template-columns:
-        45px 1fr;
-
-      gap:
-        10px;
-
-      align-items:
-        start;
 
       padding:
         11px;
 
-      background:
-        var(--surface-soft);
+
+      display:
+        grid;
+
+
+      grid-template-columns:
+        46px 1fr;
+
+
+      gap:
+        10px;
+
+
+      align-items:
+        start;
+
 
       border:
         1px solid var(--border);
 
+
       border-radius:
         10px;
+
+
+      background:
+        var(--surface-soft);
+
     }
 
 
     .education-logo{
-      width: 42px;
-      height: 42px;
 
-      display:
-        grid;
+      width:
+        43px;
 
-      place-items:
-        center;
+
+      height:
+        43px;
+
 
       padding:
         4px;
 
-      background:
-        var(--surface);
+
+      display:
+        grid;
+
+
+      place-items:
+        center;
+
 
       border:
         1px solid var(--border);
 
+
       border-radius:
         9px;
+
+
+      background:
+        var(--surface);
+
     }
 
 
     .education-logo img{
+
       max-width:
         100%;
+
 
       max-height:
         100%;
 
+
       object-fit:
         contain;
+
     }
 
 
     .education-title{
+
       margin:
         0;
+
 
       color:
         var(--text);
 
+
       font-size:
-        10px;
+        10.5px;
+
 
       line-height:
-        1.35;
+        1.4;
+
 
       font-weight:
         800;
+
     }
 
 
     .education-place{
+
       margin-top:
         3px;
+
 
       color:
         var(--text-soft);
 
+
       font-size:
-        8.5px;
+        8.8px;
+
 
       line-height:
-        1.4;
+        1.45;
+
     }
 
 
     .education-meta{
+
       margin-top:
         5px;
+
 
       color:
         var(--accent);
 
+
       font-size:
-        8px;
+        8.3px;
+
 
       font-weight:
         700;
+
     }
 
 
-    /* Tool Grid */
+
+    /* Tools */
 
     .tools-grid{
+
       display:
         grid;
+
 
       grid-template-columns:
         repeat(4,minmax(0,1fr));
 
+
       gap:
         8px;
+
     }
 
 
     .tool{
-      position:
-        relative;
 
       min-width:
         0;
 
-      display:
-        flex;
-
-      flex-direction:
-        column;
-
-      align-items:
-        center;
-
-      gap:
-        5px;
 
       padding:
         9px 4px;
 
+
+      display:
+        flex;
+
+
+      flex-direction:
+        column;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        6px;
+
+
       border:
         1px solid var(--border);
+
 
       border-radius:
         9px;
 
+
       background:
         var(--surface-soft);
+
 
       transition:
         transform .17s ease,
         background .17s ease;
+
     }
 
 
     .tool:hover{
+
       transform:
         translateY(-2px);
 
+
       background:
         var(--surface-hover);
+
     }
 
 
     .tool img{
+
       width:
-        25px;
+        27px;
+
 
       height:
-        25px;
+        27px;
+
 
       object-fit:
         contain;
+
     }
 
 
     .tool span{
+
       width:
         100%;
+
 
       overflow:
         hidden;
 
+
       color:
         var(--text-soft);
+
 
       text-align:
         center;
 
+
       text-overflow:
         ellipsis;
+
 
       white-space:
         nowrap;
 
+
       font-size:
-        7.5px;
+        7.8px;
+
 
       font-weight:
         700;
+
     }
+
 
 
     /* IELTS */
 
     .ielts-score{
+
       display:
         grid;
 
+
       grid-template-columns:
-        78px 1fr;
+        82px 1fr;
+
 
       align-items:
         center;
 
+
       gap:
-        13px;
+        14px;
+
     }
 
 
     .score-circle{
+
       width:
-        72px;
+        76px;
+
 
       height:
-        72px;
+        76px;
+
 
       display:
         grid;
+
 
       place-items:
         center;
 
+
       border:
-        6px solid
-        var(--accent-soft);
+        6px solid var(--accent-soft);
+
 
       border-top-color:
         var(--accent);
 
+
       border-radius:
         50%;
+
 
       color:
         var(--text);
 
+
       font-size:
-        22px;
+        23px;
+
 
       font-weight:
         800;
+
     }
 
 
     .score-list{
+
       display:
         grid;
+
 
       grid-template-columns:
         repeat(2,1fr);
 
+
       gap:
         5px;
+
     }
 
 
     .score-list span{
+
       padding:
         5px 6px;
 
-      background:
-        var(--surface-soft);
 
       border:
         1px solid var(--border);
 
+
       border-radius:
         7px;
+
+
+      background:
+        var(--surface-soft);
+
 
       color:
         var(--text-soft);
 
+
       font-size:
-        8px;
+        8.3px;
+
 
       font-weight:
         700;
+
     }
+
 
 
     /* Contact */
 
     .contact-text{
+
       color:
         var(--text-soft);
 
+
       font-size:
-        10px;
+        10.5px;
+
 
       line-height:
-        1.6;
+        1.65;
+
     }
 
 
     .contact-list{
+
+      margin-top:
+        13px;
+
+
       display:
         grid;
+
 
       gap:
         7px;
 
-      margin-top:
-        13px;
     }
 
 
     .contact-link{
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      gap:
-        10px;
-
-      padding:
-        9px 10px;
-
-      background:
-        var(--surface-soft);
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        9px;
-
-      color:
-        var(--text);
-
-      font-size:
-        9.5px;
-
-      font-weight:
-        700;
-
-      transition:
-        background .18s ease,
-        transform .18s ease;
-    }
-
-
-    .contact-link:hover{
-      transform:
-        translateX(2px);
-
-      background:
-        var(--surface-hover);
-    }
-
-
-
-    /* =========================================================
-       16. FOOTER
-       ========================================================= */
-
-    footer{
-      margin-top:
-        24px;
-
-      padding:
-        22px;
-
-      border-top:
-        1px solid var(--border);
-
-      color:
-        var(--text-soft);
-
-      text-align:
-        center;
-
-      font-size:
-        10px;
-    }
-
-
-    footer a{
-      color:
-        var(--accent);
-
-      font-weight:
-        800;
-    }
-
-
-
-    /* =========================================================
-       17. MODAL
-       ========================================================= */
-
-    .modal-backdrop{
-      position:
-        fixed;
-
-      inset:
-        0;
-
-      z-index:
-        5000;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      padding:
-        20px;
-
-      background:
-        rgba(8,15,20,.70);
-
-      backdrop-filter:
-        blur(8px);
-
-      opacity:
-        0;
-
-      visibility:
-        hidden;
-
-      transition:
-        opacity .2s ease,
-        visibility .2s ease;
-    }
-
-
-    .modal-backdrop.show{
-      opacity:
-        1;
-
-      visibility:
-        visible;
-    }
-
-
-    .modal{
-      width:
-        min(920px,100%);
-
-      max-height:
-        88vh;
-
-      overflow:
-        hidden;
-
-      display:
-        flex;
-
-      flex-direction:
-        column;
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        17px;
-
-      background:
-        var(--surface);
-
-      box-shadow:
-        0 30px 100px
-        rgba(0,0,0,.38);
-
-      transform:
-        translateY(15px)
-        scale(.985);
-
-      transition:
-        transform .22s ease;
-    }
-
-
-    .modal-backdrop.show
-    .modal{
-      transform:
-        translateY(0)
-        scale(1);
-    }
-
-
-    .modal-head{
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      gap:
-        20px;
-
-      padding:
-        15px 17px;
-
-      border-bottom:
-        1px solid var(--border);
-    }
-
-
-    .modal-head h3{
-      margin:
-        0;
-
-      font-size:
-        14px;
-    }
-
-
-    .modal-close{
-      width:
-        34px;
-
-      height:
-        34px;
-
-      display:
-        grid;
-
-      place-items:
-        center;
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        8px;
-
-      background:
-        var(--surface-soft);
-
-      cursor:
-        pointer;
-
-      font-weight:
-        800;
-    }
-
-
-    .modal-content{
-      overflow:
-        auto;
-
-      padding:
-        18px;
-    }
-
-
-    .modal-description{
-      margin:
-        0 0 14px;
-
-      color:
-        var(--text-soft);
-
-      font-size:
-        11px;
-
-      line-height:
-        1.65;
-    }
-
-
-    .modal-preview{
-      display:
-        none;
-
-      overflow:
-        hidden;
 
       width:
         100%;
 
-      height:
-        min(580px,65vh);
+
+      padding:
+        9px 10px;
+
+
+      display:
+        flex;
+
+
+      justify-content:
+        space-between;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        10px;
+
 
       border:
         1px solid var(--border);
 
+
+      border-radius:
+        9px;
+
+
+      background:
+        var(--surface-soft);
+
+
+      color:
+        var(--text);
+
+
+      cursor:
+        pointer;
+
+
+      font-size:
+        9.8px;
+
+
+      font-weight:
+        700;
+
+
+      transition:
+        transform .18s ease,
+        background .18s ease;
+
+    }
+
+
+    .contact-link:hover{
+
+      transform:
+        translateX(2px);
+
+
+      background:
+        var(--surface-hover);
+
+    }
+
+
+
+    /* =====================================================
+       19. MODAL
+       ===================================================== */
+
+    .modal-backdrop{
+
+      position:
+        fixed;
+
+
+      inset:
+        0;
+
+
+      z-index:
+        5000;
+
+
+      padding:
+        20px;
+
+
+      display:
+        flex;
+
+
+      justify-content:
+        center;
+
+
+      align-items:
+        center;
+
+
+      visibility:
+        hidden;
+
+
+      opacity:
+        0;
+
+
+      background:
+        rgba(8,15,20,.7);
+
+
+      backdrop-filter:
+        blur(8px);
+
+
+      transition:
+        opacity .2s ease,
+        visibility .2s ease;
+
+    }
+
+
+    .modal-backdrop.show{
+
+      visibility:
+        visible;
+
+
+      opacity:
+        1;
+
+    }
+
+
+    .modal{
+
+      width:
+        min(920px,100%);
+
+
+      max-height:
+        88vh;
+
+
+      overflow:
+        hidden;
+
+
+      display:
+        flex;
+
+
+      flex-direction:
+        column;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        17px;
+
+
+      background:
+        var(--surface);
+
+
+      box-shadow:
+
+        0 30px 100px
+        rgba(0,0,0,.38);
+
+
+      transform:
+        translateY(14px)
+        scale(.985);
+
+
+      transition:
+        transform .22s ease;
+
+    }
+
+
+    .modal-backdrop.show .modal{
+
+      transform:
+        translateY(0)
+        scale(1);
+
+    }
+
+
+    .modal-head{
+
+      padding:
+        15px 17px;
+
+
+      display:
+        flex;
+
+
+      justify-content:
+        space-between;
+
+
+      align-items:
+        center;
+
+
+      gap:
+        20px;
+
+
+      border-bottom:
+        1px solid var(--border);
+
+    }
+
+
+    .modal-head h3{
+
+      margin:
+        0;
+
+
+      font-size:
+        15px;
+
+
+      font-weight:
+        800;
+
+    }
+
+
+    .modal-close{
+
+      width:
+        34px;
+
+
+      height:
+        34px;
+
+
+      display:
+        grid;
+
+
+      place-items:
+        center;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        8px;
+
+
+      background:
+        var(--surface-soft);
+
+
+      cursor:
+        pointer;
+
+
+      font-weight:
+        800;
+
+    }
+
+
+    .modal-content{
+
+      overflow:
+        auto;
+
+
+      padding:
+        18px;
+
+    }
+
+
+    .modal-description{
+
+      margin:
+        0 0 14px;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        11.5px;
+
+
+      line-height:
+        1.65;
+
+    }
+
+
+    .modal-preview{
+
+      display:
+        none;
+
+
+      width:
+        100%;
+
+
+      height:
+        min(580px,65vh);
+
+
+      overflow:
+        hidden;
+
+
+      border:
+        1px solid var(--border);
+
+
       border-radius:
         11px;
 
+
       background:
         #eef2f4;
+
     }
 
 
     .modal-preview.show{
+
       display:
         block;
+
     }
 
 
     .modal-preview iframe,
     .modal-preview img{
+
       width:
         100%;
+
 
       height:
         100%;
 
+
       display:
         block;
+
 
       border:
         0;
 
+
       object-fit:
         contain;
+
     }
 
 
     .modal-actions{
+
+      margin-top:
+        14px;
+
+
       display:
         flex;
+
 
       flex-wrap:
         wrap;
 
+
       gap:
         8px;
 
-      margin-top:
-        14px;
     }
 
 
 
-    /* =========================================================
-       18. SEARCH PALETTE
-       ========================================================= */
+    /* =====================================================
+       20. SEARCH
+       ===================================================== */
 
     .search-overlay{
+
       position:
         fixed;
+
 
       inset:
         0;
 
+
       z-index:
         6000;
 
-      display:
-        flex;
-
-      align-items:
-        flex-start;
-
-      justify-content:
-        center;
 
       padding:
         10vh 20px 20px;
 
-      background:
-        rgba(8,14,18,.66);
-
-      backdrop-filter:
-        blur(10px);
-
-      opacity:
-        0;
-
-      visibility:
-        hidden;
-
-      transition:
-        opacity .18s ease;
-    }
-
-
-    .search-overlay.show{
-      opacity:
-        1;
-
-      visibility:
-        visible;
-    }
-
-
-    .search-box{
-      width:
-        min(680px,100%);
-
-      overflow:
-        hidden;
-
-      background:
-        var(--surface);
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        16px;
-
-      box-shadow:
-        0 30px 90px
-        rgba(0,0,0,.35);
-    }
-
-
-    .search-input-wrap{
-      padding:
-        14px;
-
-      border-bottom:
-        1px solid var(--border);
-    }
-
-
-    .search-input{
-      width:
-        100%;
-
-      padding:
-        12px 13px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        10px;
-
-      outline:
-        none;
-
-      background:
-        var(--surface-soft);
-
-      color:
-        var(--text);
-
-      font-size:
-        12px;
-    }
-
-
-    .search-input:focus{
-      border-color:
-        var(--accent);
-
-      box-shadow:
-        0 0 0 3px
-        var(--accent-soft);
-    }
-
-
-    .search-results{
-      max-height:
-        400px;
-
-      overflow:
-        auto;
-
-      padding:
-        8px;
-    }
-
-
-    .search-result{
-      width:
-        100%;
 
       display:
         flex;
 
+
       justify-content:
-        space-between;
-
-      gap:
-        15px;
-
-      padding:
-        11px;
-
-      border:
-        0;
-
-      border-radius:
-        9px;
-
-      background:
-        transparent;
-
-      color:
-        var(--text);
-
-      text-align:
-        left;
-
-      cursor:
-        pointer;
-    }
+        center;
 
 
-    .search-result:hover{
-      background:
-        var(--surface-hover);
-    }
+      align-items:
+        flex-start;
 
-
-    .search-result strong{
-      display:
-        block;
-
-      font-size:
-        10.5px;
-    }
-
-
-    .search-result small{
-      display:
-        block;
-
-      margin-top:
-        2px;
-
-      color:
-        var(--text-soft);
-
-      font-size:
-        8.5px;
-    }
-
-
-    .search-type{
-      color:
-        var(--accent);
-
-      font-size:
-        8px;
-
-      font-weight:
-        800;
-    }
-
-
-
-    /* =========================================================
-       19. REVEAL
-       ========================================================= */
-
-    .reveal{
-      opacity:
-        0;
-
-      transform:
-        translateY(12px);
-
-      transition:
-        opacity .45s ease,
-        transform .45s ease;
-    }
-
-
-    .reveal.visible{
-      opacity:
-        1;
-
-      transform:
-        translateY(0);
-    }
-
-
-
-    /* =========================================================
-       20. BACK TO TOP
-       ========================================================= */
-
-    .to-top{
-      position:
-        fixed;
-
-      right:
-        22px;
-
-      bottom:
-        22px;
-
-      z-index:
-        1800;
-
-      width:
-        40px;
-
-      height:
-        40px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        11px;
-
-      background:
-        var(--surface);
-
-      color:
-        var(--text);
-
-      box-shadow:
-        var(--shadow);
-
-      cursor:
-        pointer;
-
-      opacity:
-        0;
 
       visibility:
         hidden;
 
-      transform:
-        translateY(10px);
+
+      opacity:
+        0;
+
+
+      background:
+        rgba(8,14,18,.66);
+
+
+      backdrop-filter:
+        blur(10px);
+
 
       transition:
-        .2s ease;
+        opacity .18s ease,
+        visibility .18s ease;
+
     }
 
 
-    .to-top.show{
-      opacity:
-        1;
+    .search-overlay.show{
 
       visibility:
         visible;
 
-      transform:
-        translateY(0);
+
+      opacity:
+        1;
+
+    }
+
+
+    .search-box{
+
+      width:
+        min(680px,100%);
+
+
+      overflow:
+        hidden;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        16px;
+
+
+      background:
+        var(--surface);
+
+
+      box-shadow:
+
+        0 30px 90px
+        rgba(0,0,0,.35);
+
+    }
+
+
+    .search-input-wrap{
+
+      padding:
+        14px;
+
+
+      border-bottom:
+        1px solid var(--border);
+
+    }
+
+
+    .search-input{
+
+      width:
+        100%;
+
+
+      padding:
+        12px 13px;
+
+
+      outline:
+        none;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        10px;
+
+
+      background:
+        var(--surface-soft);
+
+
+      color:
+        var(--text);
+
+
+      font-size:
+        12px;
+
+    }
+
+
+    .search-input:focus{
+
+      border-color:
+        var(--accent);
+
+
+      box-shadow:
+
+        0 0 0 3px
+        var(--accent-soft);
+
+    }
+
+
+    .search-results{
+
+      max-height:
+        420px;
+
+
+      overflow:
+        auto;
+
+
+      padding:
+        8px;
+
+    }
+
+
+    .search-result{
+
+      width:
+        100%;
+
+
+      padding:
+        11px;
+
+
+      display:
+        flex;
+
+
+      justify-content:
+        space-between;
+
+
+      gap:
+        15px;
+
+
+      border:
+        0;
+
+
+      border-radius:
+        9px;
+
+
+      background:
+        transparent;
+
+
+      color:
+        var(--text);
+
+
+      text-align:
+        left;
+
+
+      cursor:
+        pointer;
+
+    }
+
+
+    .search-result:hover{
+
+      background:
+        var(--surface-hover);
+
+    }
+
+
+    .search-result strong{
+
+      display:
+        block;
+
+
+      font-size:
+        11px;
+
+    }
+
+
+    .search-result small{
+
+      display:
+        block;
+
+
+      margin-top:
+        2px;
+
+
+      color:
+        var(--text-soft);
+
+
+      font-size:
+        8.8px;
+
+    }
+
+
+    .search-type{
+
+      color:
+        var(--accent);
+
+
+      font-size:
+        8px;
+
+
+      font-weight:
+        800;
+
     }
 
 
 
-    /* =========================================================
-       21. RESPONSIVE
-       ========================================================= */
+    /* =====================================================
+       21. FOOTER
+       ===================================================== */
 
-    @media(max-width: 1250px){
+    footer{
+
+      margin-top:
+        24px;
+
+
+      padding:
+        22px;
+
+
+      border-top:
+        1px solid var(--border);
+
+
+      color:
+        var(--text-soft);
+
+
+      text-align:
+        center;
+
+
+      font-size:
+        10.5px;
+
+    }
+
+
+    footer a{
+
+      color:
+        var(--accent);
+
+
+      font-weight:
+        800;
+
+    }
+
+
+
+    /* =====================================================
+       22. REVEAL
+       ===================================================== */
+
+    .reveal{
+
+      opacity:
+        0;
+
+
+      transform:
+        translateY(12px);
+
+
+      transition:
+        opacity .45s ease,
+        transform .45s ease;
+
+    }
+
+
+    .reveal.visible{
+
+      opacity:
+        1;
+
+
+      transform:
+        translateY(0);
+
+    }
+
+
+
+    /* =====================================================
+       23. BACK TO TOP
+       ===================================================== */
+
+    .to-top{
+
+      position:
+        fixed;
+
+
+      right:
+        22px;
+
+
+      bottom:
+        22px;
+
+
+      z-index:
+        1800;
+
+
+      width:
+        40px;
+
+
+      height:
+        40px;
+
+
+      visibility:
+        hidden;
+
+
+      opacity:
+        0;
+
+
+      border:
+        1px solid var(--border);
+
+
+      border-radius:
+        11px;
+
+
+      background:
+        var(--surface);
+
+
+      color:
+        var(--text);
+
+
+      box-shadow:
+        var(--shadow);
+
+
+      cursor:
+        pointer;
+
+
+      transform:
+        translateY(10px);
+
+
+      transition:
+        .2s ease;
+
+    }
+
+
+    .to-top.show{
+
+      visibility:
+        visible;
+
+
+      opacity:
+        1;
+
+
+      transform:
+        translateY(0);
+
+    }
+
+
+
+    /* =====================================================
+       24. RESPONSIVE
+       ===================================================== */
+
+    @media(max-width:1250px){
 
       .desktop-nav{
-        display:
-          none;
+        display: none;
       }
 
 
       .menu-button{
-        display:
-          inline-flex;
+        display: inline-flex;
       }
 
 
       .hero{
+
         grid-template-columns:
           190px minmax(0,1fr);
+
       }
 
 
       .focus-panel{
+
         grid-column:
           1 / -1;
+
 
         display:
           grid;
 
+
         grid-template-columns:
-          1fr 260px;
+          1fr 270px;
+
 
         gap:
           20px;
 
+
         align-items:
           center;
+
       }
 
 
       .focus-panel .stats{
+
         margin-top:
           0;
+
       }
 
     }
 
 
 
-    @media(max-width: 1100px){
+    @media(max-width:1100px){
 
       .portfolio-layout{
+
         grid-template-columns:
           1fr;
+
       }
 
 
       .side-column{
+
         grid-template-columns:
           repeat(2,minmax(0,1fr));
-      }
 
-
-      .side-column
-      .side-card{
-        height:
-          100%;
-      }
-
-
-      .academic-grid{
-        grid-template-columns:
-          repeat(4,minmax(0,1fr));
       }
 
     }
 
 
 
-    @media(max-width: 800px){
+    @media(max-width:900px){
+
+      .project-slide{
+
+        flex:
+          0 0 82%;
+
+      }
+
+
+      .project-carousel-preview{
+
+        height:
+          205px;
+
+      }
+
+
+      .academic-grid{
+
+        grid-template-columns:
+          repeat(3,minmax(0,1fr));
+
+      }
+
+    }
+
+
+
+    @media(max-width:800px){
 
       .page,
       .nav-inner{
+
         width:
+
           min(
             calc(100% - 28px),
             var(--max-width)
           );
+
       }
 
 
       .hero{
+
         grid-template-columns:
           1fr;
 
+
         padding:
           25px;
+
       }
 
 
-      .portrait-wrap{
-        width:
-          155px;
-
-        height:
-          155px;
-      }
-
-
+      .portrait-wrap,
       .portrait{
+
         width:
           155px;
 
+
         height:
           155px;
+
       }
 
 
       .focus-panel{
+
         grid-template-columns:
           1fr;
+
       }
 
 
-      .recent-grid,
       .research-grid,
       .achievement-grid{
+
         grid-template-columns:
           1fr;
+
       }
 
 
       .thesis-layout{
+
         grid-template-columns:
           1fr;
-      }
 
-
-      .academic-grid{
-        grid-template-columns:
-          repeat(3,minmax(0,1fr));
       }
 
 
       .side-column{
+
         grid-template-columns:
           1fr;
+
       }
 
     }
 
 
 
-    @media(max-width: 560px){
+    @media(max-width:620px){
 
-      .brand-role{
-        display:
-          none;
-      }
+      body{
 
+        font-size:
+          15px;
 
-      .brand{
-        min-width:
-          auto;
-      }
-
-
-      .search-nav-text{
-        display:
-          none;
       }
 
 
       .hero h1{
+
         font-size:
           32px;
+
+      }
+
+
+      h2{
+
+        font-size:
+          21px;
+
       }
 
 
       .section-card{
+
         padding:
           18px;
+
+      }
+
+
+      .project-slide{
+
+        flex:
+          0 0 92%;
+
+      }
+
+
+      .project-carousel-preview{
+
+        height:
+          190px;
+
+      }
+
+
+      .carousel-status{
+
+        display:
+          none;
+
       }
 
 
       .academic-grid{
+
         grid-template-columns:
           repeat(2,minmax(0,1fr));
+
       }
 
 
       .experience-card{
+
         grid-template-columns:
           1fr;
+
       }
 
 
-      .tools-grid{
-        grid-template-columns:
-          repeat(4,minmax(0,1fr));
+      .search-nav-text{
+
+        display:
+          none;
+
       }
 
     }
 
 
 
-    @media(prefers-reduced-motion: reduce){
+    @media(max-width:470px){
+
+      .brand-role{
+        display: none;
+      }
+
+
+      .brand{
+        min-width: 0;
+      }
+
+
+      .tools-grid{
+
+        grid-template-columns:
+          repeat(4,minmax(0,1fr));
+
+      }
+
+    }
+
+
+
+    @media(prefers-reduced-motion:reduce){
 
       html{
-        scroll-behavior:
-          auto;
+        scroll-behavior: auto;
       }
 
 
       *,
       *::before,
       *::after{
+
         transition:
           none !important;
 
+
         animation:
           none !important;
+
       }
 
     }
 
   </style>
+
 </head>
 
 
@@ -3114,9 +4917,9 @@
 <body>
 
 
-  <!-- =======================================================
+  <!-- =====================================================
        SCROLL PROGRESS
-       ======================================================= -->
+       ===================================================== -->
 
   <div class="progress">
     <div id="progressBar"></div>
@@ -3124,19 +4927,25 @@
 
 
 
-  <!-- =======================================================
+  <!-- =====================================================
        NAVIGATION
-       ======================================================= -->
+       ===================================================== -->
 
   <header class="navbar">
 
     <div class="nav-inner">
 
-      <a href="#home" class="brand">
+
+      <a
+        href="#home"
+        class="brand"
+      >
 
         <span class="brand-dot"></span>
 
+
         <span>
+
           <span class="brand-name">
             Khalid-Bin-Shofiq
           </span>
@@ -3144,46 +4953,80 @@
           <span class="brand-role">
             Urban & Regional Planner
           </span>
+
         </span>
 
       </a>
 
 
+
       <nav class="desktop-nav">
 
-        <a href="#home" class="nav-link active">
+        <a
+          href="#home"
+          class="nav-link active"
+        >
           Home
         </a>
 
-        <a href="#current-research" class="nav-link">
+
+        <a
+          href="#current-research"
+          class="nav-link"
+        >
           Research
         </a>
 
-        <a href="#recent-projects" class="nav-link">
+
+        <a
+          href="#recent-projects"
+          class="nav-link"
+        >
           Portfolio
         </a>
 
-        <a href="#thesis" class="nav-link">
+
+        <a
+          href="#thesis"
+          class="nav-link"
+        >
           Thesis
         </a>
 
-        <a href="#academic-projects" class="nav-link">
+
+        <a
+          href="#academic-projects"
+          class="nav-link"
+        >
           Academic
         </a>
 
-        <a href="#education" class="nav-link">
+
+        <a
+          href="#education"
+          class="nav-link"
+        >
           Education
         </a>
 
-        <a href="#professional-experience" class="nav-link">
+
+        <a
+          href="#professional-experience"
+          class="nav-link"
+        >
           Experience
         </a>
 
-        <a href="#contact" class="nav-link">
+
+        <a
+          href="#contact"
+          class="nav-link"
+        >
           Contact
         </a>
 
       </nav>
+
 
 
       <div class="nav-actions">
@@ -3192,7 +5035,6 @@
           class="nav-button"
           id="searchBtn"
           type="button"
-          title="Search portfolio (Ctrl + K)"
         >
           ⌕
           <span class="search-nav-text">
@@ -3205,7 +5047,7 @@
           class="nav-button"
           id="themeToggle"
           type="button"
-          title="Toggle dark mode"
+          title="Toggle theme"
         >
           ◐
         </button>
@@ -3227,9 +5069,9 @@
 
 
 
-  <!-- =======================================================
+  <!-- =====================================================
        MOBILE MENU
-       ======================================================= -->
+       ===================================================== -->
 
   <div
     class="mobile-overlay"
@@ -3248,9 +5090,11 @@
         Navigation
       </strong>
 
+
       <button
         class="nav-button"
         id="mobileClose"
+        type="button"
       >
         ✕
       </button>
@@ -3306,16 +5150,17 @@
 
 
 
-  <!-- =======================================================
+  <!-- =====================================================
        PAGE
-       ======================================================= -->
+       ===================================================== -->
 
   <main class="page">
 
 
-    <!-- =====================================================
+
+    <!-- ===================================================
          HERO
-         ===================================================== -->
+         =================================================== -->
 
     <section
       class="hero reveal"
@@ -3340,7 +5185,7 @@
 
 
 
-      <div class="hero-main">
+      <div>
 
         <div class="eyebrow">
           Urban Planning · GeoAI · Spatial Research
@@ -3358,13 +5203,18 @@
 
 
         <p class="hero-description">
-          I am an urban planner working at the intersection of
-          spatial planning, geospatial data science and urban
-          analytics. My research interests focus on understanding
-          urban growth, land-use change, transportation and
-          environmental systems through GIS, remote sensing,
+
+          I am an urban planner working at the
+          intersection of spatial planning,
+          geospatial data science and urban
+          analytics. My research focuses on
+          urban growth, land-use change,
+          transportation and environmental
+          systems using GIS, remote sensing,
           machine learning and deep learning.
+
         </p>
+
 
 
         <div class="hero-actions">
@@ -3459,42 +5309,54 @@
         <div class="stats">
 
           <div class="stat">
+
             <strong>
               4
             </strong>
+
             <span>
               Current Research Projects
             </span>
+
           </div>
 
 
           <div class="stat">
+
             <strong>
               12
             </strong>
+
             <span>
               Academic Project Areas
             </span>
+
           </div>
 
 
           <div class="stat">
+
             <strong>
               14
             </strong>
+
             <span>
               Tools & Platforms
             </span>
+
           </div>
 
 
           <div class="stat">
+
             <strong>
               7.0
             </strong>
+
             <span>
               IELTS Overall
             </span>
+
           </div>
 
         </div>
@@ -3505,16 +5367,16 @@
 
 
 
-    <!-- =====================================================
-         MAIN + SIDEBAR GRID
-         ===================================================== -->
+    <!-- ===================================================
+         TWO COLUMN BODY
+         =================================================== -->
 
     <div class="portfolio-layout">
 
 
-      <!-- ===================================================
+      <!-- =================================================
            MAIN COLUMN
-           =================================================== -->
+           ================================================= -->
 
       <div class="main-column">
 
@@ -3537,14 +5399,18 @@
                 Research
               </div>
 
+
               <h2>
                 Current Research
               </h2>
 
+
               <p class="section-subtitle">
-                Research spanning urban growth modelling,
-                GeoAI, transportation and policy-oriented
-                spatial analysis.
+
+                Research spanning urban growth
+                modelling, GeoAI, transportation
+                and policy-oriented spatial analysis.
+
               </p>
 
             </div>
@@ -3553,16 +5419,10 @@
 
 
 
-          <div
-            class="research-grid"
-            id="researchGrid"
-          >
+          <div class="research-grid">
 
 
-            <article
-              class="research-card"
-              data-search="urban growth geoai remote sensing deep learning"
-            >
+            <article class="research-card">
 
               <span class="research-number">
                 01
@@ -3570,14 +5430,18 @@
 
 
               <h3>
-                Framework for Predicting Urban Growth
-                Pattern in Data-Scarce Regions
+
+                Framework for Predicting Urban
+                Growth Pattern in Data-Scarce Regions
+
               </h3>
 
 
               <p>
+
                 Urban Growth · GeoAI · Remote Sensing ·
                 Deep Learning
+
               </p>
 
 
@@ -3593,8 +5457,10 @@
 
                 <button
                   class="mini-button preview-button"
+                  type="button"
                   data-title="Framework for Predicting Urban Growth Pattern in Data-Scarce Regions"
                   data-preview="research/LULC_Prediction.html"
+                  data-link="research/LULC_Prediction.html"
                   data-type="iframe"
                 >
                   Preview
@@ -3606,10 +5472,7 @@
 
 
 
-            <article
-              class="research-card"
-              data-search="urban change bangladesh drivers regional planning machine learning policy"
-            >
+            <article class="research-card">
 
               <span class="research-number">
                 02
@@ -3617,14 +5480,18 @@
 
 
               <h3>
+
                 Exploring the Influence of Potential
                 Factors of Urban Change in Bangladesh
+
               </h3>
 
 
               <p>
+
                 Regional Planning · Urban Drivers ·
                 Machine Learning · Policy
+
               </p>
 
 
@@ -3640,8 +5507,10 @@
 
                 <button
                   class="mini-button preview-button"
+                  type="button"
                   data-title="Influence of Potential Factors of Urban Change in Bangladesh"
                   data-preview="research/Regional.html"
+                  data-link="research/Regional.html"
                   data-type="iframe"
                 >
                   Preview
@@ -3653,10 +5522,7 @@
 
 
 
-            <article
-              class="research-card"
-              data-search="tod transit oriented development dhaka accessibility act pct transport"
-            >
+            <article class="research-card">
 
               <span class="research-number">
                 03
@@ -3664,14 +5530,18 @@
 
 
               <h3>
+
                 Mapping Temporal Variation of TOD
                 Potential in Dhaka Using ACT/PCT
+
               </h3>
 
 
               <p>
+
                 TOD · Accessibility · Public Transport ·
                 Dhaka
+
               </p>
 
 
@@ -3687,8 +5557,10 @@
 
                 <button
                   class="mini-button preview-button"
+                  type="button"
                   data-title="Mapping Temporal Variation of TOD Potential in Dhaka"
                   data-preview="research/tod.html"
+                  data-link="research/tod.html"
                   data-type="iframe"
                 >
                   Preview
@@ -3700,10 +5572,7 @@
 
 
 
-            <article
-              class="research-card"
-              data-search="covid trip reduction united states transport travel behavior"
-            >
+            <article class="research-card">
 
               <span class="research-number">
                 04
@@ -3711,14 +5580,18 @@
 
 
               <h3>
-                COVID-Induced Trip Reduction Behavior
-                in the United States
+
+                COVID-Induced Trip Reduction
+                Behavior in the United States
+
               </h3>
 
 
               <p>
-                Transport · Travel Behavior · COVID-19 ·
-                Mobility
+
+                Transport · Travel Behavior ·
+                COVID-19 · Mobility
+
               </p>
 
 
@@ -3734,8 +5607,10 @@
 
                 <button
                   class="mini-button preview-button"
+                  type="button"
                   data-title="COVID-Induced Trip Reduction Behavior in the United States"
                   data-preview="research/Trip.html"
+                  data-link="research/Trip.html"
                   data-type="iframe"
                 >
                   Preview
@@ -3745,7 +5620,6 @@
 
             </article>
 
-
           </div>
 
         </section>
@@ -3753,7 +5627,7 @@
 
 
         <!-- ===============================================
-             RECENT PROJECTS
+             RECENT PROJECTS AUTO CAROUSEL
              =============================================== -->
 
         <section
@@ -3769,13 +5643,19 @@
                 Selected Work
               </div>
 
+
               <h2>
                 Recent Projects
               </h2>
 
+
               <p class="section-subtitle">
+
                 Selected geospatial visualization,
                 simulation and mapping projects.
+                The portfolio moves automatically;
+                hover to pause and explore.
+
               </p>
 
             </div>
@@ -3784,260 +5664,365 @@
 
 
 
-          <div class="recent-grid">
+          <div
+            class="projects-carousel"
+            id="projectsCarousel"
+          >
 
 
-            <!-- Terrain -->
-
-            <article class="visual-card">
-
-              <div class="visual-preview">
-
-                <iframe
-                  title="3D Bangladesh Terrain and Bathymetry"
-                  src="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-                  loading="lazy"
-                ></iframe>
+            <div
+              class="carousel-viewport"
+              id="carouselViewport"
+            >
 
 
-                <div class="preview-overlay">
+              <div
+                class="carousel-track"
+                id="carouselTrack"
+              >
 
-                  <span class="preview-pill">
-                    Interactive 3D
-                  </span>
+
+
+                <!-- PROJECT 1 -->
+
+                <div class="project-slide">
+
+                  <article class="project-carousel-card">
+
+
+                    <div class="project-carousel-preview">
+
+                      <iframe
+                        src="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+                        title="3D Bangladesh Terrain and Bathymetry"
+                        loading="lazy"
+                      ></iframe>
+
+
+                      <span class="project-badge">
+                        Interactive 3D
+                      </span>
+
+                    </div>
+
+
+                    <div class="project-carousel-content">
+
+                      <h3 class="project-carousel-title">
+                        3D Bangladesh Terrain and Bathymetry
+                      </h3>
+
+
+                      <div class="project-carousel-meta">
+                        3D Mapping · Terrain · Visualization
+                      </div>
+
+
+                      <div class="project-carousel-actions">
+
+                        <a
+                          class="mini-button"
+                          href="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          Open ↗
+                        </a>
+
+
+                        <button
+                          class="mini-button preview-button"
+                          type="button"
+                          data-title="3D Bangladesh Terrain and Bathymetry"
+                          data-preview="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+                          data-link="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+                          data-type="iframe"
+                        >
+                          Preview
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </article>
 
                 </div>
+
+
+
+                <!-- PROJECT 2 -->
+
+                <div class="project-slide">
+
+                  <article class="project-carousel-card">
+
+
+                    <div class="project-carousel-preview">
+
+                      <iframe
+                        src="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
+                        title="3D Flood Simulation"
+                        loading="lazy"
+                      ></iframe>
+
+
+                      <span class="project-badge">
+                        Simulation
+                      </span>
+
+                    </div>
+
+
+                    <div class="project-carousel-content">
+
+                      <h3 class="project-carousel-title">
+                        3D Flood Simulation
+                      </h3>
+
+
+                      <div class="project-carousel-meta">
+                        Flood · 3D Simulation · Spatial Analysis
+                      </div>
+
+
+                      <div class="project-carousel-actions">
+
+                        <a
+                          class="mini-button"
+                          href="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          Open ↗
+                        </a>
+
+
+                        <button
+                          class="mini-button preview-button"
+                          type="button"
+                          data-title="3D Flood Simulation"
+                          data-preview="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
+                          data-link="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing"
+                          data-type="iframe"
+                        >
+                          Preview
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </article>
+
+                </div>
+
+
+
+                <!-- PROJECT 3 -->
+
+                <div class="project-slide">
+
+                  <article class="project-carousel-card">
+
+
+                    <div class="project-carousel-preview">
+
+                      <iframe
+                        src="research/habitat.html"
+                        title="Habitat Mapping"
+                        loading="lazy"
+                      ></iframe>
+
+
+                      <span class="project-badge">
+                        Coastal GIS
+                      </span>
+
+                    </div>
+
+
+                    <div class="project-carousel-content">
+
+                      <h3 class="project-carousel-title">
+
+                        Habitat Mapping of Coastal
+                        Regions of Bangladesh
+
+                      </h3>
+
+
+                      <div class="project-carousel-meta">
+
+                        Habitat · Coastal GIS ·
+                        Remote Sensing
+
+                      </div>
+
+
+                      <div class="project-carousel-actions">
+
+                        <a
+                          class="mini-button"
+                          href="research/habitat.html"
+                        >
+                          Open
+                        </a>
+
+
+                        <button
+                          class="mini-button preview-button"
+                          type="button"
+                          data-title="Habitat Mapping of Coastal Regions of Bangladesh"
+                          data-preview="research/habitat.html"
+                          data-link="research/habitat.html"
+                          data-type="iframe"
+                        >
+                          Preview
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </article>
+
+                </div>
+
+
+
+                <!-- PROJECT 4 -->
+
+                <div class="project-slide">
+
+                  <article class="project-carousel-card">
+
+
+                    <div class="project-carousel-preview">
+
+                      <img
+                        src="3DKaliganj.jpg"
+                        alt="3D Land Cover Map"
+                        loading="lazy"
+                      >
+
+
+                      <span class="project-badge">
+                        3D Land Cover
+                      </span>
+
+                    </div>
+
+
+                    <div class="project-carousel-content">
+
+                      <h3 class="project-carousel-title">
+                        3D Land Cover Map
+                      </h3>
+
+
+                      <div class="project-carousel-meta">
+
+                        Land Cover · GIS ·
+                        3D Visualization
+
+                      </div>
+
+
+                      <div class="project-carousel-actions">
+
+                        <a
+                          class="mini-button"
+                          href="3DKaliganj.jpg"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          Open ↗
+                        </a>
+
+
+                        <button
+                          class="mini-button preview-button"
+                          type="button"
+                          data-title="3D Land Cover Map"
+                          data-preview="3DKaliganj.jpg"
+                          data-link="3DKaliganj.jpg"
+                          data-type="image"
+                        >
+                          Preview
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </article>
+
+                </div>
+
 
               </div>
 
-
-              <div class="visual-content">
-
-                <h3 class="visual-title">
-                  3D Bangladesh Terrain and Bathymetry
-                </h3>
-
-                <div class="visual-meta">
-                  3D Mapping · Terrain · Visualization
-                </div>
-
-
-                <div class="card-actions">
-
-                  <a
-                    class="mini-button"
-                    href="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Open ↗
-                  </a>
-
-
-                  <button
-                    class="mini-button preview-button"
-                    data-title="3D Bangladesh Terrain and Bathymetry"
-                    data-preview="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-                    data-type="iframe"
-                  >
-                    Preview
-                  </button>
-
-                </div>
-
-              </div>
-
-            </article>
+            </div>
 
 
 
-            <!-- Flood -->
+            <!-- Controls -->
 
-            <article class="visual-card">
-
-              <div class="visual-preview">
-
-                <iframe
-                  title="3D Flood Simulation"
-                  src="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
-                  loading="lazy"
-                ></iframe>
+            <div class="carousel-controls">
 
 
-                <div class="preview-overlay">
+              <div class="carousel-arrows">
 
-                  <span class="preview-pill">
-                    Simulation
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="visual-content">
-
-                <h3 class="visual-title">
-                  3D Flood Simulation
-                </h3>
-
-                <div class="visual-meta">
-                  Flood · 3D Simulation · Spatial Analysis
-                </div>
-
-
-                <div class="card-actions">
-
-                  <a
-                    class="mini-button"
-                    href="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Open ↗
-                  </a>
-
-
-                  <button
-                    class="mini-button preview-button"
-                    data-title="3D Flood Simulation"
-                    data-preview="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
-                    data-type="iframe"
-                  >
-                    Preview
-                  </button>
-
-                </div>
-
-              </div>
-
-            </article>
-
-
-
-            <!-- Habitat -->
-
-            <article class="visual-card">
-
-              <div class="visual-preview">
-
-                <iframe
-                  title="Habitat Mapping"
-                  src="research/habitat.html"
-                  loading="lazy"
-                ></iframe>
-
-
-                <div class="preview-overlay">
-
-                  <span class="preview-pill">
-                    Coastal Mapping
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="visual-content">
-
-                <h3 class="visual-title">
-                  Habitat Mapping of Coastal Regions
-                  of Bangladesh
-                </h3>
-
-                <div class="visual-meta">
-                  Habitat · Coastal GIS · Remote Sensing
-                </div>
-
-
-                <div class="card-actions">
-
-                  <a
-                    class="mini-button"
-                    href="research/habitat.html"
-                  >
-                    Open
-                  </a>
-
-
-                  <button
-                    class="mini-button preview-button"
-                    data-title="Habitat Mapping of Coastal Regions of Bangladesh"
-                    data-preview="research/habitat.html"
-                    data-type="iframe"
-                  >
-                    Preview
-                  </button>
-
-                </div>
-
-              </div>
-
-            </article>
-
-
-
-            <!-- 3D LULC -->
-
-            <article class="visual-card">
-
-              <div class="visual-preview">
-
-                <img
-                  src="3DKaliganj.jpg"
-                  alt="3D Land Cover Map"
-                  loading="lazy"
+                <button
+                  class="carousel-arrow"
+                  id="carouselPrev"
+                  type="button"
+                  aria-label="Previous project"
                 >
+                  ←
+                </button>
 
 
-                <div class="preview-overlay">
-
-                  <span class="preview-pill">
-                    3D Land Cover
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="visual-content">
-
-                <h3 class="visual-title">
-                  3D Land Cover Map
-                </h3>
-
-                <div class="visual-meta">
-                  Land Cover · GIS · 3D Visualization
-                </div>
-
-
-                <div class="card-actions">
-
-                  <a
-                    class="mini-button"
-                    href="3DKaliganj.jpg"
-                    target="_blank"
-                  >
-                    Open ↗
-                  </a>
-
-
-                  <button
-                    class="mini-button preview-button"
-                    data-title="3D Land Cover Map"
-                    data-preview="3DKaliganj.jpg"
-                    data-type="image"
-                  >
-                    Preview
-                  </button>
-
-                </div>
+                <button
+                  class="carousel-arrow"
+                  id="carouselNext"
+                  type="button"
+                  aria-label="Next project"
+                >
+                  →
+                </button>
 
               </div>
 
-            </article>
+
+
+              <div
+                class="carousel-dots"
+                id="carouselDots"
+              ></div>
+
+
+
+              <div
+                class="carousel-status"
+                id="carouselStatus"
+              >
+                Auto sliding
+              </div>
+
+            </div>
+
+
+
+            <div class="carousel-progress">
+
+              <div
+                class="carousel-progress-bar"
+                id="carouselProgress"
+              ></div>
+
+            </div>
 
 
           </div>
@@ -4063,6 +6048,7 @@
                 Undergraduate Research
               </div>
 
+
               <h2>
                 Thesis
               </h2>
@@ -4073,6 +6059,7 @@
 
 
           <div class="thesis-layout">
+
 
             <a
               class="thesis-image"
@@ -4089,20 +6076,25 @@
             </a>
 
 
+
             <div class="thesis-info">
 
               <h3>
-                Urban Growth Dynamics of Small and
-                Medium Towns
+
+                Urban Growth Dynamics of
+                Small and Medium Towns
+
               </h3>
 
 
               <p>
+
                 Research focused on understanding
                 spatial patterns of urban expansion,
                 land-use change and development
                 trajectories through geospatial
                 analysis and predictive modelling.
+
               </p>
 
 
@@ -4155,13 +6147,18 @@
                 Coursework
               </div>
 
+
               <h2>
                 Academic Projects
               </h2>
 
+
               <p class="section-subtitle">
-                Selected planning studios, spatial
-                analysis and technical coursework.
+
+                Selected planning studios,
+                spatial analysis and technical
+                coursework.
+
               </p>
 
             </div>
@@ -4187,6 +6184,7 @@
 
             <button
               class="filter-button active"
+              type="button"
               data-filter="all"
             >
               All
@@ -4195,6 +6193,7 @@
 
             <button
               class="filter-button"
+              type="button"
               data-filter="planning"
             >
               Planning
@@ -4203,6 +6202,7 @@
 
             <button
               class="filter-button"
+              type="button"
               data-filter="transport"
             >
               Transport
@@ -4211,6 +6211,7 @@
 
             <button
               class="filter-button"
+              type="button"
               data-filter="geo"
             >
               GIS & Data
@@ -4388,7 +6389,7 @@
               data-category="geo"
               data-title="GIS and Remote Sensing Studio"
               data-link="Academic/GIS/GIS.html"
-              data-desc="Remote sensing classification, GIS mapping and spatial analysis."
+              data-desc="Remote sensing classification, GIS mapping and spatial analysis for planning."
             >
 
               <img
@@ -4435,7 +6436,7 @@
 
 
             <article
-              class="academic-card extra-project"
+              class="academic-card"
               tabindex="0"
               data-category="planning"
               data-title="Landscape Planning Studio"
@@ -4461,7 +6462,7 @@
 
 
             <article
-              class="academic-card extra-project"
+              class="academic-card"
               tabindex="0"
               data-category="planning"
               data-title="Site and Area Planning Studio"
@@ -4487,7 +6488,7 @@
 
 
             <article
-              class="academic-card extra-project"
+              class="academic-card"
               tabindex="0"
               data-category="planning"
               data-title="Social and Physical Surveys"
@@ -4513,7 +6514,7 @@
 
 
             <article
-              class="academic-card extra-project"
+              class="academic-card"
               tabindex="0"
               data-category="geo"
               data-title="Cartography Workshop"
@@ -4536,7 +6537,9 @@
 
             </article>
 
+
           </div>
+
 
 
           <div class="show-more-wrap">
@@ -4572,6 +6575,7 @@
                 Professional
               </div>
 
+
               <h2>
                 Experience
               </h2>
@@ -4579,6 +6583,7 @@
             </div>
 
           </div>
+
 
 
           <div class="experience-card">
@@ -4589,19 +6594,26 @@
                 Assistant Urban Planner
               </h3>
 
+
               <div class="experience-company">
-                Sheltech Consultants (Pvt.) Ltd.
+
+                Sheltech Consultants
+                (Pvt.) Ltd.
+
               </div>
 
 
               <p class="experience-description">
+
                 Professional work involving GIS,
                 remote sensing, spatial database
                 preparation, transportation studies
                 and master-plan support.
+
               </p>
 
             </div>
+
 
 
             <div class="card-actions">
@@ -4616,8 +6628,10 @@
 
               <button
                 class="button ghost preview-button"
+                type="button"
                 data-title="Professional Experience — Sheltech Consultants"
                 data-preview="Job/sh.html"
+                data-link="Job/sh.html"
                 data-type="iframe"
               >
                 Preview
@@ -4648,6 +6662,7 @@
                 Recognition
               </div>
 
+
               <h2>
                 Achievements
               </h2>
@@ -4655,6 +6670,7 @@
             </div>
 
           </div>
+
 
 
           <div class="achievement-grid">
@@ -4669,6 +6685,7 @@
                   alt="EnvoFrame achievement"
                   loading="lazy"
                 >
+
 
                 <img
                   src="2.jpeg"
@@ -4685,10 +6702,13 @@
                   2nd Runner-Up
                 </strong>
 
+
                 <p>
+
                   EnvoFrame SDG Awareness
                   Videography Competition,
                   North South University, 2023.
+
                 </p>
 
 
@@ -4698,6 +6718,7 @@
                     class="mini-button"
                     href="https://drive.google.com/file/d/130041lShgllPN3RiPhry0x18BGaW3SC4/view?usp=drive_link"
                     target="_blank"
+                    rel="noopener"
                   >
                     View Project ↗
                   </a>
@@ -4729,9 +6750,12 @@
                   Finalist
                 </strong>
 
+
                 <p>
+
                   Climate Science Olympiad,
                   2023.
+
                 </p>
 
 
@@ -4741,6 +6765,7 @@
                     class="mini-button"
                     href="https://climatescience.org/olympiad/cso23"
                     target="_blank"
+                    rel="noopener"
                   >
                     Learn More ↗
                   </a>
@@ -4761,17 +6786,15 @@
 
 
 
-      <!-- ===================================================
+      <!-- =================================================
            SIDEBAR
-           =================================================== -->
+           ================================================= -->
 
       <aside class="side-column">
 
 
 
-        <!-- ===============================================
-             EDUCATION
-             =============================================== -->
+        <!-- EDUCATION -->
 
         <section
           class="side-card reveal"
@@ -4805,17 +6828,26 @@
               <div>
 
                 <h3 class="education-title">
+
                   Bachelor of Urban &
                   Regional Planning
+
                 </h3>
 
+
                 <div class="education-place">
+
                   Bangladesh University of
                   Engineering & Technology
+
                 </div>
 
+
                 <div class="education-meta">
-                  2019–2024 · CGPA 3.61/4.00
+
+                  2019–2024 ·
+                  CGPA 3.61/4.00
+
                 </div>
 
               </div>
@@ -4842,9 +6874,11 @@
                   Higher Secondary Certificate
                 </h3>
 
+
                 <div class="education-place">
                   Rajshahi College
                 </div>
+
 
                 <div class="education-meta">
                   2016–2018 · GPA 5.00/5.00
@@ -4874,9 +6908,14 @@
                   Secondary School Certificate
                 </h3>
 
+
                 <div class="education-place">
-                  Shiroil Government High School
+
+                  Shiroil Government
+                  High School
+
                 </div>
+
 
                 <div class="education-meta">
                   2014–2016 · GPA 5.00/5.00
@@ -4893,9 +6932,7 @@
 
 
 
-        <!-- ===============================================
-             TOOLS
-             =============================================== -->
+        <!-- TOOLS -->
 
         <section
           class="side-card reveal"
@@ -4915,156 +6952,198 @@
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/esri"
                 alt="ArcMap"
               >
+
               <span>
                 ArcMap
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/esri"
                 alt="ArcGIS Pro"
               >
+
               <span>
                 ArcGIS Pro
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/qgis"
                 alt="QGIS"
               >
+
               <span>
                 QGIS
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/googleearth"
                 alt="Google Earth Engine"
               >
+
               <span>
                 Earth Engine
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/googlecolab"
                 alt="Google Colab"
               >
+
               <span>
                 Colab
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/autodesk"
                 alt="AutoCAD"
               >
+
               <span>
                 AutoCAD
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/esri"
                 alt="CityEngine"
               >
+
               <span>
                 CityEngine
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/python"
                 alt="Python"
               >
+
               <span>
                 Python
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/tensorflow"
                 alt="TensorFlow"
               >
+
               <span>
                 TensorFlow
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/keras"
                 alt="Keras"
               >
+
               <span>
                 Keras
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/pandas"
                 alt="Pandas"
               >
+
               <span>
                 Pandas
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="images/icons/15.png"
                 alt="Matplotlib"
               >
+
               <span>
                 Matplotlib
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="https://cdn.simpleicons.org/scikitlearn"
                 alt="scikit-learn"
               >
+
               <span>
                 Scikit-learn
               </span>
+
             </div>
 
 
             <div class="tool">
+
               <img
                 src="images/icons/16.png"
                 alt="R Studio"
               >
+
               <span>
                 R Studio
               </span>
+
             </div>
 
 
@@ -5074,9 +7153,7 @@
 
 
 
-        <!-- ===============================================
-             IELTS
-             =============================================== -->
+        <!-- IELTS -->
 
         <section
           class="side-card reveal"
@@ -5089,10 +7166,14 @@
               IELTS
             </h2>
 
+
             <img
               src="il.png"
               alt="IELTS"
-              style="width:50px;height:auto;"
+              style="
+                width:52px;
+                height:auto;
+              "
             >
 
           </div>
@@ -5132,9 +7213,7 @@
 
 
 
-        <!-- ===============================================
-             CONTACT
-             =============================================== -->
+        <!-- CONTACT -->
 
         <section
           class="side-card reveal"
@@ -5151,10 +7230,12 @@
 
 
           <p class="contact-text">
+
             For academic collaboration,
             research opportunities or
             professional communication,
             feel free to reach out.
+
           </p>
 
 
@@ -5165,6 +7246,7 @@
               class="contact-link"
               href="mailto:khalidbinshofiq29@gmail.com"
             >
+
               <span>
                 Email
               </span>
@@ -5172,15 +7254,17 @@
               <span>
                 ↗
               </span>
+
             </a>
+
 
 
             <button
               class="contact-link"
               id="copyEmail"
               type="button"
-              style="width:100%;cursor:pointer;"
             >
+
               <span>
                 Copy Email
               </span>
@@ -5188,7 +7272,9 @@
               <span>
                 ⧉
               </span>
+
             </button>
+
 
 
             <a
@@ -5197,6 +7283,7 @@
               target="_blank"
               rel="noopener"
             >
+
               <span>
                 LinkedIn
               </span>
@@ -5204,7 +7291,9 @@
               <span>
                 ↗
               </span>
+
             </a>
+
 
 
             <a
@@ -5213,6 +7302,7 @@
               target="_blank"
               rel="noopener"
             >
+
               <span>
                 GitHub
               </span>
@@ -5220,6 +7310,7 @@
               <span>
                 ↗
               </span>
+
             </a>
 
 
@@ -5234,14 +7325,15 @@
 
 
 
-    <!-- =====================================================
+    <!-- ===================================================
          FOOTER
-         ===================================================== -->
+         =================================================== -->
 
     <footer>
 
       ©
       <span id="year"></span>
+
       Khalid-Bin-Shofiq
 
       ·
@@ -5253,6 +7345,7 @@
       <a
         href="https://github.com/Khalid-Bin-Shofiq"
         target="_blank"
+        rel="noopener"
       >
         GitHub
       </a>
@@ -5263,9 +7356,9 @@
 
 
 
-  <!-- =======================================================
-       UNIVERSAL MODAL
-       ======================================================= -->
+  <!-- =====================================================
+       MODAL
+       ===================================================== -->
 
   <div
     class="modal-backdrop"
@@ -5317,8 +7410,8 @@
 
           <a
             class="button primary"
-            href="#"
             id="modalOpen"
+            href="#"
           >
             Open Project
           </a>
@@ -5342,9 +7435,9 @@
 
 
 
-  <!-- =======================================================
+  <!-- =====================================================
        SEARCH
-       ======================================================= -->
+       ===================================================== -->
 
   <div
     class="search-overlay"
@@ -5378,44 +7471,48 @@
 
 
 
-  <!-- Back to Top -->
+  <!-- Back to top -->
 
   <button
     class="to-top"
     id="toTop"
     type="button"
-    aria-label="Back to top"
   >
     ↑
   </button>
 
 
 
-  <!-- =======================================================
+  <!-- =====================================================
        JAVASCRIPT
-       ======================================================= -->
+       ===================================================== -->
 
   <script>
 
-    /* =====================================================
+
+    /* ===================================================
        YEAR
-       ===================================================== */
+       =================================================== */
 
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
 
 
-    /* =====================================================
-       DARK MODE
-       ===================================================== */
+    /* ===================================================
+       THEME
+       =================================================== */
 
     const themeToggle =
-      document.getElementById("themeToggle");
+      document.getElementById(
+        "themeToggle"
+      );
 
 
     const savedTheme =
-      localStorage.getItem("portfolio-theme");
+      localStorage.getItem(
+        "portfolio-theme"
+      );
 
 
     if(savedTheme){
@@ -5425,6 +7522,7 @@
           "data-theme",
           savedTheme
         );
+
     }
 
 
@@ -5434,7 +7532,9 @@
 
         const current =
           document.documentElement
-            .getAttribute("data-theme");
+            .getAttribute(
+              "data-theme"
+            );
 
 
         const next =
@@ -5460,42 +7560,67 @@
 
 
 
-    /* =====================================================
+    /* ===================================================
        MOBILE MENU
-       ===================================================== */
+       =================================================== */
 
     const menuBtn =
-      document.getElementById("menuBtn");
+      document.getElementById(
+        "menuBtn"
+      );
+
 
     const mobileMenu =
-      document.getElementById("mobileMenu");
+      document.getElementById(
+        "mobileMenu"
+      );
+
 
     const mobileOverlay =
-      document.getElementById("mobileOverlay");
+      document.getElementById(
+        "mobileOverlay"
+      );
+
 
     const mobileClose =
-      document.getElementById("mobileClose");
+      document.getElementById(
+        "mobileClose"
+      );
 
 
     function openMobileMenu(){
 
-      mobileMenu.classList.add("open");
+      mobileMenu.classList.add(
+        "open"
+      );
 
-      mobileOverlay.classList.add("show");
+
+      mobileOverlay.classList.add(
+        "show"
+      );
+
 
       document.body.style.overflow =
         "hidden";
+
     }
 
 
     function closeMobileMenu(){
 
-      mobileMenu.classList.remove("open");
+      mobileMenu.classList.remove(
+        "open"
+      );
 
-      mobileOverlay.classList.remove("show");
+
+      mobileOverlay.classList.remove(
+        "show"
+      );
+
 
       document.body.style.overflow =
         "";
+
     }
 
 
@@ -5521,25 +7646,28 @@
       .querySelectorAll(
         ".mobile-menu nav a"
       )
-      .forEach(link => {
+      .forEach(
+        link => {
 
-        link.addEventListener(
-          "click",
-          closeMobileMenu
-        );
+          link.addEventListener(
+            "click",
+            closeMobileMenu
+          );
 
-      });
+        }
+      );
 
 
 
-    /* =====================================================
-       SCROLL PROGRESS
-       ===================================================== */
+    /* ===================================================
+       SCROLL
+       =================================================== */
 
     const progressBar =
       document.getElementById(
         "progressBar"
       );
+
 
     const toTop =
       document.getElementById(
@@ -5558,8 +7686,8 @@
         doc.clientHeight;
 
 
-      const percentage =
-        maxScroll > 0
+      const progress =
+        maxScroll
           ? (
               doc.scrollTop /
               maxScroll
@@ -5568,7 +7696,7 @@
 
 
       progressBar.style.width =
-        `${percentage}%`;
+        progress + "%";
 
 
       toTop.classList.toggle(
@@ -5596,8 +7724,12 @@
       () => {
 
         window.scrollTo({
+
           top: 0,
-          behavior: "smooth"
+
+          behavior:
+            "smooth"
+
         });
 
       }
@@ -5605,9 +7737,9 @@
 
 
 
-    /* =====================================================
-       REVEAL ANIMATION
-       ===================================================== */
+    /* ===================================================
+       REVEAL
+       =================================================== */
 
     const revealObserver =
       new IntersectionObserver(
@@ -5623,13 +7755,16 @@
 
                 entry.target
                   .classList
-                  .add("visible");
+                  .add(
+                    "visible"
+                  );
 
 
                 revealObserver
                   .unobserve(
                     entry.target
                   );
+
               }
 
             }
@@ -5638,7 +7773,7 @@
         },
 
         {
-          threshold: .08
+          threshold: .07
         }
 
       );
@@ -5649,17 +7784,20 @@
         ".reveal"
       )
       .forEach(
-        element =>
+        element => {
+
           revealObserver.observe(
             element
-          )
+          );
+
+        }
       );
 
 
 
-    /* =====================================================
-       NAV ACTIVE SECTION
-       ===================================================== */
+    /* ===================================================
+       ACTIVE NAV
+       =================================================== */
 
     const navLinks =
       Array.from(
@@ -5669,15 +7807,16 @@
       );
 
 
-    const observedSections =
+    const navSections =
       navLinks
-        .map(link => {
-
-          return document.querySelector(
-            link.getAttribute("href")
-          );
-
-        })
+        .map(
+          link =>
+            document.querySelector(
+              link.getAttribute(
+                "href"
+              )
+            )
+        )
         .filter(Boolean);
 
 
@@ -5688,10 +7827,12 @@
 
           const visible =
             entries
+
               .filter(
-                entry =>
-                  entry.isIntersecting
+                item =>
+                  item.isIntersecting
               )
+
               .sort(
                 (a,b) =>
                   b.intersectionRatio -
@@ -5710,7 +7851,9 @@
 
                 "active",
 
-                link.getAttribute("href") ===
+                link.getAttribute(
+                  "href"
+                ) ===
                 "#" + visible.target.id
 
               );
@@ -5731,46 +7874,57 @@
       );
 
 
-    observedSections.forEach(
-      section =>
-        navObserver.observe(section)
+    navSections.forEach(
+      section => {
+
+        navObserver.observe(
+          section
+        );
+
+      }
     );
 
 
 
-    /* =====================================================
+    /* ===================================================
        UNIVERSAL MODAL
-       ===================================================== */
+       =================================================== */
 
     const modalBackdrop =
       document.getElementById(
         "modalBackdrop"
       );
 
+
     const modalTitle =
       document.getElementById(
         "modalTitle"
       );
+
 
     const modalDescription =
       document.getElementById(
         "modalDescription"
       );
 
+
     const modalPreview =
       document.getElementById(
         "modalPreview"
       );
+
 
     const modalOpen =
       document.getElementById(
         "modalOpen"
       );
 
+
     const modalCopy =
       document.getElementById(
         "modalCopy"
       );
+
 
     const modalClose =
       document.getElementById(
@@ -5778,16 +7932,24 @@
       );
 
 
-    let modalCurrentLink = "#";
+    let modalCurrentLink =
+      "#";
 
 
     function openModal({
+
       title,
+
       description = "",
+
       link,
+
       preview,
+
       type = "iframe"
+
     }){
+
 
       modalTitle.textContent =
         title || "Project";
@@ -5798,14 +7960,18 @@
 
 
       modalCurrentLink =
-        link || preview || "#";
+        link ||
+        preview ||
+        "#";
 
 
       modalOpen.href =
         modalCurrentLink;
 
 
-      modalPreview.innerHTML = "";
+      modalPreview.innerHTML =
+        "";
+
 
       modalPreview.classList.remove(
         "show"
@@ -5814,9 +7980,9 @@
 
       if(preview){
 
-        modalPreview
-          .classList
-          .add("show");
+        modalPreview.classList.add(
+          "show"
+        );
 
 
         if(type === "image"){
@@ -5835,10 +8001,9 @@
             title || "Preview";
 
 
-          modalPreview
-            .appendChild(
-              image
-            );
+          modalPreview.appendChild(
+            image
+          );
 
         }
 
@@ -5862,26 +8027,24 @@
             "lazy";
 
 
-          modalPreview
-            .appendChild(
-              iframe
-            );
+          modalPreview.appendChild(
+            iframe
+          );
 
         }
 
       }
 
 
-      modalBackdrop
-        .classList
-        .add("show");
+      modalBackdrop.classList.add(
+        "show"
+      );
 
 
-      modalBackdrop
-        .setAttribute(
-          "aria-hidden",
-          "false"
-        );
+      modalBackdrop.setAttribute(
+        "aria-hidden",
+        "false"
+      );
 
 
       document.body.style.overflow =
@@ -5896,16 +8059,15 @@
 
     function closeModal(){
 
-      modalBackdrop
-        .classList
-        .remove("show");
+      modalBackdrop.classList.remove(
+        "show"
+      );
 
 
-      modalBackdrop
-        .setAttribute(
-          "aria-hidden",
-          "true"
-        );
+      modalBackdrop.setAttribute(
+        "aria-hidden",
+        "true"
+      );
 
 
       modalPreview.innerHTML =
@@ -5916,7 +8078,6 @@
         "";
 
     }
-
 
 
     modalClose.addEventListener(
@@ -5954,7 +8115,7 @@
             );
 
 
-          const original =
+          const old =
             modalCopy.textContent;
 
 
@@ -5966,7 +8127,7 @@
             () => {
 
               modalCopy.textContent =
-                original;
+                old;
 
             },
             1000
@@ -5977,7 +8138,7 @@
         catch{
 
           window.prompt(
-            "Copy link:",
+            "Copy this link:",
             modalCurrentLink
           );
 
@@ -5988,9 +8149,7 @@
 
 
 
-    /* =====================================================
-       PREVIEW BUTTONS
-       ===================================================== */
+    /* Preview buttons */
 
     document
       .querySelectorAll(
@@ -6001,7 +8160,10 @@
 
           button.addEventListener(
             "click",
-            () => {
+            event => {
+
+              event.stopPropagation();
+
 
               openModal({
 
@@ -6009,6 +8171,7 @@
                   button.dataset.title,
 
                 link:
+                  button.dataset.link ||
                   button.dataset.preview,
 
                 preview:
@@ -6027,9 +8190,9 @@
 
 
 
-    /* =====================================================
-       ACADEMIC PROJECT MODAL
-       ===================================================== */
+    /* ===================================================
+       ACADEMIC PROJECTS
+       =================================================== */
 
     const academicCards =
       Array.from(
@@ -6090,10 +8253,6 @@
 
 
 
-    /* =====================================================
-       ACADEMIC FILTER
-       ===================================================== */
-
     const projectSearch =
       document.getElementById(
         "projectSearch"
@@ -6108,16 +8267,31 @@
       );
 
 
+    const showProjectsBtn =
+      document.getElementById(
+        "showProjectsBtn"
+      );
+
+
     let activeFilter =
       "all";
 
 
-    function filterAcademic(){
+    let projectsExpanded =
+      false;
+
+
+
+    function updateAcademicProjects(){
 
       const query =
         projectSearch.value
           .trim()
           .toLowerCase();
+
+
+      let visibleCounter =
+        0;
 
 
       academicCards.forEach(
@@ -6133,7 +8307,7 @@
           `.toLowerCase();
 
 
-          const matchesFilter =
+          const matchesCategory =
             activeFilter === "all" ||
             category === activeFilter;
 
@@ -6143,104 +8317,39 @@
             text.includes(query);
 
 
-          card.classList.toggle(
-
-            "hidden",
-
-            !(
-              matchesFilter &&
-              matchesSearch
-            )
-
-          );
-
-        }
-      );
-
-    }
+          const matches =
+            matchesCategory &&
+            matchesSearch;
 
 
-    projectSearch.addEventListener(
-      "input",
-      filterAcademic
-    );
+          if(!matches){
 
-
-    filterButtons.forEach(
-      button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            activeFilter =
-              button.dataset.filter;
-
-
-            filterButtons.forEach(
-              item =>
-                item.classList.toggle(
-                  "active",
-                  item === button
-                )
+            card.classList.add(
+              "filtered-out"
             );
 
-
-            projectExpanded =
-              true;
-
-
-            showProjectsBtn.textContent =
-              "Show fewer projects";
-
-
-            filterAcademic();
+            return;
 
           }
-        );
-
-      }
-    );
 
 
-
-    /* =====================================================
-       COLLAPSE ACADEMIC PROJECTS
-       ===================================================== */
-
-    const showProjectsBtn =
-      document.getElementById(
-        "showProjectsBtn"
-      );
+          card.classList.remove(
+            "filtered-out"
+          );
 
 
-    let projectExpanded =
-      false;
+          visibleCounter++;
 
 
-    function updateProjectVisibility(){
+          const filtering =
+            query ||
+            activeFilter !== "all";
 
-      if(
-        projectSearch.value ||
-        activeFilter !== "all"
-      ){
-
-        academicCards.forEach(
-          card =>
-            card.style.display =
-              ""
-        );
-
-        return;
-      }
-
-
-      academicCards.forEach(
-        (card,index) => {
 
           if(
-            !projectExpanded &&
-            index >= 8
+            !filtering &&
+            !projectsExpanded &&
+            visibleCounter > 8
           ){
 
             card.style.display =
@@ -6259,61 +8368,85 @@
       );
 
 
+      const filtering =
+        query ||
+        activeFilter !== "all";
+
+
+      showProjectsBtn.style.display =
+        filtering
+          ? "none"
+          : "";
+
+
       showProjectsBtn.textContent =
-        projectExpanded
+        projectsExpanded
           ? "Show fewer projects"
           : "Show all academic projects";
 
     }
 
 
+
+    projectSearch.addEventListener(
+      "input",
+      updateAcademicProjects
+    );
+
+
+    filterButtons.forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            activeFilter =
+              button.dataset.filter;
+
+
+            filterButtons.forEach(
+              item => {
+
+                item.classList.toggle(
+                  "active",
+                  item === button
+                );
+
+              }
+            );
+
+
+            updateAcademicProjects();
+
+          }
+        );
+
+      }
+    );
+
+
     showProjectsBtn.addEventListener(
       "click",
       () => {
 
-        projectExpanded =
-          !projectExpanded;
+        projectsExpanded =
+          !projectsExpanded;
 
 
-        updateProjectVisibility();
-
-      }
-    );
-
-
-    projectSearch.addEventListener(
-      "input",
-      () => {
-
-        if(
-          projectSearch.value.trim()
-        ){
-
-          academicCards.forEach(
-            card =>
-              card.style.display =
-                ""
-          );
-
-        }
-
-        else{
-
-          updateProjectVisibility();
-
-        }
+        updateAcademicProjects();
 
       }
     );
 
 
-    updateProjectVisibility();
+    updateAcademicProjects();
 
 
 
-    /* =====================================================
+    /* ===================================================
        COPY EMAIL
-       ===================================================== */
+       =================================================== */
 
     const copyEmail =
       document.getElementById(
@@ -6332,28 +8465,30 @@
         try{
 
           await navigator.clipboard
-            .writeText(email);
+            .writeText(
+              email
+            );
 
 
-          const firstSpan =
+          const label =
             copyEmail.querySelector(
               "span"
             );
 
 
-          const oldText =
-            firstSpan.textContent;
+          const old =
+            label.textContent;
 
 
-          firstSpan.textContent =
+          label.textContent =
             "Email Copied";
 
 
           setTimeout(
             () => {
 
-              firstSpan.textContent =
-                oldText;
+              label.textContent =
+                old;
 
             },
             1200
@@ -6375,30 +8510,33 @@
 
 
 
-    /* =====================================================
+    /* ===================================================
        GLOBAL SEARCH
-       CTRL / CMD + K
-       ===================================================== */
+       =================================================== */
 
     const searchBtn =
       document.getElementById(
         "searchBtn"
       );
 
+
     const searchOverlay =
       document.getElementById(
         "searchOverlay"
       );
+
 
     const globalSearch =
       document.getElementById(
         "globalSearch"
       );
 
+
     const searchResults =
       document.getElementById(
         "searchResults"
       );
+
 
 
     const searchDatabase = [
@@ -6408,7 +8546,7 @@
           "Current Research",
 
         subtitle:
-          "Research projects",
+          "GeoAI, urban growth and transportation research",
 
         type:
           "Section",
@@ -6417,12 +8555,13 @@
           "#current-research"
       },
 
+
       {
         title:
           "Recent Projects",
 
         subtitle:
-          "Selected portfolio",
+          "3D GIS and visualization portfolio",
 
         type:
           "Section",
@@ -6431,12 +8570,13 @@
           "#recent-projects"
       },
 
+
       {
         title:
           "Thesis",
 
         subtitle:
-          "Undergraduate research",
+          "Urban growth research",
 
         type:
           "Section",
@@ -6445,12 +8585,13 @@
           "#thesis"
       },
 
+
       {
         title:
           "Education",
 
         subtitle:
-          "BUET and academic background",
+          "Academic background",
 
         type:
           "Section",
@@ -6459,12 +8600,13 @@
           "#education"
       },
 
+
       {
         title:
           "Tools & Platforms",
 
         subtitle:
-          "GIS, programming and data science tools",
+          "GIS, programming and data science",
 
         type:
           "Section",
@@ -6472,6 +8614,7 @@
         href:
           "#skills-badges"
       },
+
 
       {
         title:
@@ -6487,6 +8630,7 @@
           "#professional-experience"
       },
 
+
       {
         title:
           "GeoAI",
@@ -6500,6 +8644,7 @@
         href:
           "#current-research"
       },
+
 
       {
         title:
@@ -6515,6 +8660,7 @@
           "#current-research"
       },
 
+
       {
         title:
           "Remote Sensing",
@@ -6529,19 +8675,21 @@
           "#current-research"
       },
 
+
       {
         title:
           "Transit-Oriented Development",
 
         subtitle:
-          "TOD research",
+          "Accessibility and transport research",
 
         type:
-          "Interest",
+          "Research",
 
         href:
           "research/tod.html"
       },
+
 
       {
         title:
@@ -6557,12 +8705,13 @@
           "research/LULC_Prediction.html"
       },
 
+
       {
         title:
           "Urban Change Drivers in Bangladesh",
 
         subtitle:
-          "Regional Planning · Policy",
+          "Regional planning and policy",
 
         type:
           "Research",
@@ -6571,12 +8720,13 @@
           "research/Regional.html"
       },
 
+
       {
         title:
           "COVID-Induced Trip Reduction",
 
         subtitle:
-          "Transportation · Travel Behavior",
+          "Transportation and travel behavior",
 
         type:
           "Research",
@@ -6586,6 +8736,7 @@
       }
 
     ];
+
 
 
     academicCards.forEach(
@@ -6609,6 +8760,7 @@
 
       }
     );
+
 
 
     document
@@ -6639,110 +8791,75 @@
 
 
 
-    function openSearch(){
-
-      searchOverlay
-        .classList
-        .add("show");
-
-
-      document.body.style.overflow =
-        "hidden";
-
-
-      globalSearch.value =
-        "";
-
-
-      renderSearchResults(
-        searchDatabase.slice(0,8)
-      );
-
-
-      setTimeout(
-        () =>
-          globalSearch.focus(),
-        50
-      );
-
-    }
-
-
-
-    function closeSearch(){
-
-      searchOverlay
-        .classList
-        .remove("show");
-
-
-      document.body.style.overflow =
-        "";
-
-    }
-
-
-
     function renderSearchResults(
-      results
+      items
     ){
 
       searchResults.innerHTML =
         "";
 
 
-      if(!results.length){
+      if(!items.length){
 
-        searchResults.innerHTML =
-          `
-            <div
-              style="
-                padding:24px;
-                text-align:center;
-                color:var(--text-soft);
-                font-size:11px;
-              "
-            >
-              No matching items found.
-            </div>
-          `;
+        searchResults.innerHTML = `
+
+          <div
+            style="
+              padding:25px;
+              text-align:center;
+              color:var(--text-soft);
+              font-size:11px;
+            "
+          >
+            No matching results.
+          </div>
+
+        `;
 
         return;
+
       }
 
 
-      results.forEach(
+      items.forEach(
         item => {
 
-          const button =
+          const result =
             document.createElement(
               "button"
             );
 
 
-          button.className =
+          result.type =
+            "button";
+
+
+          result.className =
             "search-result";
 
 
-          button.innerHTML =
-            `
-              <span>
-                <strong>
-                  ${item.title}
-                </strong>
+          result.innerHTML = `
 
-                <small>
-                  ${item.subtitle}
-                </small>
-              </span>
+            <span>
 
-              <span class="search-type">
-                ${item.type}
-              </span>
-            `;
+              <strong>
+                ${item.title}
+              </strong>
+
+              <small>
+                ${item.subtitle}
+              </small>
+
+            </span>
+
+            <span class="search-type">
+              ${item.type}
+            </span>
+
+          `;
 
 
-          button.addEventListener(
+          result.addEventListener(
             "click",
             () => {
 
@@ -6750,7 +8867,9 @@
 
 
               if(
-                item.href.startsWith("#")
+                item.href.startsWith(
+                  "#"
+                )
               ){
 
                 document
@@ -6758,8 +8877,10 @@
                     item.href
                   )
                   ?.scrollIntoView({
+
                     behavior:
                       "smooth"
+
                   });
 
               }
@@ -6776,7 +8897,7 @@
 
 
           searchResults.appendChild(
-            button
+            result
           );
 
         }
@@ -6786,41 +8907,54 @@
 
 
 
-    globalSearch.addEventListener(
-      "input",
-      () => {
+    function openSearch(){
 
-        const query =
-          globalSearch.value
-            .trim()
-            .toLowerCase();
+      searchOverlay.classList.add(
+        "show"
+      );
 
 
-        const results =
-          searchDatabase.filter(
-            item => {
-
-              const text = `
-                ${item.title}
-                ${item.subtitle}
-                ${item.type}
-              `.toLowerCase();
+      document.body.style.overflow =
+        "hidden";
 
 
-              return text.includes(
-                query
-              );
-
-            }
-          );
+      globalSearch.value =
+        "";
 
 
-        renderSearchResults(
-          results.slice(0,12)
-        );
+      renderSearchResults(
+        searchDatabase.slice(
+          0,
+          10
+        )
+      );
 
-      }
-    );
+
+      setTimeout(
+        () => {
+
+          globalSearch.focus();
+
+        },
+        40
+      );
+
+    }
+
+
+
+    function closeSearch(){
+
+      searchOverlay.classList.remove(
+        "show"
+      );
+
+
+      document.body.style.overflow =
+        "";
+
+    }
+
 
 
     searchBtn.addEventListener(
@@ -6846,23 +8980,790 @@
     );
 
 
+    globalSearch.addEventListener(
+      "input",
+      () => {
 
-    /* =====================================================
-       KEYBOARD SHORTCUTS
-       ===================================================== */
+        const query =
+          globalSearch.value
+            .trim()
+            .toLowerCase();
+
+
+        const matches =
+          searchDatabase.filter(
+            item => {
+
+              const text = `
+                ${item.title}
+                ${item.subtitle}
+                ${item.type}
+              `.toLowerCase();
+
+
+              return text.includes(
+                query
+              );
+
+            }
+          );
+
+
+        renderSearchResults(
+          matches.slice(
+            0,
+            12
+          )
+        );
+
+      }
+    );
+
+
+
+    /* ===================================================
+       AUTO PROJECT CAROUSEL
+       =================================================== */
+
+    (() => {
+
+
+      const carousel =
+        document.getElementById(
+          "projectsCarousel"
+        );
+
+
+      if(!carousel)
+        return;
+
+
+      const viewport =
+        document.getElementById(
+          "carouselViewport"
+        );
+
+
+      const track =
+        document.getElementById(
+          "carouselTrack"
+        );
+
+
+      const slides =
+        Array.from(
+          track.querySelectorAll(
+            ".project-slide"
+          )
+        );
+
+
+      const prevButton =
+        document.getElementById(
+          "carouselPrev"
+        );
+
+
+      const nextButton =
+        document.getElementById(
+          "carouselNext"
+        );
+
+
+      const dotsContainer =
+        document.getElementById(
+          "carouselDots"
+        );
+
+
+      const status =
+        document.getElementById(
+          "carouselStatus"
+        );
+
+
+      const carouselProgress =
+        document.getElementById(
+          "carouselProgress"
+        );
+
+
+      const reducedMotion =
+        window.matchMedia(
+          "(prefers-reduced-motion:reduce)"
+        ).matches;
+
+
+      const AUTO_DELAY =
+        5000;
+
+
+      let currentIndex =
+        0;
+
+
+      let timer =
+        null;
+
+
+      let paused =
+        false;
+
+
+      let dragging =
+        false;
+
+
+      let startX =
+        0;
+
+
+      let endX =
+        0;
+
+
+
+      function slidesPerView(){
+
+        if(
+          window.innerWidth <=
+          900
+        ){
+
+          return 1;
+
+        }
+
+
+        return 2;
+
+      }
+
+
+
+      function maxIndex(){
+
+        return Math.max(
+
+          0,
+
+          slides.length -
+          slidesPerView()
+
+        );
+
+      }
+
+
+
+      function slideDistance(){
+
+        if(
+          slides.length < 2
+        ){
+
+          return (
+            slides[0]
+              ?.getBoundingClientRect()
+              .width || 0
+          );
+
+        }
+
+
+        const first =
+          slides[0]
+            .getBoundingClientRect();
+
+
+        const second =
+          slides[1]
+            .getBoundingClientRect();
+
+
+        return (
+          second.left -
+          first.left
+        );
+
+      }
+
+
+
+      function buildDots(){
+
+        dotsContainer.innerHTML =
+          "";
+
+
+        const max =
+          maxIndex();
+
+
+        for(
+          let i = 0;
+          i <= max;
+          i++
+        ){
+
+          const dot =
+            document.createElement(
+              "button"
+            );
+
+
+          dot.type =
+            "button";
+
+
+          dot.className =
+            "carousel-dot";
+
+
+          dot.setAttribute(
+            "aria-label",
+            `Go to project ${i + 1}`
+          );
+
+
+          dot.addEventListener(
+            "click",
+            () => {
+
+              goTo(i);
+
+              restartAuto();
+
+            }
+          );
+
+
+          dotsContainer.appendChild(
+            dot
+          );
+
+        }
+
+      }
+
+
+
+      function updateDots(){
+
+        const dots =
+          dotsContainer
+            .querySelectorAll(
+              ".carousel-dot"
+            );
+
+
+        dots.forEach(
+          (dot,index) => {
+
+            dot.classList.toggle(
+
+              "active",
+
+              index ===
+              currentIndex
+
+            );
+
+          }
+        );
+
+      }
+
+
+
+      function restartProgress(){
+
+        carouselProgress
+          .classList
+          .remove(
+            "running"
+          );
+
+
+        void carouselProgress
+          .offsetWidth;
+
+
+        if(
+          !paused &&
+          !reducedMotion
+        ){
+
+          carouselProgress
+            .classList
+            .add(
+              "running"
+            );
+
+        }
+
+      }
+
+
+
+      function goTo(index){
+
+        const max =
+          maxIndex();
+
+
+        if(index > max){
+
+          currentIndex =
+            0;
+
+        }
+
+        else if(index < 0){
+
+          currentIndex =
+            max;
+
+        }
+
+        else{
+
+          currentIndex =
+            index;
+
+        }
+
+
+        const offset =
+          slideDistance() *
+          currentIndex;
+
+
+        track.style.transform =
+
+          `translate3d(
+            -${offset}px,
+            0,
+            0
+          )`;
+
+
+        updateDots();
+
+        restartProgress();
+
+      }
+
+
+
+      function next(){
+
+        goTo(
+          currentIndex + 1
+        );
+
+      }
+
+
+
+      function previous(){
+
+        goTo(
+          currentIndex - 1
+        );
+
+      }
+
+
+
+      function stopAuto(){
+
+        clearInterval(
+          timer
+        );
+
+
+        timer =
+          null;
+
+
+        carouselProgress
+          .classList
+          .remove(
+            "running"
+          );
+
+      }
+
+
+
+      function startAuto(){
+
+        stopAuto();
+
+
+        if(
+          paused ||
+          reducedMotion ||
+          slides.length <=
+          slidesPerView()
+        ){
+
+          return;
+
+        }
+
+
+        restartProgress();
+
+
+        timer =
+          setInterval(
+            next,
+            AUTO_DELAY
+          );
+
+      }
+
+
+
+      function restartAuto(){
+
+        stopAuto();
+
+        startAuto();
+
+      }
+
+
+
+      /* Buttons */
+
+      prevButton.addEventListener(
+        "click",
+        () => {
+
+          previous();
+
+          restartAuto();
+
+        }
+      );
+
+
+      nextButton.addEventListener(
+        "click",
+        () => {
+
+          next();
+
+          restartAuto();
+
+        }
+      );
+
+
+
+      /* Pause on hover */
+
+      carousel.addEventListener(
+        "mouseenter",
+        () => {
+
+          paused =
+            true;
+
+
+          status.textContent =
+            "Paused";
+
+
+          stopAuto();
+
+        }
+      );
+
+
+      carousel.addEventListener(
+        "mouseleave",
+        () => {
+
+          paused =
+            false;
+
+
+          status.textContent =
+            "Auto sliding";
+
+
+          startAuto();
+
+        }
+      );
+
+
+
+      /* Pause while interacting */
+
+      carousel.addEventListener(
+        "focusin",
+        () => {
+
+          paused =
+            true;
+
+
+          status.textContent =
+            "Paused";
+
+
+          stopAuto();
+
+        }
+      );
+
+
+      carousel.addEventListener(
+        "focusout",
+        event => {
+
+          if(
+            !carousel.contains(
+              event.relatedTarget
+            )
+          ){
+
+            paused =
+              false;
+
+
+            status.textContent =
+              "Auto sliding";
+
+
+            startAuto();
+
+          }
+
+        }
+      );
+
+
+
+      /* Drag / Swipe */
+
+      viewport.addEventListener(
+        "pointerdown",
+        event => {
+
+          if(
+            event.pointerType ===
+            "mouse"
+            &&
+            event.button !== 0
+          ){
+
+            return;
+
+          }
+
+
+          dragging =
+            true;
+
+
+          startX =
+            event.clientX;
+
+
+          endX =
+            startX;
+
+
+          stopAuto();
+
+
+          viewport
+            .setPointerCapture?.(
+              event.pointerId
+            );
+
+        }
+      );
+
+
+      viewport.addEventListener(
+        "pointermove",
+        event => {
+
+          if(!dragging)
+            return;
+
+
+          endX =
+            event.clientX;
+
+        }
+      );
+
+
+      function finishDrag(){
+
+        if(!dragging)
+          return;
+
+
+        dragging =
+          false;
+
+
+        const difference =
+          endX -
+          startX;
+
+
+        if(
+          Math.abs(
+            difference
+          ) > 45
+        ){
+
+          if(
+            difference < 0
+          ){
+
+            next();
+
+          }
+
+          else{
+
+            previous();
+
+          }
+
+        }
+
+
+        startAuto();
+
+      }
+
+
+      viewport.addEventListener(
+        "pointerup",
+        finishDrag
+      );
+
+
+      viewport.addEventListener(
+        "pointercancel",
+        finishDrag
+      );
+
+
+
+      /* Resize */
+
+      let resizeTimer;
+
+
+      window.addEventListener(
+        "resize",
+        () => {
+
+          clearTimeout(
+            resizeTimer
+          );
+
+
+          resizeTimer =
+            setTimeout(
+              () => {
+
+                currentIndex =
+                  Math.min(
+                    currentIndex,
+                    maxIndex()
+                  );
+
+
+                buildDots();
+
+                goTo(
+                  currentIndex
+                );
+
+
+                restartAuto();
+
+              },
+              150
+            );
+
+        }
+      );
+
+
+
+      /* Stop when tab not visible */
+
+      document.addEventListener(
+        "visibilitychange",
+        () => {
+
+          if(
+            document.hidden
+          ){
+
+            stopAuto();
+
+          }
+
+          else{
+
+            startAuto();
+
+          }
+
+        }
+      );
+
+
+
+      /* Initialize */
+
+      buildDots();
+
+      goTo(0);
+
+      startAuto();
+
+
+    })();
+
+
+
+    /* ===================================================
+       KEYBOARD
+       =================================================== */
 
     window.addEventListener(
       "keydown",
       event => {
 
 
+        /* Ctrl / Cmd + K */
+
         if(
           (
             event.ctrlKey ||
             event.metaKey
-          ) &&
-          event.key.toLowerCase() ===
-          "k"
+          )
+          &&
+          event.key
+            .toLowerCase() ===
+            "k"
         ){
 
           event.preventDefault();
@@ -6874,6 +9775,7 @@
         }
 
 
+
         if(
           event.key ===
           "Escape"
@@ -6882,7 +9784,9 @@
           if(
             modalBackdrop
               .classList
-              .contains("show")
+              .contains(
+                "show"
+              )
           ){
 
             closeModal();
@@ -6892,7 +9796,9 @@
           else if(
             searchOverlay
               .classList
-              .contains("show")
+              .contains(
+                "show"
+              )
           ){
 
             closeSearch();
@@ -6914,4 +9820,5 @@
   </script>
 
 </body>
+
 </html>
