@@ -1,3 +1,722 @@
+<!-- =========================================================
+     ADD THIS CSS JUST BEFORE YOUR EXISTING </style> TAG
+     ========================================================= -->
+
+<style>
+  /* ===== Interactive Portfolio Upgrade ===== */
+
+  .sr-only{
+    position:absolute!important;
+    width:1px!important;
+    height:1px!important;
+    padding:0!important;
+    margin:-1px!important;
+    overflow:hidden!important;
+    clip:rect(0,0,0,0)!important;
+    white-space:nowrap!important;
+    border:0!important;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+    background:
+      radial-gradient(
+        circle at 10% 10%,
+        color-mix(in srgb, var(--link) 9%, transparent),
+        transparent 34%
+      ),
+      radial-gradient(
+        circle at 90% 30%,
+        color-mix(in srgb, var(--fg) 5%, transparent),
+        transparent 26%
+      );
+  }
+
+  /* ===== Better Sticky Navigation ===== */
+  .topbar{
+    transition:
+      box-shadow .25s ease,
+      background .25s ease;
+  }
+
+  .topbar.scrolled{
+    box-shadow:0 8px 28px rgba(0,0,0,.10);
+  }
+
+  .btn.accent{
+    background:var(--highlight);
+    color:var(--surface);
+    border-color:var(--highlight);
+  }
+
+  [data-theme="dark"] .btn.accent{
+    color:#111518;
+  }
+
+  /* ===== Search Button ===== */
+  .quick-search-trigger{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+  }
+
+  .quick-search-trigger kbd{
+    font-family:inherit;
+    font-size:10px;
+    font-weight:800;
+    color:var(--muted);
+    background:var(--surface2);
+    border:1px solid var(--border);
+    padding:3px 6px;
+    border-radius:6px;
+    box-shadow:inset 0 -1px 0 rgba(0,0,0,.08);
+  }
+
+  /* ===== Interactive Hero ===== */
+  header{
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+  }
+
+  header::after{
+    content:"";
+    position:absolute;
+    width:360px;
+    height:360px;
+    right:-130px;
+    top:-150px;
+    border-radius:50%;
+    background:
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--link) 13%, transparent),
+        transparent 68%
+      );
+    z-index:-1;
+    pointer-events:none;
+  }
+
+  .avatar{
+    transition:
+      transform .28s ease,
+      box-shadow .28s ease;
+  }
+
+  header:hover .avatar{
+    transform:translateY(-4px) scale(1.018);
+    box-shadow:var(--shadow2);
+  }
+
+  .hero-focus{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:12px;
+    font-size:13px;
+  }
+
+  .hero-focus-label{
+    color:var(--muted);
+    font-weight:700;
+  }
+
+  .hero-focus strong{
+    color:var(--highlight);
+    background:
+      color-mix(in srgb, var(--link) 10%, transparent);
+    border:
+      1px solid
+      color-mix(in srgb, var(--link) 24%, var(--border));
+    border-radius:999px;
+    padding:5px 11px;
+    min-width:175px;
+    text-align:center;
+
+    transition:
+      opacity .18s ease,
+      transform .18s ease;
+  }
+
+  .hero-focus strong.swap{
+    opacity:.15;
+    transform:translateY(5px);
+  }
+
+  /* ===== Portfolio Statistics ===== */
+  .profile-stats{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+    margin-top:16px;
+    max-width:650px;
+  }
+
+  .profile-stat{
+    padding:11px 12px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:
+      color-mix(in srgb, var(--surface) 82%, transparent);
+
+    transition:
+      transform .18s ease,
+      box-shadow .18s ease;
+  }
+
+  .profile-stat:hover{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow);
+  }
+
+  .profile-stat strong{
+    display:block;
+    color:var(--highlight);
+    font-size:21px;
+    line-height:1.1;
+  }
+
+  .profile-stat span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.35;
+    margin-top:4px;
+  }
+
+  /* ===== Animated Section Heading ===== */
+  section h2{
+    position:relative;
+    padding-bottom:8px;
+  }
+
+  section h2::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+
+    width:42px;
+    height:3px;
+
+    border-radius:999px;
+
+    background:var(--highlight);
+
+    opacity:.85;
+
+    transition:width .28s ease;
+  }
+
+  section:hover h2::after{
+    width:75px;
+  }
+
+  /* ===== Academic Project Search ===== */
+  .project-toolbar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+
+    margin:0 0 15px;
+
+    padding:10px;
+
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    background:
+      color-mix(in srgb, var(--surface2) 62%, transparent);
+  }
+
+  .project-search{
+    flex:1 1 220px;
+  }
+
+  .project-search input{
+    width:100%;
+
+    border:1px solid var(--border);
+
+    background:var(--surface);
+
+    color:var(--fg);
+
+    padding:10px 12px;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font:inherit;
+
+    transition:
+      border-color .18s ease,
+      box-shadow .18s ease;
+  }
+
+  .project-search input:focus{
+    border-color:
+      color-mix(in srgb, var(--link) 55%, var(--border));
+
+    box-shadow:
+      0 0 0 3px
+      color-mix(in srgb, var(--link) 14%, transparent);
+  }
+
+  .project-filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+
+  .filter-chip{
+    appearance:none;
+
+    border:1px solid var(--border);
+
+    background:var(--surface);
+
+    color:var(--fg);
+
+    border-radius:999px;
+
+    padding:8px 11px;
+
+    font:inherit;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:
+      transform .15s ease,
+      background .15s ease,
+      color .15s ease;
+  }
+
+  .filter-chip:hover{
+    transform:translateY(-1px);
+  }
+
+  .filter-chip:hover,
+  .filter-chip.active{
+    background:var(--highlight);
+    color:var(--surface);
+    border-color:var(--highlight);
+  }
+
+  [data-theme="dark"] .filter-chip:hover,
+  [data-theme="dark"] .filter-chip.active{
+    color:#111518;
+  }
+
+  .project-count{
+    font-size:12px;
+    font-weight:800;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+
+  .project-card.filtered-out{
+    display:none;
+  }
+
+  /* ===== Interactive Card Spotlight ===== */
+  .proj-card,
+  .research-card2,
+  .project-card{
+    transform-style:preserve-3d;
+    will-change:transform;
+    position:relative;
+  }
+
+  .proj-card::after,
+  .research-card2::after,
+  .project-card::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border-radius:inherit;
+
+    pointer-events:none;
+
+    opacity:0;
+
+    background:
+      radial-gradient(
+        360px circle
+        at var(--mx,50%) var(--my,50%),
+        color-mix(in srgb, var(--link) 10%, transparent),
+        transparent 45%
+      );
+
+    transition:opacity .2s ease;
+  }
+
+  .proj-card:hover::after,
+  .research-card2:hover::after,
+  .project-card:hover::after{
+    opacity:1;
+  }
+
+  /* ===== Contact Buttons ===== */
+  .contact-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:14px;
+  }
+
+  /* =========================================================
+     SEARCH / COMMAND PALETTE
+     ========================================================= */
+
+  .search-palette-backdrop{
+    position:fixed;
+
+    inset:0;
+
+    z-index:5000;
+
+    display:none;
+
+    align-items:flex-start;
+    justify-content:center;
+
+    padding:9vh 18px 18px;
+
+    background:rgba(0,0,0,.50);
+
+    backdrop-filter:blur(8px);
+  }
+
+  .search-palette-backdrop.show{
+    display:flex;
+  }
+
+  .search-palette{
+    width:min(720px,100%);
+
+    max-height:78vh;
+
+    overflow:hidden;
+
+    display:flex;
+    flex-direction:column;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    background:var(--surface);
+
+    box-shadow:
+      0 28px 80px rgba(0,0,0,.32);
+  }
+
+  .search-palette-head{
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    padding:15px 16px 10px;
+  }
+
+  .search-palette-head strong{
+    display:block;
+    color:var(--highlight);
+  }
+
+  .search-palette-head span{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-top:3px;
+  }
+
+  .palette-close{
+    padding:8px 10px;
+  }
+
+  .palette-input-wrap{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:0 16px 12px;
+  }
+
+  .palette-input-wrap > span{
+    font-size:20px;
+    color:var(--muted);
+  }
+
+  .palette-input-wrap input{
+    width:100%;
+
+    border:1px solid var(--border);
+
+    background:var(--surface);
+
+    color:var(--fg);
+
+    padding:11px 13px;
+
+    border-radius:11px;
+
+    outline:none;
+
+    font:inherit;
+  }
+
+  .palette-input-wrap input:focus{
+    border-color:
+      color-mix(in srgb, var(--link) 55%, var(--border));
+
+    box-shadow:
+      0 0 0 3px
+      color-mix(in srgb, var(--link) 14%, transparent);
+  }
+
+  .palette-results{
+    overflow:auto;
+
+    padding:4px 10px 10px;
+
+    min-height:120px;
+  }
+
+  .palette-item{
+    width:100%;
+
+    text-align:left;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:14px;
+
+    padding:11px 12px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:transparent;
+
+    color:var(--fg);
+
+    cursor:pointer;
+
+    font:inherit;
+  }
+
+  .palette-item:hover,
+  .palette-item.active{
+    background:
+      color-mix(in srgb, var(--fg) 8%, transparent);
+  }
+
+  .palette-item-main{
+    min-width:0;
+  }
+
+  .palette-item strong{
+    display:block;
+
+    font-size:13px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    color:var(--highlight);
+  }
+
+  .palette-item small{
+    display:block;
+
+    color:var(--muted);
+
+    margin-top:2px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+  }
+
+  .palette-kind{
+    flex:0 0 auto;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    color:var(--muted);
+
+    border:1px solid var(--border);
+
+    border-radius:999px;
+
+    padding:4px 7px;
+  }
+
+  .palette-empty{
+    color:var(--muted);
+
+    text-align:center;
+
+    padding:28px 14px;
+
+    font-size:13px;
+  }
+
+  .palette-help{
+    display:flex;
+
+    gap:14px;
+
+    flex-wrap:wrap;
+
+    padding:9px 16px 12px;
+
+    border-top:1px solid var(--border);
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    font-weight:800;
+  }
+
+  /* ===== Toast Notification ===== */
+  .toast{
+    position:fixed;
+
+    left:50%;
+    bottom:24px;
+
+    transform:translate(-50%,18px);
+
+    z-index:5500;
+
+    background:var(--highlight);
+
+    color:var(--surface);
+
+    border-radius:999px;
+
+    padding:9px 14px;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    box-shadow:var(--shadow2);
+
+    transition:
+      opacity .2s ease,
+      transform .2s ease;
+  }
+
+  [data-theme="dark"] .toast{
+    color:#111518;
+  }
+
+  .toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+  }
+
+  /* ===== Mobile ===== */
+  @media(max-width:740px){
+
+    .profile-stats{
+      grid-template-columns:1fr;
+      width:100%;
+    }
+
+    .profile-stat{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .profile-stat strong{
+      min-width:32px;
+    }
+
+    .profile-stat span{
+      margin-top:0;
+    }
+
+    .quick-search-label,
+    .quick-search-trigger kbd{
+      display:none;
+    }
+
+    .project-toolbar{
+      align-items:stretch;
+    }
+
+    .project-filters{
+      width:100%;
+    }
+
+    .project-count{
+      width:100%;
+    }
+
+    .search-palette-backdrop{
+      padding-top:5vh;
+    }
+  }
+
+  @media(prefers-reduced-motion:reduce){
+
+    .avatar,
+    .hero-focus strong,
+    .profile-stat,
+    .proj-card,
+    .research-card2,
+    .project-card,
+    .toast{
+      transition:none!important;
+      transform:none!important;
+    }
+  }
+</style>
 Final Code
 <!DOCTYPE html>
 <html lang="en">
@@ -1559,3 +2278,1629 @@ Final Code
   </script>
 </body>
 </html>
+<!-- =========================================================
+     ADD THIS JAVASCRIPT AT THE END OF YOUR EXISTING <script>
+     JUST BEFORE </script>
+     ========================================================= -->
+
+<script>
+(() => {
+
+  /* =========================================================
+     GENERAL
+     ========================================================= */
+
+  const reduceMotion =
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+  /* =========================================================
+     CREATE TOAST
+     ========================================================= */
+
+  const toast = document.createElement("div");
+
+  toast.className = "toast";
+  toast.id = "interactiveToast";
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
+
+  document.body.appendChild(toast);
+
+  let toastTimer;
+
+  function showToast(message){
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    }, 1600);
+  }
+
+
+  /* =========================================================
+     TOPBAR SHADOW
+     ========================================================= */
+
+  const topbar = document.querySelector(".topbar");
+
+  function updateTopbar(){
+
+    topbar?.classList.toggle(
+      "scrolled",
+      window.scrollY > 10
+    );
+  }
+
+  window.addEventListener(
+    "scroll",
+    updateTopbar,
+    { passive:true }
+  );
+
+  updateTopbar();
+
+
+  /* =========================================================
+     THEME BUTTON TEXT
+     ========================================================= */
+
+  const themeButton =
+    document.getElementById("themeToggle");
+
+  function updateThemeButton(){
+
+    if(!themeButton) return;
+
+    const dark =
+      document.documentElement
+      .getAttribute("data-theme") === "dark";
+
+    themeButton.textContent =
+      dark ? "Light" : "Dark";
+
+    themeButton.setAttribute(
+      "aria-label",
+      dark
+        ? "Switch to light mode"
+        : "Switch to dark mode"
+    );
+  }
+
+  updateThemeButton();
+
+  themeButton?.addEventListener(
+    "click",
+    () => setTimeout(updateThemeButton,0)
+  );
+
+
+  /* =========================================================
+     HERO INTERACTIVITY
+     ========================================================= */
+
+  const hero =
+    document.getElementById("home");
+
+  const description =
+    hero?.querySelector(".description");
+
+  if(hero && description){
+
+    /* Rotating Research Interest */
+
+    const focus = document.createElement("div");
+
+    focus.className = "hero-focus";
+
+    focus.setAttribute(
+      "aria-live",
+      "polite"
+    );
+
+    focus.innerHTML = `
+      <span class="hero-focus-label">
+        Currently exploring
+      </span>
+
+      <strong id="rotatingFocus">
+        Urban Growth Modeling
+      </strong>
+    `;
+
+    description.insertAdjacentElement(
+      "afterend",
+      focus
+    );
+
+
+    const rotatingFocus =
+      focus.querySelector("#rotatingFocus");
+
+    const topics = [
+
+      "Urban Growth Modeling",
+
+      "GeoAI & Deep Learning",
+
+      "Land-use Change",
+
+      "Transit-Oriented Development",
+
+      "Remote Sensing",
+
+      "Spatial Planning"
+
+    ];
+
+    let topicIndex = 0;
+
+    if(!reduceMotion){
+
+      setInterval(() => {
+
+        rotatingFocus.classList.add("swap");
+
+        setTimeout(() => {
+
+          topicIndex =
+            (topicIndex + 1) % topics.length;
+
+          rotatingFocus.textContent =
+            topics[topicIndex];
+
+          rotatingFocus.classList.remove("swap");
+
+        },180);
+
+      },2800);
+    }
+
+
+    /* Hero Buttons */
+
+    const heroActions =
+      hero.querySelector(".hero-actions");
+
+    if(heroActions){
+
+      heroActions.innerHTML = `
+        <a
+          class="btn accent"
+          href="#current-research">
+          Explore research
+        </a>
+
+        <a
+          class="btn secondary"
+          href="#contact">
+          Contact
+        </a>
+
+        <a
+          class="btn secondary"
+          href="https://github.com/Khalid-Bin-Shofiq"
+          target="_blank"
+          rel="noopener">
+          GitHub ↗
+        </a>
+      `;
+    }
+
+
+    /* Statistics */
+
+    const stats =
+      document.createElement("div");
+
+    stats.className = "profile-stats";
+
+    stats.setAttribute(
+      "aria-label",
+      "Portfolio highlights"
+    );
+
+    stats.innerHTML = `
+
+      <div class="profile-stat">
+
+        <strong
+          class="stat-number"
+          data-target="4">
+          0
+        </strong>
+
+        <span>
+          Current research projects
+        </span>
+
+      </div>
+
+
+      <div class="profile-stat">
+
+        <strong
+          class="stat-number"
+          data-target="12">
+          0
+        </strong>
+
+        <span>
+          Academic project areas
+        </span>
+
+      </div>
+
+
+      <div class="profile-stat">
+
+        <strong
+          class="stat-number"
+          data-target="14">
+          0
+        </strong>
+
+        <span>
+          Tools & platforms
+        </span>
+
+      </div>
+    `;
+
+    (
+      heroActions ||
+      focus
+    ).insertAdjacentElement(
+      "afterend",
+      stats
+    );
+
+
+    /* Animate Statistics */
+
+    const statNumbers =
+      stats.querySelectorAll(".stat-number");
+
+    function animateNumber(el){
+
+      const target =
+        Number(el.dataset.target || 0);
+
+      if(reduceMotion){
+
+        el.textContent = target;
+
+        return;
+      }
+
+      const duration = 700;
+
+      const start =
+        performance.now();
+
+      function animation(now){
+
+        const progress =
+          Math.min(
+            1,
+            (now - start) / duration
+          );
+
+        const eased =
+          1 - Math.pow(
+            1 - progress,
+            3
+          );
+
+        el.textContent =
+          Math.round(
+            target * eased
+          );
+
+        if(progress < 1){
+
+          requestAnimationFrame(
+            animation
+          );
+        }
+      }
+
+      requestAnimationFrame(
+        animation
+      );
+    }
+
+
+    const statsObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if(!entry.isIntersecting)
+              return;
+
+            animateNumber(
+              entry.target
+            );
+
+            statsObserver.unobserve(
+              entry.target
+            );
+          });
+
+        },
+        {
+          threshold:.7
+        }
+      );
+
+    statNumbers.forEach(
+      number =>
+        statsObserver.observe(number)
+    );
+  }
+
+
+  /* =========================================================
+     ACADEMIC PROJECT SEARCH + FILTER
+     ========================================================= */
+
+  const academicSection =
+    document.getElementById(
+      "academic-projects"
+    );
+
+  const academicGrid =
+    document.getElementById(
+      "projectGrid"
+    );
+
+  if(academicSection && academicGrid){
+
+    const intro =
+      academicSection.querySelector(
+        ".project-intro"
+      );
+
+    const toolbar =
+      document.createElement("div");
+
+    toolbar.className =
+      "project-toolbar";
+
+    toolbar.innerHTML = `
+
+      <label class="project-search">
+
+        <span class="sr-only">
+          Search academic projects
+        </span>
+
+        <input
+          id="interactiveProjectSearch"
+          type="search"
+          placeholder="Search projects…"
+          autocomplete="off">
+
+      </label>
+
+
+      <div
+        class="project-filters"
+        role="group"
+        aria-label="Project categories">
+
+        <button
+          class="filter-chip active"
+          data-filter="all"
+          type="button">
+          All
+        </button>
+
+        <button
+          class="filter-chip"
+          data-filter="planning"
+          type="button">
+          Planning
+        </button>
+
+        <button
+          class="filter-chip"
+          data-filter="geo"
+          type="button">
+          GIS & Data
+        </button>
+
+        <button
+          class="filter-chip"
+          data-filter="transport"
+          type="button">
+          Transport
+        </button>
+
+      </div>
+
+      <span
+        class="project-count"
+        id="interactiveProjectCount">
+      </span>
+    `;
+
+    if(intro){
+
+      intro.insertAdjacentElement(
+        "afterend",
+        toolbar
+      );
+
+    }else{
+
+      academicGrid.insertAdjacentElement(
+        "beforebegin",
+        toolbar
+      );
+    }
+
+
+    const projectSearch =
+      toolbar.querySelector(
+        "#interactiveProjectSearch"
+      );
+
+    const projectCount =
+      toolbar.querySelector(
+        "#interactiveProjectCount"
+      );
+
+    const filterButtons =
+      toolbar.querySelectorAll(
+        ".filter-chip"
+      );
+
+    const projectCards =
+      Array.from(
+        academicGrid.querySelectorAll(
+          ".project-card"
+        )
+      );
+
+    let activeFilter = "all";
+
+
+    function getCategory(card){
+
+      const content = `
+        ${card.dataset.title || ""}
+        ${card.dataset.desc || ""}
+      `.toLowerCase();
+
+
+      if(
+        /transport|accessibility|corridor|trip|traffic/
+        .test(content)
+      ){
+
+        return "transport";
+      }
+
+
+      if(
+        /gis|remote sensing|programming|cartograph|data|spatial/
+        .test(content)
+      ){
+
+        return "geo";
+      }
+
+
+      return "planning";
+    }
+
+
+    projectCards.forEach(card => {
+
+      card.dataset.category =
+        getCategory(card);
+    });
+
+
+    function filterProjects(){
+
+      const query =
+        projectSearch.value
+        .trim()
+        .toLowerCase();
+
+      let visible = 0;
+
+
+      projectCards.forEach(card => {
+
+        const content = `
+          ${card.dataset.title || ""}
+          ${card.dataset.desc || ""}
+        `.toLowerCase();
+
+
+        const filterMatches =
+          activeFilter === "all" ||
+          card.dataset.category ===
+          activeFilter;
+
+
+        const searchMatches =
+          !query ||
+          content.includes(query);
+
+
+        const show =
+          filterMatches &&
+          searchMatches;
+
+
+        card.classList.toggle(
+          "filtered-out",
+          !show
+        );
+
+
+        if(show) visible++;
+      });
+
+
+      projectCount.textContent =
+        `${visible} of ${projectCards.length} projects`;
+    }
+
+
+    projectSearch.addEventListener(
+      "input",
+      filterProjects
+    );
+
+
+    filterButtons.forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          activeFilter =
+            button.dataset.filter;
+
+
+          filterButtons.forEach(
+            chip =>
+              chip.classList.toggle(
+                "active",
+                chip === button
+              )
+          );
+
+
+          filterProjects();
+        }
+      );
+    });
+
+
+    filterProjects();
+  }
+
+
+  /* =========================================================
+     COPY EMAIL BUTTON
+     ========================================================= */
+
+  const contact =
+    document.getElementById("contact");
+
+  if(contact){
+
+    const contactActions =
+      document.createElement("div");
+
+    contactActions.className =
+      "contact-actions";
+
+    contactActions.innerHTML = `
+
+      <a
+        class="btn accent"
+        href="mailto:khalidbinshofiq29@gmail.com">
+        Send email
+      </a>
+
+
+      <button
+        class="btn secondary"
+        id="interactiveCopyEmail"
+        type="button">
+        Copy email
+      </button>
+
+
+      <a
+        class="btn secondary"
+        href="https://www.linkedin.com/in/khalid-bin-shofiq-a81a6826b"
+        target="_blank"
+        rel="noopener">
+        LinkedIn ↗
+      </a>
+    `;
+
+
+    contact.appendChild(
+      contactActions
+    );
+
+
+    contactActions
+      .querySelector(
+        "#interactiveCopyEmail"
+      )
+      .addEventListener(
+        "click",
+        async () => {
+
+          const email =
+            "khalidbinshofiq29@gmail.com";
+
+
+          try{
+
+            await navigator.clipboard
+              .writeText(email);
+
+            showToast(
+              "Email copied"
+            );
+
+          }catch(error){
+
+            window.prompt(
+              "Copy email:",
+              email
+            );
+          }
+        }
+      );
+  }
+
+
+  /* =========================================================
+     CARD TILT + SPOTLIGHT
+     ========================================================= */
+
+  const interactiveCards =
+    document.querySelectorAll(
+      ".project-card, .proj-card, .research-card2"
+    );
+
+  const allowTilt =
+    !reduceMotion &&
+    window.matchMedia(
+      "(pointer:fine)"
+    ).matches;
+
+
+  interactiveCards.forEach(card => {
+
+    card.addEventListener(
+      "pointermove",
+      event => {
+
+        const rect =
+          card.getBoundingClientRect();
+
+
+        const x =
+          (
+            (
+              event.clientX -
+              rect.left
+            ) /
+            rect.width
+          ) * 100;
+
+
+        const y =
+          (
+            (
+              event.clientY -
+              rect.top
+            ) /
+            rect.height
+          ) * 100;
+
+
+        card.style.setProperty(
+          "--mx",
+          `${x}%`
+        );
+
+
+        card.style.setProperty(
+          "--my",
+          `${y}%`
+        );
+
+
+        if(!allowTilt)
+          return;
+
+
+        const rotateX =
+          (
+            (y - 50) /
+            50
+          ) * -1.35;
+
+
+        const rotateY =
+          (
+            (x - 50) /
+            50
+          ) * 1.35;
+
+
+        card.style.transform = `
+          perspective(900px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          translateY(-2px)
+        `;
+      }
+    );
+
+
+    card.addEventListener(
+      "pointerleave",
+      () => {
+
+        if(allowTilt){
+
+          card.style.transform = "";
+        }
+      }
+    );
+  });
+
+
+  /* =========================================================
+     PORTFOLIO SEARCH BUTTON
+     ========================================================= */
+
+  const actionArea =
+    document.querySelector(
+      ".topbar .actions"
+    );
+
+  const searchButton =
+    document.createElement("button");
+
+  searchButton.type = "button";
+
+  searchButton.id =
+    "interactiveSearchButton";
+
+  searchButton.className =
+    "btn secondary quick-search-trigger";
+
+  searchButton.setAttribute(
+    "aria-label",
+    "Search this portfolio"
+  );
+
+  searchButton.innerHTML = `
+    <span aria-hidden="true">
+      ⌕
+    </span>
+
+    <span class="quick-search-label">
+      Search
+    </span>
+
+    <kbd>
+      Ctrl K
+    </kbd>
+  `;
+
+
+  if(actionArea){
+
+    actionArea.insertBefore(
+      searchButton,
+      actionArea.firstChild
+    );
+  }
+
+
+  /* =========================================================
+     SEARCH PALETTE
+     ========================================================= */
+
+  const searchOverlay =
+    document.createElement("div");
+
+  searchOverlay.className =
+    "search-palette-backdrop";
+
+  searchOverlay.id =
+    "interactiveSearchPalette";
+
+  searchOverlay.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+
+  searchOverlay.innerHTML = `
+
+    <div
+      class="search-palette"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="interactiveSearchTitle">
+
+      <div class="search-palette-head">
+
+        <div>
+
+          <strong id="interactiveSearchTitle">
+            Search portfolio
+          </strong>
+
+          <span>
+            Search research, projects,
+            tools and sections.
+          </span>
+
+        </div>
+
+        <button
+          class="btn secondary palette-close"
+          id="interactiveSearchClose"
+          type="button">
+          Esc
+        </button>
+
+      </div>
+
+
+      <label class="palette-input-wrap">
+
+        <span aria-hidden="true">
+          ⌕
+        </span>
+
+        <input
+          id="interactiveSearchInput"
+          type="search"
+          placeholder="Try GeoAI, transport, QGIS…"
+          autocomplete="off">
+
+      </label>
+
+
+      <div
+        class="palette-results"
+        id="interactiveSearchResults"
+        role="listbox">
+      </div>
+
+
+      <div class="palette-help">
+
+        <span>
+          ↑ ↓ Navigate
+        </span>
+
+        <span>
+          Enter Open
+        </span>
+
+        <span>
+          Ctrl K Search
+        </span>
+
+      </div>
+
+    </div>
+  `;
+
+
+  document.body.appendChild(
+    searchOverlay
+  );
+
+
+  const searchClose =
+    searchOverlay.querySelector(
+      "#interactiveSearchClose"
+    );
+
+  const searchInput =
+    searchOverlay.querySelector(
+      "#interactiveSearchInput"
+    );
+
+  const searchResults =
+    searchOverlay.querySelector(
+      "#interactiveSearchResults"
+    );
+
+
+  let searchItems = [];
+
+  let activeSearchResult = 0;
+
+  let previousFocus = null;
+
+
+  /* =========================================================
+     BUILD SEARCH DATABASE
+     ========================================================= */
+
+  function buildSearchItems(){
+
+    const items = [];
+
+
+    /* Navigation Sections */
+
+    document
+      .querySelectorAll(
+        ".tabs a"
+      )
+      .forEach(link => {
+
+        const href =
+          link.getAttribute("href");
+
+        if(
+          !href ||
+          !href.startsWith("#")
+        ) return;
+
+
+        if(
+          items.some(
+            item =>
+              item.href === href
+          )
+        ) return;
+
+
+        items.push({
+
+          label:
+            link.textContent.trim(),
+
+          description:
+            "Portfolio section",
+
+          type:
+            "Section",
+
+          href
+        });
+      });
+
+
+    /* Research */
+
+    document
+      .querySelectorAll(
+        ".research-card2"
+      )
+      .forEach(card => {
+
+        const title =
+          card
+          .querySelector(
+            ".research-title2"
+          )
+          ?.textContent
+          .trim();
+
+
+        const tags =
+          card
+          .querySelector(
+            ".research-tags2"
+          )
+          ?.textContent
+          .trim();
+
+
+        const link =
+          card
+          .querySelector(
+            ".research-open2"
+          )
+          ?.getAttribute("href");
+
+
+        if(title && link){
+
+          items.push({
+
+            label:title,
+
+            description:
+              tags || "Research",
+
+            type:"Research",
+
+            href:link
+          });
+        }
+      });
+
+
+    /* Academic Projects */
+
+    document
+      .querySelectorAll(
+        "#projectGrid .project-card"
+      )
+      .forEach(card => {
+
+        items.push({
+
+          label:
+            card.dataset.title ||
+            "Academic Project",
+
+          description:
+            card.dataset.desc ||
+            "Academic project",
+
+          type:
+            "Project",
+
+          href:
+            card.dataset.link ||
+            "#academic-projects"
+        });
+      });
+
+
+    /* Tools */
+
+    document
+      .querySelectorAll(
+        "#toolsGrid .skill"
+      )
+      .forEach(tool => {
+
+        const name =
+          tool.dataset.name ||
+          tool.textContent.trim();
+
+
+        if(name){
+
+          items.push({
+
+            label:name,
+
+            description:
+              "Tool / Platform",
+
+            type:
+              "Tool",
+
+            href:
+              "#skills-badges"
+          });
+        }
+      });
+
+
+    /* Research Areas */
+
+    document
+      .querySelectorAll(
+        "#research-areas li"
+      )
+      .forEach(item => {
+
+        items.push({
+
+          label:
+            item.textContent.trim(),
+
+          description:
+            "Research interest",
+
+          type:
+            "Interest",
+
+          href:
+            "#research-areas"
+        });
+      });
+
+
+    return items;
+  }
+
+
+  /* =========================================================
+     RENDER SEARCH RESULTS
+     ========================================================= */
+
+  function getSearchResults(){
+
+    const query =
+      searchInput.value
+      .trim()
+      .toLowerCase();
+
+
+    return searchItems
+
+      .map(item => {
+
+        const combined = `
+          ${item.label}
+          ${item.description}
+          ${item.type}
+        `.toLowerCase();
+
+
+        let score = 0;
+
+
+        if(
+          combined.includes(query)
+        ){
+
+          score += 1;
+        }
+
+
+        if(
+          query &&
+          item.label
+          .toLowerCase()
+          .startsWith(query)
+        ){
+
+          score += 3;
+        }
+
+
+        return {
+          ...item,
+          score
+        };
+      })
+
+      .filter(
+        item =>
+          !query ||
+          item.score > 0
+      )
+
+      .sort(
+        (a,b) =>
+          b.score -
+          a.score
+      )
+
+      .slice(0,10);
+  }
+
+
+  function renderSearchResults(){
+
+    const results =
+      getSearchResults();
+
+
+    searchResults.innerHTML = "";
+
+
+    if(!results.length){
+
+      searchResults.innerHTML = `
+        <div class="palette-empty">
+          No matching result.
+          Try another keyword.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    activeSearchResult =
+      Math.min(
+        activeSearchResult,
+        results.length - 1
+      );
+
+
+    results.forEach(
+      (item,index) => {
+
+        const result =
+          document.createElement(
+            "button"
+          );
+
+
+        result.type =
+          "button";
+
+
+        result.className =
+          "palette-item" +
+          (
+            index ===
+            activeSearchResult
+              ? " active"
+              : ""
+          );
+
+
+        result.innerHTML = `
+
+          <span class="palette-item-main">
+
+            <strong></strong>
+
+            <small></small>
+
+          </span>
+
+          <span class="palette-kind">
+          </span>
+        `;
+
+
+        result
+          .querySelector("strong")
+          .textContent =
+          item.label;
+
+
+        result
+          .querySelector("small")
+          .textContent =
+          item.description;
+
+
+        result
+          .querySelector(
+            ".palette-kind"
+          )
+          .textContent =
+          item.type;
+
+
+        result.addEventListener(
+          "mouseenter",
+          () => {
+
+            activeSearchResult =
+              index;
+
+            renderSearchResults();
+          }
+        );
+
+
+        result.addEventListener(
+          "click",
+          () => {
+
+            openSearchResult(
+              item
+            );
+          }
+        );
+
+
+        searchResults.appendChild(
+          result
+        );
+      }
+    );
+
+
+    searchResults._currentResults =
+      results;
+  }
+
+
+  /* =========================================================
+     OPEN RESULT
+     ========================================================= */
+
+  function openSearchResult(item){
+
+    if(!item) return;
+
+
+    closePortfolioSearch();
+
+
+    if(
+      item.href.startsWith("#")
+    ){
+
+      const destination =
+        document.querySelector(
+          item.href
+        );
+
+
+      destination?.scrollIntoView({
+
+        behavior:
+          reduceMotion
+            ? "auto"
+            : "smooth",
+
+        block:"start"
+      });
+
+    }else{
+
+      window.location.href =
+        item.href;
+    }
+  }
+
+
+  /* =========================================================
+     OPEN / CLOSE SEARCH
+     ========================================================= */
+
+  function openPortfolioSearch(){
+
+    searchItems =
+      buildSearchItems();
+
+
+    previousFocus =
+      document.activeElement;
+
+
+    searchOverlay.classList.add(
+      "show"
+    );
+
+
+    searchOverlay.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+
+    document.body.style.overflow =
+      "hidden";
+
+
+    searchInput.value = "";
+
+
+    activeSearchResult = 0;
+
+
+    renderSearchResults();
+
+
+    requestAnimationFrame(
+      () => searchInput.focus()
+    );
+  }
+
+
+  function closePortfolioSearch(){
+
+    if(
+      !searchOverlay.classList
+      .contains("show")
+    ) return;
+
+
+    searchOverlay.classList.remove(
+      "show"
+    );
+
+
+    searchOverlay.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+    document.body.style.overflow =
+      "";
+
+
+    previousFocus?.focus?.();
+  }
+
+
+  searchButton.addEventListener(
+    "click",
+    openPortfolioSearch
+  );
+
+
+  searchClose.addEventListener(
+    "click",
+    closePortfolioSearch
+  );
+
+
+  searchOverlay.addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target ===
+        searchOverlay
+      ){
+
+        closePortfolioSearch();
+      }
+    }
+  );
+
+
+  searchInput.addEventListener(
+    "input",
+    () => {
+
+      activeSearchResult = 0;
+
+      renderSearchResults();
+    }
+  );
+
+
+  /* =========================================================
+     KEYBOARD SHORTCUTS
+     ========================================================= */
+
+  window.addEventListener(
+    "keydown",
+    event => {
+
+      const searchShortcut =
+        (
+          event.ctrlKey ||
+          event.metaKey
+        ) &&
+        event.key
+        .toLowerCase() === "k";
+
+
+      if(searchShortcut){
+
+        event.preventDefault();
+
+
+        if(
+          searchOverlay.classList
+          .contains("show")
+        ){
+
+          closePortfolioSearch();
+
+        }else{
+
+          openPortfolioSearch();
+        }
+
+        return;
+      }
+
+
+      if(
+        !searchOverlay.classList
+        .contains("show")
+      ){
+
+        return;
+      }
+
+
+      const results =
+        searchResults
+        ._currentResults || [];
+
+
+      if(event.key === "Escape"){
+
+        event.preventDefault();
+
+        closePortfolioSearch();
+      }
+
+
+      else if(
+        event.key ===
+        "ArrowDown"
+      ){
+
+        event.preventDefault();
+
+
+        if(!results.length)
+          return;
+
+
+        activeSearchResult =
+          (
+            activeSearchResult + 1
+          ) %
+          results.length;
+
+
+        renderSearchResults();
+      }
+
+
+      else if(
+        event.key ===
+        "ArrowUp"
+      ){
+
+        event.preventDefault();
+
+
+        if(!results.length)
+          return;
+
+
+        activeSearchResult =
+          (
+            activeSearchResult -
+            1 +
+            results.length
+          ) %
+          results.length;
+
+
+        renderSearchResults();
+      }
+
+
+      else if(
+        event.key === "Enter"
+      ){
+
+        if(!results.length)
+          return;
+
+
+        event.preventDefault();
+
+
+        openSearchResult(
+          results[
+            activeSearchResult
+          ]
+        );
+      }
+    }
+  );
+
+})();
+</script>
