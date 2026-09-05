@@ -1,202 +1,493 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exploring the Influence of Potential Factors of Urban Change in Bangladesh</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Research case study on national-to-divisional urban expansion drivers in Bangladesh using Logistic Regression, Random Forest, XGBoost and Artificial Neural Networks.">
+  <title>Urban Expansion Drivers in Bangladesh | Khalid-Bin-Shofiq</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --ink:#1f2d3a;
-      --muted:#5f6b76;
-      --blue:#1a73e8;
-      --border:rgba(0,0,0,.12);
-      --bg:#ffffff;
-      --panel:#f6f9ff;
-      --shadow:0 8px 24px rgba(0,0,0,.08);
-      --radius:14px;
-      --maxw:1100px;
+      --bg:#f3f7f9;
+      --surface:#ffffff;
+      --surface-2:#f7fafb;
+      --surface-3:#edf4f7;
+      --text:#172834;
+      --muted:#627482;
+      --border:#d9e5ea;
+      --accent:#13799a;
+      --accent-dark:#0d5f79;
+      --accent-soft:rgba(19,121,154,.10);
+      --green:#3b8b77;
+      --orange:#c9753f;
+      --purple:#735ba7;
+      --shadow:0 8px 30px rgba(24,54,71,.08);
+      --shadow-lg:0 22px 65px rgba(24,54,71,.15);
+      --radius:18px;
+      --maxw:1400px;
+      --navh:68px;
+    }
+    html[data-theme="dark"]{
+      --bg:#0d1317;
+      --surface:#141c21;
+      --surface-2:#192329;
+      --surface-3:#202c33;
+      --text:#edf4f7;
+      --muted:#9cadb7;
+      --border:rgba(255,255,255,.09);
+      --accent:#5bbbd8;
+      --accent-dark:#82cce2;
+      --accent-soft:rgba(91,187,216,.12);
+      --green:#69c0a8;
+      --orange:#e39a67;
+      --purple:#a999df;
+      --shadow:0 10px 32px rgba(0,0,0,.28);
+      --shadow-lg:0 28px 80px rgba(0,0,0,.45);
     }
 
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:104px}
     body{
-      font-family: "Georgia","Times New Roman",Times,serif;
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.75;
+      margin:0;
+      font-family:"Inter",Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:radial-gradient(circle at 2% 0%,var(--accent-soft),transparent 25%),var(--bg);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
     }
+    body,button,input{font-family:"Inter",Arial,Helvetica,sans-serif}
+    img{max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button{color:inherit}
 
-    .page{
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 28px 18px 48px;
-    }
+    .scroll-progress{position:fixed;inset:0 0 auto;z-index:9999;height:3px;background:transparent}
+    .scroll-progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green))}
 
-    .divider{
-      height: 1px;
-      background: rgba(0,0,0,.10);
-      margin: 6px 0 18px;
+    .topbar{
+      position:sticky;top:0;z-index:2000;border-bottom:1px solid var(--border);
+      background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(18px)
     }
+    .topbar-inner{
+      width:min(calc(100% - 36px),var(--maxw));min-height:var(--navh);margin:auto;
+      display:flex;align-items:center;justify-content:space-between;gap:20px
+    }
+    .back-link{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800}
+    .back-icon{width:34px;height:34px;border:1px solid var(--border);border-radius:10px;display:grid;place-items:center;background:var(--surface-2)}
+    .top-actions{display:flex;align-items:center;gap:8px}
+    .top-btn{min-height:38px;padding:8px 11px;border:1px solid var(--border);border-radius:10px;background:var(--surface);cursor:pointer;font-size:11px;font-weight:800}
+    .top-btn:hover{background:var(--surface-3)}
 
-    .project-title{
-      font-size: 22px;
-      font-style: italic;
-      font-weight: 700;
-      margin: 0 0 14px;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
+    .section-nav{
+      position:sticky;top:var(--navh);z-index:1900;border-bottom:1px solid var(--border);
+      background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(16px);
+      overflow-x:auto;scrollbar-width:none
     }
+    .section-nav::-webkit-scrollbar{display:none}
+    .section-nav-inner{width:min(calc(100% - 36px),var(--maxw));margin:auto;display:flex;gap:4px;white-space:nowrap}
+    .section-nav a{display:block;padding:11px 10px;color:var(--muted);font-size:10.5px;font-weight:800;border-bottom:2px solid transparent}
+    .section-nav a:hover,.section-nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-    /* Objectives */
-    .objectives{
-      margin: 0 0 18px;
-      padding: 12px 16px;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 6px 16px rgba(0,0,0,.05);
-    }
-    .objectives h4{
-      margin: 0 0 8px;
-      font-size: 16px;
-    }
-    .objectives ol{
-      margin: 0;
-      padding-left: 18px;
-    }
-    .objectives li{
-      margin: 6px 0;
-    }
+    .page{width:min(calc(100% - 36px),var(--maxw));margin:24px auto 70px}
 
-    /* Description */
-    .title-description{
-      background: var(--panel);
-      border: 1px solid rgba(26,115,232,.25);
-      border-left: 4px solid var(--blue);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      margin: 0 0 22px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    .hero{
+      position:relative;overflow:hidden;padding:38px;border:1px solid var(--border);border-radius:24px;
+      background:var(--surface);box-shadow:var(--shadow)
     }
-    .title-description p{
-      margin: 0 0 12px;
-      text-align: justify;
+    .hero::after{
+      content:"";position:absolute;width:430px;height:430px;right:-120px;top:-190px;border-radius:50%;
+      background:radial-gradient(circle,var(--accent-soft),transparent 68%);pointer-events:none
     }
-    .title-description p:last-child{
-      margin-bottom: 0;
-    }
+    .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.2fr) 360px;gap:42px;align-items:center}
+    .eyebrow{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px}
+    h1{margin:0;font-size:clamp(36px,4vw,57px);line-height:1.06;letter-spacing:-2px;font-weight:800;max-width:1000px}
+    .hero-subtitle{margin:16px 0 0;max-width:880px;color:var(--muted);font-size:15px;line-height:1.8;text-align:justify}
+    .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+    .chip{padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface-2);font-size:10px;font-weight:700}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:9px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:11px;font-weight:800;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+    .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+    .btn.primary:hover{background:var(--accent-dark)}
+    .hero-side{padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--surface-2)}
+    .hero-side-label{font-size:9px;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+    .hero-meta{display:grid;gap:9px}
+    .hero-meta-row{display:flex;justify-content:space-between;gap:15px;padding-bottom:9px;border-bottom:1px solid var(--border)}
+    .hero-meta-row:last-child{border-bottom:0;padding-bottom:0}
+    .hero-meta-row span:first-child{color:var(--muted);font-size:9.5px}
+    .hero-meta-row span:last-child{text-align:right;font-size:10px;font-weight:800}
 
-    h2{
-      margin: 24px 0 12px;
-      font-size: 20px;
-    }
-    h3{
-      margin: 20px 0 10px;
-      font-size: 16px;
-      text-align:center;
-      color:#2b3742;
-    }
+    .metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:24px}
+    .metric{padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface-2)}
+    .metric strong{display:block;font-size:27px;line-height:1.05;letter-spacing:-1px}
+    .metric span{display:block;margin-top:6px;color:var(--muted);font-size:9.5px;line-height:1.4}
+    .metric em{display:block;margin-top:3px;color:var(--accent);font-style:normal;font-size:8.5px;font-weight:700}
 
-    /* Grids */
-    .grid{
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-      justify-items: center;
-      margin-top: 10px;
-    }
-    .grid img{
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 14px rgba(0,0,0,.06);
-    }
+    .section{margin-top:24px;padding:28px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+    .section-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:20px}
+    .section-kicker{color:var(--accent);font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+    h2{margin:0;font-size:25px;line-height:1.25;letter-spacing:-.55px}
+    .section-intro{margin:7px 0 0;max-width:900px;color:var(--muted);font-size:12.5px;line-height:1.75;text-align:justify}
+    .caption{margin:9px 0 0;text-align:center;color:var(--muted);font-size:9.5px}
+    .callout{padding:17px 18px;border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));border-left:4px solid var(--accent);border-radius:12px;background:var(--accent-soft);font-size:12px;line-height:1.7}
 
-    .grid.single{ grid-template-columns: 1fr; }
-    .grid.single img{ width: min(780px, 100%); }
+    .two-col{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(310px,.95fr);gap:22px;align-items:center}
+    .four-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+    .three-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .card{padding:18px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .card-num{color:var(--accent);font-size:9px;font-weight:800;letter-spacing:.08em}
+    .card h3{margin:8px 0 6px;font-size:14px;line-height:1.4}
+    .card p{margin:0;color:var(--muted);font-size:10.5px;line-height:1.65}
 
-    .grid.wide{ grid-template-columns: 1fr; }
-    .grid.wide img{ width: min(980px, 100%); }
+    .figure-card{overflow:hidden;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:0 5px 16px rgba(30,55,70,.06)}
+    html[data-theme="dark"] .figure-card{background:#fff}
+    .figure-card img{display:block;width:100%;height:auto;cursor:zoom-in;transition:transform .25s ease}
+    .figure-card:hover img{transform:scale(1.006)}
+    .figure-wide{max-width:1160px;margin:0 auto}
+    .figure-medium{max-width:900px;margin:0 auto}
+    .figure-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 
-    @media (max-width: 1200px){
-      .grid{ grid-template-columns: repeat(4,1fr); }
+    .driver-groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-bottom:18px}
+    .driver-group{padding:17px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .driver-group strong{display:block;font-size:12px;margin-bottom:8px}
+    .driver-group ul{margin:0;padding-left:17px;color:var(--muted);font-size:9.8px;line-height:1.75}
+
+    .technical{margin-top:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2);overflow:hidden}
+    .technical summary{list-style:none;padding:15px 16px;cursor:pointer;font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .technical summary::-webkit-details-marker{display:none}
+    .technical summary::after{content:"+";font-size:18px;line-height:1}
+    .technical[open] summary::after{content:"−"}
+    .technical-body{padding:0 16px 17px;color:var(--muted);font-size:10.5px;line-height:1.7}
+    .technical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0 16px}
+    .technical-stat{padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+    .technical-stat b{display:block;color:var(--text);font-size:13px}
+    .technical-stat span{display:block;margin-top:4px;font-size:8.8px}
+
+    .insight-banner{padding:16px 18px;margin-bottom:15px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .insight-banner strong{font-size:16px;line-height:1.4}
+    .insight-banner span{max-width:560px;font-size:10px;opacity:.9}
+
+    .model-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+    .model-card{padding:15px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .model-card.best{border-color:color-mix(in srgb,var(--accent) 55%,var(--border));box-shadow:inset 0 0 0 1px var(--accent-soft)}
+    .model-card h3{margin:0 0 10px;font-size:12px}
+    .model-card .model-note{margin:8px 0 0;color:var(--muted);font-size:8.8px;line-height:1.5}
+    .model-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+    .model-metric{padding:8px;border:1px solid var(--border);border-radius:9px;background:var(--surface)}
+    .model-metric b{display:block;font-size:14px}
+    .model-metric small{display:block;color:var(--muted);font-size:7.5px}
+
+    .rank-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:15px 0}
+    .rank-card{padding:13px;border:1px solid var(--border);border-radius:11px;background:var(--surface-2)}
+    .rank-card small{display:block;color:var(--accent);font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+    .rank-card strong{display:block;margin-top:5px;font-size:12px}
+    .rank-card span{display:block;margin-top:4px;color:var(--muted);font-size:8.7px;line-height:1.45}
+
+    .division-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:15px}
+    .division{padding:15px;border:1px solid var(--border);border-radius:12px;background:var(--surface-2)}
+    .division h3{margin:0;font-size:12px}
+    .division .driverline{margin-top:7px;color:var(--accent);font-size:9px;font-weight:800}
+    .division p{margin:7px 0 0;color:var(--muted);font-size:9.2px;line-height:1.55}
+
+    .policy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .policy{padding:18px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .policy .icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:var(--accent-soft);color:var(--accent);font-weight:800;margin-bottom:10px}
+    .policy h3{margin:0 0 7px;font-size:13px}
+    .policy p{margin:0;color:var(--muted);font-size:10px;line-height:1.65}
+
+    .conclusion-box{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:18px;align-items:stretch}
+    .conclusion-main{padding:21px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(135deg,var(--accent-soft),var(--surface-2))}
+    .conclusion-main h3{margin:0 0 9px;font-size:17px}
+    .conclusion-main p{margin:0;color:var(--muted);font-size:11px;line-height:1.75;text-align:justify}
+    .conclusion-side{padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--surface-2);display:grid;gap:10px}
+    .takeaway{padding-bottom:9px;border-bottom:1px solid var(--border)}
+    .takeaway:last-child{border-bottom:0;padding-bottom:0}
+    .takeaway b{display:block;font-size:11px}
+    .takeaway span{display:block;margin-top:3px;color:var(--muted);font-size:8.8px;line-height:1.45}
+
+    footer{margin-top:25px;padding:22px;text-align:center;color:var(--muted);font-size:9.5px;border-top:1px solid var(--border)}
+
+    .zoom-overlay{position:fixed;inset:0;z-index:7000;padding:24px;display:flex;align-items:center;justify-content:center;background:rgba(4,10,14,.88);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:.18s ease}
+    .zoom-overlay.show{opacity:1;visibility:visible}
+    .zoom-image{max-width:96vw;max-height:92vh;object-fit:contain;border-radius:10px;box-shadow:0 30px 100px rgba(0,0,0,.45);background:#fff}
+    .zoom-close{position:fixed;top:18px;right:18px;width:42px;height:42px;border:1px solid rgba(255,255,255,.35);border-radius:11px;background:rgba(20,30,36,.75);color:#fff;font-size:18px;cursor:pointer}
+
+    .to-top{position:fixed;right:22px;bottom:22px;z-index:1800;width:40px;height:40px;border:1px solid var(--border);border-radius:11px;background:var(--surface);box-shadow:var(--shadow);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:.2s ease}
+    .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+
+    @media(max-width:1100px){
+      .hero-grid,.two-col,.conclusion-box{grid-template-columns:1fr}
+      .hero-side{max-width:620px}
+      .metrics{grid-template-columns:repeat(3,1fr)}
+      .four-cards,.model-grid,.division-grid{grid-template-columns:repeat(2,1fr)}
+      .driver-groups{grid-template-columns:repeat(2,1fr)}
     }
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: repeat(3,1fr); }
+    @media(max-width:760px){
+      .page,.topbar-inner,.section-nav-inner{width:min(calc(100% - 24px),var(--maxw))}
+      .hero{padding:25px}.section{padding:20px}
+      h1{font-size:34px}.section-head{align-items:flex-start;flex-direction:column}
+      .metrics,.four-cards,.three-cards,.figure-row,.policy-grid,.rank-strip,.technical-grid{grid-template-columns:1fr}
+      .model-grid,.division-grid,.driver-groups{grid-template-columns:1fr}
+      .top-actions .top-btn:first-child{display:none}
     }
-    @media (max-width: 760px){
-      .grid{ grid-template-columns: repeat(2,1fr); }
-      .project-title{ font-size: 18px; }
-    }
-    @media (max-width: 520px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
   </style>
 </head>
-
 <body>
-  <div class="page">
+  <div class="scroll-progress"><span id="progressBar"></span></div>
 
-    <div class="project-title">
-      📝 <span>Project: Exploring the Influence of Potential Factors of Urban Change in Bangladesh.</span>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="back-link" href="../index.html"><span class="back-icon">←</span><span>Back to Portfolio</span></a>
+      <div class="top-actions">
+        <button class="top-btn" type="button" onclick="document.getElementById('national-results').scrollIntoView({behavior:'smooth'})">Key Results</button>
+        <button class="top-btn" id="themeToggle" type="button" title="Toggle theme">◐</button>
+      </div>
     </div>
-    <div class="divider"></div>
+  </header>
 
-    <div class="objectives">
-      <h4>Objectives</h4>
-      <ol>
-        <li>To quantify the relative influence of socio-economic, environmental, and accessibility-related factors on built-up land expansion across Bangladesh.</li>
-        <li>To evaluate and compare machine learning and statistical models for predicting regional patterns of urban growth.</li>
-      </ol>
+  <nav class="section-nav">
+    <div class="section-nav-inner">
+      <a href="#overview" class="nav-link active">Overview</a>
+      <a href="#problem" class="nav-link">Problem</a>
+      <a href="#framework" class="nav-link">Framework</a>
+      <a href="#drivers" class="nav-link">Drivers</a>
+      <a href="#national-results" class="nav-link">National Results</a>
+      <a href="#divisions" class="nav-link">Divisions</a>
+      <a href="#planning" class="nav-link">Planning</a>
+      <a href="#conclusion" class="nav-link">Conclusion</a>
     </div>
+  </nav>
 
-    <div class="title-description">
-      <p>
-        Bangladesh is experiencing rapid urbanization driven by population dynamics, economic activity, topography,
-        proximity to urban centers, transportation networks, and waterbodies. However, the relative contribution of these
-        drivers to urban change remains insufficiently examined.
-      </p>
-      <p>
-        This study compares Logistic Regression, Random Forest, XGBoost, and Artificial Neural Networks using accuracy,
-        precision, recall, F1-score, and ROC–AUC metrics. Random Forest and XGBoost demonstrate superior performance,
-        highlighting regional heterogeneity in urban growth processes.
-      </p>
-      <p>
-        Population, elevation, and distance to waterbodies are dominant drivers nationwide, while Barishal exhibits
-        highway-oriented expansion constrained by river morphology—insights that support context-sensitive and
-        sustainable urban planning.
-      </p>
-    </div>
+  <main class="page">
+    <section class="hero" id="overview">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Urban Expansion · Machine Learning · Spatial Planning</div>
+          <h1>Subnational Heterogeneity in the Drivers of Urban Expansion in Bangladesh</h1>
+          <p class="hero-subtitle">
+            A national-to-divisional multi-model analysis of built-up change between 2010 and 2020. The study combines Logistic Regression, Random Forest, XGBoost and Artificial Neural Networks to distinguish drivers that remain robust across modelling approaches from those whose importance changes with regional geography, hydrology, accessibility and socioeconomic context.
+          </p>
+          <div class="chips">
+            <span class="chip">Urban Expansion</span><span class="chip">Built-up Change</span><span class="chip">Random Forest</span>
+            <span class="chip">XGBoost</span><span class="chip">Artificial Neural Network</span><span class="chip">Subnational Heterogeneity</span>
+            <span class="chip">Bangladesh</span><span class="chip">Spatial Planning</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn primary" href="#national-results">Explore Findings →</a>
+            <a class="btn" href="#framework">View Framework</a>
+            <a class="btn" href="#planning">Planning Implications</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="hero-side-label">Study Profile</div>
+          <div class="hero-meta">
+            <div class="hero-meta-row"><span>Spatial scale</span><span>Bangladesh + 8 divisions</span></div>
+            <div class="hero-meta-row"><span>Change period</span><span>2010 → 2020</span></div>
+            <div class="hero-meta-row"><span>Dependent data</span><span>GHSL built-up surface</span></div>
+            <div class="hero-meta-row"><span>Analysis grid</span><span>100 m × 100 m</span></div>
+            <div class="hero-meta-row"><span>Models</span><span>LR · RF · XGBoost · ANN</span></div>
+          </div>
+        </aside>
+      </div>
 
-    <h3>Selected Factors</h3>
-    <div class="grid">
-      <img src="./1.png"><img src="./2.png"><img src="./3.png"><img src="./4.png"><img src="./5.png">
-      <img src="./6.png"><img src="./7.png"><img src="./8.png"><img src="./9.png"><img src="./10.png">
-    </div>
+      <div class="metrics">
+        <div class="metric"><strong>10</strong><span>Harmonized predictors</span><em>4 driver groups</em></div>
+        <div class="metric"><strong>4</strong><span>Complementary models</span><em>linear + nonlinear</em></div>
+        <div class="metric"><strong>8</strong><span>Administrative divisions</span><em>subnational comparison</em></div>
+        <div class="metric"><strong>18,841</strong><span>Final balanced samples</span><em>changed + unchanged pixels</em></div>
+        <div class="metric"><strong>0.722</strong><span>Highest national AUC</span><em>Random Forest</em></div>
+      </div>
+    </section>
 
-    <h2>Results</h2>
+    <section class="section" id="problem">
+      <div class="section-head"><div><div class="section-kicker">Research Problem</div><h2>Beyond a Single National Driver Hierarchy</h2><p class="section-intro">Urban expansion in Bangladesh reflects interacting demographic, economic, physical and accessibility conditions. A national model can identify broad regularities, but it can also conceal how those mechanisms change across floodplains, coastal zones, hilly regions, transport corridors and rapidly urbanizing metropolitan areas.</p></div></div>
 
-    <h3>Urban Density Change</h3>
-    <div class="grid" style="grid-template-columns:repeat(3,1fr);">
-      <img src="./12.png"><img src="./13.png"><img src="./14.png">
-    </div>
+      <div class="two-col">
+        <div>
+          <div class="callout">The central question is not only <b>what influences urban expansion in Bangladesh</b>, but which drivers remain robust nationally, which are subnationally contingent, and under what geographical contexts their importance changes.</div>
+          <div class="four-cards" style="margin-top:14px">
+            <article class="card"><div class="card-num">01</div><h3>Identify National Drivers</h3><p>Estimate the relative importance of socioeconomic, physical, proximity and accessibility factors linked with built-up expansion.</p></article>
+            <article class="card"><div class="card-num">02</div><h3>Test Cross-Model Consistency</h3><p>Compare driver rankings across LR, RF, XGBoost and ANN rather than relying on one modelling structure.</p></article>
+            <article class="card"><div class="card-num">03</div><h3>Measure Spatial Heterogeneity</h3><p>Evaluate how driver hierarchies and predictive performance vary across all eight administrative divisions.</p></article>
+            <article class="card"><div class="card-num">04</div><h3>Translate to Planning</h3><p>Connect national and divisional differences to differentiated urban growth management strategies.</p></article>
+          </div>
+        </div>
+        <div>
+          <figure class="figure-card"><img class="zoomable" src="regional-study-area.webp" alt="Study area map of Bangladesh and its eight divisions"></figure>
+          <p class="caption">Bangladesh provides contrasting coastal, deltaic, hilly, haor and inland contexts for subnational comparison.</p>
+        </div>
+      </div>
+    </section>
 
-    <h3>Model Outcome</h3>
-    <div class="grid wide">
-      <img src="./16.jpg">
-    </div>
+    <section class="section" id="framework">
+      <div class="section-head"><div><div class="section-kicker">Data & Methodology</div><h2>Research Framework</h2><p class="section-intro">The analysis harmonizes national gridded datasets to a common 100 m grid, constructs a balanced sample of built-up change and non-change pixels, tests multicollinearity, and evaluates four complementary models at national and divisional scales.</p></div></div>
 
-    <h3>K-Means Cluster</h3>
-    <div class="grid" style="grid-template-columns:repeat(3,1fr);">
-      <img src="./01.png"><img src="./02.png"><img src="./03.png">
-    </div>
+      <div class="figure-row">
+        <div><figure class="figure-card"><img class="zoomable" src="regional-builtup-change.webp" alt="Built-up density in 2010 and 2020 and built-up change"></figure><p class="caption">GHSL built-up surfaces were used to identify change between 2010 and 2020.</p></div>
+        <div><figure class="figure-card"><img class="zoomable" src="regional-methodology-framework.webp" alt="Methodological framework of the study"></figure><p class="caption">National-to-divisional multi-model workflow from data preparation to factor importance.</p></div>
+      </div>
 
-    <h3>Seaborn Pairplot</h3>
-    <div class="grid single">
-      <img src="./04.png">
-    </div>
+      <details class="technical">
+        <summary>Technical details: sampling, normalization and diagnostic checks</summary>
+        <div class="technical-body">
+          <div class="technical-grid">
+            <div class="technical-stat"><b>20,000</b><span>Initial stratified sample target: 10,000 changed + 10,000 unchanged pixels.</span></div>
+            <div class="technical-stat"><b>18,841</b><span>Final valid samples after omitting null values.</span></div>
+            <div class="technical-stat"><b>60 / 20 / 20</b><span>National training, validation and testing split.</span></div>
+          </div>
+          Predictors were standardized to the [0,1] interval. Pearson correlation and Variance Inflation Factor checks were used before modelling; the retained predictor set remained within acceptable multicollinearity levels.
+          <div class="figure-row" style="margin-top:15px">
+            <div><figure class="figure-card"><img class="zoomable" src="regional-sample-points.webp" alt="Balanced sample points across Bangladesh"></figure><p class="caption">Balanced built-up-change and non-change sample points.</p></div>
+            <div><figure class="figure-card"><img class="zoomable" src="regional-multicollinearity.webp" alt="Pearson correlation and variance inflation factors"></figure><p class="caption">Correlation structure and VIF diagnostics for the predictor set.</p></div>
+          </div>
+        </div>
+      </details>
 
+      <div style="margin-top:16px"><figure class="figure-card figure-wide"><img class="zoomable" src="regional-kmeans.webp" alt="K-means clustering of socioeconomic, physical and accessibility variables"></figure><p class="caption">Exploratory K-means clustering illustrates distinct socioeconomic, physical and accessibility structures associated with urban change.</p></div>
+    </section>
+
+    <section class="section" id="drivers">
+      <div class="section-head"><div><div class="section-kicker">Predictor System</div><h2>Ten Drivers Across Four Dimensions</h2><p class="section-intro">Rather than explaining built-up change through one mechanism, the study evaluates demographic demand, economic conditions, terrain, hydrology, urban proximity and transport accessibility within a common national framework.</p></div></div>
+
+      <div class="driver-groups">
+        <div class="driver-group"><strong>Socioeconomic</strong><ul><li>Population density</li><li>Income</li><li>Food demand</li></ul></div>
+        <div class="driver-group"><strong>Physical</strong><ul><li>Elevation (DEM)</li><li>Slope</li><li>Distance to waterbody</li></ul></div>
+        <div class="driver-group"><strong>Urban Proximity</strong><ul><li>Distance to city centre</li></ul></div>
+        <div class="driver-group"><strong>Accessibility</strong><ul><li>Distance to national highway</li><li>Distance to regional highway</li><li>Distance to railway</li></ul></div>
+      </div>
+
+      <figure class="figure-card figure-wide"><img class="zoomable" src="regional-driver-factors.webp" alt="Ten spatial driver maps used in the study"></figure>
+      <p class="caption">Nationally harmonized spatial predictors reveal strong contrasts in population concentration, terrain, hydrology and transport accessibility.</p>
+    </section>
+
+    <section class="section" id="national-results">
+      <div class="section-head"><div><div class="section-kicker">National Findings</div><h2>Population and Elevation Persist Across Models</h2><p class="section-intro">Despite substantial differences in model structure, the national results converge on a common explanatory pattern. Population density dominates the importance hierarchy, while elevation repeatedly emerges as the second major organizing factor.</p></div></div>
+
+      <div class="insight-banner"><strong>Cross-model agreement is the result—not one “winning” algorithm.</strong><span>The study interprets agreement across LR coefficients, RF Gini importance, XGBoost gain and ANN permutation importance as evidence of robust, model-agnostic drivers.</span></div>
+
+      <div class="rank-strip">
+        <div class="rank-card"><small>Most robust</small><strong>Population density</strong><span>Highest-ranked driver across all four models and all eight divisions.</span></div>
+        <div class="rank-card"><small>Physical organizer</small><strong>Elevation (DEM)</strong><span>Consistently influential; LR indicates lower, more favorable terrain is generally associated with expansion.</span></div>
+        <div class="rank-card"><small>Next tier</small><strong>Income & food demand</strong><span>Economic conditions contribute, but their influence is less universal than population and terrain.</span></div>
+        <div class="rank-card"><small>Context dependent</small><strong>Accessibility & hydrology</strong><span>Rail, city-centre, road and waterbody effects vary more strongly by regional context.</span></div>
+      </div>
+
+      <div class="model-grid">
+        <article class="model-card"><h3>Logistic Regression</h3><div class="model-metrics"><div class="model-metric"><b>0.615</b><small>AUC</small></div><div class="model-metric"><b>0.58</b><small>Accuracy</small></div><div class="model-metric"><b>0.694</b><small>Recall</small></div><div class="model-metric"><b>0.630</b><small>F1</small></div></div><p class="model-note">Adds directional interpretation of standardized predictor relationships.</p></article>
+        <article class="model-card best"><h3>Random Forest</h3><div class="model-metrics"><div class="model-metric"><b>0.722</b><small>AUC</small></div><div class="model-metric"><b>0.67</b><small>Accuracy</small></div><div class="model-metric"><b>0.696</b><small>Recall</small></div><div class="model-metric"><b>0.684</b><small>F1</small></div></div><p class="model-note">Highest national AUC and strongest overall discrimination.</p></article>
+        <article class="model-card best"><h3>XGBoost</h3><div class="model-metrics"><div class="model-metric"><b>0.720</b><small>AUC</small></div><div class="model-metric"><b>0.66</b><small>Accuracy</small></div><div class="model-metric"><b>0.748</b><small>Recall</small></div><div class="model-metric"><b>0.698</b><small>F1</small></div></div><p class="model-note">Highest national recall and F1; particularly sensitive to expansion cases.</p></article>
+        <article class="model-card"><h3>Artificial Neural Network</h3><div class="model-metrics"><div class="model-metric"><b>0.696</b><small>AUC</small></div><div class="model-metric"><b>0.650</b><small>Accuracy</small></div><div class="model-metric"><b>0.722</b><small>Recall</small></div><div class="model-metric"><b>0.681</b><small>F1</small></div></div><p class="model-note">Captures nonlinear relationships and contributes an independent importance ranking.</p></article>
+      </div>
+
+      <div class="figure-row">
+        <div><figure class="figure-card"><img class="zoomable" src="regional-national-importance.webp" alt="National feature importance across four models"></figure><p class="caption">Relative importance is interpreted through ranking consistency rather than direct numerical equivalence among methods.</p></div>
+        <div><figure class="figure-card"><img class="zoomable" src="regional-national-roc.webp" alt="National ROC curves for four models"></figure><p class="caption">Ensemble models RF and XGBoost achieved the strongest national discrimination.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="divisions">
+      <div class="section-head"><div><div class="section-kicker">Subnational Heterogeneity</div><h2>National Regularities, Divisional Mechanisms</h2><p class="section-intro">Model performance and factor hierarchies vary considerably across Bangladesh. Divisional AUC values range from 0.627 to 0.819, demonstrating that the separability of expansion and non-expansion—and the mechanisms associated with them—depend strongly on regional context.</p></div></div>
+
+      <div class="callout"><b>Performance range:</b> the strongest discrimination occurs in Sylhet and Khulna, while Rajshahi and Rangpur show comparatively weaker separability. Across most divisions, ensemble models outperform LR and ANN.</div>
+
+      <div class="division-grid">
+        <article class="division"><h3>Barishal</h3><div class="driverline">DEM · Population · Food demand · National highway</div><p>Riverine and coastal geography gives highway accessibility an unusually strong role, supporting corridor-sensitive growth management.</p></article>
+        <article class="division"><h3>Chittagong</h3><div class="driverline">Population · DEM · Slope</div><p>A terrain-sensitive profile in which higher and steeper areas constrain expansion, reinforcing the importance of slope-aware zoning.</p></article>
+        <article class="division"><h3>Dhaka</h3><div class="driverline">Population · DEM · Income · City-centre / highway access</div><p>Growth reflects demographic concentration, economic opportunity and accessibility to urban cores and major transport corridors.</p></article>
+        <article class="division"><h3>Khulna</h3><div class="driverline">Population · DEM · Rail / road · Waterbody</div><p>Coastal elevation, transport networks and hydrological constraints condition the direction of population-driven expansion.</p></article>
+        <article class="division"><h3>Mymensingh</h3><div class="driverline">DEM · Population · Waterbody · City centre</div><p>Urban change is environmentally conditioned, with water proximity acting as a meaningful spatial discriminator alongside demographic growth.</p></article>
+        <article class="division"><h3>Rajshahi</h3><div class="driverline">Population · DEM · City centre · Income / waterbody</div><p>A compact-city and river-adjacent context where demographic demand is robust and urban-core accessibility remains important.</p></article>
+        <article class="division"><h3>Rangpur</h3><div class="driverline">Population · DEM · Food demand · Rail / regional access</div><p>Socioeconomic demand and selected accessibility variables operate as secondary drivers behind population and terrain.</p></article>
+        <article class="division"><h3>Sylhet</h3><div class="driverline">Population · DEM · Waterbody · City centre / railway</div><p>A strong population–terrain structure shaped by haor ecology, with waterbodies functioning as important spatial separators.</p></article>
+      </div>
+
+      <div class="figure-row" style="margin-top:16px">
+        <div><figure class="figure-card"><img class="zoomable" src="regional-divisional-roc.webp" alt="ROC curves for Bangladesh's eight divisions"></figure><p class="caption">Division-wise ROC curves show substantial variation in model discrimination.</p></div>
+        <div><figure class="figure-card"><img class="zoomable" src="regional-divisional-performance.webp" alt="Division-wise model performance heatmaps"></figure><p class="caption">Accuracy, F1, precision and recall reveal different strengths across divisions and model types.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="planning">
+      <div class="section-head"><div><div class="section-kicker">Planning Translation</div><h2>From Driver Hierarchies to Differentiated Urban Policy</h2><p class="section-intro">The study argues against nationally uniform urban-growth policy. Instead, national regularities should provide a common baseline while divisional driver profiles shape the spatial instruments used to manage growth.</p></div></div>
+
+      <div class="policy-grid">
+        <article class="policy"><div class="icon">01</div><h3>Population-Responsive Growth Management</h3><p>Integrate demographic pressure into spatial master plans, strengthen secondary urban centres, and address both demand- and supply-side drivers of concentrated urbanization.</p></article>
+        <article class="policy"><div class="icon">02</div><h3>Elevation- & Slope-Sensitive Zoning</h3><p>Use terrain thresholds and safe-gradient standards in coastal, deltaic and hilly divisions where physical suitability consistently structures urban expansion.</p></article>
+        <article class="policy"><div class="icon">03</div><h3>Corridor-Sensitive Development</h3><p>Manage ribbon growth in Barishal, support accessible-node development in Dhaka, and use rail-oriented growth strategies where railway proximity appears as a secondary driver.</p></article>
+        <article class="policy"><div class="icon">04</div><h3>Water-Sensitive Spatial Planning</h3><p>Formalize riparian buffers, wetland and haor conservation zones, drainage corridors and coastal hydrological boundaries in water-constrained divisions.</p></article>
+        <article class="policy"><div class="icon">05</div><h3>Division-Specific Growth Strategies</h3><p>Prepare dedicated divisional Urban Growth Management Strategies supported by comparable national spatial baselines and regular monitoring.</p></article>
+        <article class="policy"><div class="icon">06</div><h3>Multi-Model Monitoring</h3><p>Use ensemble performance together with cross-model convergence of driver rankings so policy is not distorted by the assumptions of a single analytical method.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="conclusion">
+      <div class="section-head"><div><div class="section-kicker">Research Takeaway</div><h2>Urban Expansion Is Nationally Structured but Locally Contingent</h2></div></div>
+
+      <div class="conclusion-box">
+        <div class="conclusion-main"><h3>The core contribution</h3><p>Population density and elevation provide the most persistent explanatory structure for built-up change across Bangladesh, but they do not constitute a complete national rule. Accessibility, hydrology, income, food demand, slope and railway proximity become important selectively, depending on each division’s physical and socioeconomic setting. The value of the multi-model framework therefore lies in distinguishing robust national drivers from context-dependent regional mechanisms and translating that distinction into geographically responsive urban growth management.</p></div>
+        <div class="conclusion-side">
+          <div class="takeaway"><b>National baseline</b><span>Population pressure + terrain suitability remain the most consistent signals.</span></div>
+          <div class="takeaway"><b>Model lesson</b><span>RF and XGBoost perform best overall, but inference is strengthened by agreement across all four models.</span></div>
+          <div class="takeaway"><b>Planning lesson</b><span>Transport, hydrology, terrain and socioeconomic policy must be calibrated to divisional driver profiles.</span></div>
+          <div class="takeaway"><b>Transferability</b><span>The harmonized multi-model framework is applicable to other data-scarce, rapidly urbanizing South Asian contexts.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Research portfolio · Khalid-Bin-Shofiq · Urban & Regional Planning · GeoAI & Spatial Analysis</footer>
+  </main>
+
+  <div class="zoom-overlay" id="zoomOverlay" aria-hidden="true">
+    <button class="zoom-close" id="zoomClose" type="button">✕</button>
+    <img class="zoom-image" id="zoomImage" alt="Expanded research figure">
   </div>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+  <script>
+    const progressBar=document.getElementById('progressBar');
+    const toTop=document.getElementById('toTop');
+    function onScroll(){
+      const d=document.documentElement;
+      const max=d.scrollHeight-d.clientHeight;
+      progressBar.style.width=(max?d.scrollTop/max*100:0)+'%';
+      toTop.classList.toggle('show',d.scrollTop>700);
+    }
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+    toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    const themeToggle=document.getElementById('themeToggle');
+    const savedTheme=localStorage.getItem('research-theme');
+    if(savedTheme)document.documentElement.setAttribute('data-theme',savedTheme);
+    themeToggle.addEventListener('click',()=>{
+      const next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',next);localStorage.setItem('research-theme',next);
+    });
+
+    const links=[...document.querySelectorAll('.section-nav .nav-link')];
+    const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const observer=new IntersectionObserver(entries=>{
+      const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+      if(!visible)return;
+      links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+visible.target.id));
+    },{rootMargin:'-24% 0px -64% 0px',threshold:[0,.2,.4,.6,.8,1]});
+    sections.forEach(s=>observer.observe(s));
+
+    const overlay=document.getElementById('zoomOverlay');
+    const zoomImage=document.getElementById('zoomImage');
+    const zoomClose=document.getElementById('zoomClose');
+    document.querySelectorAll('.zoomable').forEach(img=>img.addEventListener('click',()=>{
+      zoomImage.src=img.src;zoomImage.alt=img.alt;overlay.classList.add('show');overlay.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+    }));
+    function closeZoom(){overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true');zoomImage.src='';document.body.style.overflow=''}
+    zoomClose.addEventListener('click',closeZoom);
+    overlay.addEventListener('click',e=>{if(e.target===overlay)closeZoom()});
+    window.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('show'))closeZoom()});
+  </script>
 </body>
 </html>
