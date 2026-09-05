@@ -1,329 +1,700 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Urban Growth Framework & Analysis</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Research case study on spatially explicit deep learning for urban growth forecasting and master-plan evaluation in Kaliganj Municipality, Bangladesh.">
+  <title>Urban Growth Forecasting & Master Plan Evaluation | Khalid-Bin-Shofiq</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --ink:#1f2d3a;
-      --muted:#5f6b76;
-      --blue:#1a73e8;
-      --border:rgba(0,0,0,.14);     /* slightly stronger like the reference screenshot */
-      --bg:#ffffff;
-      --panel:#f6f9ff;
-      --shadow:0 8px 24px rgba(0,0,0,.08);
-      --radius:16px;               /* rounder corners */
-      --maxw:1100px;
-      --gap:14px;
+      --bg:#f3f7f9;
+      --surface:#ffffff;
+      --surface-2:#f7fafb;
+      --surface-3:#edf4f7;
+      --text:#172834;
+      --muted:#627482;
+      --border:#d9e5ea;
+      --accent:#13799a;
+      --accent-dark:#0d5f79;
+      --accent-soft:rgba(19,121,154,.10);
+      --green:#3b8b77;
+      --orange:#c9753f;
+      --red:#b64e53;
+      --shadow:0 8px 30px rgba(24,54,71,.08);
+      --shadow-lg:0 22px 65px rgba(24,54,71,.15);
+      --radius:18px;
+      --maxw:1400px;
+      --navh:68px;
     }
 
-    *{ box-sizing:border-box; }
+    html[data-theme="dark"]{
+      --bg:#0d1317;
+      --surface:#141c21;
+      --surface-2:#192329;
+      --surface-3:#202c33;
+      --text:#edf4f7;
+      --muted:#9cadb7;
+      --border:rgba(255,255,255,.09);
+      --accent:#5bbbd8;
+      --accent-dark:#82cce2;
+      --accent-soft:rgba(91,187,216,.12);
+      --green:#69c0a8;
+      --orange:#e39a67;
+      --red:#df7a7f;
+      --shadow:0 10px 32px rgba(0,0,0,.28);
+      --shadow-lg:0 28px 80px rgba(0,0,0,.45);
+    }
 
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:92px}
     body{
-      font-family:"Georgia","Times New Roman",Times,serif;
       margin:0;
-      background:var(--bg);
-      color:var(--ink);
-      line-height:1.75;
+      font-family:"Inter",Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 2% 0%,var(--accent-soft),transparent 25%),
+        var(--bg);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    body,button,input{font-family:"Inter",Arial,Helvetica,sans-serif}
+    img{max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button{color:inherit}
+
+    /* progress */
+    .scroll-progress{position:fixed;inset:0 0 auto;z-index:9999;height:3px;background:transparent}
+    .scroll-progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green))}
+
+    /* top bar */
+    .topbar{
+      position:sticky;top:0;z-index:2000;
+      border-bottom:1px solid var(--border);
+      background:color-mix(in srgb,var(--surface) 90%,transparent);
+      backdrop-filter:blur(18px);
+    }
+    .topbar-inner{
+      width:min(calc(100% - 36px),var(--maxw));
+      min-height:var(--navh);margin:auto;
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .back-link{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;color:var(--text)}
+    .back-icon{width:34px;height:34px;border:1px solid var(--border);border-radius:10px;display:grid;place-items:center;background:var(--surface-2)}
+    .top-actions{display:flex;align-items:center;gap:8px}
+    .top-btn{
+      min-height:38px;padding:8px 11px;border:1px solid var(--border);border-radius:10px;
+      background:var(--surface);cursor:pointer;font-size:11px;font-weight:800;
+    }
+    .top-btn:hover{background:var(--surface-3)}
+
+    /* section nav */
+    .section-nav{
+      position:sticky;top:var(--navh);z-index:1900;
+      border-bottom:1px solid var(--border);
+      background:color-mix(in srgb,var(--surface) 94%,transparent);
+      backdrop-filter:blur(16px);
+      overflow-x:auto;scrollbar-width:none;
+    }
+    .section-nav::-webkit-scrollbar{display:none}
+    .section-nav-inner{
+      width:min(calc(100% - 36px),var(--maxw));margin:auto;
+      display:flex;gap:4px;white-space:nowrap;
+    }
+    .section-nav a{
+      display:block;padding:11px 10px;color:var(--muted);font-size:10.5px;font-weight:800;border-bottom:2px solid transparent;
+    }
+    .section-nav a:hover,.section-nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+    .page{width:min(calc(100% - 36px),var(--maxw));margin:24px auto 70px}
+
+    /* hero */
+    .hero{
+      position:relative;overflow:hidden;
+      padding:38px;border:1px solid var(--border);border-radius:24px;background:var(--surface);box-shadow:var(--shadow);
+    }
+    .hero::after{
+      content:"";position:absolute;width:430px;height:430px;right:-120px;top:-190px;border-radius:50%;
+      background:radial-gradient(circle,var(--accent-soft),transparent 68%);pointer-events:none;
+    }
+    .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.2fr) 360px;gap:42px;align-items:center}
+    .eyebrow{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px}
+    h1{margin:0;font-size:clamp(36px,4vw,58px);line-height:1.06;letter-spacing:-2px;font-weight:800;max-width:980px}
+    .hero-subtitle{margin:16px 0 0;max-width:880px;color:var(--muted);font-size:15px;line-height:1.8}
+    .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+    .chip{padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface-2);font-size:10px;font-weight:700}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:9px 14px;
+      border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:11px;font-weight:800;cursor:pointer;
+      transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+    .btn.primary:hover{background:var(--accent-dark)}
+    .hero-side{padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--surface-2)}
+    .hero-side-label{font-size:9px;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+    .hero-meta{display:grid;gap:9px}
+    .hero-meta-row{display:flex;justify-content:space-between;gap:15px;padding-bottom:9px;border-bottom:1px solid var(--border)}
+    .hero-meta-row:last-child{border-bottom:0;padding-bottom:0}
+    .hero-meta-row span:first-child{color:var(--muted);font-size:9.5px}
+    .hero-meta-row span:last-child{text-align:right;font-size:10px;font-weight:800}
+
+    /* general sections */
+    .section{margin-top:24px;padding:28px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+    .section-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:20px}
+    .section-kicker{color:var(--accent);font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+    h2{margin:0;font-size:25px;line-height:1.25;letter-spacing:-.55px}
+    .section-intro{margin:7px 0 0;max-width:800px;color:var(--muted);font-size:12.5px;line-height:1.75}
+    .caption{margin:9px 0 0;text-align:center;color:var(--muted);font-size:9.5px}
+    .callout{
+      padding:17px 18px;border:1px solid color-mix(in srgb,var(--accent) 25%,var(--border));
+      border-left:4px solid var(--accent);border-radius:12px;background:var(--accent-soft);font-size:12px;line-height:1.7;
     }
 
-    .page{
-      max-width:var(--maxw);
-      margin:0 auto;
-      padding:28px 18px 56px;
-    }
+    /* metrics */
+    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}
+    .metric{padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface-2)}
+    .metric strong{display:block;font-size:28px;line-height:1.05;letter-spacing:-1px}
+    .metric span{display:block;margin-top:6px;color:var(--muted);font-size:9.5px;line-height:1.4}
+    .metric em{display:block;margin-top:3px;color:var(--accent);font-style:normal;font-size:8.5px;font-weight:700}
 
-    /* ===== Project title (match screenshot) ===== */
-    .project-title{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      margin:0 0 14px;
-    }
-    .project-title .icon{
-      font-size:18px;
-      line-height:1.3;
-      margin-top:3px;
-    }
-    .project-title .text{
-      font-size:26px;
-      font-style:italic;
-      font-weight:700;
-      line-height:1.25;
-      letter-spacing:.1px;
-    }
+    /* layouts */
+    .two-col{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(310px,.95fr);gap:22px;align-items:center}
+    .four-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+    .three-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .card{padding:18px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .card-num{color:var(--accent);font-size:9px;font-weight:800;letter-spacing:.08em}
+    .card h3{margin:8px 0 6px;font-size:14px;line-height:1.4}
+    .card p{margin:0;color:var(--muted);font-size:10.5px;line-height:1.65}
 
-    .divider{
-      height:1px;
-      background:rgba(0,0,0,.12);
-      margin:10px 0 18px;
-    }
+    /* figures */
+    .figure-card{overflow:hidden;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:0 5px 16px rgba(30,55,70,.06)}
+    html[data-theme="dark"] .figure-card{background:#fff}
+    .figure-card img{display:block;width:100%;height:auto;cursor:zoom-in;transition:transform .25s ease}
+    .figure-card:hover img{transform:scale(1.008)}
+    .figure-wide{max-width:1100px;margin:0 auto}
+    .figure-medium{max-width:880px;margin:0 auto}
+    .figure-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 
-    /* ===== Objectives box (match screenshot) ===== */
-    .objectives{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:18px 18px;
-      margin:0 0 22px;
-      box-shadow:0 6px 16px rgba(0,0,0,.05);
-    }
-    .objectives h4{
-      margin:0 0 14px;
-      font-size:20px;
-      font-weight:700;
-      color:#22303b;
-    }
-    .objectives ol{
-      margin:0;
-      padding-left:22px;
-    }
-    .objectives li{
-      margin:10px 0;
-    }
+    /* historical stats */
+    .mini-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+    .mini-stat{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface-2)}
+    .mini-stat strong{display:block;font-size:20px}
+    .mini-stat span{display:block;margin-top:4px;color:var(--muted);font-size:9px}
 
-    /* ===== Description panel (keep reference feel) ===== */
-    .title-description{
-      background:var(--panel);
-      border:1px solid rgba(26,115,232,.25);
-      border-left:4px solid var(--blue);
-      border-radius:var(--radius);
-      padding:14px 16px;
-      margin:0 0 22px;
-      box-shadow:0 6px 16px rgba(0,0,0,.06);
-    }
-    .title-description p{
-      margin:0 0 12px;
-      text-align:justify;
-      color:var(--ink);
-    }
-    .title-description p:last-child{ margin-bottom:0; }
+    /* driver gradients */
+    .gradient-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:16px}
+    .gradient-card{padding:17px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .gradient-card h3{margin:0 0 12px;font-size:13px}
+    .bar-row{display:grid;grid-template-columns:28px 1fr 48px;gap:8px;align-items:center;margin:8px 0;font-size:9px}
+    .bar-track{height:8px;border-radius:999px;background:var(--surface-3);overflow:hidden}
+    .bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--green))}
+    .bar-value{text-align:right;color:var(--muted);font-weight:700}
 
-    /* ===== Headings ===== */
-    h2{
-      margin:24px 0 12px;
-      font-size:20px;
-      color:#22303b;
+    /* models */
+    .insight-banner{
+      padding:16px 18px;margin-bottom:15px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff;
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
     }
-    h3{
-      margin:20px 0 10px;
-      font-size:16px;
-      text-align:center;
-      color:#2b3742;
-    }
+    .insight-banner strong{font-size:16px;line-height:1.4}
+    .insight-banner span{max-width:500px;font-size:10px;opacity:.88}
+    .model-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .model-card{padding:15px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .model-card.best{border-color:color-mix(in srgb,var(--accent) 55%,var(--border));box-shadow:inset 0 0 0 1px var(--accent-soft)}
+    .model-card h3{margin:0 0 10px;font-size:12px}
+    .model-card .model-note{margin:8px 0 0;color:var(--muted);font-size:8.8px;line-height:1.5}
+    .model-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+    .model-metric{padding:8px;border:1px solid var(--border);border-radius:9px;background:var(--surface)}
+    .model-metric b{display:block;font-size:14px}
+    .model-metric small{display:block;color:var(--muted);font-size:7.5px}
 
-    /* ===== Image presentation ===== */
-    .img-card{
-      border-radius:12px;
-      border:1px solid var(--border);
-      box-shadow:0 4px 14px rgba(0,0,0,.06);
-      overflow:hidden;
-      background:#fff;
-    }
-    .img-card img{
-      width:100%;
-      height:auto;
-      display:block;
-    }
+    /* 2031 scenario cards */
+    .scenario-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:16px}
+    .scenario{padding:17px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .scenario.active{border-color:var(--accent);background:linear-gradient(135deg,var(--accent-soft),var(--surface-2))}
+    .scenario h3{margin:0 0 9px;font-size:13px}
+    .scenario-value{font-size:24px;font-weight:800;letter-spacing:-.7px}
+    .scenario-detail{margin-top:3px;color:var(--muted);font-size:9px}
 
-    /* ===== Grids (reference behavior) ===== */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:var(--gap);
-      justify-items:stretch;
-      margin-top:10px;
+    /* plan concordance */
+    .plan-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}
+    .plan-metric{padding:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
+    .plan-metric strong{display:block;font-size:24px}
+    .plan-metric span{display:block;margin-top:4px;color:var(--muted);font-size:9px}
+    .plan-metric p{margin:8px 0 0;color:var(--muted);font-size:8.5px;line-height:1.45}
+
+    /* accordion */
+    .accordion{border:1px solid var(--border);border-radius:13px;background:var(--surface-2);overflow:hidden}
+    .accordion + .accordion{margin-top:10px}
+    .accordion button{
+      width:100%;padding:15px 16px;display:flex;justify-content:space-between;align-items:center;gap:15px;
+      border:0;background:transparent;cursor:pointer;text-align:left;font-size:11px;font-weight:800;
     }
+    .accordion-content{max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .accordion-content-inner{padding:0 16px 16px;color:var(--muted);font-size:10.5px;line-height:1.7}
+    .accordion.open .accordion-content{max-height:1200px}
+    .accordion .plus{font-size:18px;transition:transform .2s ease}
+    .accordion.open .plus{transform:rotate(45deg)}
+    .compact-list{margin:0;padding-left:18px}.compact-list li{margin:6px 0}
 
-    .grid.single{ grid-template-columns:1fr; }
-    .grid.single .img-card{ width:min(780px, 100%); margin:0 auto; }
-
-    .grid.wide{ grid-template-columns:1fr; }
-    .grid.wide .img-card{ width:min(980px, 100%); margin:0 auto; }
-
-    .grid.two{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
-
-    @media (max-width: 980px){
-      .grid{ grid-template-columns:repeat(2,1fr); }
-      .project-title .text{ font-size:22px; }
+    /* final */
+    .final-card{
+      padding:26px;border-radius:16px;border:1px solid var(--border);
+      background:linear-gradient(135deg,var(--accent-soft),var(--surface-2));
+      display:flex;align-items:center;justify-content:space-between;gap:24px;
     }
-    @media (max-width: 520px){
-      .grid{ grid-template-columns:1fr; }
-      .project-title .text{ font-size:18px; }
-    }
+    .final-card h3{margin:0;font-size:19px;line-height:1.4}
+    .final-card p{margin:7px 0 0;color:var(--muted);font-size:10.5px;max-width:780px}
 
-    /* ===== Lists / notes ===== */
-    ul{ margin:10px 0 0 22px; }
-    li{ margin:6px 0; }
-    .note{ color:var(--muted); font-size:0.95rem; }
+    /* lightbox */
+    .lightbox{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(3,9,13,.88);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:.2s ease}
+    .lightbox.show{opacity:1;visibility:visible}
+    .lightbox img{max-width:96vw;max-height:90vh;object-fit:contain;border-radius:10px;background:white;box-shadow:0 30px 100px rgba(0,0,0,.45)}
+    .lightbox-close{position:fixed;top:18px;right:20px;width:42px;height:42px;border:1px solid rgba(255,255,255,.25);border-radius:11px;background:rgba(20,30,36,.82);color:#fff;cursor:pointer;font-size:18px}
+    .lightbox-caption{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);max-width:80vw;padding:7px 11px;border-radius:999px;background:rgba(20,30,36,.78);color:#fff;font-size:9px;text-align:center}
 
-    /* ===== Uncertainty "table" layout (kept, but made cleaner) ===== */
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:12px;
-      margin:10px 0 0;
+    footer{margin-top:28px;padding:22px;text-align:center;color:var(--muted);font-size:9.5px}
+
+    @media(max-width:1100px){
+      .hero-grid{grid-template-columns:1fr}.hero-side{max-width:650px}
+      .metrics,.four-cards,.model-grid,.plan-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .two-col{grid-template-columns:1fr}
     }
-    th{
-      font-weight:700;
-      color:#2b3742;
-      text-align:center;
-      padding:0 0 6px;
+    @media(max-width:760px){
+      .page,.topbar-inner,.section-nav-inner{width:min(calc(100% - 22px),var(--maxw))}
+      .hero{padding:24px}.section{padding:20px}
+      h1{font-size:34px;letter-spacing:-1.2px}h2{font-size:21px}
+      .metrics,.four-cards,.three-cards,.model-grid,.scenario-grid,.plan-metrics,.gradient-grid,.figure-row,.mini-stats{grid-template-columns:1fr}
+      .insight-banner,.final-card{align-items:flex-start;flex-direction:column}
+      .section-head{align-items:flex-start;flex-direction:column}
     }
-    td{ vertical-align:top; }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
   </style>
 </head>
-
 <body>
+  <div class="scroll-progress"><span id="progressBar"></span></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="back-link" href="../index.html"><span class="back-icon">←</span><span>Back to Portfolio</span></a>
+      <div class="top-actions">
+        <button class="top-btn" id="themeToggle" type="button">◐ Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="Research sections">
+    <div class="section-nav-inner">
+      <a href="#overview" class="active">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#framework">Framework</a>
+      <a href="#history">Urban Change</a>
+      <a href="#drivers">Drivers</a>
+      <a href="#benchmark">Models</a>
+      <a href="#uncertainty">Uncertainty</a>
+      <a href="#scenario">2031</a>
+      <a href="#plan">Plan Evaluation</a>
+      <a href="#implications">Implications</a>
+    </div>
+  </nav>
+
   <main class="page">
+    <section class="hero" id="overview">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">GeoAI · Urban Growth · Planning Support</div>
+          <h1>Spatially Explicit Deep Learning for Urban Growth Forecasting</h1>
+          <p class="hero-subtitle">
+            A planning-oriented GeoAI framework for reconstructing fine-scale urban change, benchmarking alternative prediction models, mapping uncertainty, and comparing a conditional 2031 growth scenario with the statutory master-plan development proposal of Kaliganj Municipality, Bangladesh.
+          </p>
+          <div class="chips">
+            <span class="chip">Small-town urbanization</span>
+            <span class="chip">U-Net–ConvLSTM</span>
+            <span class="chip">Remote Sensing</span>
+            <span class="chip">Spatial Validation</span>
+            <span class="chip">Predictive Entropy</span>
+            <span class="chip">Master-plan Concordance</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn primary" href="#benchmark">See Model Benchmark →</a>
+            <a class="btn" href="#plan">Planning Evaluation</a>
+            <a class="btn" href="#framework">Methodology</a>
+          </div>
+        </div>
 
-    <!-- ===== Header (screenshot-style) ===== -->
-    <div class="project-title">
-      <span class="icon">📝</span>
-      <span class="text">Project: Spatially Explicit Deep Learning for Urban Growth Forecasting and Master Plan Evaluation in a Data-Scarce Small Town.</span>
-    </div>
-    <div class="divider"></div>
+        <aside class="hero-side">
+          <div class="hero-side-label">Study at a glance</div>
+          <div class="hero-meta">
+            <div class="hero-meta-row"><span>Study area</span><span>Kaliganj Municipality</span></div>
+            <div class="hero-meta-row"><span>Municipal area</span><span>22.04 km²</span></div>
+            <div class="hero-meta-row"><span>Historical dates</span><span>2001 · 2011 · 2021</span></div>
+            <div class="hero-meta-row"><span>Forecast horizon</span><span>2031</span></div>
+            <div class="hero-meta-row"><span>Models</span><span>Persistence · ANN · ConvLSTM · U-Net–ConvLSTM</span></div>
+            <div class="hero-meta-row"><span>Primary planning target</span><span>New built-up growth</span></div>
+          </div>
+        </aside>
+      </div>
 
-    <!-- ===== Objectives (screenshot-style) ===== -->
-    <section class="objectives">
-      <h4>Objectives</h4>
-      <ol>
-        <li>To predict land use/land cover (LULC) changes of a municipality in Bangladesh using a ConvLSTM model with static drivers (DEM, distance to road).</li>
-        <li>Comparison of the predicted growth with the proposals of the municipality’s master plan.</li>
-      </ol>
+      <div class="metrics">
+        <div class="metric"><strong>+151%</strong><span>Built-up expansion</span><em>2001 → 2021</em></div>
+        <div class="metric"><strong>0.34</strong><span>Best built-up F1</span><em>U-Net–ConvLSTM</em></div>
+        <div class="metric"><strong>3.70 km²</strong><span>2031 built-up scenario</span><em>U-Net–ConvLSTM</em></div>
+        <div class="metric"><strong>91.55%</strong><span>Forecast conformity</span><em>Growth within planned areas</em></div>
+      </div>
     </section>
 
-    <!-- ===== Description panel ===== -->
-    <section class="title-description">
-      <p>
-        This page summarizes an end-to-end workflow for growth-pattern mapping (supervised classification and change
-        analysis) and future LULC prediction using ConvLSTM in a data-scarce context, with an explicit comparison to
-        the municipality’s master plan proposals.
-      </p>
-    
+    <section class="section" id="problem">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Planning context</div>
+          <h2>The Planning Problem</h2>
+          <p class="section-intro">Small towns combine fine-scale buildings, narrow corridors, vegetation, agriculture and small waterbodies. These heterogeneous landscapes are difficult to reconstruct with coarse imagery and can reward models that reproduce persistence rather than identify the relatively rare transitions that matter most for planning.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="callout">
+            The study asks a practical question: can high-resolution historical imagery and progressively richer spatiotemporal models localize new urban growth in a data-scarce small town—and can those growth pressures be translated into evidence for evaluating a statutory master plan?
+          </div>
+          <div class="four-cards" style="margin-top:14px">
+            <div class="card"><div class="card-num">01</div><h3>Reconstruct</h3><p>Map fine-scale LULC change from 2001, 2011 and 2021.</p></div>
+            <div class="card"><div class="card-num">02</div><h3>Benchmark</h3><p>Compare persistence, ANN, ConvLSTM and U-Net–ConvLSTM under a common spatial test.</p></div>
+            <div class="card"><div class="card-num">03</div><h3>Quantify Uncertainty</h3><p>Map predictive entropy and evaluate geographic variation in performance.</p></div>
+            <div class="card"><div class="card-num">04</div><h3>Evaluate the Plan</h3><p>Measure forecast conformity, coverage, leakage and spatial overlap with the 2031 proposal.</p></div>
+          </div>
+        </div>
+        <div>
+          <figure style="margin:0">
+            <div class="figure-card"><img class="zoomable" src="assets/urban-growth/study-area.webp" alt="Study area map of Kaliganj Municipality"></div>
+            <figcaption class="caption">Kaliganj Municipality, Jhenaidah District, south-western Bangladesh.</figcaption>
+          </figure>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== Content ===== -->
-
-    <h2>Growth Pattern Analysis by Maximum Likelihood Supervised Classification</h2>
-
-    <h3>Land Cover Maps</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="../Figure_7.jpg" alt="Land Cover Maps">
+    <section class="section" id="framework">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Data & methodology</div>
+          <h2>Research Framework</h2>
+          <p class="section-intro">Historical high-resolution RGB imagery was used to reconstruct LULC, spatial drivers were harmonized to a common 1 m analysis grid, and model comparison was performed using independent spatial test blocks before generating conditional 2031 scenarios.</p>
+        </div>
       </div>
-    </div>
 
-    <h3>Land Use Transitions</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="../sankey_transition.jpg" alt="Sankey Diagram of Land Use Transitions">
+      <div class="figure-row">
+        <figure style="margin:0">
+          <div class="figure-card"><img class="zoomable" src="assets/urban-growth/imagery-resolution-comparison.webp" alt="Comparison of image spatial resolution"></div>
+          <figcaption class="caption">Why high spatial resolution matters for heterogeneous small-town features.</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <div class="figure-card"><img class="zoomable" src="assets/urban-growth/methodology-framework.webp" alt="Methodological framework"></div>
+          <figcaption class="caption">End-to-end workflow from preprocessing to model validation and master-plan comparison.</figcaption>
+        </figure>
       </div>
-    </div>
-    <ul>
-      <li>Vegetation and agriculture were the major sources of built-up growth.</li>
-      <li>Bidirectional transitions observed between vegetation and agriculture.</li>
-      <li>Built-up areas increased from <strong>0.88 km² (4.01%) in 2004 → 2.22 km² (10.07%) in 2024</strong>.</li>
-    </ul>
 
-    <h2>Change &amp; Comparison</h2>
-
-    <h3>Change Detection</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="../change_maps.jpg" alt="Change Detection Maps">
+      <div class="accordion" style="margin-top:15px">
+        <button type="button"><span>Technical details: data preparation and spatial validation</span><span class="plus">+</span></button>
+        <div class="accordion-content"><div class="accordion-content-inner">
+          <ul class="compact-list">
+            <li>Five LULC classes: built-up, waterbody, vegetation, agriculture and barren land.</li>
+            <li>Spatial drivers: DEM, distance to road and distance to built-up area (2011).</li>
+            <li>Drivers were reclassified to five ordinal classes and rescaled to 0–1.</li>
+            <li>Deep-learning input: two temporal slices, 128 × 128 patches, eight channels per time step.</li>
+            <li>Spatial leakage control: 1024 × 1024 blocks allocated to training, validation and independent testing before patch generation.</li>
+            <li>The same independent 2021 test blocks and target were used for all model comparisons.</li>
+          </ul>
+        </div></div>
       </div>
-    </div>
 
-    <h3>Actual vs Predicted (2024)</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="../comparison_map.jpg" alt="Actual vs Predicted 2024 Comparison Map">
-      </div>
-    </div>
-    <ul>
-      <li>Actual built-up: <strong>2.22 km²</strong></li>
-      <li>Predicted built-up: <strong>2.48 km²</strong> (well aligned, slight overestimation)</li>
-    </ul>
-
-    <h2>Model</h2>
-
-    <h3>Model Architecture</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="../model_architecture.jpg" alt="Model Architecture Diagram">
-      </div>
-    </div>
-
-    <section class="objectives" style="margin-top:14px;">
-      <h4>ConvLSTM Setup</h4>
-      <ul style="margin:0 0 0 22px;">
-        <li>Inputs: LULC (2004, 2014), DEM, Distance-to-road (patches 128×128)</li>
-        <li>Layers: 2 × ConvLSTM2D (filters: 32, 64), batch norm, dropout, up/down-sampling</li>
-        <li>Loss: Categorical Cross-Entropy, Optimizer: Adam (lr=0.0001)</li>
-        <li>Metrics: Overall Accuracy (65%), F1 Score (66%), QADI (0.09–0.13)</li>
-      </ul>
+      <figure class="figure-wide" style="margin-top:16px">
+        <div class="figure-card"><img class="zoomable" src="assets/urban-growth/model-frameworks.webp" alt="Benchmarking alternative urban growth modelling frameworks"></div>
+        <figcaption class="caption">Alternative modelling frameworks: ANN with tested CA adjustment, ConvLSTM, and U-Net–ConvLSTM.</figcaption>
+      </figure>
     </section>
 
-    <h2>Prediction</h2>
-
-    <h3>Predicted LULC (2031)</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="../prediction_2031.jpg" alt="Predicted LULC 2031">
+    <section class="section" id="history">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Historical transformation</div>
+          <h2>Two Decades of Urban Change</h2>
+          <p class="section-intro">Kaliganj experienced substantial but spatially selective urbanization. The central nucleus expanded along major roads while agriculture remained the dominant land-cover class.</p>
+        </div>
       </div>
-    </div>
 
-    <h3>Comparison with Master Plan (2031)</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="../comparison_masterplan.jpg" alt="Comparison with Master Plan 2031">
+      <figure class="figure-wide">
+        <div class="figure-card"><img class="zoomable" src="assets/urban-growth/lulc-history.webp" alt="LULC maps of 2001 2011 and 2021"></div>
+        <figcaption class="caption">Five-class LULC reconstruction for 2001, 2011 and 2021.</figcaption>
+      </figure>
+
+      <div class="mini-stats">
+        <div class="mini-stat"><strong>0.88 → 2.22 km²</strong><span>Built-up land increased from 4.01% to 10.07%.</span></div>
+        <div class="mini-stat"><strong>−1.48 km²</strong><span>Vegetation declined from 6.62 km² to 5.13 km².</span></div>
+        <div class="mini-stat"><strong>≈61%</strong><span>Agriculture remained dominant throughout the study period.</span></div>
       </div>
-    </div>
-    <ul>
-      <li>Model forecasts built-up growth to <strong>3.53 km² by 2031</strong>.</li>
-      <li>Some “urban deferred” zones in the master plan showed discrepancies with actual growth direction.</li>
-    </ul>
 
-    <h2>Uncertainty Analysis</h2>
+      <div class="callout">Growth was spatially selective rather than landscape-wide: a compact central settlement extended linearly along transport corridors, with more fragmented additions toward the north-western and north-eastern periphery.</div>
 
-    <h3>Entropy vs Uncertainty</h3>
-    <div class="grid two">
-      <div class="img-card">
-        <img src="../uncertainty_entropy.jpg" alt="Entropy Map">
+      <div class="figure-row" style="margin-top:16px">
+        <figure style="margin:0"><div class="figure-card"><img class="zoomable" src="assets/urban-growth/land-cover-transitions.webp" alt="Sankey diagram of land cover transitions"></div><figcaption class="caption">Vegetation and agriculture supplied most new built-up land.</figcaption></figure>
+        <figure style="margin:0"><div class="figure-card"><img class="zoomable" src="assets/urban-growth/change-maps.webp" alt="Change maps for 2001 to 2011 and 2011 to 2021"></div><figcaption class="caption">Change maps reveal concentrated conversion around the existing core and transport corridors.</figcaption></figure>
       </div>
-      <div class="img-card">
-        <img src="../uncertainty_simple.jpg" alt="Uncertainty Map">
-      </div>
-    </div>
-    <ul>
-      <li>Low entropy &amp; high confidence in <strong>central built-up zones</strong>.</li>
-      <li>Higher uncertainty in transitional zones (vegetation/agriculture).</li>
-    </ul>
-
-    <h2>Key Findings</h2>
-    <section class="objectives">
-      <ul style="margin:0 0 0 22px;">
-        <li>Built-up growth followed a <strong>linear, road-oriented pattern</strong> (N7 highway, Chitra river).</li>
-        <li><strong>Vegetation decreased</strong> (30.04% → 23.31%), while agriculture remained mostly stable.</li>
-        <li><strong>Waterbodies</strong> declined from 1.74 km² (2014) → 0.81 km² (2024), reflecting weak enforcement of conservation policies.</li>
-        <li>ConvLSTM predictions aligned closely with actual 2024 LULC, outperforming CA–ANN.</li>
-        <li><strong>Uncertainty analysis</strong> confirmed reliable classification in central urban zones.</li>
-        <li>Master plan (2031) projections did not fully capture growth in “deferred” areas.</li>
-      </ul>
     </section>
 
-    <h2>Takeaways</h2>
-    <section class="objectives">
-      <ul style="margin:0 0 0 22px;">
-        <li>ConvLSTM provides a robust framework for <strong>predicting small-town urban growth</strong> using freely available imagery.</li>
-        <li>Results highlight the <strong>importance of integrating ML/DL with planning</strong> to reduce reliance on outdated population-based projections.</li>
-        <li>Findings can guide <strong>policy-makers</strong> in revising master plans and adopting <strong>evidence-based zoning</strong> for sustainable development.</li>
-      </ul>
+    <section class="section" id="drivers">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Spatial drivers</div>
+          <h2>What Shaped Urban Conversion?</h2>
+          <p class="section-intro">Observed conversion was strongly conditioned by accessibility and proximity to existing development. The probability of new built-up conversion fell sharply as distance from roads and established settlement increased.</p>
+        </div>
+      </div>
+
+      <figure class="figure-wide">
+        <div class="figure-card"><img class="zoomable" src="assets/urban-growth/spatial-drivers.webp" alt="DEM road distance and built-up distance drivers"></div>
+        <figcaption class="caption">DEM, distance to roads and distance to built-up area (2011).</figcaption>
+      </figure>
+
+      <div class="gradient-grid">
+        <div class="gradient-card">
+          <h3>Road distance → new built-up conversion</h3>
+          <div class="bar-row"><span>R1</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">11.93%</span></div>
+          <div class="bar-row"><span>R2</span><div class="bar-track"><div class="bar-fill" style="width:64.6%"></div></div><span class="bar-value">7.71%</span></div>
+          <div class="bar-row"><span>R3</span><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><span class="bar-value">3.70%</span></div>
+          <div class="bar-row"><span>R4</span><div class="bar-track"><div class="bar-fill" style="width:11%"></div></div><span class="bar-value">1.31%</span></div>
+          <div class="bar-row"><span>R5</span><div class="bar-track"><div class="bar-fill" style="width:4.2%"></div></div><span class="bar-value">0.50%</span></div>
+        </div>
+        <div class="gradient-card">
+          <h3>Built-up proximity → new built-up conversion</h3>
+          <div class="bar-row"><span>R1</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">13.03%</span></div>
+          <div class="bar-row"><span>R2</span><div class="bar-track"><div class="bar-fill" style="width:25.5%"></div></div><span class="bar-value">3.32%</span></div>
+          <div class="bar-row"><span>R3</span><div class="bar-track"><div class="bar-fill" style="width:11.5%"></div></div><span class="bar-value">1.50%</span></div>
+          <div class="bar-row"><span>R4</span><div class="bar-track"><div class="bar-fill" style="width:3.4%"></div></div><span class="bar-value">0.44%</span></div>
+          <div class="bar-row"><span>R5</span><div class="bar-track"><div class="bar-fill" style="width:1.2%"></div></div><span class="bar-value">0.16%</span></div>
+        </div>
+      </div>
     </section>
 
+    <section class="section" id="benchmark">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Common 2021 hindcast</div>
+          <h2>Which Model Actually Captured Urban Growth?</h2>
+          <p class="section-intro">Overall accuracy and planning-relevant change detection told different stories. Because most land remained unchanged, the persistence baseline achieved the highest OA while completely failing to locate new development.</p>
+        </div>
+      </div>
+
+      <div class="insight-banner">
+        <strong>Highest overall accuracy did not mean best urban-growth prediction.</strong>
+        <span>Persistence achieved OA = 0.69 but new-growth F1 and IoU were both 0.00. Evaluation therefore prioritized built-up and new-growth F1/IoU.</span>
+      </div>
+
+      <div class="model-grid">
+        <div class="model-card">
+          <h3>Persistence</h3>
+          <div class="model-metrics"><div class="model-metric"><b>0.69</b><small>Overall accuracy</small></div><div class="model-metric"><b>0.28</b><small>Built-up F1</small></div><div class="model-metric"><b>0.16</b><small>Built-up IoU</small></div><div class="model-metric"><b>0.00</b><small>New-growth F1</small></div></div>
+          <div class="model-note">Best OA, but no capacity to identify emerging development.</div>
+        </div>
+        <div class="model-card">
+          <h3>ANN + tested CA adjustment</h3>
+          <div class="model-metrics"><div class="model-metric"><b>0.63</b><small>Overall accuracy</small></div><div class="model-metric"><b>0.28</b><small>Built-up F1</small></div><div class="model-metric"><b>0.17</b><small>Built-up IoU</small></div><div class="model-metric"><b>0.18</b><small>New-growth F1</small></div></div>
+          <div class="model-note">The tested CA multiplier selected β = 0; the benchmark effectively retained the ANN transition-suitability component.</div>
+        </div>
+        <div class="model-card">
+          <h3>ConvLSTM</h3>
+          <div class="model-metrics"><div class="model-metric"><b>0.57</b><small>Overall accuracy</small></div><div class="model-metric"><b>0.31</b><small>Built-up F1</small></div><div class="model-metric"><b>0.18</b><small>Built-up IoU</small></div><div class="model-metric"><b>0.19</b><small>New-growth F1</small></div></div>
+          <div class="model-note">Spatiotemporal recurrence improved change-sensitive performance despite lower OA.</div>
+        </div>
+        <div class="model-card best">
+          <h3>U-Net–ConvLSTM ★</h3>
+          <div class="model-metrics"><div class="model-metric"><b>0.61</b><small>Overall accuracy</small></div><div class="model-metric"><b>0.34</b><small>Built-up F1</small></div><div class="model-metric"><b>0.20</b><small>Built-up IoU</small></div><div class="model-metric"><b>0.20</b><small>New-growth F1</small></div></div>
+          <div class="model-note">Strongest point estimates for all primary urban-change metrics; improvement was incremental, not proof of universal superiority.</div>
+        </div>
+      </div>
+
+      <figure class="figure-wide" style="margin-top:16px">
+        <div class="figure-card"><img class="zoomable" src="assets/urban-growth/observed-vs-predicted.webp" alt="Observed versus predicted 2021 maps"></div>
+        <figcaption class="caption">Observed 2021 LULC versus ANN, ConvLSTM and U-Net–ConvLSTM hindcast outputs.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="uncertainty">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Responsible GeoAI</div>
+          <h2>Where Is the Model Uncertain?</h2>
+          <p class="section-intro">Predictive entropy was mapped to show where model probabilities were diffuse rather than concentrated. Higher uncertainty clustered around heterogeneous transition zones, central urbanized areas and development corridors.</p>
+        </div>
+      </div>
+
+      <figure class="figure-wide">
+        <div class="figure-card"><img class="zoomable" src="assets/urban-growth/predictive-entropy.webp" alt="Predictive entropy maps for ConvLSTM and U-Net ConvLSTM"></div>
+        <figcaption class="caption">Normalized predictive entropy for the 2031 ConvLSTM and U-Net–ConvLSTM outputs.</figcaption>
+      </figure>
+
+      <div class="callout" style="margin-top:15px">Block-bootstrap confidence intervals overlapped substantially between the learned models. The U-Net–ConvLSTM therefore achieved the strongest change-sensitive point estimates, but the magnitude of its advantage varied geographically and should not be presented as statistically proven superiority.</div>
+    </section>
+
+    <section class="section" id="scenario">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Conditional future</div>
+          <h2>What Could Kaliganj Look Like in 2031?</h2>
+          <p class="section-intro">All three learned models indicated continued outward expansion from the established core and along major roads, but they differed in the magnitude of projected built-up land.</p>
+        </div>
+      </div>
+
+      <div class="scenario-grid">
+        <div class="scenario"><h3>ANN</h3><div class="scenario-value">2.99 km²</div><div class="scenario-detail">13.61% built-up share · +35.1% net increase</div></div>
+        <div class="scenario"><h3>ConvLSTM</h3><div class="scenario-value">3.74 km²</div><div class="scenario-detail">16.97% built-up share · +68.5% net increase</div></div>
+        <div class="scenario active"><h3>U-Net–ConvLSTM</h3><div class="scenario-value">3.70 km²</div><div class="scenario-detail">16.81% built-up share · +66.9% net increase · 1.66 km² new built-up</div></div>
+      </div>
+
+      <figure class="figure-wide">
+        <div class="figure-card"><img class="zoomable" src="assets/urban-growth/scenarios-2031.webp" alt="2031 prediction maps by ANN ConvLSTM and U-Net ConvLSTM"></div>
+        <figcaption class="caption">New built-up and full 2031 LULC scenarios for the three learned models.</figcaption>
+      </figure>
+
+      <div class="callout" style="margin-top:15px"><strong>Interpretation:</strong> the U-Net–ConvLSTM output is a conditional urban-growth scenario—not a deterministic forecast. It represents where continuation of historically learned spatial relationships could place future development.</div>
+    </section>
+
+    <section class="section" id="plan">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Planning evaluation</div>
+          <h2>Does Forecast Growth Align with the Master Plan?</h2>
+          <p class="section-intro">Forecast–plan concordance compares where the models place new built-up growth with the 2031 development proposal. Agreement is interpreted as a decision-support diagnostic, not as independent validation of either the model or the statutory plan.</p>
+        </div>
+      </div>
+
+      <div class="plan-metrics">
+        <div class="plan-metric"><strong>91.55%</strong><span>Forecast conformity</span><p>Share of U-Net–ConvLSTM forecast growth located inside proposed development areas.</p></div>
+        <div class="plan-metric"><strong>35.25%</strong><span>Plan coverage</span><p>Share of the proposal envelope also forecast to develop by 2031.</p></div>
+        <div class="plan-metric"><strong>8.45%</strong><span>Forecast leakage</span><p>Forecast new growth occurring outside proposed development areas.</p></div>
+        <div class="plan-metric"><strong>0.34</strong><span>Jaccard overlap</span><p>Spatial similarity between forecast development and the proposal.</p></div>
+      </div>
+
+      <figure class="figure-wide">
+        <div class="figure-card"><img class="zoomable" src="assets/urban-growth/masterplan-concordance.webp" alt="Comparison of predicted growth with master plan"></div>
+        <figcaption class="caption">Forecast–plan concordance for ANN, ConvLSTM and U-Net–ConvLSTM 2031 scenarios.</figcaption>
+      </figure>
+
+      <div class="callout" style="margin-top:15px"><strong>Key planning message:</strong> most forecast growth lies within the plan, but only about one-third of the proposed development envelope is forecast to urbanize by 2031. The proposal therefore represents a broader spatial envelope than the near-term development pressure suggested by the models.</div>
+    </section>
+
+    <section class="section" id="implications">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">From GeoAI to planning</div>
+          <h2>Planning Implications</h2>
+          <p class="section-intro">The value of the framework lies in turning a conditional model output into spatially interpretable evidence for plan review, infrastructure phasing and development control.</p>
+        </div>
+      </div>
+
+      <div class="three-cards">
+        <div class="card"><div class="card-num">01</div><h3>Development Control</h3><p>The 8.45% of U-Net–ConvLSTM growth outside proposed areas highlights locations for closer monitoring, infrastructure review or future plan adjustment.</p></div>
+        <div class="card"><div class="card-num">02</div><h3>Phasing & Infrastructure</h3><p>Proposal-only areas may represent longer-term capacity. Forecast pressure can help distinguish near-term growth fronts from land reserved for future phases.</p></div>
+        <div class="card"><div class="card-num">03</div><h3>Evidence-based Plan Review</h3><p>GeoAI scenarios can interrogate planning assumptions and complement statutory planning without treating prediction as a substitute for normative planning decisions.</p></div>
+      </div>
+
+      <div class="accordion" style="margin-top:14px">
+        <button type="button"><span>Limitations & responsible interpretation</span><span class="plus">+</span></button>
+        <div class="accordion-content"><div class="accordion-content-inner">
+          <ul class="compact-list">
+            <li>The historical archive contains only three dates and therefore only one temporal learning trajectory: 2001 → 2011 → 2021.</li>
+            <li>High-resolution RGB imagery provides fine spatial detail but less spectral information than multispectral data.</li>
+            <li>Spatial drivers were treated as static; built-up proximity was represented using the 2011 configuration.</li>
+            <li>Model skill is not uniform across all five LULC classes; planning interpretation therefore focuses on built-up and new-growth localization.</li>
+            <li>No post hoc manual correction was applied to the raw model outputs.</li>
+            <li>2031 results are conditional scenarios and should not be presented as deterministic futures.</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="accordion">
+        <button type="button"><span>Why U-Net–ConvLSTM was retained as the principal scenario</span><span class="plus">+</span></button>
+        <div class="accordion-content"><div class="accordion-content-inner">
+          U-Net–ConvLSTM produced the strongest point estimates for built-up and new-growth localization under the common spatial hindcast. Its multi-scale encoder–decoder and skip connections are useful for fragmented built-up patches and irregular peri-urban boundaries. The improvement over ConvLSTM was modest, however, and overlapping block-bootstrap intervals mean the architecture should not be described as universally or statistically superior.
+        </div></div>
+      </div>
+
+      <div class="final-card" style="margin-top:16px">
+        <div>
+          <h3>Research output: a planning-support framework, not just a prediction map</h3>
+          <p>Fine-resolution historical reconstruction, spatially explicit GeoAI, uncertainty visualization and forecast–plan concordance are integrated to make land-change modelling more relevant to planning decisions in data-scarce small towns.</p>
+        </div>
+        <a class="btn primary" href="../index.html#current-research">Back to Research Portfolio</a>
+      </div>
+    </section>
+
+    <footer>Research case study · Khalid-Bin-Shofiq · Urban & Regional Planning · GeoAI</footer>
   </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image">✕</button>
+    <img id="lightboxImage" src="" alt="Expanded research figure">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <script>
+    const root=document.documentElement;
+    const savedTheme=localStorage.getItem('portfolio-theme');
+    if(savedTheme) root.setAttribute('data-theme',savedTheme);
+    document.getElementById('themeToggle').addEventListener('click',()=>{
+      const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+      root.setAttribute('data-theme',next);
+      localStorage.setItem('portfolio-theme',next);
+    });
+
+    const progressBar=document.getElementById('progressBar');
+    function updateProgress(){
+      const d=document.documentElement;
+      const max=d.scrollHeight-d.clientHeight;
+      progressBar.style.width=(max?d.scrollTop/max*100:0)+'%';
+    }
+    addEventListener('scroll',updateProgress,{passive:true});updateProgress();
+
+    const navLinks=[...document.querySelectorAll('.section-nav a')];
+    const sections=navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const observer=new IntersectionObserver(entries=>{
+      const v=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+      if(!v)return;
+      navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+v.target.id));
+    },{rootMargin:'-22% 0px -65% 0px',threshold:[0,.2,.5,.8]});
+    sections.forEach(s=>observer.observe(s));
+
+    document.querySelectorAll('.accordion > button').forEach(btn=>{
+      btn.addEventListener('click',()=>btn.parentElement.classList.toggle('open'));
+    });
+
+    const lightbox=document.getElementById('lightbox');
+    const lightboxImage=document.getElementById('lightboxImage');
+    const lightboxCaption=document.getElementById('lightboxCaption');
+    function closeLightbox(){
+      lightbox.classList.remove('show');
+      lightbox.setAttribute('aria-hidden','true');
+      lightboxImage.src='';
+      document.body.style.overflow='';
+    }
+    document.querySelectorAll('img.zoomable').forEach(img=>{
+      img.addEventListener('click',()=>{
+        lightboxImage.src=img.src;
+        const fig=img.closest('figure');
+        lightboxCaption.textContent=fig?.querySelector('figcaption')?.textContent || img.alt;
+        lightbox.classList.add('show');
+        lightbox.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+      });
+    });
+    document.getElementById('lightboxClose').addEventListener('click',closeLightbox);
+    lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&lightbox.classList.contains('show'))closeLightbox()});
+  </script>
 </body>
 </html>
