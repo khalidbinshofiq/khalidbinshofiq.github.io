@@ -1937,434 +1937,237 @@
 
 
     /* =====================================================
-       13. RECENT PROJECTS CAROUSEL
+       13. RECENT PROJECTS — IMAGE PREVIEW SLIDER
+       Only the preview box slides; the rest of the page layout
+       remains unchanged.
        ===================================================== */
 
-    .projects-carousel{
+    .recent-project-showcase{
+
+      display:
+        grid;
+
+      grid-template-columns:
+        minmax(0,1.45fr)
+        minmax(280px,.75fr);
+
+      gap:
+        20px;
+
+      align-items:
+        stretch;
+
+    }
+
+
+    /* Fixed preview frame */
+
+    .recent-preview-box{
 
       position:
         relative;
-
-
-      width:
-        100%;
-
-    }
-
-
-    .carousel-viewport{
-
-      width:
-        100%;
-
-
-      overflow:
-        hidden;
-
-
-      border-radius:
-        15px;
-
-
-      padding:
-        3px 2px 9px;
-
-    }
-
-
-
-    .carousel-track{
-
-      display:
-        flex;
-
-
-      gap:
-        16px;
-
-
-      will-change:
-        transform;
-
-
-      transition:
-
-        transform
-        .72s
-        cubic-bezier(.22,.61,.36,1);
-
-    }
-
-
-
-    .project-slide{
-
-      flex:
-        0 0 calc((100% - 16px) / 2);
-
 
       min-width:
         0;
 
-    }
-
-
-
-    .project-carousel-card{
-
-      height:
-        100%;
-
-
       overflow:
         hidden;
 
+      aspect-ratio:
+        16 / 9;
 
       border:
         1px solid var(--border);
 
-
       border-radius:
         15px;
-
 
       background:
         var(--surface-soft);
 
-
-      transition:
-        transform .24s ease,
-        border-color .24s ease,
-        box-shadow .24s ease;
-
-    }
-
-
-    .project-carousel-card:hover{
-
-      transform:
-        translateY(-4px);
-
-
-      border-color:
-
-        color-mix(
-          in srgb,
-          var(--accent) 32%,
-          var(--border)
-        );
-
-
       box-shadow:
-        var(--shadow-hover);
+        0 4px 14px rgba(30,55,70,.07);
+
+      outline:
+        none;
+
+      touch-action:
+        pan-y;
 
     }
 
 
+    /* All project screenshots live in this moving strip */
 
-    /* Preview */
-
-    .project-carousel-preview{
-
-      position:
-        relative;
-
-
-      height:
-        215px;
-
-
-      overflow:
-        hidden;
-
-
-      background:
-        #edf2f4;
-
-    }
-
-
-    .project-carousel-preview iframe{
+    .recent-preview-track{
 
       width:
         100%;
 
+      height:
+        100%;
+
+      display:
+        flex;
+
+      will-change:
+        transform;
+
+      transition:
+        transform .68s cubic-bezier(.22,.61,.36,1);
+
+    }
+
+
+    .recent-preview-slide{
+
+      position:
+        relative;
+
+      flex:
+        0 0 100%;
+
+      width:
+        100%;
 
       height:
         100%;
 
+      overflow:
+        hidden;
+
+      background:
+        var(--surface-soft);
+
+      cursor:
+        pointer;
+
+    }
+
+
+    .recent-preview-slide img{
+
+      width:
+        100%;
+
+      height:
+        100%;
 
       display:
         block;
 
+      object-fit:
+        cover;
 
-      border:
+      user-select:
+        none;
+
+      -webkit-user-drag:
+        none;
+
+      transition:
+        transform .42s ease;
+
+    }
+
+
+    .recent-preview-slide:hover img{
+
+      transform:
+        scale(1.025);
+
+    }
+
+
+    /* If any screenshot path is wrong, show a clean fallback
+       instead of the browser's broken-image icon. */
+
+    .recent-preview-fallback{
+
+      position:
+        absolute;
+
+      inset:
         0;
 
+      display:
+        none;
 
-      pointer-events:
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      padding:
+        34px;
+
+      text-align:
+        center;
+
+      background:
+        radial-gradient(
+          circle at 25% 20%,
+          var(--accent-soft),
+          transparent 43%
+        ),
+        linear-gradient(
+          135deg,
+          var(--surface-soft),
+          var(--surface-hover)
+        );
+
+    }
+
+
+    .recent-preview-slide.image-error
+    .recent-preview-fallback{
+
+      display:
+        flex;
+
+    }
+
+
+    .recent-preview-slide.image-error img{
+
+      display:
         none;
 
     }
 
 
-    .project-carousel-preview img{
+    .recent-fallback-icon{
 
       width:
-        100%;
-
+        58px;
 
       height:
-        100%;
-
-
-      display:
-        block;
-
-
-      object-fit:
-        cover;
-
-
-      transition:
-        transform .35s ease;
-
-    }
-
-
-    .project-carousel-card:hover
-    .project-carousel-preview img{
-
-      transform:
-        scale(1.035);
-
-    }
-
-
-
-    .project-badge{
-
-      position:
-        absolute;
-
-
-      top:
-        12px;
-
-
-      left:
-        12px;
-
-
-      z-index:
-        3;
-
-
-      padding:
-        6px 10px;
-
-
-      border-radius:
-        999px;
-
-
-      background:
-        rgba(255,255,255,.93);
-
-
-      color:
-        #17252e;
-
-
-      box-shadow:
-        0 5px 15px rgba(0,0,0,.10);
-
-
-      backdrop-filter:
-        blur(7px);
-
-
-      font-size:
-        9.5px;
-
-
-      font-weight:
-        800;
-
-    }
-
-
-
-    .project-carousel-content{
-
-      padding:
-        15px 16px 17px;
-
-    }
-
-
-    .project-carousel-title{
+        58px;
 
       margin:
-        0;
-
-
-      color:
-        var(--text);
-
-
-      font-size:
-        15px;
-
-
-      line-height:
-        1.4;
-
-
-      font-weight:
-        800;
-
-    }
-
-
-    .project-carousel-meta{
-
-      margin-top:
-        6px;
-
-
-      color:
-        var(--text-soft);
-
-
-      font-size:
-        10.5px;
-
-
-      line-height:
-        1.45;
-
-    }
-
-
-    .project-carousel-actions{
-
-      margin-top:
-        13px;
-
-
-      display:
-        flex;
-
-
-      flex-wrap:
-        wrap;
-
-
-      gap:
-        7px;
-
-    }
-
-
-
-    /* Carousel controls */
-
-    .carousel-controls{
-
-      margin-top:
-        7px;
-
-
-      display:
-        flex;
-
-
-      align-items:
-        center;
-
-
-      justify-content:
-        space-between;
-
-
-      gap:
-        14px;
-
-    }
-
-
-    .carousel-arrows{
-
-      display:
-        flex;
-
-
-      gap:
-        7px;
-
-    }
-
-
-    .carousel-arrow{
-
-      width:
-        38px;
-
-
-      height:
-        38px;
-
+        0 auto 13px;
 
       display:
         grid;
 
-
       place-items:
         center;
-
 
       border:
         1px solid var(--border);
 
-
       border-radius:
-        10px;
-
+        15px;
 
       background:
         var(--surface);
 
-
       color:
-        var(--text);
-
-
-      cursor:
-        pointer;
-
+        var(--accent);
 
       font-size:
-        17px;
-
-
-      transition:
-        transform .18s ease,
-        background .18s ease,
-        box-shadow .18s ease;
-
-    }
-
-
-    .carousel-arrow:hover{
-
-      transform:
-        translateY(-1px);
-
-
-      background:
-        var(--surface-hover);
-
+        24px;
 
       box-shadow:
         var(--shadow);
@@ -2372,24 +2175,231 @@
     }
 
 
+    .recent-fallback-title{
 
-    .carousel-dots{
+      max-width:
+        430px;
 
-      flex:
-        1;
+      color:
+        var(--text);
 
+      font-size:
+        17px;
+
+      line-height:
+        1.4;
+
+      font-weight:
+        800;
+
+    }
+
+
+    .recent-fallback-text{
+
+      margin-top:
+        6px;
+
+      color:
+        var(--text-soft);
+
+      font-size:
+        10.5px;
+
+    }
+
+
+    /* Dark shade improves readability of floating controls */
+
+    .recent-preview-shade{
+
+      position:
+        absolute;
+
+      inset:
+        0;
+
+      z-index:
+        3;
+
+      pointer-events:
+        none;
+
+      background:
+        linear-gradient(
+          to top,
+          rgba(8,22,30,.31),
+          transparent 43%
+        );
+
+    }
+
+
+    .recent-project-badge{
+
+      position:
+        absolute;
+
+      top:
+        13px;
+
+      left:
+        13px;
+
+      z-index:
+        6;
+
+      padding:
+        6px 10px;
+
+      border:
+        1px solid rgba(255,255,255,.55);
+
+      border-radius:
+        999px;
+
+      background:
+        rgba(255,255,255,.93);
+
+      color:
+        #17252e;
+
+      box-shadow:
+        0 6px 18px rgba(0,0,0,.10);
+
+      backdrop-filter:
+        blur(9px);
+
+      font-size:
+        9.5px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    /* Arrows */
+
+    .recent-preview-arrow{
+
+      position:
+        absolute;
+
+      top:
+        50%;
+
+      z-index:
+        7;
+
+      width:
+        42px;
+
+      height:
+        42px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      border:
+        1px solid rgba(255,255,255,.40);
+
+      border-radius:
+        11px;
+
+      background:
+        rgba(18,34,44,.80);
+
+      color:
+        #fff;
+
+      cursor:
+        pointer;
+
+      font-size:
+        18px;
+
+      box-shadow:
+        0 7px 20px rgba(0,0,0,.16);
+
+      backdrop-filter:
+        blur(8px);
+
+      transform:
+        translateY(-50%);
+
+      transition:
+        background .18s ease,
+        transform .18s ease;
+
+    }
+
+
+    .recent-preview-arrow:hover{
+
+      background:
+        var(--accent);
+
+      transform:
+        translateY(-50%) scale(1.05);
+
+    }
+
+
+    .recent-preview-arrow.prev{
+      left: 13px;
+    }
+
+
+    .recent-preview-arrow.next{
+      right: 13px;
+    }
+
+
+    /* Dots + counter stay inside the square/preview box */
+
+    .recent-preview-footer{
+
+      position:
+        absolute;
+
+      left:
+        14px;
+
+      right:
+        14px;
+
+      bottom:
+        13px;
+
+      z-index:
+        7;
 
       display:
         flex;
 
-
-      justify-content:
-        center;
-
-
       align-items:
         center;
 
+      justify-content:
+        space-between;
+
+      gap:
+        14px;
+
+    }
+
+
+    .recent-preview-dots{
+
+      display:
+        flex;
+
+      align-items:
+        center;
 
       gap:
         6px;
@@ -2397,151 +2407,133 @@
     }
 
 
-    .carousel-dot{
+    .recent-preview-dot{
 
       width:
         7px;
 
-
       height:
         7px;
-
 
       padding:
         0;
 
-
       border:
         0;
-
 
       border-radius:
         999px;
 
-
       background:
-
-        color-mix(
-          in srgb,
-          var(--text) 20%,
-          transparent
-        );
-
+        rgba(255,255,255,.72);
 
       cursor:
         pointer;
 
+      box-shadow:
+        0 1px 4px rgba(0,0,0,.15);
 
       transition:
-        width .24s ease,
-        background .24s ease;
+        width .23s ease,
+        background .23s ease;
 
     }
 
 
-    .carousel-dot.active{
+    .recent-preview-dot.active{
 
       width:
         27px;
 
-
       background:
-        var(--accent);
+        #fff;
 
     }
 
 
-    .carousel-status{
+    .recent-preview-count{
 
-      min-width:
-        110px;
-
-
-      color:
-        var(--text-soft);
-
-
-      text-align:
-        right;
-
-
-      font-size:
-        9.5px;
-
-
-      font-weight:
-        700;
-
-    }
-
-
-
-    .carousel-progress{
-
-      position:
-        relative;
-
-
-      width:
-        100%;
-
-
-      height:
-        2px;
-
-
-      margin-top:
-        9px;
-
-
-      overflow:
-        hidden;
-
+      padding:
+        6px 10px;
 
       border-radius:
         999px;
 
-
       background:
+        rgba(18,34,44,.80);
 
-        color-mix(
-          in srgb,
-          var(--text) 8%,
-          transparent
-        );
+      color:
+        #fff;
+
+      font-size:
+        9px;
+
+      font-weight:
+        800;
+
+      backdrop-filter:
+        blur(8px);
 
     }
 
 
-    .carousel-progress-bar{
+    /* Autoplay timer line */
 
-      width:
+    .recent-slider-progress{
+
+      position:
+        absolute;
+
+      left:
         0;
 
+      right:
+        0;
+
+      bottom:
+        0;
+
+      z-index:
+        8;
+
+      height:
+        3px;
+
+      overflow:
+        hidden;
+
+      background:
+        rgba(255,255,255,.20);
+
+    }
+
+
+    .recent-slider-progress-bar{
+
+      width:
+        0%;
 
       height:
         100%;
 
-
       background:
-        var(--accent);
+        #fff;
 
     }
 
 
-    .carousel-progress-bar.running{
+    .recent-slider-progress-bar.running{
 
       animation:
-
-        carouselProgress
-        5s
+        recentSliderProgress
+        var(--recent-slide-time, 5000ms)
         linear
         forwards;
 
     }
 
 
-    @keyframes carouselProgress{
+    @keyframes recentSliderProgress{
 
       from{
         width: 0%;
@@ -2553,6 +2545,431 @@
 
     }
 
+
+    /* Project information panel. This does not slide. */
+
+    .recent-project-info{
+
+      min-width:
+        0;
+
+      padding:
+        21px;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        center;
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        15px;
+
+      background:
+        var(--surface-soft);
+
+    }
+
+
+    .recent-info-number{
+
+      margin-bottom:
+        8px;
+
+      color:
+        var(--accent);
+
+      font-size:
+        9.5px;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        .08em;
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    .recent-info-title{
+
+      margin:
+        0;
+
+      color:
+        var(--text);
+
+      font-size:
+        19px;
+
+      line-height:
+        1.35;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        -.3px;
+
+    }
+
+
+    .recent-info-meta{
+
+      margin-top:
+        8px;
+
+      color:
+        var(--accent);
+
+      font-size:
+        10.5px;
+
+      line-height:
+        1.5;
+
+      font-weight:
+        700;
+
+    }
+
+
+    .recent-info-description{
+
+      margin:
+        12px 0 0;
+
+      color:
+        var(--text-soft);
+
+      font-size:
+        11.5px;
+
+      line-height:
+        1.7;
+
+    }
+
+
+    .recent-info-actions{
+
+      margin-top:
+        18px;
+
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        8px;
+
+    }
+
+
+    /* Full recent-project viewer */
+
+    .recent-project-modal-backdrop{
+
+      position:
+        fixed;
+
+      inset:
+        0;
+
+      z-index:
+        9000;
+
+      padding:
+        18px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      visibility:
+        hidden;
+
+      opacity:
+        0;
+
+      background:
+        rgba(5,12,17,.85);
+
+      backdrop-filter:
+        blur(10px);
+
+      transition:
+        opacity .2s ease,
+        visibility .2s ease;
+
+    }
+
+
+    .recent-project-modal-backdrop.show{
+
+      visibility:
+        visible;
+
+      opacity:
+        1;
+
+    }
+
+
+    .recent-project-modal{
+
+      width:
+        min(1500px,96vw);
+
+      height:
+        min(900px,93vh);
+
+      overflow:
+        hidden;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        17px;
+
+      background:
+        var(--surface);
+
+      box-shadow:
+        0 35px 120px rgba(0,0,0,.45);
+
+    }
+
+
+    .recent-project-modal-head{
+
+      min-height:
+        58px;
+
+      padding:
+        11px 15px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      gap:
+        15px;
+
+      border-bottom:
+        1px solid var(--border);
+
+    }
+
+
+    .recent-project-modal-title{
+
+      min-width:
+        0;
+
+      overflow:
+        hidden;
+
+      text-overflow:
+        ellipsis;
+
+      white-space:
+        nowrap;
+
+      color:
+        var(--text);
+
+      font-size:
+        13px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    .recent-project-modal-actions{
+
+      flex:
+        0 0 auto;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        8px;
+
+    }
+
+
+    .recent-project-modal-body{
+
+      flex:
+        1;
+
+      min-height:
+        0;
+
+      background:
+        #eef2f4;
+
+    }
+
+
+    .recent-project-modal-body iframe{
+
+      width:
+        100%;
+
+      height:
+        100%;
+
+      display:
+        block;
+
+      border:
+        0;
+
+      background:
+        #fff;
+
+    }
+
+
+    .recent-project-modal-body img{
+
+      width:
+        100%;
+
+      height:
+        100%;
+
+      display:
+        block;
+
+      object-fit:
+        contain;
+
+      background:
+        #111;
+
+    }
+
+
+    @media(max-width:950px){
+
+      .recent-project-showcase{
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+      .recent-project-info{
+
+        padding:
+          18px;
+
+      }
+
+    }
+
+
+    @media(max-width:620px){
+
+      .recent-preview-box{
+
+        aspect-ratio:
+          4 / 3;
+
+      }
+
+      .recent-preview-arrow{
+
+        width:
+          37px;
+
+        height:
+          37px;
+
+      }
+
+      .recent-info-title{
+
+        font-size:
+          17px;
+
+      }
+
+      .recent-project-modal-backdrop{
+
+        padding:
+          7px;
+
+      }
+
+      .recent-project-modal{
+
+        width:
+          100%;
+
+        height:
+          96vh;
+
+        border-radius:
+          12px;
+
+      }
+
+      .recent-modal-open-text{
+        display: none;
+      }
+
+    }
+
+
+    @media(prefers-reduced-motion:reduce){
+
+      .recent-preview-track{
+        transition: none;
+      }
+
+      .recent-slider-progress-bar{
+        animation: none !important;
+      }
+
+    }
 
 
     /* =====================================================
@@ -4663,22 +5080,6 @@
 
     @media(max-width:900px){
 
-      .project-slide{
-
-        flex:
-          0 0 82%;
-
-      }
-
-
-      .project-carousel-preview{
-
-        height:
-          205px;
-
-      }
-
-
       .academic-grid{
 
         grid-template-columns:
@@ -4796,30 +5197,6 @@
 
         padding:
           18px;
-
-      }
-
-
-      .project-slide{
-
-        flex:
-          0 0 92%;
-
-      }
-
-
-      .project-carousel-preview{
-
-        height:
-          190px;
-
-      }
-
-
-      .carousel-status{
-
-        display:
-          none;
 
       }
 
@@ -5418,7 +5795,8 @@
 
               <h3>
 
-                Spatially Explicit Deep Learning for Urban Growth Forecasting and Master Plan Evaluation in a Data-Scarce Small Town.
+                Framework for Predicting Urban
+                Growth Pattern in Data-Scarce Regions
 
               </h3>
 
@@ -5613,7 +5991,8 @@
 
 
         <!-- ===============================================
-             RECENT PROJECTS AUTO CAROUSEL
+             RECENT PROJECTS — SCREENSHOT PREVIEW SLIDER
+             Only this preview box moves automatically.
              =============================================== -->
 
         <section
@@ -5639,8 +6018,8 @@
 
                 Selected geospatial visualization,
                 simulation and mapping projects.
-                The portfolio moves automatically;
-                hover to pause and explore.
+                The preview changes automatically;
+                hover over it to pause and explore.
 
               </p>
 
@@ -5649,372 +6028,367 @@
           </div>
 
 
+          <div class="recent-project-showcase">
 
-          <div
-            class="projects-carousel"
-            id="projectsCarousel"
-          >
 
+            <!-- =========================================
+                 FIXED PREVIEW BOX
+                 Only the screenshots inside this box slide.
+                 ========================================= -->
 
             <div
-              class="carousel-viewport"
-              id="carouselViewport"
+              class="recent-preview-box"
+              id="recentPreviewBox"
+              tabindex="0"
+              aria-label="Recent project slideshow"
             >
 
 
               <div
-                class="carousel-track"
-                id="carouselTrack"
+                class="recent-preview-track"
+                id="recentPreviewTrack"
               >
 
 
+                <!-- 01 — 3D Terrain -->
 
-                <!-- PROJECT 1 -->
+                <div
+                  class="recent-preview-slide"
+                  data-index="0"
+                >
 
-                <div class="project-slide">
+                  <img
+                    src="images/3D%20Terrain.jpg"
+                    alt="3D Bangladesh Terrain and Bathymetry preview"
+                    draggable="false"
+                  >
 
-                  <article class="project-carousel-card">
-
-
-                    <div class="project-carousel-preview">
-
-                      <iframe
-                        src="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-                        title="3D Bangladesh Terrain and Bathymetry"
-                        loading="lazy"
-                      ></iframe>
-
-
-                      <span class="project-badge">
-                        Interactive 3D
-                      </span>
-
-                    </div>
-
-
-                    <div class="project-carousel-content">
-
-                      <h3 class="project-carousel-title">
+                  <div class="recent-preview-fallback">
+                    <div>
+                      <div class="recent-fallback-icon">◫</div>
+                      <div class="recent-fallback-title">
                         3D Bangladesh Terrain and Bathymetry
-                      </h3>
-
-
-                      <div class="project-carousel-meta">
-                        3D Mapping · Terrain · Visualization
                       </div>
-
-
-                      <div class="project-carousel-actions">
-
-                        <a
-                          class="mini-button"
-                          href="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          Open ↗
-                        </a>
-
-
-                        <button
-                          class="mini-button preview-button"
-                          type="button"
-                          data-title="3D Bangladesh Terrain and Bathymetry"
-                          data-preview="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-                          data-link="https://khalidbinshofiq.github.io/khalidbinshofiq/"
-                          data-type="iframe"
-                        >
-                          Preview
-                        </button>
-
+                      <div class="recent-fallback-text">
+                        Screenshot unavailable. Open the full project to explore it.
                       </div>
-
                     </div>
-
-                  </article>
+                  </div>
 
                 </div>
 
 
+                <!-- 02 — Flood Simulation -->
 
-                <!-- PROJECT 2 -->
+                <div
+                  class="recent-preview-slide"
+                  data-index="1"
+                >
 
-                <div class="project-slide">
+                  <img
+                    src="images/flood%20simulation.jpg"
+                    alt="3D Flood Simulation preview"
+                    draggable="false"
+                  >
 
-                  <article class="project-carousel-card">
-
-
-                    <div class="project-carousel-preview">
-
-                      <iframe
-                        src="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
-                        title="3D Flood Simulation"
-                        loading="lazy"
-                      ></iframe>
-
-
-                      <span class="project-badge">
-                        Simulation
-                      </span>
-
-                    </div>
-
-
-                    <div class="project-carousel-content">
-
-                      <h3 class="project-carousel-title">
+                  <div class="recent-preview-fallback">
+                    <div>
+                      <div class="recent-fallback-icon">◫</div>
+                      <div class="recent-fallback-title">
                         3D Flood Simulation
-                      </h3>
-
-
-                      <div class="project-carousel-meta">
-                        Flood · 3D Simulation · Spatial Analysis
                       </div>
-
-
-                      <div class="project-carousel-actions">
-
-                        <a
-                          class="mini-button"
-                          href="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          Open ↗
-                        </a>
-
-
-                        <button
-                          class="mini-button preview-button"
-                          type="button"
-                          data-title="3D Flood Simulation"
-                          data-preview="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
-                          data-link="https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing"
-                          data-type="iframe"
-                        >
-                          Preview
-                        </button>
-
+                      <div class="recent-fallback-text">
+                        Screenshot unavailable. Open the full project to explore it.
                       </div>
-
                     </div>
-
-                  </article>
+                  </div>
 
                 </div>
 
 
+                <!-- 03 — Coastal Habitat -->
 
-                <!-- PROJECT 3 -->
+                <div
+                  class="recent-preview-slide"
+                  data-index="2"
+                >
 
-                <div class="project-slide">
+                  <img
+                    src="images/coastal%20projects.jpg"
+                    alt="Coastal Habitat Mapping preview"
+                    draggable="false"
+                  >
 
-                  <article class="project-carousel-card">
-
-
-                    <div class="project-carousel-preview">
-
-                      <iframe
-                        src="research/habitat.html"
-                        title="Habitat Mapping"
-                        loading="lazy"
-                      ></iframe>
-
-
-                      <span class="project-badge">
-                        Coastal GIS
-                      </span>
-
-                    </div>
-
-
-                    <div class="project-carousel-content">
-
-                      <h3 class="project-carousel-title">
-
-                        Habitat Mapping of Coastal
-                        Regions of Bangladesh
-
-                      </h3>
-
-
-                      <div class="project-carousel-meta">
-
-                        Habitat · Coastal GIS ·
-                        Remote Sensing
-
+                  <div class="recent-preview-fallback">
+                    <div>
+                      <div class="recent-fallback-icon">◫</div>
+                      <div class="recent-fallback-title">
+                        Habitat Mapping of Coastal Regions of Bangladesh
                       </div>
-
-
-                      <div class="project-carousel-actions">
-
-                        <a
-                          class="mini-button"
-                          href="research/habitat.html"
-                        >
-                          Open
-                        </a>
-
-
-                        <button
-                          class="mini-button preview-button"
-                          type="button"
-                          data-title="Habitat Mapping of Coastal Regions of Bangladesh"
-                          data-preview="research/habitat.html"
-                          data-link="research/habitat.html"
-                          data-type="iframe"
-                        >
-                          Preview
-                        </button>
-
+                      <div class="recent-fallback-text">
+                        Screenshot unavailable. Open the full project to explore it.
                       </div>
-
                     </div>
-
-                  </article>
+                  </div>
 
                 </div>
 
 
+                <!-- 04 — Space Syntax -->
 
-                <!-- PROJECT 4 -->
+                <div
+                  class="recent-preview-slide"
+                  data-index="3"
+                >
 
-                <div class="project-slide">
+                  <img
+                    src="images/SpaceSyntaxAnalysis.png"
+                    alt="Space Syntax Analysis preview"
+                    draggable="false"
+                  >
 
-                  <article class="project-carousel-card">
-
-
-                    <div class="project-carousel-preview">
-
-                      <img
-                        src="3DKaliganj.jpg"
-                        alt="3D Land Cover Map"
-                        loading="lazy"
-                      >
-
-
-                      <span class="project-badge">
-                        3D Land Cover
-                      </span>
-
-                    </div>
-
-
-                    <div class="project-carousel-content">
-
-                      <h3 class="project-carousel-title">
-                        3D Land Cover Map
-                      </h3>
-
-
-                      <div class="project-carousel-meta">
-
-                        Land Cover · GIS ·
-                        3D Visualization
-
+                  <div class="recent-preview-fallback">
+                    <div>
+                      <div class="recent-fallback-icon">◫</div>
+                      <div class="recent-fallback-title">
+                        Space Syntax Analysis
                       </div>
-
-
-                      <div class="project-carousel-actions">
-
-                        <a
-                          class="mini-button"
-                          href="3DKaliganj.jpg"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          Open ↗
-                        </a>
-
-
-                        <button
-                          class="mini-button preview-button"
-                          type="button"
-                          data-title="3D Land Cover Map"
-                          data-preview="3DKaliganj.jpg"
-                          data-link="3DKaliganj.jpg"
-                          data-type="image"
-                        >
-                          Preview
-                        </button>
-
+                      <div class="recent-fallback-text">
+                        Screenshot unavailable. Open the full image to explore it.
                       </div>
-
                     </div>
+                  </div>
 
-                  </article>
+                </div>
+
+
+                <!-- 05 — Bivariate Climate Map -->
+
+                <div
+                  class="recent-preview-slide"
+                  data-index="4"
+                >
+
+                  <img
+                    src="images/World%20Bivariate%20Climate%20Map.jpeg"
+                    alt="World Bivariate Climate Map preview"
+                    draggable="false"
+                  >
+
+                  <div class="recent-preview-fallback">
+                    <div>
+                      <div class="recent-fallback-icon">◫</div>
+                      <div class="recent-fallback-title">
+                        World Bivariate Climate Map
+                      </div>
+                      <div class="recent-fallback-text">
+                        Screenshot unavailable. Open the full image to explore it.
+                      </div>
+                    </div>
+                  </div>
 
                 </div>
 
 
               </div>
 
-            </div>
+
+              <div class="recent-preview-shade"></div>
 
 
-
-            <!-- Controls -->
-
-            <div class="carousel-controls">
-
-
-              <div class="carousel-arrows">
-
-                <button
-                  class="carousel-arrow"
-                  id="carouselPrev"
-                  type="button"
-                  aria-label="Previous project"
-                >
-                  ←
-                </button>
-
-
-                <button
-                  class="carousel-arrow"
-                  id="carouselNext"
-                  type="button"
-                  aria-label="Next project"
-                >
-                  →
-                </button>
-
-              </div>
-
-
-
-              <div
-                class="carousel-dots"
-                id="carouselDots"
-              ></div>
-
-
-
-              <div
-                class="carousel-status"
-                id="carouselStatus"
+              <span
+                class="recent-project-badge"
+                id="recentProjectBadge"
               >
-                Auto sliding
+                Interactive 3D
+              </span>
+
+
+              <button
+                class="recent-preview-arrow prev"
+                id="recentPrev"
+                type="button"
+                aria-label="Previous project"
+              >
+                ←
+              </button>
+
+
+              <button
+                class="recent-preview-arrow next"
+                id="recentNext"
+                type="button"
+                aria-label="Next project"
+              >
+                →
+              </button>
+
+
+              <div class="recent-preview-footer">
+
+                <div
+                  class="recent-preview-dots"
+                  id="recentDots"
+                  aria-label="Recent project navigation"
+                ></div>
+
+
+                <div
+                  class="recent-preview-count"
+                  id="recentCount"
+                >
+                  01 / 05
+                </div>
+
+              </div>
+
+
+              <div class="recent-slider-progress">
+
+                <div
+                  class="recent-slider-progress-bar"
+                  id="recentProgress"
+                ></div>
+
               </div>
 
             </div>
 
 
+            <!-- =========================================
+                 PROJECT INFORMATION
+                 This panel remains fixed while the image slides.
+                 ========================================= -->
 
-            <div class="carousel-progress">
+            <div class="recent-project-info">
 
               <div
-                class="carousel-progress-bar"
-                id="carouselProgress"
-              ></div>
+                class="recent-info-number"
+                id="recentInfoNumber"
+              >
+                Project 01
+              </div>
+
+
+              <h3
+                class="recent-info-title"
+                id="recentInfoTitle"
+              >
+                3D Bangladesh Terrain and Bathymetry
+              </h3>
+
+
+              <div
+                class="recent-info-meta"
+                id="recentInfoMeta"
+              >
+                3D Mapping · Terrain · Bathymetry · Visualization
+              </div>
+
+
+              <p
+                class="recent-info-description"
+                id="recentInfoDescription"
+              >
+                Interactive three-dimensional visualization of Bangladesh terrain and bathymetric characteristics.
+              </p>
+
+
+              <div class="recent-info-actions">
+
+                <a
+                  class="button primary"
+                  id="recentOpenProject"
+                  href="https://khalidbinshofiq.github.io/khalidbinshofiq/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open Full Project ↗
+                </a>
+
+
+                <button
+                  class="button ghost"
+                  id="recentPreviewProject"
+                  type="button"
+                >
+                  Preview
+                </button>
+
+              </div>
 
             </div>
-
 
           </div>
 
         </section>
 
+
+        <!-- Recent-project full viewer.
+             This is separate from your existing generic modal,
+             so the rest of the website remains untouched. -->
+
+        <div
+          class="recent-project-modal-backdrop"
+          id="recentProjectModalBackdrop"
+          aria-hidden="true"
+        >
+
+          <div
+            class="recent-project-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="recentProjectModalTitle"
+          >
+
+            <div class="recent-project-modal-head">
+
+              <div
+                class="recent-project-modal-title"
+                id="recentProjectModalTitle"
+              >
+                Project Preview
+              </div>
+
+
+              <div class="recent-project-modal-actions">
+
+                <a
+                  class="button primary"
+                  id="recentProjectModalOpen"
+                  href="#"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="recent-modal-open-text">
+                    Open Full Project
+                  </span>
+                  ↗
+                </a>
+
+
+                <button
+                  class="button ghost"
+                  id="recentProjectModalClose"
+                  type="button"
+                  aria-label="Close recent project preview"
+                >
+                  ✕
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="recent-project-modal-body"
+              id="recentProjectModalBody"
+            ></div>
+
+          </div>
+
+        </div>
 
 
         <!-- ===============================================
@@ -9008,69 +9382,278 @@
 
 
     /* ===================================================
-       AUTO PROJECT CAROUSEL
+       RECENT PROJECTS — SCREENSHOT PREVIEW SLIDER
+       Only the preview box slides. No live webpage is embedded
+       in the small box, so visitors never see a broken iframe.
        =================================================== */
 
     (() => {
 
+      const recentProjects = [
 
-      const carousel =
+        {
+          title:
+            "3D Bangladesh Terrain and Bathymetry",
+
+          meta:
+            "3D Mapping · Terrain · Bathymetry · Visualization",
+
+          badge:
+            "Interactive 3D",
+
+          description:
+            "Interactive three-dimensional visualization of Bangladesh terrain and bathymetric characteristics.",
+
+          open:
+            "https://khalidbinshofiq.github.io/khalidbinshofiq/",
+
+          /* Many external GitHub Pages visualizations may not
+             behave reliably inside an iframe on another page.
+             For this item Preview opens the full project directly. */
+          previewType:
+            "external",
+
+          preview:
+            "https://khalidbinshofiq.github.io/khalidbinshofiq/"
+        },
+
+
+        {
+          title:
+            "3D Flood Simulation",
+
+          meta:
+            "Flood · 3D Simulation · Spatial Analysis",
+
+          badge:
+            "Simulation",
+
+          description:
+            "Three-dimensional flood simulation illustrating spatial inundation and urban-environmental conditions.",
+
+          open:
+            "https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing",
+
+          previewType:
+            "iframe",
+
+          preview:
+            "https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
+        },
+
+
+        {
+          title:
+            "Habitat Mapping of Coastal Regions of Bangladesh",
+
+          meta:
+            "Habitat · Coastal GIS · Remote Sensing",
+
+          badge:
+            "Coastal GIS",
+
+          description:
+            "Geospatial habitat mapping and spatial analysis of environmentally sensitive coastal regions of Bangladesh.",
+
+          open:
+            "research/habitat.html",
+
+          previewType:
+            "iframe",
+
+          preview:
+            "research/habitat.html"
+        },
+
+
+        {
+          title:
+            "Space Syntax Analysis",
+
+          meta:
+            "Urban Form · Network Analysis · Spatial Configuration",
+
+          badge:
+            "Spatial Analysis",
+
+          description:
+            "Visual analysis of spatial configuration and connectivity using a space-syntax-oriented urban analysis workflow.",
+
+          open:
+            "images/SpaceSyntaxAnalysis.png",
+
+          previewType:
+            "image",
+
+          preview:
+            "images/SpaceSyntaxAnalysis.png"
+        },
+
+
+        {
+          title:
+            "World Bivariate Climate Map",
+
+          meta:
+            "Cartography · Climate · Bivariate Mapping",
+
+          badge:
+            "Cartography",
+
+          description:
+            "Bivariate cartographic visualization designed to communicate two climate dimensions simultaneously across the world.",
+
+          open:
+            "images/World%20Bivariate%20Climate%20Map.jpeg",
+
+          previewType:
+            "image",
+
+          preview:
+            "images/World%20Bivariate%20Climate%20Map.jpeg"
+        }
+
+      ];
+
+
+      const box =
         document.getElementById(
-          "projectsCarousel"
+          "recentPreviewBox"
         );
 
 
-      if(!carousel)
+      if(!box)
         return;
-
-
-      const viewport =
-        document.getElementById(
-          "carouselViewport"
-        );
 
 
       const track =
         document.getElementById(
-          "carouselTrack"
+          "recentPreviewTrack"
         );
 
 
       const slides =
         Array.from(
           track.querySelectorAll(
-            ".project-slide"
+            ".recent-preview-slide"
           )
+        );
+
+
+      const badge =
+        document.getElementById(
+          "recentProjectBadge"
+        );
+
+
+      const number =
+        document.getElementById(
+          "recentInfoNumber"
+        );
+
+
+      const title =
+        document.getElementById(
+          "recentInfoTitle"
+        );
+
+
+      const meta =
+        document.getElementById(
+          "recentInfoMeta"
+        );
+
+
+      const description =
+        document.getElementById(
+          "recentInfoDescription"
+        );
+
+
+      const openButton =
+        document.getElementById(
+          "recentOpenProject"
+        );
+
+
+      const previewButton =
+        document.getElementById(
+          "recentPreviewProject"
         );
 
 
       const prevButton =
         document.getElementById(
-          "carouselPrev"
+          "recentPrev"
         );
 
 
       const nextButton =
         document.getElementById(
-          "carouselNext"
+          "recentNext"
         );
 
 
-      const dotsContainer =
+      const dots =
         document.getElementById(
-          "carouselDots"
+          "recentDots"
         );
 
 
-      const status =
+      const count =
         document.getElementById(
-          "carouselStatus"
+          "recentCount"
         );
 
 
-      const carouselProgress =
+      const progress =
         document.getElementById(
-          "carouselProgress"
+          "recentProgress"
+        );
+
+
+      const modalBackdrop =
+        document.getElementById(
+          "recentProjectModalBackdrop"
+        );
+
+
+      const modalTitle =
+        document.getElementById(
+          "recentProjectModalTitle"
+        );
+
+
+      const modalBody =
+        document.getElementById(
+          "recentProjectModalBody"
+        );
+
+
+      const modalOpen =
+        document.getElementById(
+          "recentProjectModalOpen"
+        );
+
+
+      const modalClose =
+        document.getElementById(
+          "recentProjectModalClose"
+        );
+
+
+      /* Change only this number if you want another slide time.
+         5000 = 5 seconds, 4000 = 4 seconds, etc. */
+
+      const AUTO_DELAY =
+        5000;
+
+
+      document.documentElement
+        .style
+        .setProperty(
+          "--recent-slide-time",
+          AUTO_DELAY + "ms"
         );
 
 
@@ -9078,10 +9661,6 @@
         window.matchMedia(
           "(prefers-reduced-motion:reduce)"
         ).matches;
-
-
-      const AUTO_DELAY =
-        2500;
 
 
       let currentIndex =
@@ -9100,159 +9679,105 @@
         false;
 
 
-      let startX =
+      let dragStartX =
         0;
 
 
-      let endX =
+      let dragEndX =
         0;
 
 
+      /* =================================================
+         Broken screenshot protection
+         ================================================= */
 
-      function slidesPerView(){
+      slides.forEach(
+        slide => {
 
-        if(
-          window.innerWidth <=
-          900
-        ){
-
-          return 1;
-
-        }
+          const image =
+            slide.querySelector("img");
 
 
-        return 2;
-
-      }
-
+          if(!image)
+            return;
 
 
-      function maxIndex(){
-
-        return Math.max(
-
-          0,
-
-          slides.length -
-          slidesPerView()
-
-        );
-
-      }
-
-
-
-      function slideDistance(){
-
-        if(
-          slides.length < 2
-        ){
-
-          return (
-            slides[0]
-              ?.getBoundingClientRect()
-              .width || 0
-          );
-
-        }
-
-
-        const first =
-          slides[0]
-            .getBoundingClientRect();
-
-
-        const second =
-          slides[1]
-            .getBoundingClientRect();
-
-
-        return (
-          second.left -
-          first.left
-        );
-
-      }
-
-
-
-      function buildDots(){
-
-        dotsContainer.innerHTML =
-          "";
-
-
-        const max =
-          maxIndex();
-
-
-        for(
-          let i = 0;
-          i <= max;
-          i++
-        ){
-
-          const dot =
-            document.createElement(
-              "button"
-            );
-
-
-          dot.type =
-            "button";
-
-
-          dot.className =
-            "carousel-dot";
-
-
-          dot.setAttribute(
-            "aria-label",
-            `Go to project ${i + 1}`
-          );
-
-
-          dot.addEventListener(
-            "click",
+          image.addEventListener(
+            "error",
             () => {
 
-              goTo(i);
-
-              restartAuto();
+              slide.classList.add(
+                "image-error"
+              );
 
             }
           );
 
 
-          dotsContainer.appendChild(
-            dot
+          image.addEventListener(
+            "load",
+            () => {
+
+              slide.classList.remove(
+                "image-error"
+              );
+
+            }
           );
 
         }
-
-      }
-
+      );
 
 
-      function updateDots(){
+      /* =================================================
+         Dots
+         ================================================= */
 
-        const dots =
-          dotsContainer
-            .querySelectorAll(
-              ".carousel-dot"
+      function buildDots(){
+
+        dots.innerHTML =
+          "";
+
+
+        recentProjects.forEach(
+          (_,index) => {
+
+            const dot =
+              document.createElement(
+                "button"
+              );
+
+
+            dot.type =
+              "button";
+
+
+            dot.className =
+              "recent-preview-dot";
+
+
+            dot.setAttribute(
+              "aria-label",
+              `Show project ${index + 1}`
             );
 
 
-        dots.forEach(
-          (dot,index) => {
+            dot.addEventListener(
+              "click",
+              event => {
 
-            dot.classList.toggle(
+                event.stopPropagation();
 
-              "active",
+                goToProject(index);
 
-              index ===
-              currentIndex
+                restartAuto();
 
+              }
+            );
+
+
+            dots.appendChild(
+              dot
             );
 
           }
@@ -9261,77 +9786,91 @@
       }
 
 
+      function updateDots(){
 
-      function restartProgress(){
+        dots
+          .querySelectorAll(
+            ".recent-preview-dot"
+          )
+          .forEach(
+            (dot,index) => {
 
-        carouselProgress
-          .classList
-          .remove(
-            "running"
+              dot.classList.toggle(
+                "active",
+                index === currentIndex
+              );
+
+            }
           );
-
-
-        void carouselProgress
-          .offsetWidth;
-
-
-        if(
-          !paused &&
-          !reducedMotion
-        ){
-
-          carouselProgress
-            .classList
-            .add(
-              "running"
-            );
-
-        }
 
       }
 
 
+      function twoDigits(value){
 
-      function goTo(index){
+        return String(value)
+          .padStart(
+            2,
+            "0"
+          );
 
-        const max =
-          maxIndex();
+      }
 
 
-        if(index > max){
+      /* =================================================
+         Move image strip + update stationary information
+         ================================================= */
 
-          currentIndex =
-            0;
+      function goToProject(index){
 
-        }
-
-        else if(index < 0){
-
-          currentIndex =
-            max;
-
-        }
-
-        else{
-
-          currentIndex =
-            index;
-
+        if(index >= recentProjects.length){
+          index = 0;
         }
 
 
-        const offset =
-          slideDistance() *
-          currentIndex;
+        if(index < 0){
+          index = recentProjects.length - 1;
+        }
+
+
+        currentIndex =
+          index;
 
 
         track.style.transform =
+          `translate3d(-${currentIndex * 100}%,0,0)`;
 
-          `translate3d(
-            -${offset}px,
-            0,
-            0
-          )`;
+
+        const project =
+          recentProjects[currentIndex];
+
+
+        badge.textContent =
+          project.badge;
+
+
+        number.textContent =
+          `Project ${twoDigits(currentIndex + 1)}`;
+
+
+        title.textContent =
+          project.title;
+
+
+        meta.textContent =
+          project.meta;
+
+
+        description.textContent =
+          project.description;
+
+
+        openButton.href =
+          project.open;
+
+
+        count.textContent =
+          `${twoDigits(currentIndex + 1)} / ${twoDigits(recentProjects.length)}`;
 
 
         updateDots();
@@ -9341,46 +9880,63 @@
       }
 
 
+      function nextProject(){
 
-      function next(){
-
-        goTo(
+        goToProject(
           currentIndex + 1
         );
 
       }
 
 
+      function previousProject(){
 
-      function previous(){
-
-        goTo(
+        goToProject(
           currentIndex - 1
         );
 
       }
 
 
+      /* =================================================
+         Progress + autoplay
+         ================================================= */
 
-      function stopAuto(){
+      function restartProgress(){
 
-        clearInterval(
-          timer
+        progress.classList.remove(
+          "running"
         );
 
 
-        timer =
-          null;
+        void progress.offsetWidth;
 
 
-        carouselProgress
-          .classList
-          .remove(
+        if(
+          !paused &&
+          !reducedMotion
+        ){
+
+          progress.classList.add(
             "running"
           );
 
+        }
+
       }
 
+
+      function stopAuto(){
+
+        clearInterval(timer);
+
+        timer = null;
+
+        progress.classList.remove(
+          "running"
+        );
+
+      }
 
 
       function startAuto(){
@@ -9390,13 +9946,9 @@
 
         if(
           paused ||
-          reducedMotion ||
-          slides.length <=
-          slidesPerView()
+          reducedMotion
         ){
-
           return;
-
         }
 
 
@@ -9405,12 +9957,11 @@
 
         timer =
           setInterval(
-            next,
+            nextProject,
             AUTO_DELAY
           );
 
       }
-
 
 
       function restartAuto(){
@@ -9422,14 +9973,17 @@
       }
 
 
-
-      /* Buttons */
+      /* =================================================
+         Arrow navigation
+         ================================================= */
 
       prevButton.addEventListener(
         "click",
-        () => {
+        event => {
 
-          previous();
+          event.stopPropagation();
+
+          previousProject();
 
           restartAuto();
 
@@ -9439,9 +9993,11 @@
 
       nextButton.addEventListener(
         "click",
-        () => {
+        event => {
 
-          next();
+          event.stopPropagation();
+
+          nextProject();
 
           restartAuto();
 
@@ -9449,20 +10005,15 @@
       );
 
 
+      /* =================================================
+         Pause when viewer examines the preview
+         ================================================= */
 
-      /* Pause on hover */
-
-      carousel.addEventListener(
+      box.addEventListener(
         "mouseenter",
         () => {
 
-          paused =
-            true;
-
-
-          status.textContent =
-            "Paused";
-
+          paused = true;
 
           stopAuto();
 
@@ -9470,17 +10021,11 @@
       );
 
 
-      carousel.addEventListener(
+      box.addEventListener(
         "mouseleave",
         () => {
 
-          paused =
-            false;
-
-
-          status.textContent =
-            "Auto sliding";
-
+          paused = false;
 
           startAuto();
 
@@ -9488,46 +10033,41 @@
       );
 
 
+      /* =================================================
+         Keyboard
+         ================================================= */
 
-      /* Pause while interacting */
-
-      carousel.addEventListener(
-        "focusin",
-        () => {
-
-          paused =
-            true;
-
-
-          status.textContent =
-            "Paused";
-
-
-          stopAuto();
-
-        }
-      );
-
-
-      carousel.addEventListener(
-        "focusout",
+      box.addEventListener(
+        "keydown",
         event => {
 
-          if(
-            !carousel.contains(
-              event.relatedTarget
-            )
-          ){
+          if(event.key === "ArrowRight"){
 
-            paused =
-              false;
+            event.preventDefault();
 
+            nextProject();
 
-            status.textContent =
-              "Auto sliding";
+            restartAuto();
+
+          }
 
 
-            startAuto();
+          if(event.key === "ArrowLeft"){
+
+            event.preventDefault();
+
+            previousProject();
+
+            restartAuto();
+
+          }
+
+
+          if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            openCurrentPreview();
 
           }
 
@@ -9535,59 +10075,46 @@
       );
 
 
+      /* =================================================
+         Swipe / drag inside preview box
+         ================================================= */
 
-      /* Drag / Swipe */
-
-      viewport.addEventListener(
+      box.addEventListener(
         "pointerdown",
         event => {
 
           if(
-            event.pointerType ===
-            "mouse"
-            &&
+            event.pointerType === "mouse" &&
             event.button !== 0
           ){
-
             return;
-
           }
 
 
-          dragging =
-            true;
+          dragging = true;
 
+          dragStartX = event.clientX;
 
-          startX =
-            event.clientX;
-
-
-          endX =
-            startX;
-
+          dragEndX = dragStartX;
 
           stopAuto();
 
-
-          viewport
-            .setPointerCapture?.(
-              event.pointerId
-            );
+          box.setPointerCapture?.(
+            event.pointerId
+          );
 
         }
       );
 
 
-      viewport.addEventListener(
+      box.addEventListener(
         "pointermove",
         event => {
 
           if(!dragging)
             return;
 
-
-          endX =
-            event.clientX;
+          dragEndX = event.clientX;
 
         }
       );
@@ -9599,33 +10126,20 @@
           return;
 
 
-        dragging =
-          false;
+        dragging = false;
 
 
         const difference =
-          endX -
-          startX;
+          dragEndX - dragStartX;
 
 
-        if(
-          Math.abs(
-            difference
-          ) > 45
-        ){
+        if(Math.abs(difference) > 45){
 
-          if(
-            difference < 0
-          ){
-
-            next();
-
+          if(difference < 0){
+            nextProject();
           }
-
           else{
-
-            previous();
-
+            previousProject();
           }
 
         }
@@ -9636,98 +10150,249 @@
       }
 
 
-      viewport.addEventListener(
+      box.addEventListener(
         "pointerup",
         finishDrag
       );
 
 
-      viewport.addEventListener(
+      box.addEventListener(
         "pointercancel",
         finishDrag
       );
 
 
+      /* =================================================
+         Full project preview
+         ================================================= */
 
-      /* Resize */
+      function openCurrentPreview(){
 
-      let resizeTimer;
+        const project =
+          recentProjects[currentIndex];
 
 
-      window.addEventListener(
-        "resize",
-        () => {
+        /* Terrain stays reliable: do not put the live external
+           GitHub page inside a small/large iframe if the browser
+           or hosting headers refuse embedding. Open it directly. */
 
-          clearTimeout(
-            resizeTimer
+        if(project.previewType === "external"){
+
+          window.open(
+            project.open,
+            "_blank",
+            "noopener"
+          );
+
+          return;
+
+        }
+
+
+        modalTitle.textContent =
+          project.title;
+
+
+        modalOpen.href =
+          project.open;
+
+
+        modalBody.innerHTML =
+          "";
+
+
+        if(project.previewType === "image"){
+
+          const fullImage =
+            document.createElement(
+              "img"
+            );
+
+
+          fullImage.src =
+            project.preview;
+
+
+          fullImage.alt =
+            project.title;
+
+
+          modalBody.appendChild(
+            fullImage
+          );
+
+        }
+
+        else{
+
+          const iframe =
+            document.createElement(
+              "iframe"
+            );
+
+
+          iframe.src =
+            project.preview;
+
+
+          iframe.title =
+            project.title;
+
+
+          iframe.allowFullscreen =
+            true;
+
+
+          iframe.setAttribute(
+            "loading",
+            "eager"
           );
 
 
-          resizeTimer =
-            setTimeout(
-              () => {
+          modalBody.appendChild(
+            iframe
+          );
 
-                currentIndex =
-                  Math.min(
-                    currentIndex,
-                    maxIndex()
-                  );
+        }
 
 
-                buildDots();
-
-                goTo(
-                  currentIndex
-                );
+        modalBackdrop.classList.add(
+          "show"
+        );
 
 
-                restartAuto();
+        modalBackdrop.setAttribute(
+          "aria-hidden",
+          "false"
+        );
 
-              },
-              150
-            );
+
+        document.body.style.overflow =
+          "hidden";
+
+      }
+
+
+      function closeRecentProjectModal(){
+
+        modalBackdrop.classList.remove(
+          "show"
+        );
+
+
+        modalBackdrop.setAttribute(
+          "aria-hidden",
+          "true"
+        );
+
+
+        /* Removes iframe/video so it cannot continue playing. */
+
+        modalBody.innerHTML =
+          "";
+
+
+        document.body.style.overflow =
+          "";
+
+      }
+
+
+      previewButton.addEventListener(
+        "click",
+        openCurrentPreview
+      );
+
+
+      /* Clicking the screenshot itself previews the current item,
+         but a drag/swipe does not accidentally open it. */
+
+      slides.forEach(
+        (slide,index) => {
+
+          slide.addEventListener(
+            "click",
+            () => {
+
+              if(index !== currentIndex)
+                return;
+
+
+              if(Math.abs(dragEndX - dragStartX) > 8)
+                return;
+
+
+              openCurrentPreview();
+
+            }
+          );
 
         }
       );
 
 
+      modalClose.addEventListener(
+        "click",
+        closeRecentProjectModal
+      );
 
-      /* Stop when tab not visible */
+
+      modalBackdrop.addEventListener(
+        "click",
+        event => {
+
+          if(event.target === modalBackdrop){
+            closeRecentProjectModal();
+          }
+
+        }
+      );
+
+
+      /* This Escape listener only handles the recent-project
+         viewer; your existing Escape behavior remains intact. */
+
+      window.addEventListener(
+        "keydown",
+        event => {
+
+          if(
+            event.key === "Escape" &&
+            modalBackdrop.classList.contains("show")
+          ){
+
+            closeRecentProjectModal();
+
+          }
+
+        }
+      );
+
 
       document.addEventListener(
         "visibilitychange",
         () => {
 
-          if(
-            document.hidden
-          ){
-
+          if(document.hidden){
             stopAuto();
-
           }
-
           else{
-
             startAuto();
-
           }
 
         }
       );
-
 
 
       /* Initialize */
 
       buildDots();
 
-      goTo(0);
+      goToProject(0);
 
       startAuto();
 
-
     })();
-
 
 
     /* ===================================================
