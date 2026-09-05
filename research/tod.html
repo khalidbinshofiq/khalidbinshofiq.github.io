@@ -3,184 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mapping Temporal Variation of TOD Potential Using ACT/PCT</title>
-
+  <title>Temporal Variation of TOD Potential in Dhaka | Khalid-Bin-Shofiq</title>
+  <meta name="description" content="Ongoing research exploring temporal variation in Transit-Oriented Development potential in Dhaka using 5D indicators and planned ACO/PSO optimization." />
   <style>
-    :root{
-      --ink:#1f2d3a;
-      --muted:#5f6b76;
-      --blue:#1a73e8;
-      --border:rgba(0,0,0,.12);
-      --bg:#ffffff;
-      --panel:#f6f9ff;
-      --shadow:0 8px 24px rgba(0,0,0,.08);
-      --radius:14px;
-      --maxw:1100px;
-    }
-
-    body{
-      font-family: "Georgia","Times New Roman",Times,serif;
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.75;
-    }
-
-    .page{
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 28px 18px 48px;
-    }
-
-    .project-title{
-      font-size: 22px;
-      font-style: italic;
-      font-weight: 700;
-      margin: 0 0 10px;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-    }
-
-    .divider{
-      height: 1px;
-      background: rgba(0,0,0,.10);
-      margin: 10px 0 18px;
-    }
-
-    .title-description{
-      background: var(--panel);
-      border: 1px solid rgba(26,115,232,.25);
-      border-left: 4px solid var(--blue);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      margin: 0 0 24px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.06);
-    }
-    .title-description p{
-      margin: 0 0 12px;
-      text-align: justify;
-    }
-    .title-description p:last-child{ margin-bottom: 0; }
-
-    h3{
-      margin: 26px 0 14px;
-      font-size: 17px;
-      text-align: center;
-      color:#2b3742;
-    }
-
-    /* Image grids */
-    .grid{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-bottom: 20px;
-      align-items: start;
-    }
-    .grid img{
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 14px rgba(0,0,0,.06);
-      display:block;
-    }
-
-    .grid.single{ grid-template-columns: 1fr; }
-    .grid.wide{ grid-template-columns: 1fr; }
-    .grid.wide img{
-      width: min(900px, 100%);
-      margin: 0 auto;
-    }
-
-    @media (max-width: 760px){
-      .grid{ grid-template-columns: 1fr; }
-      .project-title{ font-size: 18px; }
-    }
+    :root{--bg:#edf4f7;--surface:#fff;--surface-soft:#f7fafc;--surface-hover:#eef5f8;--text:#152532;--text-soft:#5f7381;--accent:#0b7f9f;--accent-strong:#086984;--accent-soft:#e4f4f8;--border:#d7e3e8;--border-strong:#bfd1d9;--shadow:0 10px 30px rgba(27,55,70,.08);--shadow-soft:0 6px 18px rgba(27,55,70,.06);--radius-lg:20px;--maxw:1280px;--header-height:64px}
+    body.dark{--bg:#0f171d;--surface:#152129;--surface-soft:#1a2831;--surface-hover:#21323d;--text:#f0f6f8;--text-soft:#b0c1ca;--accent:#4db8d3;--accent-strong:#65c7dd;--accent-soft:#123943;--border:#2a3b45;--border-strong:#3a505c;--shadow:0 10px 30px rgba(0,0,0,.28);--shadow-soft:0 6px 18px rgba(0,0,0,.2)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 28px)}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.7;transition:background .25s ease,color .25s ease}img{max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit}.scroll-progress{position:fixed;top:0;left:0;z-index:10000;width:0;height:3px;background:var(--accent)}
+    .topbar{position:sticky;top:0;z-index:2000;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--surface) 91%,transparent);backdrop-filter:blur(14px)}.topbar-inner{width:min(var(--maxw),calc(100% - 36px));min-height:var(--header-height);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand-name{font-size:14px;font-weight:800;line-height:1.2}.brand-sub{margin-top:2px;color:var(--text-soft);font-size:10.5px}.top-actions{display:flex;align-items:center;gap:8px}.small-button{min-height:36px;padding:8px 12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:10.5px;font-weight:800;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}.small-button:hover{transform:translateY(-1px);background:var(--surface-hover);border-color:var(--border-strong)}
+    .section-nav{position:sticky;top:var(--header-height);z-index:1500;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px)}.section-nav-inner{width:min(var(--maxw),calc(100% - 36px));margin:0 auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}.section-nav-inner::-webkit-scrollbar{display:none}.section-nav a{flex:0 0 auto;padding:10px 11px;color:var(--text-soft);font-size:9.5px;font-weight:800;border-bottom:2px solid transparent}.section-nav a:hover,.section-nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+    .page{width:min(var(--maxw),calc(100% - 36px));margin:0 auto;padding:28px 0 56px}.section-card{margin-bottom:24px;padding:28px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);box-shadow:var(--shadow)}.section-label{margin-bottom:6px;color:var(--accent);font-size:9.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}h1,h2,h3,p{margin-top:0}h1{margin-bottom:12px;font-size:clamp(30px,4.4vw,52px);line-height:1.07;letter-spacing:-1.7px}h2{margin-bottom:8px;font-size:clamp(22px,2.5vw,30px);line-height:1.2;letter-spacing:-.7px}h3{margin-bottom:7px;font-size:16px;line-height:1.35}.section-subtitle{max-width:880px;margin-bottom:0;color:var(--text-soft);font-size:12px;line-height:1.75}
+    .hero{position:relative;overflow:hidden;padding:42px;background:radial-gradient(circle at 85% 15%,var(--accent-soft),transparent 33%),var(--surface)}.hero::after{content:"";position:absolute;right:-80px;bottom:-110px;width:300px;height:300px;border:1px solid var(--border);border-radius:50%;pointer-events:none}.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.7fr);gap:34px;align-items:center}.hero-kicker{margin-bottom:11px;color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.hero-description{max-width:850px;margin-bottom:20px;color:var(--text-soft);font-size:13.5px;line-height:1.8;text-align:justify;text-justify:inter-word}.tag-row{display:flex;flex-wrap:wrap;gap:7px}.tag{padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface-soft);font-size:9.5px;font-weight:800}.hero-panel{padding:20px;border:1px solid var(--border);border-radius:16px;background:color-mix(in srgb,var(--surface-soft) 82%,transparent)}.status-pill{display:inline-flex;align-items:center;gap:7px;margin-bottom:14px;padding:7px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent-strong);font-size:9.5px;font-weight:900}.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 14%,transparent)}.hero-facts{display:grid;grid-template-columns:1fr 1fr;gap:9px}.hero-fact{padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}.hero-fact strong{display:block;font-size:18px;line-height:1.1}.hero-fact span{display:block;margin-top:4px;color:var(--text-soft);font-size:8.8px;line-height:1.4}
+    .problem-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:start}.highlight-box{padding:18px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));border-left:4px solid var(--accent);border-radius:13px;background:var(--accent-soft)}.highlight-box p{margin:0;font-size:12px;line-height:1.75}.objective-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.objective-card{padding:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-soft)}.objective-number{margin-bottom:8px;color:var(--accent);font-size:9px;font-weight:900;letter-spacing:.08em}.objective-card h3{font-size:14px}.objective-card p{margin:0;color:var(--text-soft);font-size:10.5px;line-height:1.65}.study-status{padding:18px;border:1px solid var(--border);border-radius:13px;background:var(--surface-soft)}.status-list{display:grid;gap:10px;margin-top:13px}.status-item{display:flex;gap:10px;align-items:flex-start}.status-icon{flex:0 0 auto;width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--accent);font-size:10px;font-weight:900}.status-item strong{display:block;font-size:10.5px}.status-item span{display:block;margin-top:2px;color:var(--text-soft);font-size:9.4px;line-height:1.5}
+    .figure{margin:0;border:1px solid var(--border);border-radius:15px;overflow:hidden;background:var(--surface-soft);box-shadow:var(--shadow-soft)}.figure-button{width:100%;padding:0;display:block;border:0;background:transparent;cursor:zoom-in}.figure img{width:100%;height:auto;display:block;object-fit:contain;background:#fff;transition:transform .3s ease}.figure:hover img{transform:scale(1.008)}.figcaption{padding:10px 12px;border-top:1px solid var(--border);color:var(--text-soft);font-size:9.2px;line-height:1.55;background:var(--surface)}.wide-figure{max-width:1050px;margin:18px auto 0}.two-col-figures{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .five-d-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}.five-d{padding:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-soft);transition:transform .18s ease,border-color .18s ease}.five-d:hover{transform:translateY(-2px);border-color:var(--accent)}.five-d-letter{width:34px;height:34px;margin-bottom:10px;display:grid;place-items:center;border-radius:9px;background:var(--accent);color:#fff;font-size:14px;font-weight:900}.five-d h3{font-size:13px}.five-d p{margin:0;color:var(--text-soft);font-size:9.5px;line-height:1.55}
+    .indicator-block{margin-top:22px}.indicator-header{margin-bottom:11px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}.indicator-header h3{margin:0;font-size:17px}.indicator-header p{margin:0;color:var(--text-soft);font-size:9.5px}.year-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}.year-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface-soft);box-shadow:var(--shadow-soft)}.year-label{padding:9px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:var(--surface)}.year-label strong{font-size:10.5px}.year-label span{color:var(--accent);font-size:9px;font-weight:900}.year-card button{width:100%;padding:0;border:0;background:#fff;cursor:zoom-in}.year-card img{width:100%;height:auto;display:block;transition:transform .3s ease}.year-card:hover img{transform:scale(1.008)}.indicator-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}.single-center{max-width:720px;margin:14px auto 0}
+    .method-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.method-card{padding:19px;border:1px solid var(--border);border-radius:14px;background:var(--surface-soft)}.method-title{display:flex;align-items:center;gap:10px;margin-bottom:9px}.method-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:900}.method-card h3{margin:0}.method-card p{margin:0;color:var(--text-soft);font-size:10.5px;line-height:1.7}.planned-badge{display:inline-block;margin-top:12px;padding:5px 8px;border:1px solid var(--border);border-radius:999px;color:var(--accent);font-size:8.7px;font-weight:900;background:var(--surface)}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.timeline-step{padding:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-soft)}.timeline-step.done{border-color:color-mix(in srgb,var(--accent) 35%,var(--border))}.timeline-step.current{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent)}.timeline-state{margin-bottom:8px;color:var(--accent);font-size:8.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.timeline-step h3{font-size:12px}.timeline-step p{margin:0;color:var(--text-soft);font-size:9.5px;line-height:1.55}.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:17px}.value-card{padding:16px;border:1px solid var(--border);border-radius:13px;background:var(--surface-soft)}.value-card h3{font-size:13px}.value-card p{margin:0;color:var(--text-soft);font-size:10px;line-height:1.6}.research-note{padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface-soft)}.research-note strong{display:block;margin-bottom:5px;font-size:11px}.research-note p{margin:0;color:var(--text-soft);font-size:10.5px;line-height:1.7}.footer{padding:20px 0 10px;display:flex;justify-content:space-between;align-items:center;gap:18px;color:var(--text-soft);font-size:9.5px}
+    .image-modal{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:22px;visibility:hidden;opacity:0;background:rgba(5,12,17,.88);backdrop-filter:blur(9px);transition:opacity .2s ease,visibility .2s ease}.image-modal.show{visibility:visible;opacity:1}.image-modal-inner{position:relative;max-width:96vw;max-height:94vh}.image-modal img{max-width:96vw;max-height:90vh;display:block;border-radius:12px;background:#fff;box-shadow:0 30px 100px rgba(0,0,0,.45)}.modal-close{position:absolute;top:-14px;right:-14px;width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);border-radius:10px;background:#172630;color:#fff;cursor:pointer;font-size:16px}
+    @media(max-width:1000px){.hero-grid,.problem-grid{grid-template-columns:1fr}.five-d-grid{grid-template-columns:repeat(3,1fr)}.timeline{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){:root{--header-height:58px}.page,.topbar-inner,.section-nav-inner{width:min(100% - 22px,var(--maxw))}.section-card{padding:20px;border-radius:16px}.hero{padding:26px 20px}.hero-facts,.objective-grid,.five-d-grid,.method-grid,.value-grid,.two-col-figures,.year-pair,.indicator-grid{grid-template-columns:1fr}.timeline{grid-template-columns:1fr}.hero-description{text-align:left}.footer{align-items:flex-start;flex-direction:column}.brand-sub{display:none}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   </style>
 </head>
-
 <body>
-  <div class="page">
-
-    <div class="project-title">
-      📘 <span>Title: Mapping Temporal Variation of TOD Potential Using ACT/PCT</span>
-    </div>
-    <div class="divider"></div>
-
-    <div class="title-description">
-      <p><strong>Project Description</strong></p>
-      <p>
-        Dhaka is experiencing unplanned urbanization, population surge, and environmental degradation. A strategy to cope with
-        these challenges that is practiced globally is “Transit Oriented Development (TOD)”. TOD helps to reduce automobile
-        dependency, greenhouse gas emissions, and integrate public transport systems for better livability, inclusiveness, and
-        sustainable development. Hence, TOD potential needs to be assessed.
-      </p>
-      <p>
-        Several contemporary studies have evaluated the TOD index, but temporal variation in this index has not been explored.
-        This study will examine the changes in TOD potential over a decade using 5D indicators (Density, Diversity, Design,
-        Destination Accessibility, Distance to Transit) and optimization techniques (Ant Colony Optimization and Particle Swarm
-        Optimization).
-      </p>
-      <p>
-        Preparation of indicators across time intervals is in progress but not yet completed. After that, optimization will be
-        implemented. Based on the comparative results, the study will support prioritizing investments in specific zones and
-        recommending TOD-friendly policies to improve residents’ quality of life.
-      </p>
-    </div>
-
-    <h3>Selection of Factors</h3>
-    <div class="grid wide">
-      <img src="./Picture1.jpg" alt="Selection of factors">
-    </div>
-
-    <div class="grid">
-      <img src="./PD_2011.jpg" alt="Population Density 2011">
-      <img src="./PD_2022.jpg" alt="Population Density 2022">
-    </div>
-
-    <h3>3D Map of Population Density</h3>
-    <div class="grid">
-      <img src="./PD2011.jpg" alt="3D Population Density 2011">
-      <img src="./PD2022.jpg" alt="3D Population Density 2022">
-    </div>
-
-    <div class="grid">
-      <img src="./BUD_2011.jpg" alt="Built-up Density 2011">
-      <img src="./BUD_2022.jpg" alt="Built-up Density 2022">
-    </div>
-
-    <h3>3D Map of Built Up Density</h3>
-    <div class="grid">
-      <img src="./2011.jpg" alt="3D Built-up Density 2011">
-      <img src="./2022.jpg" alt="3D Built-up Density 2022">
-    </div>
-
-    <div class="grid">
-      <img src="./ED_2011.jpg" alt="Employment Density 2011">
-      <img src="./ED_2022.jpg" alt="Employment Density 2022">
-    </div>
-
-    <div class="grid">
-      <img src="./LUM2011.jpg" alt="Land Use Mix 2011">
-      <img src="./LUM2022.jpg" alt="Land Use Mix 2022">
-    </div>
-
-    <div class="grid">
-      <img src="./PME.jpg" alt="PME">
-      <img src="./PRC.jpg" alt="PRC">
-    </div>
-
-    <div class="grid">
-      <img src="./PSA.jpg" alt="PSA">
-      <img src="./PT.jpg" alt="PT">
-    </div>
-
-    <div class="grid single">
-      <img src="./PCBD.jpg" alt="PCBD">
-    </div>
-
-  </div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<header class="topbar"><div class="topbar-inner"><div class="brand"><div class="brand-name">Khalid-Bin-Shofiq</div><div class="brand-sub">Urban Planning · GeoAI · Transport Research</div></div><div class="top-actions"><a class="small-button" href="../index.html">← Portfolio</a><button class="small-button" id="themeToggle" type="button">Theme</button></div></div></header>
+<nav class="section-nav"><div class="section-nav-inner"><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#framework">Framework</a><a href="#density">Density</a><a href="#diversity">Diversity</a><a href="#other-indicators">Other Indicators</a><a href="#optimization">Optimization</a><a href="#progress">Progress</a></div></nav>
+<main class="page">
+<section class="section-card hero" id="overview"><div class="hero-grid"><div><div class="hero-kicker">Ongoing Research · Transit-Oriented Development</div><h1>Mapping Temporal Variation of TOD Potential Using ACT/PCT</h1><p class="hero-description">This ongoing study investigates how Transit-Oriented Development potential in Dhaka may have changed over time by preparing spatial indicators based on the 5D framework — Density, Diversity, Design, Destination Accessibility and Distance to Transit. The current stage focuses on temporal indicator preparation and visualization. Ant Colony Optimization (ACO/ACT) and Particle Swarm Optimization (PSO/PCT) are planned for the subsequent analytical stage and have not yet been implemented.</p><div class="tag-row"><span class="tag">Transit-Oriented Development</span><span class="tag">Dhaka</span><span class="tag">5D Indicators</span><span class="tag">Temporal Analysis</span><span class="tag">GIS</span><span class="tag">Accessibility</span><span class="tag">ACO / ACT</span><span class="tag">PSO / PCT</span></div></div><aside class="hero-panel"><div class="status-pill"><span class="status-dot"></span>Research in progress</div><div class="hero-facts"><div class="hero-fact"><strong>2011</strong><span>First temporal reference</span></div><div class="hero-fact"><strong>2022</strong><span>Second temporal reference</span></div><div class="hero-fact"><strong>5D</strong><span>TOD conceptual framework</span></div><div class="hero-fact"><strong>2</strong><span>Planned optimization approaches</span></div></div></aside></div></section>
+<section class="section-card" id="problem"><div class="section-label">Research Rationale</div><h2>Why Temporal TOD Potential Matters</h2><p class="section-subtitle">Conventional TOD assessment commonly produces a static index. This research is intended to examine how the spatial potential for TOD changes over time as population, built-up intensity, employment, land-use composition and accessibility conditions evolve.</p><div class="problem-grid"><div><div class="highlight-box"><p>Dhaka continues to experience rapid population growth, urban expansion, environmental pressure and increasing dependence on motorized travel. TOD offers a planning framework for concentrating growth around transit while improving accessibility and reducing automobile dependence. The central research question is therefore not only <strong>where TOD potential is high</strong>, but also <strong>how that potential changes over time</strong>.</p></div><div class="objective-grid"><article class="objective-card"><div class="objective-number">01</div><h3>Build Temporal Indicators</h3><p>Prepare comparable TOD-related spatial indicators for 2011 and 2022.</p></article><article class="objective-card"><div class="objective-number">02</div><h3>Compare TOD Potential</h3><p>Evaluate how spatial suitability for TOD may shift between the two temporal reference years.</p></article><article class="objective-card"><div class="objective-number">03</div><h3>Optimize the Index</h3><p>Later compare ACO/ACT and PSO/PCT weighting or optimization strategies once indicator preparation is complete.</p></article></div></div><aside class="study-status"><div class="section-label">Current Status</div><h3>What has been completed</h3><div class="status-list"><div class="status-item"><div class="status-icon">✓</div><div><strong>Conceptual factor selection</strong><span>5D-oriented indicator framework has been identified.</span></div></div><div class="status-item"><div class="status-icon">✓</div><div><strong>Temporal indicator mapping</strong><span>Several 2011 and 2022 indicators have been prepared and visualized.</span></div></div><div class="status-item"><div class="status-icon">…</div><div><strong>Indicator completion</strong><span>Remaining temporal indicators and harmonization are still in progress.</span></div></div><div class="status-item"><div class="status-icon">○</div><div><strong>Optimization & final TOD index</strong><span>ACO/ACT and PSO/PCT comparison has not yet been implemented.</span></div></div></div></aside></div></section>
+<section class="section-card" id="framework"><div class="section-label">Conceptual Framework</div><h2>TOD Assessment Through the 5D Framework</h2><p class="section-subtitle">The study is structured around the 5D logic of Density, Diversity, Design, Destination Accessibility and Distance to Transit. At this stage, the page presents the indicators that have already been prepared or selected without implying that the final TOD index has been calculated.</p><div class="five-d-grid"><article class="five-d"><div class="five-d-letter">D</div><h3>Density</h3><p>Population density, built-up density and employment concentration.</p></article><article class="five-d"><div class="five-d-letter">D</div><h3>Diversity</h3><p>Land-use mix and the spatial balance of different urban functions.</p></article><article class="five-d"><div class="five-d-letter">D</div><h3>Design</h3><p>Built-environment and network characteristics supporting walkable access.</p></article><article class="five-d"><div class="five-d-letter">D</div><h3>Destination Accessibility</h3><p>Relative accessibility to major destinations and activity centres.</p></article><article class="five-d"><div class="five-d-letter">D</div><h3>Distance to Transit</h3><p>Spatial proximity to transit infrastructure and transit service opportunities.</p></article></div><figure class="figure wide-figure"><button class="figure-button" type="button" data-image="Picture1.jpg" data-alt="Selection of factors for TOD research"><img src="./Picture1.jpg" alt="Selection of factors for TOD research" loading="lazy"></button><figcaption class="figcaption">Selected factors and indicator structure currently being used to develop the temporal TOD assessment.</figcaption></figure></section>
+<section class="section-card" id="density"><div class="section-label">5D · Density</div><h2>Temporal Density Indicators</h2><p class="section-subtitle">Density is represented through population, built-up and employment concentration. The paired maps allow direct visual comparison between 2011 and 2022 before any final TOD weighting is applied.</p>
+<div class="indicator-block"><div class="indicator-header"><div><h3>Population Density</h3></div><p>Temporal comparison: 2011 ↔ 2022</p></div><div class="year-pair"><article class="year-card"><div class="year-label"><strong>Population Density</strong><span>2011</span></div><button type="button" data-image="PD_2011.jpg" data-alt="Population Density 2011"><img src="./PD_2011.jpg" alt="Population Density 2011" loading="lazy"></button></article><article class="year-card"><div class="year-label"><strong>Population Density</strong><span>2022</span></div><button type="button" data-image="PD_2022.jpg" data-alt="Population Density 2022"><img src="./PD_2022.jpg" alt="Population Density 2022" loading="lazy"></button></article></div><div class="two-col-figures"><figure class="figure"><button class="figure-button" type="button" data-image="PD2011.jpg" data-alt="3D Population Density 2011"><img src="./PD2011.jpg" alt="3D Population Density 2011" loading="lazy"></button><figcaption class="figcaption">3D representation of population density — 2011.</figcaption></figure><figure class="figure"><button class="figure-button" type="button" data-image="PD2022.jpg" data-alt="3D Population Density 2022"><img src="./PD2022.jpg" alt="3D Population Density 2022" loading="lazy"></button><figcaption class="figcaption">3D representation of population density — 2022.</figcaption></figure></div></div>
+<div class="indicator-block"><div class="indicator-header"><div><h3>Built-up Density</h3></div><p>Temporal comparison: 2011 ↔ 2022</p></div><div class="year-pair"><article class="year-card"><div class="year-label"><strong>Built-up Density</strong><span>2011</span></div><button type="button" data-image="BUD_2011.jpg" data-alt="Built-up Density 2011"><img src="./BUD_2011.jpg" alt="Built-up Density 2011" loading="lazy"></button></article><article class="year-card"><div class="year-label"><strong>Built-up Density</strong><span>2022</span></div><button type="button" data-image="BUD_2022.jpg" data-alt="Built-up Density 2022"><img src="./BUD_2022.jpg" alt="Built-up Density 2022" loading="lazy"></button></article></div><div class="two-col-figures"><figure class="figure"><button class="figure-button" type="button" data-image="2011.jpg" data-alt="3D Built-up Density 2011"><img src="./2011.jpg" alt="3D Built-up Density 2011" loading="lazy"></button><figcaption class="figcaption">3D representation of built-up density — 2011.</figcaption></figure><figure class="figure"><button class="figure-button" type="button" data-image="2022.jpg" data-alt="3D Built-up Density 2022"><img src="./2022.jpg" alt="3D Built-up Density 2022" loading="lazy"></button><figcaption class="figcaption">3D representation of built-up density — 2022.</figcaption></figure></div></div>
+<div class="indicator-block"><div class="indicator-header"><div><h3>Employment Density</h3></div><p>Temporal comparison: 2011 ↔ 2022</p></div><div class="year-pair"><article class="year-card"><div class="year-label"><strong>Employment Density</strong><span>2011</span></div><button type="button" data-image="ED_2011.jpg" data-alt="Employment Density 2011"><img src="./ED_2011.jpg" alt="Employment Density 2011" loading="lazy"></button></article><article class="year-card"><div class="year-label"><strong>Employment Density</strong><span>2022</span></div><button type="button" data-image="ED_2022.jpg" data-alt="Employment Density 2022"><img src="./ED_2022.jpg" alt="Employment Density 2022" loading="lazy"></button></article></div></div></section>
+<section class="section-card" id="diversity"><div class="section-label">5D · Diversity</div><h2>Land-Use Mix</h2><p class="section-subtitle">Land-use mix represents the diversity dimension of TOD. These maps show the prepared temporal condition for 2011 and 2022. They are presented as inputs to the ongoing analysis rather than as finalized TOD outcomes.</p><div class="year-pair"><article class="year-card"><div class="year-label"><strong>Land-Use Mix</strong><span>2011</span></div><button type="button" data-image="LUM2011.jpg" data-alt="Land Use Mix 2011"><img src="./LUM2011.jpg" alt="Land Use Mix 2011" loading="lazy"></button></article><article class="year-card"><div class="year-label"><strong>Land-Use Mix</strong><span>2022</span></div><button type="button" data-image="LUM2022.jpg" data-alt="Land Use Mix 2022"><img src="./LUM2022.jpg" alt="Land Use Mix 2022" loading="lazy"></button></article></div></section>
+<section class="section-card" id="other-indicators"><div class="section-label">Remaining Prepared Indicators</div><h2>Accessibility, Transit and Spatial Context</h2><p class="section-subtitle">The following prepared maps represent additional components of the TOD framework. Because the source material currently uses abbreviated map names, the portfolio preserves those labels rather than assigning unsupported definitions to them.</p><div class="indicator-grid"><figure class="figure"><button class="figure-button" type="button" data-image="PME.jpg" data-alt="PME indicator"><img src="./PME.jpg" alt="PME indicator" loading="lazy"></button><figcaption class="figcaption">PME indicator map.</figcaption></figure><figure class="figure"><button class="figure-button" type="button" data-image="PRC.jpg" data-alt="PRC indicator"><img src="./PRC.jpg" alt="PRC indicator" loading="lazy"></button><figcaption class="figcaption">PRC indicator map.</figcaption></figure><figure class="figure"><button class="figure-button" type="button" data-image="PSA.jpg" data-alt="PSA indicator"><img src="./PSA.jpg" alt="PSA indicator" loading="lazy"></button><figcaption class="figcaption">PSA indicator map.</figcaption></figure><figure class="figure"><button class="figure-button" type="button" data-image="PT.jpg" data-alt="PT indicator"><img src="./PT.jpg" alt="PT indicator" loading="lazy"></button><figcaption class="figcaption">PT indicator map.</figcaption></figure></div><div class="single-center"><figure class="figure"><button class="figure-button" type="button" data-image="PCBD.jpg" data-alt="PCBD indicator"><img src="./PCBD.jpg" alt="PCBD indicator" loading="lazy"></button><figcaption class="figcaption">PCBD indicator map.</figcaption></figure></div></section>
+<section class="section-card" id="optimization"><div class="section-label">Planned Analytical Stage</div><h2>Optimization of TOD Potential</h2><p class="section-subtitle">No optimization result is presented yet. Once the temporal indicators are complete and harmonized, the study is intended to compare two optimization approaches for deriving or testing the TOD potential index.</p><div class="method-grid"><article class="method-card"><div class="method-title"><div class="method-icon">ACO</div><h3>Ant Colony Optimization / ACT</h3></div><p>Planned as one of the optimization approaches for assigning or refining indicator influence in the final TOD potential assessment. This stage remains pending.</p><span class="planned-badge">Planned — not yet implemented</span></article><article class="method-card"><div class="method-title"><div class="method-icon">PSO</div><h3>Particle Swarm Optimization / PCT</h3></div><p>Planned as the comparative optimization approach. The final study will compare optimization behaviour and resulting spatial TOD potential once all temporal inputs are ready.</p><span class="planned-badge">Planned — not yet implemented</span></article></div></section>
+<section class="section-card" id="progress"><div class="section-label">Research Progress</div><h2>Current Research Workflow</h2><p class="section-subtitle">This page intentionally distinguishes completed work from future work. It is therefore suitable for a research portfolio even though the study is still ongoing.</p><div class="timeline"><article class="timeline-step done"><div class="timeline-state">Completed</div><h3>1. Research Concept</h3><p>Temporal TOD assessment and 5D-oriented indicator framework defined.</p></article><article class="timeline-step current"><div class="timeline-state">In Progress</div><h3>2. Temporal Indicators</h3><p>2011 and 2022 spatial indicators are being prepared, mapped and checked.</p></article><article class="timeline-step"><div class="timeline-state">Next</div><h3>3. Optimization</h3><p>Implement ACO/ACT and PSO/PCT after input preparation is finalized.</p></article><article class="timeline-step"><div class="timeline-state">Future</div><h3>4. Temporal TOD Comparison</h3><p>Compare final TOD potential surfaces and identify priority zones for planning.</p></article></div><div class="value-grid"><article class="value-card"><h3>Planning Relevance</h3><p>A temporal TOD assessment could help reveal where transit-supportive urban conditions are strengthening or weakening.</p></article><article class="value-card"><h3>Investment Prioritization</h3><p>Once completed, the framework could help prioritize zones where transport and land-use interventions may have greater value.</p></article><article class="value-card"><h3>Methodological Contribution</h3><p>The planned comparison of two optimization approaches is intended to test whether TOD potential is sensitive to the weighting method.</p></article></div><div class="research-note" style="margin-top:18px;"><strong>Research status note</strong><p>This is an ongoing study. The portfolio currently documents the research concept, selected factors and prepared temporal indicators. No final TOD potential surface, optimization outcome or comparative ACT/PCT result is claimed because those stages have not yet been completed.</p></div></section>
+<footer class="footer"><span>Ongoing research portfolio · Transit-Oriented Development</span><a class="small-button" href="../index.html">Back to Portfolio</a></footer>
+</main>
+<div class="image-modal" id="imageModal" aria-hidden="true"><div class="image-modal-inner"><button class="modal-close" id="modalClose" type="button" aria-label="Close image">✕</button><img id="modalImage" src="" alt=""></div></div>
+<script>
+const themeToggle=document.getElementById('themeToggle');const savedTheme=localStorage.getItem('todResearchTheme');if(savedTheme==='dark')document.body.classList.add('dark');themeToggle.addEventListener('click',()=>{document.body.classList.toggle('dark');localStorage.setItem('todResearchTheme',document.body.classList.contains('dark')?'dark':'light')});
+const scrollProgress=document.getElementById('scrollProgress');function updateScrollProgress(){const s=window.scrollY;const h=document.documentElement.scrollHeight-window.innerHeight;scrollProgress.style.width=(h>0?(s/h)*100:0)+'%'}window.addEventListener('scroll',updateScrollProgress,{passive:true});updateScrollProgress();
+const navLinks=[...document.querySelectorAll('.section-nav a')];const sections=navLinks.map(l=>document.querySelector(l.getAttribute('href'))).filter(Boolean);const sectionObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){navLinks.forEach(link=>link.classList.toggle('active',link.getAttribute('href')==='#'+entry.target.id))}})},{rootMargin:'-35% 0px -55% 0px',threshold:0});sections.forEach(s=>sectionObserver.observe(s));
+const imageModal=document.getElementById('imageModal');const modalImage=document.getElementById('modalImage');const modalClose=document.getElementById('modalClose');document.querySelectorAll('[data-image]').forEach(trigger=>trigger.addEventListener('click',()=>{modalImage.src='./'+trigger.dataset.image;modalImage.alt=trigger.dataset.alt||'Research figure';imageModal.classList.add('show');imageModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}));function closeImageModal(){imageModal.classList.remove('show');imageModal.setAttribute('aria-hidden','true');modalImage.src='';document.body.style.overflow=''}modalClose.addEventListener('click',closeImageModal);imageModal.addEventListener('click',e=>{if(e.target===imageModal)closeImageModal()});window.addEventListener('keydown',e=>{if(e.key==='Escape'&&imageModal.classList.contains('show'))closeImageModal()});
+</script>
 </body>
 </html>
