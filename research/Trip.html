@@ -1,244 +1,2436 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>COVID-induced Trip Reduction Behavior in the United States</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>COVID-Induced Trip Reduction Behavior in the United States | Khalid-Bin-Shofiq</title>
+
+  <meta
+    name="description"
+    content="A nationwide NHTS 2022 research case study using Random Forest and partial dependence analysis to explain COVID-attributed trip reduction behavior in the United States."
+  >
 
   <style>
+
+    /* =====================================================
+       1. DESIGN TOKENS
+       ===================================================== */
+
     :root{
-      --ink:#1f2d3a;
-      --muted:#5f6b76;
-      --blue:#1a73e8;
-      --border:rgba(0,0,0,.14);
-      --bg:#ffffff;
-      --panel:#f6f9ff;
-      --radius:16px;
-      --maxw:1100px;
-      --gap:14px;
+      --bg:#edf4f7;
+      --surface:#ffffff;
+      --surface-soft:#f7fafc;
+      --surface-hover:#eef5f8;
+
+      --text:#152532;
+      --text-soft:#607482;
+      --text-faint:#8396a1;
+
+      --accent:#0b7e9e;
+      --accent-dark:#096983;
+      --accent-soft:#e2f3f7;
+
+      --border:#d6e3e8;
+      --border-strong:#bdd1d9;
+
+      --shadow:0 10px 30px rgba(30,55,70,.08);
+      --shadow-soft:0 6px 18px rgba(30,55,70,.06);
+
+      --radius-lg:20px;
+      --radius-md:14px;
+      --radius-sm:10px;
+
+      --maxw:1280px;
+      --header-h:64px;
     }
 
-    *{ box-sizing:border-box; }
+    body.dark{
+      --bg:#0e171c;
+      --surface:#152129;
+      --surface-soft:#1a2931;
+      --surface-hover:#21333d;
+
+      --text:#eff6f8;
+      --text-soft:#b2c2ca;
+      --text-faint:#8196a0;
+
+      --accent:#53bdd6;
+      --accent-dark:#70cade;
+      --accent-soft:#123943;
+
+      --border:#2a3c46;
+      --border-strong:#3b515c;
+
+      --shadow:0 12px 32px rgba(0,0,0,.28);
+      --shadow-soft:0 6px 18px rgba(0,0,0,.20);
+    }
+
+
+    /* =====================================================
+       2. BASE
+       ===================================================== */
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+      scroll-padding-top:118px;
+    }
 
     body{
-      font-family:"Georgia","Times New Roman",Times,serif;
       margin:0;
-      background:var(--bg);
-      color:var(--ink);
+
+      background:
+        radial-gradient(circle at 10% 0%, var(--accent-soft), transparent 28%),
+        var(--bg);
+
+      color:var(--text);
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      line-height:1.7;
+
+      -webkit-font-smoothing:antialiased;
+
+      transition:
+        background .22s ease,
+        color .22s ease;
+    }
+
+    img{
+      max-width:100%;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button{
+      font:inherit;
+    }
+
+
+    /* =====================================================
+       3. SCROLL PROGRESS
+       ===================================================== */
+
+    .scroll-progress{
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:10000;
+
+      width:0;
+      height:3px;
+
+      background:var(--accent);
+    }
+
+
+    /* =====================================================
+       4. TOP BAR
+       ===================================================== */
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:2000;
+
+      min-height:var(--header-h);
+
+      border-bottom:1px solid var(--border);
+
+      background:
+        color-mix(in srgb,var(--surface) 92%,transparent);
+
+      backdrop-filter:blur(15px);
+    }
+
+    .topbar-inner{
+      width:min(var(--maxw),calc(100% - 40px));
+      min-height:var(--header-h);
+
+      margin:0 auto;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand strong{
+      display:block;
+      font-size:13px;
+      font-weight:850;
+      line-height:1.2;
+    }
+
+    .brand span{
+      display:block;
+      margin-top:3px;
+
+      color:var(--text-soft);
+      font-size:9.5px;
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .button{
+      min-height:38px;
+      padding:8px 12px;
+
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+
+      border:1px solid var(--border);
+      border-radius:10px;
+
+      background:var(--surface);
+      color:var(--text);
+
+      cursor:pointer;
+
+      font-size:10px;
+      font-weight:800;
+
+      transition:
+        transform .17s ease,
+        background .17s ease,
+        border-color .17s ease;
+    }
+
+    .button:hover{
+      transform:translateY(-1px);
+      background:var(--surface-hover);
+      border-color:var(--border-strong);
+    }
+
+    .button.primary{
+      border-color:var(--accent);
+      background:var(--accent);
+      color:#fff;
+    }
+
+
+    /* =====================================================
+       5. STICKY SECTION NAV
+       ===================================================== */
+
+    .section-nav{
+      position:sticky;
+      top:var(--header-h);
+      z-index:1500;
+
+      border-bottom:1px solid var(--border);
+
+      background:
+        color-mix(in srgb,var(--surface) 94%,transparent);
+
+      backdrop-filter:blur(12px);
+    }
+
+    .section-nav-inner{
+      width:min(var(--maxw),calc(100% - 40px));
+      margin:0 auto;
+
+      display:flex;
+      align-items:center;
+      gap:4px;
+
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+
+    .section-nav-inner::-webkit-scrollbar{
+      display:none;
+    }
+
+    .section-nav a{
+      flex:0 0 auto;
+
+      padding:10px 11px;
+
+      color:var(--text-soft);
+
+      border-bottom:2px solid transparent;
+
+      font-size:9px;
+      font-weight:800;
+    }
+
+    .section-nav a:hover,
+    .section-nav a.active{
+      color:var(--accent);
+      border-bottom-color:var(--accent);
+    }
+
+
+    /* =====================================================
+       6. LAYOUT
+       ===================================================== */
+
+    .page{
+      width:min(var(--maxw),calc(100% - 40px));
+      margin:0 auto;
+      padding:28px 0 56px;
+    }
+
+    .section-card{
+      margin-bottom:24px;
+      padding:29px;
+
+      scroll-margin-top:120px;
+
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+
+      background:var(--surface);
+      box-shadow:var(--shadow);
+    }
+
+    .section-label{
+      margin-bottom:6px;
+
+      color:var(--accent);
+
+      font-size:9px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p{
+      margin-top:0;
+    }
+
+    h1{
+      margin-bottom:12px;
+
+      font-size:clamp(32px,4.6vw,54px);
+      line-height:1.06;
+      letter-spacing:-1.8px;
+    }
+
+    h2{
+      margin-bottom:8px;
+
+      font-size:clamp(22px,2.4vw,30px);
+      line-height:1.2;
+      letter-spacing:-.7px;
+    }
+
+    h3{
+      margin-bottom:7px;
+
+      font-size:15px;
+      line-height:1.35;
+    }
+
+    .section-subtitle{
+      max-width:920px;
+      margin-bottom:0;
+
+      color:var(--text-soft);
+
+      font-size:11.5px;
       line-height:1.75;
     }
 
-    .page{
-      max-width:var(--maxw);
-      margin:0 auto;
-      padding:28px 18px 56px;
-    }
 
-    /* Title line like your screenshot */
-    .project-title{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      margin:0 0 14px;
-    }
-    .project-title .icon{
-      font-size:18px;
-      line-height:1.3;
-      margin-top:3px;
-    }
-    .project-title .text{
-      font-size:26px;
-      font-style:italic;
-      font-weight:700;
-      line-height:1.25;
-      letter-spacing:.1px;
-    }
+    /* =====================================================
+       7. HERO
+       ===================================================== */
 
-    .divider{
-      height:1px;
-      background:rgba(0,0,0,.12);
-      margin:10px 0 18px;
-    }
-
-    /* Cards (Objectives/Results boxes) */
-    .card{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:18px 18px;
-      margin:0 0 22px;
-      box-shadow:0 6px 16px rgba(0,0,0,.05);
-    }
-    .card h4{
-      margin:0 0 14px;
-      font-size:20px;
-      font-weight:700;
-      color:#22303b;
-    }
-
-    /* Description panel */
-    .title-description{
-      background:var(--panel);
-      border:1px solid rgba(26,115,232,.25);
-      border-left:4px solid var(--blue);
-      border-radius:var(--radius);
-      padding:14px 16px;
-      margin:0 0 22px;
-      box-shadow:0 6px 16px rgba(0,0,0,.06);
-    }
-    .title-description p{
-      margin:0 0 12px;
-      text-align:justify;
-    }
-    .title-description p:last-child{ margin-bottom:0; }
-
-    h2{
-      margin:24px 0 12px;
-      font-size:20px;
-      color:#22303b;
-    }
-    h3{
-      margin:20px 0 10px;
-      font-size:16px;
-      text-align:center;
-      color:#2b3742;
-    }
-
-    ul, ol{ margin:0; padding-left:22px; }
-    li{ margin:10px 0; }
-
-    .note{ color:var(--muted); font-size:0.95rem; }
-
-    /* Image cards + responsive layout */
-    .img-card{
-      border-radius:12px;
-      border:1px solid var(--border);
-      box-shadow:0 4px 14px rgba(0,0,0,.06);
+    .hero{
+      position:relative;
       overflow:hidden;
-      background:#fff;
+
+      padding:40px;
     }
-    .img-card img{
+
+    .hero::after{
+      content:"";
+
+      position:absolute;
+      right:-80px;
+      top:-120px;
+
+      width:330px;
+      height:330px;
+
+      border-radius:50%;
+
+      background:
+        radial-gradient(circle,var(--accent-soft),transparent 70%);
+
+      pointer-events:none;
+    }
+
+    .hero-grid{
+      position:relative;
+      z-index:2;
+
+      display:grid;
+      grid-template-columns:minmax(0,1.5fr) minmax(300px,.72fr);
+      gap:32px;
+      align-items:center;
+    }
+
+    .hero-kicker{
+      margin-bottom:10px;
+
+      color:var(--accent);
+
+      font-size:9.5px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .hero-description{
+      max-width:840px;
+      margin-bottom:18px;
+
+      color:var(--text-soft);
+
+      font-size:12.5px;
+      line-height:1.8;
+
+      text-align:justify;
+      text-justify:inter-word;
+    }
+
+    .tag-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+    }
+
+    .tag{
+      padding:6px 10px;
+
+      border:1px solid var(--border);
+      border-radius:999px;
+
+      background:var(--surface-soft);
+
+      font-size:9px;
+      font-weight:800;
+    }
+
+    .hero-panel{
+      padding:19px;
+
+      border:1px solid var(--border);
+      border-radius:16px;
+
+      background:var(--surface-soft);
+    }
+
+    .hero-panel-title{
+      margin-bottom:12px;
+
+      color:var(--text-soft);
+
+      font-size:8.8px;
+      font-weight:900;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+    }
+
+    .hero-stat{
+      padding:12px;
+
+      border:1px solid var(--border);
+      border-radius:11px;
+
+      background:var(--surface);
+    }
+
+    .hero-stat strong{
+      display:block;
+
+      color:var(--text);
+
+      font-size:21px;
+      line-height:1.05;
+      font-weight:850;
+    }
+
+    .hero-stat span{
+      display:block;
+      margin-top:5px;
+
+      color:var(--text-soft);
+
+      font-size:8.3px;
+      line-height:1.4;
+    }
+
+
+    /* =====================================================
+       8. PROBLEM / CONTRIBUTIONS
+       ===================================================== */
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:20px;
+      align-items:start;
+    }
+
+    .highlight{
+      padding:18px;
+
+      border:1px solid
+        color-mix(in srgb,var(--accent) 35%,var(--border));
+
+      border-left:4px solid var(--accent);
+      border-radius:13px;
+
+      background:var(--accent-soft);
+    }
+
+    .highlight p{
+      margin:0;
+
+      color:var(--text);
+
+      font-size:11px;
+      line-height:1.75;
+    }
+
+    .contribution-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+
+      margin-top:16px;
+    }
+
+    .contribution{
+      padding:15px;
+
+      border:1px solid var(--border);
+      border-radius:13px;
+
+      background:var(--surface-soft);
+    }
+
+    .contribution-number{
+      margin-bottom:7px;
+
+      color:var(--accent);
+
+      font-size:8px;
+      font-weight:900;
+      letter-spacing:.08em;
+    }
+
+    .contribution h3{
+      font-size:12px;
+      margin-bottom:5px;
+    }
+
+    .contribution p{
+      margin:0;
+
+      color:var(--text-soft);
+
+      font-size:8.9px;
+      line-height:1.55;
+    }
+
+
+    /* =====================================================
+       9. METHOD
+       ===================================================== */
+
+    .flow{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+
+      margin-top:17px;
+    }
+
+    .flow-step{
+      position:relative;
+
+      padding:15px;
+
+      border:1px solid var(--border);
+      border-radius:13px;
+
+      background:var(--surface-soft);
+    }
+
+    .flow-step:not(:last-child)::after{
+      content:"→";
+
+      position:absolute;
+      right:-9px;
+      top:50%;
+
+      z-index:3;
+
+      transform:translateY(-50%);
+
+      color:var(--accent);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .flow-step span{
+      display:block;
+
+      margin-bottom:7px;
+
+      color:var(--accent);
+
+      font-size:8px;
+      font-weight:900;
+      letter-spacing:.08em;
+    }
+
+    .flow-step strong{
+      display:block;
+
+      font-size:10.5px;
+    }
+
+    .flow-step p{
+      margin:5px 0 0;
+
+      color:var(--text-soft);
+
+      font-size:8.6px;
+      line-height:1.5;
+    }
+
+    details{
+      margin-top:15px;
+
+      border:1px solid var(--border);
+      border-radius:12px;
+
+      background:var(--surface-soft);
+    }
+
+    summary{
+      padding:14px;
+
+      cursor:pointer;
+
+      font-size:9.5px;
+      font-weight:850;
+    }
+
+    .details-body{
+      padding:0 14px 14px;
+
+      color:var(--text-soft);
+
+      font-size:9.4px;
+      line-height:1.7;
+    }
+
+
+    /* =====================================================
+       10. FIGURES
+       ===================================================== */
+
+    .figure{
+      margin:0;
+
+      overflow:hidden;
+
+      border:1px solid var(--border);
+      border-radius:14px;
+
+      background:var(--surface-soft);
+      box-shadow:var(--shadow-soft);
+    }
+
+    .figure button{
+      width:100%;
+      padding:0;
+
+      display:block;
+
+      border:0;
+      background:#fff;
+
+      cursor:zoom-in;
+    }
+
+    .figure img{
       width:100%;
       height:auto;
+
+      display:block;
+
+      object-fit:contain;
+
+      transition:transform .28s ease;
+    }
+
+    .figure:hover img{
+      transform:scale(1.007);
+    }
+
+    .figcaption{
+      padding:10px 12px;
+
+      border-top:1px solid var(--border);
+
+      background:var(--surface);
+
+      color:var(--text-soft);
+
+      font-size:8.8px;
+      line-height:1.55;
+    }
+
+    .figure-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+
+      margin-top:16px;
+    }
+
+    .figure-wide{
+      max-width:1020px;
+      margin:17px auto 0;
+    }
+
+
+    /* =====================================================
+       11. MODEL METRICS
+       ===================================================== */
+
+    .metric-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+
+      margin-top:17px;
+    }
+
+    .metric{
+      padding:15px;
+
+      border:1px solid var(--border);
+      border-radius:12px;
+
+      background:var(--surface-soft);
+    }
+
+    .metric strong{
+      display:block;
+
+      color:var(--accent);
+
+      font-size:22px;
+      line-height:1.05;
+      font-weight:850;
+    }
+
+    .metric span{
+      display:block;
+
+      margin-top:5px;
+
+      color:var(--text-soft);
+
+      font-size:8.6px;
+      line-height:1.45;
+    }
+
+
+    /* =====================================================
+       12. FINDING CARDS
+       ===================================================== */
+
+    .finding-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+
+      margin-top:17px;
+    }
+
+    .finding{
+      padding:16px;
+
+      border:1px solid var(--border);
+      border-radius:13px;
+
+      background:var(--surface-soft);
+    }
+
+    .finding-label{
+      margin-bottom:7px;
+
+      color:var(--accent);
+
+      font-size:8px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .finding h3{
+      font-size:12px;
+    }
+
+    .finding p{
+      margin:0;
+
+      color:var(--text-soft);
+
+      font-size:8.9px;
+      line-height:1.55;
+    }
+
+
+    /* =====================================================
+       13. INTERACTIVE EFFECT EXPLORER
+       ===================================================== */
+
+    .effect-tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+
+      margin:17px 0 13px;
+    }
+
+    .effect-tab{
+      padding:8px 11px;
+
+      border:1px solid var(--border);
+      border-radius:999px;
+
+      background:var(--surface);
+      color:var(--text-soft);
+
+      cursor:pointer;
+
+      font-size:9px;
+      font-weight:850;
+
+      transition:
+        background .17s ease,
+        color .17s ease,
+        border-color .17s ease;
+    }
+
+    .effect-tab:hover,
+    .effect-tab.active{
+      border-color:var(--accent);
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .effect-panel{
+      display:none;
+    }
+
+    .effect-panel.active{
       display:block;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:var(--gap);
-      justify-items:stretch;
-      margin-top:10px;
-    }
-    .grid.wide{ grid-template-columns:1fr; }
-    .grid.wide .img-card{ width:min(980px, 100%); margin:0 auto; }
+    .effect-message{
+      margin-top:12px;
+      padding:14px;
 
-    @media (max-width: 980px){
-      .grid{ grid-template-columns:1fr; }
-      .project-title .text{ font-size:22px; }
+      border:1px solid var(--border);
+      border-radius:12px;
+
+      background:var(--surface-soft);
+
+      color:var(--text-soft);
+
+      font-size:9.5px;
+      line-height:1.65;
     }
-    @media (max-width: 520px){
-      .project-title .text{ font-size:18px; }
+
+
+    /* =====================================================
+       14. POLICY / LIMITATIONS
+       ===================================================== */
+
+    .policy-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+
+      margin-top:17px;
     }
+
+    .policy{
+      padding:16px;
+
+      border:1px solid var(--border);
+      border-radius:13px;
+
+      background:var(--surface-soft);
+    }
+
+    .policy span{
+      display:inline-block;
+
+      margin-bottom:7px;
+
+      color:var(--accent);
+
+      font-size:8px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .policy h3{
+      font-size:11px;
+    }
+
+    .policy p{
+      margin:0;
+
+      color:var(--text-soft);
+
+      font-size:8.9px;
+      line-height:1.55;
+    }
+
+    .output-banner{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:20px;
+      align-items:center;
+
+      margin-top:18px;
+      padding:18px;
+
+      border:1px solid var(--border);
+      border-radius:14px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--surface-soft),
+          var(--accent-soft)
+        );
+    }
+
+    .output-banner h3{
+      margin-bottom:5px;
+      font-size:13px;
+    }
+
+    .output-banner p{
+      margin:0;
+      max-width:780px;
+
+      color:var(--text-soft);
+
+      font-size:9.4px;
+      line-height:1.65;
+    }
+
+    .role-badge{
+      padding:11px 13px;
+
+      border:1px solid var(--border);
+      border-radius:11px;
+
+      background:var(--surface);
+
+      text-align:center;
+    }
+
+    .role-badge strong{
+      display:block;
+      color:var(--accent);
+      font-size:10px;
+    }
+
+    .role-badge span{
+      display:block;
+      margin-top:3px;
+      color:var(--text-soft);
+      font-size:8px;
+    }
+
+
+    /* =====================================================
+       15. FOOTER
+       ===================================================== */
+
+    footer{
+      padding:17px 0 7px;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+
+      color:var(--text-soft);
+      font-size:9px;
+    }
+
+
+    /* =====================================================
+       16. IMAGE MODAL
+       ===================================================== */
+
+    .image-modal{
+      position:fixed;
+      inset:0;
+      z-index:10000;
+
+      padding:20px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      visibility:hidden;
+      opacity:0;
+
+      background:rgba(5,12,17,.88);
+      backdrop-filter:blur(8px);
+
+      transition:
+        opacity .18s ease,
+        visibility .18s ease;
+    }
+
+    .image-modal.show{
+      visibility:visible;
+      opacity:1;
+    }
+
+    .modal-inner{
+      position:relative;
+
+      max-width:96vw;
+      max-height:94vh;
+    }
+
+    .modal-inner img{
+      max-width:96vw;
+      max-height:90vh;
+
+      display:block;
+
+      border-radius:12px;
+      background:#fff;
+
+      box-shadow:0 30px 100px rgba(0,0,0,.45);
+    }
+
+    .modal-close{
+      position:absolute;
+      top:-13px;
+      right:-13px;
+
+      width:38px;
+      height:38px;
+
+      display:grid;
+      place-items:center;
+
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:10px;
+
+      background:#15242d;
+      color:#fff;
+
+      cursor:pointer;
+    }
+
+
+    /* =====================================================
+       17. RESPONSIVE
+       ===================================================== */
+
+    @media(max-width:1040px){
+
+      .hero-grid,
+      .two-col{
+        grid-template-columns:1fr;
+      }
+
+      .flow{
+        grid-template-columns:repeat(3,1fr);
+      }
+
+      .flow-step::after{
+        display:none;
+      }
+
+      .finding-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .policy-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+    }
+
+    @media(max-width:760px){
+
+      :root{
+        --header-h:58px;
+      }
+
+      .page,
+      .topbar-inner,
+      .section-nav-inner{
+        width:min(var(--maxw),calc(100% - 22px));
+      }
+
+      .section-card{
+        padding:20px;
+        border-radius:16px;
+      }
+
+      .hero{
+        padding:25px 20px;
+      }
+
+      .hero-description{
+        text-align:left;
+      }
+
+      .hero-stats,
+      .contribution-grid,
+      .flow,
+      .metric-grid,
+      .finding-grid,
+      .figure-grid,
+      .policy-grid{
+        grid-template-columns:1fr;
+      }
+
+      .output-banner{
+        grid-template-columns:1fr;
+      }
+
+      footer{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .brand span{
+        display:none;
+      }
+
+    }
+
+    @media(prefers-reduced-motion:reduce){
+
+      *,
+      *::before,
+      *::after{
+        scroll-behavior:auto !important;
+        transition:none !important;
+        animation:none !important;
+      }
+
+    }
+
   </style>
+
 </head>
 
+
 <body>
+
+  <div
+    class="scroll-progress"
+    id="scrollProgress"
+  ></div>
+
+
+  <!-- =====================================================
+       TOP BAR
+       ===================================================== -->
+
+  <header class="topbar">
+
+    <div class="topbar-inner">
+
+      <div class="brand">
+
+        <strong>
+          Khalid-Bin-Shofiq
+        </strong>
+
+        <span>
+          Transportation · Travel Behavior · Machine Learning
+        </span>
+
+      </div>
+
+
+      <div class="actions">
+
+        <a
+          class="button"
+          href="../index.html"
+        >
+          ← Portfolio
+        </a>
+
+        <button
+          class="button"
+          id="themeToggle"
+          type="button"
+        >
+          Theme
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       SECTION NAV
+       ===================================================== -->
+
+  <nav class="section-nav">
+
+    <div class="section-nav-inner">
+
+      <a href="#overview">Overview</a>
+      <a href="#problem">Question</a>
+      <a href="#method">Method</a>
+      <a href="#performance">Model</a>
+      <a href="#geography">Geography</a>
+      <a href="#effects">Nonlinear Effects</a>
+      <a href="#implications">Implications</a>
+      <a href="#limitations">Limitations</a>
+
+    </div>
+
+  </nav>
+
+
   <main class="page">
 
-    <!-- ===== Screenshot-style header ===== -->
-    <div class="project-title">
-      <span class="icon">📝</span>
-      <span class="text">Project: COVID-induced trip reduction behavior in the United States.</span>
-    </div>
-    <div class="divider"></div>
 
-    <!-- ===== Objectives box (screenshot-style) ===== -->
-    <section class="card">
-      <h4>Objectives</h4>
-      <ol>
-        <li>To assess how the COVID-19 pandemic influenced trip-making behavior in the United States using the 2022 National Household Travel Survey (NHTS).</li>
-        <li>To identify key determinants and interactions (time, location, socio-economic factors, and travel modes) associated with trip reduction using machine learning (Random Forest).</li>
-      </ol>
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section
+      class="section-card hero"
+      id="overview"
+    >
+
+      <div class="hero-grid">
+
+        <div>
+
+          <div class="hero-kicker">
+            Co-authored Research · United States · NHTS 2022
+          </div>
+
+          <h1>
+            Explaining COVID-Induced Trip Reduction Behavior in the United States
+          </h1>
+
+          <p class="hero-description">
+
+            This study uses the 2022 National Household Travel Survey to examine
+            why people who reported making fewer trips attributed that reduction
+            to COVID-19 rather than to other reasons. A Random Forest classifier
+            and partial dependence analysis are used to uncover nonlinear
+            relationships across temporal, spatial, socio-economic and
+            transportation dimensions.
+
+          </p>
+
+          <div class="tag-row">
+
+            <span class="tag">Travel Behavior</span>
+            <span class="tag">NHTS 2022</span>
+            <span class="tag">Random Forest</span>
+            <span class="tag">Partial Dependence</span>
+            <span class="tag">COVID-19</span>
+            <span class="tag">Transportation Resilience</span>
+            <span class="tag">United States</span>
+
+          </div>
+
+        </div>
+
+
+        <aside class="hero-panel">
+
+          <div class="hero-panel-title">
+            Study at a glance
+          </div>
+
+          <div class="hero-stats">
+
+            <div class="hero-stat">
+              <strong>2,389</strong>
+              <span>final person-level observations</span>
+            </div>
+
+            <div class="hero-stat">
+              <strong>16</strong>
+              <span>independent variables retained</span>
+            </div>
+
+            <div class="hero-stat">
+              <strong>0.9568</strong>
+              <span>test-set accuracy</span>
+            </div>
+
+            <div class="hero-stat">
+              <strong>≈0.99</strong>
+              <span>ROC AUC shown by the final model</span>
+            </div>
+
+          </div>
+
+        </aside>
+
+      </div>
+
     </section>
 
-    <!-- ===== Description panel ===== -->
-    <section class="title-description">
-      <p>
-        This study investigates how the COVID-19 pandemic affected trip-making behavior in the United States.
-        Using the 2022 National Household Travel Survey (NHTS), the analysis examines how factors such as time,
-        location, income, age, education, and transportation modes relate to trip reduction during the pandemic.
-        Machine learning methods—particularly Random Forest—were used to detect influential variables and their
-        interactions.
+
+    <!-- =====================================================
+         PROBLEM
+         ===================================================== -->
+
+    <section
+      class="section-card"
+      id="problem"
+    >
+
+      <div class="section-label">
+        Research Question
+      </div>
+
+      <h2>
+        Trip Reduction Is Not a Single Behavior
+      </h2>
+
+      <p class="section-subtitle">
+
+        Fewer trips can reflect risk avoidance, telework and digital substitution,
+        but they can also reflect unemployment, constrained accessibility or
+        inability to travel. The study therefore focuses on the reported reason
+        for travelling less, not simply whether mobility declined.
+
       </p>
+
+
+      <div
+        class="highlight"
+        style="margin-top:17px;"
+      >
+
+        <p>
+
+          <strong>Core question:</strong>
+          among NHTS respondents who reported taking fewer trips, which temporal,
+          spatial, socio-economic and transportation characteristics were associated
+          with attributing that reduction to COVID-19 rather than to other reasons?
+
+        </p>
+
+      </div>
+
+
+      <div class="contribution-grid">
+
+        <article class="contribution">
+          <div class="contribution-number">01</div>
+          <h3>National Individual-Level Evidence</h3>
+          <p>
+            Uses a nationwide household travel dataset rather than a single-city
+            survey or aggregate mobility trace.
+          </p>
+        </article>
+
+        <article class="contribution">
+          <div class="contribution-number">02</div>
+          <h3>Four-Domain Explanation</h3>
+          <p>
+            Integrates temporal, spatial, socio-economic and transportation
+            characteristics in one analytical framework.
+          </p>
+        </article>
+
+        <article class="contribution">
+          <div class="contribution-number">03</div>
+          <h3>Nonlinear Interpretation</h3>
+          <p>
+            Uses Random Forest and partial dependence to reveal thresholds,
+            curves and non-monotonic relationships.
+          </p>
+        </article>
+
+      </div>
+
     </section>
 
-    <!-- ===== Results ===== -->
-    <h2>Results</h2>
 
-    <section class="card">
-      <h4>Model Performance (Random Forest)</h4>
-      <p style="margin:0;">
-        Accuracy <strong>(0.9705)</strong>, Precision <strong>(0.9588)</strong>, Recall <strong>(0.9235)</strong>,
-        F1-score <strong>(0.9408)</strong>
+    <!-- =====================================================
+         METHOD
+         ===================================================== -->
+
+    <section
+      class="section-card"
+      id="method"
+    >
+
+      <div class="section-label">
+        Data & Method
+      </div>
+
+      <h2>
+        From NHTS Responses to an Explainable Random Forest
+      </h2>
+
+      <p class="section-subtitle">
+
+        The dependent outcome distinguishes COVID-attributed trip reduction from
+        other reported reasons for making fewer trips. Person, household, vehicle
+        and trip records were merged and filtered into a common person-level dataset.
+
       </p>
+
+
+      <div class="flow">
+
+        <article class="flow-step">
+          <span>STEP 01</span>
+          <strong>16,997 responses</strong>
+          <p>Start from NHTS person-level responses.</p>
+        </article>
+
+        <article class="flow-step">
+          <span>STEP 02</span>
+          <strong>4,109 trip reducers</strong>
+          <p>Retain respondents who reported fewer trips.</p>
+        </article>
+
+        <article class="flow-step">
+          <span>STEP 03</span>
+          <strong>2,389 final records</strong>
+          <p>Merge datasets and remove invalid / redundant entries.</p>
+        </article>
+
+        <article class="flow-step">
+          <span>STEP 04</span>
+          <strong>Random Forest</strong>
+          <p>500 trees; multiple train–test splits evaluated.</p>
+        </article>
+
+        <article class="flow-step">
+          <span>STEP 05</span>
+          <strong>Partial Dependence</strong>
+          <p>Interpret the direction and shape of nonlinear effects.</p>
+        </article>
+
+      </div>
+
+
+      <div class="finding-grid">
+
+        <article class="finding">
+          <div class="finding-label">Temporal</div>
+          <h3>Month of travel</h3>
+          <p>Captures the changing post-restriction pandemic context across 2022.</p>
+        </article>
+
+        <article class="finding">
+          <div class="finding-label">Spatial</div>
+          <h3>Region, urban size & commute</h3>
+          <p>Census division, metropolitan scale and distance from work.</p>
+        </article>
+
+        <article class="finding">
+          <div class="finding-label">Socio-economic</div>
+          <h3>Resources & vulnerability</h3>
+          <p>Income, education, age, sex, household size and disability.</p>
+        </article>
+
+        <article class="finding">
+          <div class="finding-label">Transportation</div>
+          <h3>Mobility resources & substitution</h3>
+          <p>Gas price, delivery, rideshare, vehicle ownership, work location and mode.</p>
+        </article>
+
+      </div>
+
+
+      <details>
+
+        <summary>
+          Technical details: model training and interpretation
+        </summary>
+
+        <div class="details-body">
+
+          The Random Forest classifier was trained iteratively using alternative
+          train–test splits, with the 70:30 split producing the best reported
+          performance. The final configuration used 500 estimators and random
+          state 42. A correlation check showed that the retained predictors were
+          not strongly collinear, with pairwise correlations ranging approximately
+          from −0.34 to 0.38. Partial dependence plots were then used to interpret
+          the marginal direction and nonlinearity of individual predictors while
+          averaging over the remaining covariates.
+
+        </div>
+
+      </details>
+
+
+      <figure class="figure figure-wide">
+
+        <button
+          type="button"
+          data-image="covid-correlation.webp"
+          data-alt="Correlation matrix of independent variables"
+        >
+
+          <img
+            src="./covid-correlation.webp"
+            alt="Correlation matrix of independent variables"
+            loading="lazy"
+          >
+
+        </button>
+
+        <figcaption class="figcaption">
+          Correlation matrix used to check whether strong pairwise relationships could disrupt model interpretation.
+        </figcaption>
+
+      </figure>
+
     </section>
 
-    <h3>ROC Curve (AUC) and Confusion Matrix</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="./1.jpg" alt="ROC curve (AUC) and confusion matrix showing Random Forest performance">
-      </div>
-    </div>
 
-    <h3>Variable Importance</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="./2.jpg" alt="Importance of independent variables for describing trip reduction in the Random Forest model">
-      </div>
-    </div>
+    <!-- =====================================================
+         MODEL
+         ===================================================== -->
 
-    <h3>Partial Dependence: Monthly Trip Reduction</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="./3.jpg" alt="Partial dependence plot for monthly trip reduction due to COVID-19">
-      </div>
-    </div>
+    <section
+      class="section-card"
+      id="performance"
+    >
 
-    <h3>Partial Dependence: Monthly Trip Reduction</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="./4.jpg" alt="Partial dependence plot for monthly trip reduction due to COVID-19 (variant)">
+      <div class="section-label">
+        Model Performance
       </div>
-    </div>
 
-    <h3>Partial Dependence: Weekly Trip Reduction</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="./5.jpg" alt="Partial dependence plot for weekly trip reduction">
-      </div>
-    </div>
+      <h2>
+        Strong Classification, Followed by Interpretation
+      </h2>
 
-    <h3>Partial Dependence: Spatial Variation</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="./6.jpg" alt="Partial dependence plot for spatial variation">
-      </div>
-    </div>
+      <p class="section-subtitle">
 
-    <h3>Regional Variation in Trip Reduction</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="./7.jpg" alt="Regional variation in trip reduction caused by COVID-19">
-      </div>
-    </div>
+        The portfolio emphasizes interpretation rather than presenting model
+        accuracy alone. Random Forest provided high predictive performance,
+        after which feature importance and partial dependence were used to
+        explain how travel behavior varied.
 
-    <h3>Partial Dependence: Transportation Variation</h3>
-    <div class="grid wide">
-      <div class="img-card">
-        <img src="./8.jpg" alt="Partial dependence plot for transportation variation">
+      </p>
+
+
+      <div class="metric-grid">
+
+        <div class="metric">
+          <strong>0.9568</strong>
+          <span>Accuracy</span>
+        </div>
+
+        <div class="metric">
+          <strong>0.9787</strong>
+          <span>Precision</span>
+        </div>
+
+        <div class="metric">
+          <strong>0.8516</strong>
+          <span>Recall</span>
+        </div>
+
+        <div class="metric">
+          <strong>0.9107</strong>
+          <span>F1-score</span>
+        </div>
+
       </div>
-    </div>
+
+
+      <div class="figure-grid">
+
+        <figure class="figure">
+
+          <button
+            type="button"
+            data-image="covid-model-performance.webp"
+            data-alt="ROC curve and confusion matrix for the Random Forest model"
+          >
+
+            <img
+              src="./covid-model-performance.webp"
+              alt="ROC curve and confusion matrix for the Random Forest model"
+              loading="lazy"
+            >
+
+          </button>
+
+          <figcaption class="figcaption">
+            Final Random Forest test performance. The ROC plot reports an AUC of approximately 0.99.
+          </figcaption>
+
+        </figure>
+
+
+        <figure class="figure">
+
+          <button
+            type="button"
+            data-image="covid-feature-importance.webp"
+            data-alt="Random Forest feature importance"
+          >
+
+            <img
+              src="./covid-feature-importance.webp"
+              alt="Random Forest feature importance"
+              loading="lazy"
+            >
+
+          </button>
+
+          <figcaption class="figcaption">
+            Month of travel was the most influential predictor, followed by age and regional gas price.
+          </figcaption>
+
+        </figure>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         GEOGRAPHY
+         ===================================================== -->
+
+    <section
+      class="section-card"
+      id="geography"
+    >
+
+      <div class="section-label">
+        Spatial Pattern
+      </div>
+
+      <h2>
+        Coastal and Large Urban Areas Showed Stronger Reduction Tendencies
+      </h2>
+
+      <p class="section-subtitle">
+
+        Regional differences were not uniform. New England and Pacific census
+        divisions showed the strongest modeled tendencies, while central U.S.
+        regions generally showed lower COVID-attributed trip reduction.
+
+      </p>
+
+
+      <div class="figure-grid">
+
+        <figure class="figure">
+
+          <button
+            type="button"
+            data-image="covid-regional-map.webp"
+            data-alt="Regional variation in COVID-induced trip reduction"
+          >
+
+            <img
+              src="./covid-regional-map.webp"
+              alt="Regional variation in COVID-induced trip reduction"
+              loading="lazy"
+            >
+
+          </button>
+
+          <figcaption class="figcaption">
+            Proportion of COVID-attributed trip reduction across U.S. census divisions.
+          </figcaption>
+
+        </figure>
+
+
+        <figure class="figure">
+
+          <button
+            type="button"
+            data-image="covid-spatial-effects.webp"
+            data-alt="Partial dependence plots for spatial variables"
+          >
+
+            <img
+              src="./covid-spatial-effects.webp"
+              alt="Partial dependence plots for spatial variables"
+              loading="lazy"
+            >
+
+          </button>
+
+          <figcaption class="figcaption">
+            Spatial partial dependence: urban size, commute distance and regional context.
+          </figcaption>
+
+        </figure>
+
+      </div>
+
+
+      <div class="finding-grid">
+
+        <article class="finding">
+          <div class="finding-label">Region</div>
+          <h3>New England & Pacific</h3>
+          <p>These divisions showed the highest modeled trip-reduction tendency.</p>
+        </article>
+
+        <article class="finding">
+          <div class="finding-label">Urban Context</div>
+          <h3>Large metropolitan areas</h3>
+          <p>Especially large areas with heavy rail showed higher COVID-related reductions.</p>
+        </article>
+
+        <article class="finding">
+          <div class="finding-label">Commute</div>
+          <h3>Nonlinear distance effect</h3>
+          <p>Work distance showed a U-shaped relationship rather than a simple linear gradient.</p>
+        </article>
+
+        <article class="finding">
+          <div class="finding-label">Interpretation</div>
+          <h3>Post-restriction adjustment</h3>
+          <p>2022 reflects residual health-motivated behavior within a transformed mobility environment.</p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         EFFECT EXPLORER
+         ===================================================== -->
+
+    <section
+      class="section-card"
+      id="effects"
+    >
+
+      <div class="section-label">
+        Explainable Machine Learning
+      </div>
+
+      <h2>
+        Explore the Nonlinear Effects
+      </h2>
+
+      <p class="section-subtitle">
+
+        Use the buttons below to move between temporal, socio-economic and
+        transportation relationships. These are partial-dependence associations,
+        not causal effects.
+
+      </p>
+
+
+      <div class="effect-tabs">
+
+        <button
+          class="effect-tab active"
+          type="button"
+          data-panel="temporalPanel"
+        >
+          Temporal
+        </button>
+
+        <button
+          class="effect-tab"
+          type="button"
+          data-panel="socioPanel"
+        >
+          Socio-economic
+        </button>
+
+        <button
+          class="effect-tab"
+          type="button"
+          data-panel="transportPanel"
+        >
+          Transportation
+        </button>
+
+      </div>
+
+
+      <div
+        class="effect-panel active"
+        id="temporalPanel"
+      >
+
+        <figure class="figure figure-wide">
+
+          <button
+            type="button"
+            data-image="covid-monthly.webp"
+            data-alt="Monthly partial dependence of COVID-induced trip reduction"
+          >
+
+            <img
+              src="./covid-monthly.webp"
+              alt="Monthly partial dependence of COVID-induced trip reduction"
+              loading="lazy"
+            >
+
+          </button>
+
+          <figcaption class="figcaption">
+            Monthly pattern in 2022, with a sharp February peak and lower levels toward the latter part of the year.
+          </figcaption>
+
+        </figure>
+
+        <div class="effect-message">
+
+          <strong>Temporal result:</strong>
+          February showed the strongest COVID-attributed trip-reduction signal,
+          followed by a gradual decline through 2022. Month of travel was also
+          the most important variable in the Random Forest feature ranking.
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="effect-panel"
+        id="socioPanel"
+      >
+
+        <figure class="figure figure-wide">
+
+          <button
+            type="button"
+            data-image="covid-socioeconomic-effects.webp"
+            data-alt="Partial dependence plots for socioeconomic variables"
+          >
+
+            <img
+              src="./covid-socioeconomic-effects.webp"
+              alt="Partial dependence plots for socioeconomic variables"
+              loading="lazy"
+            >
+
+          </button>
+
+          <figcaption class="figcaption">
+            Socio-economic partial dependence for age, income, education, household size, gender and disability.
+          </figcaption>
+
+        </figure>
+
+        <div class="effect-message">
+
+          <strong>Socio-economic result:</strong>
+          age was the strongest socio-economic predictor. Trip-reduction
+          tendency rose through early and middle adulthood, remained relatively
+          high until around age 60, and then declined. Income showed a nonlinear
+          U-shaped pattern, while higher education groups tended to show
+          stronger reduction.
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="effect-panel"
+        id="transportPanel"
+      >
+
+        <figure class="figure figure-wide">
+
+          <button
+            type="button"
+            data-image="covid-transport-effects.webp"
+            data-alt="Partial dependence plots for transportation variables"
+          >
+
+            <img
+              src="./covid-transport-effects.webp"
+              alt="Partial dependence plots for transportation variables"
+              loading="lazy"
+            >
+
+          </button>
+
+          <figcaption class="figcaption">
+            Transportation partial dependence for gas price, delivery, rideshare, vehicle ownership, work location and travel mode.
+          </figcaption>
+
+        </figure>
+
+        <div class="effect-message">
+
+          <strong>Transportation result:</strong>
+          higher regional gas prices, more online deliveries and more frequent
+          rideshare use were associated with stronger trip reduction. Vehicle
+          owners showed lower reduction than non-owners, while home-based
+          workers showed higher reduction and people who drove or travelled for
+          work showed the lowest tendency.
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         IMPLICATIONS
+         ===================================================== -->
+
+    <section
+      class="section-card"
+      id="implications"
+    >
+
+      <div class="section-label">
+        Transport & Public-Health Planning
+      </div>
+
+      <h2>
+        What the Findings Mean for Future Mobility Shocks
+      </h2>
+
+      <p class="section-subtitle">
+
+        The main planning message is that the ability and willingness to reduce
+        travel are uneven. Emergency mobility policies therefore need to account
+        for geography, work flexibility, digital substitution, socio-economic
+        resources and access to private or shared mobility.
+
+      </p>
+
+
+      <div class="policy-grid">
+
+        <article class="policy">
+          <span>Timing</span>
+          <h3>Match interventions to changing risk periods</h3>
+          <p>
+            Communication and mobility-management measures should respond to
+            temporal variation rather than treating an emergency as behaviorally uniform.
+          </p>
+        </article>
+
+        <article class="policy">
+          <span>Regional Context</span>
+          <h3>Tailor support geographically</h3>
+          <p>
+            Metropolitan and regional differences suggest that one national
+            mobility message may not generate the same response everywhere.
+          </p>
+        </article>
+
+        <article class="policy">
+          <span>Equity</span>
+          <h3>Protect people unable to reduce essential travel</h3>
+          <p>
+            Lower flexibility in employment or mobility resources can limit
+            the ability to avoid exposure even when health risks are high.
+          </p>
+        </article>
+
+        <article class="policy">
+          <span>Digital Access</span>
+          <h3>Support telework and delivery substitution</h3>
+          <p>
+            Digital alternatives can reduce physical travel for some activities,
+            but access to those alternatives is itself uneven.
+          </p>
+        </article>
+
+        <article class="policy">
+          <span>Mobility Resilience</span>
+          <h3>Maintain safe essential transport</h3>
+          <p>
+            Public and shared transport must remain reliable and safe for
+            travelers who cannot substitute or postpone necessary trips.
+          </p>
+        </article>
+
+        <article class="policy">
+          <span>Interpretation</span>
+          <h3>Do not equate fewer trips with better accessibility</h3>
+          <p>
+            Trip reduction can signal successful substitution, constrained
+            opportunity, financial hardship or health-risk avoidance.
+          </p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LIMITATIONS / OUTPUT
+         ===================================================== -->
+
+    <section
+      class="section-card"
+      id="limitations"
+    >
+
+      <div class="section-label">
+        Responsible Interpretation
+      </div>
+
+      <h2>
+        Limitations & Research Output
+      </h2>
+
+
+      <details open>
+
+        <summary>
+          Key limitations
+        </summary>
+
+        <div class="details-body">
+
+          The 2022 NHTS is cross-sectional and cannot establish causal effects
+          or long-term behavioral change. COVID-related trip reduction is
+          self-reported, so reporting bias is possible. The analysis also does
+          not explicitly model changing local COVID policies or infection
+          intensity. Partial dependence therefore describes modeled associations,
+          not causal mechanisms.
+
+        </div>
+
+      </details>
+
+
+      <div class="output-banner">
+
+        <div>
+
+          <h3>
+            Co-authored Research Manuscript
+          </h3>
+
+          <p>
+
+            Manuscript title: <strong>How do we explain COVID-induced trip
+            reduction behavior in the United States?</strong> My documented
+            contribution includes methodology, formal analysis and writing –
+            review & editing.
+
+          </p>
+
+        </div>
+
+
+        <div class="role-badge">
+
+          <strong>
+            My Contribution
+          </strong>
+
+          <span>
+            Methodology · Formal Analysis · Review & Editing
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <footer>
+
+      <span>
+        Research portfolio · Travel Behavior · Machine Learning
+      </span>
+
+      <a
+        class="button"
+        href="../index.html"
+      >
+        Back to Portfolio
+      </a>
+
+    </footer>
+
   </main>
+
+
+  <!-- =====================================================
+       IMAGE MODAL
+       ===================================================== -->
+
+  <div
+    class="image-modal"
+    id="imageModal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-inner">
+
+      <button
+        class="modal-close"
+        id="modalClose"
+        type="button"
+        aria-label="Close figure"
+      >
+        ✕
+      </button>
+
+      <img
+        id="modalImage"
+        src=""
+        alt=""
+      >
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =====================================================
+       THEME
+       ===================================================== */
+
+    const themeToggle =
+      document.getElementById("themeToggle");
+
+
+    const storedTheme =
+      localStorage.getItem("covidResearchTheme");
+
+
+    if(storedTheme === "dark"){
+      document.body.classList.add("dark");
+    }
+
+
+    themeToggle.addEventListener(
+      "click",
+      () => {
+
+        document.body.classList.toggle("dark");
+
+
+        localStorage.setItem(
+          "covidResearchTheme",
+          document.body.classList.contains("dark")
+            ? "dark"
+            : "light"
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       SCROLL PROGRESS
+       ===================================================== */
+
+    const scrollProgress =
+      document.getElementById("scrollProgress");
+
+
+    function updateScrollProgress(){
+
+      const maxScroll =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+
+      const pct =
+        maxScroll > 0
+          ? (window.scrollY / maxScroll) * 100
+          : 0;
+
+
+      scrollProgress.style.width =
+        pct + "%";
+
+    }
+
+
+    window.addEventListener(
+      "scroll",
+      updateScrollProgress,
+      { passive:true }
+    );
+
+
+    updateScrollProgress();
+
+
+    /* =====================================================
+       ACTIVE NAV
+       ===================================================== */
+
+    const navLinks =
+      [...document.querySelectorAll(".section-nav a")];
+
+
+    const sections =
+      navLinks
+        .map(link => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+
+    const navObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+              navLinks.forEach(link => {
+
+                link.classList.toggle(
+                  "active",
+                  link.getAttribute("href") ===
+                  "#" + entry.target.id
+                );
+
+              });
+
+            }
+
+          });
+
+        },
+        {
+          rootMargin:"-35% 0px -55% 0px",
+          threshold:0
+        }
+      );
+
+
+    sections.forEach(
+      section => navObserver.observe(section)
+    );
+
+
+    /* =====================================================
+       EFFECT TABS
+       ===================================================== */
+
+    const effectTabs =
+      [...document.querySelectorAll(".effect-tab")];
+
+
+    const effectPanels =
+      [...document.querySelectorAll(".effect-panel")];
+
+
+    effectTabs.forEach(
+      tab => {
+
+        tab.addEventListener(
+          "click",
+          () => {
+
+            effectTabs.forEach(
+              item => item.classList.remove("active")
+            );
+
+
+            effectPanels.forEach(
+              panel => panel.classList.remove("active")
+            );
+
+
+            tab.classList.add("active");
+
+
+            const panel =
+              document.getElementById(tab.dataset.panel);
+
+
+            if(panel){
+              panel.classList.add("active");
+            }
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       IMAGE VIEWER
+       ===================================================== */
+
+    const imageModal =
+      document.getElementById("imageModal");
+
+
+    const modalImage =
+      document.getElementById("modalImage");
+
+
+    const modalClose =
+      document.getElementById("modalClose");
+
+
+    document
+      .querySelectorAll("[data-image]")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            modalImage.src =
+              "./" + button.dataset.image;
+
+
+            modalImage.alt =
+              button.dataset.alt || "Research figure";
+
+
+            imageModal.classList.add("show");
+
+
+            imageModal.setAttribute(
+              "aria-hidden",
+              "false"
+            );
+
+
+            document.body.style.overflow =
+              "hidden";
+
+          }
+        );
+
+      });
+
+
+    function closeModal(){
+
+      imageModal.classList.remove("show");
+
+
+      imageModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+
+      modalImage.src =
+        "";
+
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+
+    modalClose.addEventListener(
+      "click",
+      closeModal
+    );
+
+
+    imageModal.addEventListener(
+      "click",
+      event => {
+
+        if(event.target === imageModal){
+          closeModal();
+        }
+
+      }
+    );
+
+
+    window.addEventListener(
+      "keydown",
+      event => {
+
+        if(
+          event.key === "Escape" &&
+          imageModal.classList.contains("show")
+        ){
+          closeModal();
+        }
+
+      }
+    );
+
+  </script>
+
 </body>
 </html>
