@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,74 +8,63 @@
 
   <meta
     name="description"
-    content="Professional project case study by Khalid-Bin-Shofiq: traffic and transportation survey, mobility analysis and master-plan support for Fakirhat Upazila."
+    content="Professional transportation planning case study: traffic counts, land-use context, origin-destination analysis, household travel, public transport, parking, speed-delay and road safety for Fakirhat Upazila."
   >
 
   <style>
 
-    /* =====================================================
-       1. DESIGN SYSTEM
-       ===================================================== */
-
     :root{
-      --bg:#eef4f6;
+      --bg:#edf4f7;
       --surface:#ffffff;
-      --surface-soft:#f7fafb;
-      --surface-hover:#eef5f7;
+      --surface-soft:#f6fafc;
+      --surface-hover:#eef5f8;
 
-      --text:#172733;
-      --text-soft:#607481;
-      --text-faint:#8798a2;
+      --text:#142531;
+      --text-soft:#5f7481;
+      --text-faint:#82949e;
 
-      --accent:#0b7897;
-      --accent-dark:#075e77;
-      --accent-soft:#e2f2f6;
+      --accent:#087f9f;
+      --accent-dark:#056984;
+      --accent-soft:#e1f3f7;
 
-      --green:#2f8d74;
-      --green-soft:#e8f5f0;
+      --green:#2ca66f;
 
-      --border:#d7e3e8;
-      --border-strong:#bfd1d9;
+      --border:#d5e3e8;
+      --border-strong:#bcd1d9;
 
-      --shadow:0 10px 32px rgba(30,55,70,.08);
-      --shadow-soft:0 5px 16px rgba(30,55,70,.06);
+      --shadow:0 10px 30px rgba(31,58,72,.08);
+      --shadow-soft:0 6px 18px rgba(31,58,72,.06);
 
       --radius-lg:20px;
       --radius-md:14px;
       --radius-sm:10px;
 
       --maxw:1320px;
-      --topbar-h:64px;
+      --header-h:64px;
     }
 
     body.dark{
-      --bg:#0d151a;
-      --surface:#141f26;
-      --surface-soft:#1a2830;
-      --surface-hover:#21323b;
+      --bg:#0d171c;
+      --surface:#152129;
+      --surface-soft:#1a2931;
+      --surface-hover:#21343e;
 
-      --text:#eef5f7;
-      --text-soft:#b0c0c9;
-      --text-faint:#7f949f;
+      --text:#eef6f8;
+      --text-soft:#b4c4cb;
+      --text-faint:#8497a1;
 
-      --accent:#59bed7;
-      --accent-dark:#76cee2;
-      --accent-soft:#123842;
+      --accent:#55bfd7;
+      --accent-dark:#75ccdf;
+      --accent-soft:#123943;
 
-      --green:#65bda5;
-      --green-soft:#16352e;
+      --green:#5dc995;
 
       --border:#2a3c46;
-      --border-strong:#3b525e;
+      --border-strong:#40555f;
 
       --shadow:0 12px 34px rgba(0,0,0,.28);
       --shadow-soft:0 6px 18px rgba(0,0,0,.20);
     }
-
-
-    /* =====================================================
-       2. BASE
-       ===================================================== */
 
     *{
       box-sizing:border-box;
@@ -91,7 +79,7 @@
       margin:0;
 
       background:
-        radial-gradient(circle at 10% 0%, var(--accent-soft), transparent 28%),
+        radial-gradient(circle at 5% 0%,var(--accent-soft),transparent 25%),
         var(--bg);
 
       color:var(--text);
@@ -106,17 +94,17 @@
         Arial,
         sans-serif;
 
-      line-height:1.68;
-
+      line-height:1.7;
       -webkit-font-smoothing:antialiased;
-
-      transition:
-        background .22s ease,
-        color .22s ease;
     }
 
     img{
       max-width:100%;
+    }
+
+    button,
+    a{
+      font:inherit;
     }
 
     a{
@@ -124,96 +112,77 @@
       text-decoration:none;
     }
 
-    button{
-      font:inherit;
-    }
-
 
     /* =====================================================
-       3. SCROLL PROGRESS
+       TOP UI
        ===================================================== */
 
-    #scrollProgress{
+    .scroll-progress{
       position:fixed;
-
-      top:0;
       left:0;
-
-      z-index:10000;
+      top:0;
+      z-index:9999;
 
       width:0;
       height:3px;
 
-      background:linear-gradient(90deg,var(--accent),var(--green));
+      background:var(--accent);
     }
-
-
-    /* =====================================================
-       4. TOP BAR
-       ===================================================== */
 
     .topbar{
       position:sticky;
       top:0;
-
       z-index:2000;
 
-      min-height:var(--topbar-h);
+      min-height:var(--header-h);
 
       border-bottom:1px solid var(--border);
 
       background:
-        color-mix(in srgb,var(--surface) 92%,transparent);
+        color-mix(in srgb,var(--surface) 93%,transparent);
 
-      backdrop-filter:blur(15px);
+      backdrop-filter:blur(14px);
     }
 
     .topbar-inner{
       width:min(var(--maxw),calc(100% - 40px));
-      min-height:var(--topbar-h);
+      min-height:var(--header-h);
 
       margin:0 auto;
 
       display:flex;
       align-items:center;
       justify-content:space-between;
-
-      gap:18px;
+      gap:16px;
     }
 
     .brand strong{
       display:block;
-
       font-size:13px;
+      line-height:1.15;
       font-weight:850;
-      line-height:1.2;
     }
 
     .brand span{
       display:block;
-
-      margin-top:3px;
-
+      margin-top:4px;
       color:var(--text-soft);
-
-      font-size:9.5px;
+      font-size:9px;
     }
 
-    .top-actions{
+    .actions{
       display:flex;
-      gap:8px;
       align-items:center;
+      gap:8px;
     }
 
-    .button{
+    .btn{
       min-height:38px;
-
       padding:8px 12px;
 
       display:inline-flex;
       align-items:center;
       justify-content:center;
-
       gap:6px;
 
       border:1px solid var(--border);
@@ -224,7 +193,7 @@
 
       cursor:pointer;
 
-      font-size:10px;
+      font-size:9.5px;
       font-weight:800;
 
       transition:
@@ -233,55 +202,39 @@
         border-color .17s ease;
     }
 
-    .button:hover{
+    .btn:hover{
       transform:translateY(-1px);
-
       background:var(--surface-hover);
       border-color:var(--border-strong);
     }
 
-    .button.primary{
+    .btn.primary{
       border-color:var(--accent);
-
       background:var(--accent);
       color:#fff;
     }
 
-    .button.primary:hover{
-      background:var(--accent-dark);
-    }
-
-
-    /* =====================================================
-       5. SECTION NAV
-       ===================================================== */
-
     .section-nav{
       position:sticky;
-      top:var(--topbar-h);
-
+      top:var(--header-h);
       z-index:1500;
 
       border-bottom:1px solid var(--border);
 
       background:
-        color-mix(in srgb,var(--surface) 94%,transparent);
+        color-mix(in srgb,var(--surface) 95%,transparent);
 
       backdrop-filter:blur(12px);
     }
 
     .section-nav-inner{
       width:min(var(--maxw),calc(100% - 40px));
-
       margin:0 auto;
 
       display:flex;
-      align-items:center;
-
-      gap:4px;
+      gap:3px;
 
       overflow-x:auto;
-
       scrollbar-width:none;
     }
 
@@ -298,7 +251,7 @@
 
       border-bottom:2px solid transparent;
 
-      font-size:9px;
+      font-size:8.8px;
       font-weight:800;
     }
 
@@ -310,12 +263,11 @@
 
 
     /* =====================================================
-       6. LAYOUT
+       GENERAL LAYOUT
        ===================================================== */
 
     .page{
       width:min(var(--maxw),calc(100% - 40px));
-
       margin:0 auto;
       padding:28px 0 56px;
     }
@@ -330,7 +282,6 @@
       border-radius:var(--radius-lg);
 
       background:var(--surface);
-
       box-shadow:var(--shadow);
     }
 
@@ -339,7 +290,7 @@
 
       color:var(--accent);
 
-      font-size:9px;
+      font-size:8.5px;
       font-weight:900;
       letter-spacing:.12em;
       text-transform:uppercase;
@@ -353,17 +304,17 @@
     }
 
     h1{
-      margin-bottom:11px;
+      margin-bottom:12px;
 
-      font-size:clamp(32px,4.5vw,54px);
-      line-height:1.06;
+      font-size:clamp(34px,4.8vw,58px);
+      line-height:1.04;
       letter-spacing:-1.8px;
     }
 
     h2{
       margin-bottom:8px;
 
-      font-size:clamp(22px,2.4vw,30px);
+      font-size:clamp(22px,2.5vw,31px);
       line-height:1.2;
       letter-spacing:-.7px;
     }
@@ -371,30 +322,49 @@
     h3{
       margin-bottom:7px;
 
-      font-size:15px;
+      font-size:14px;
       line-height:1.35;
     }
 
     .section-subtitle{
-      max-width:900px;
-
+      max-width:960px;
       margin-bottom:0;
 
       color:var(--text-soft);
 
-      font-size:11.5px;
+      font-size:11px;
       line-height:1.75;
+    }
+
+    .highlight{
+      padding:18px;
+
+      border:1px solid
+        color-mix(in srgb,var(--accent) 34%,var(--border));
+
+      border-left:4px solid var(--accent);
+      border-radius:13px;
+
+      background:var(--accent-soft);
+    }
+
+    .highlight p{
+      margin:0;
+
+      color:var(--text);
+
+      font-size:10.4px;
+      line-height:1.7;
     }
 
 
     /* =====================================================
-       7. HERO
+       HERO
        ===================================================== */
 
     .hero{
       position:relative;
       overflow:hidden;
-
       padding:40px;
     }
 
@@ -402,12 +372,11 @@
       content:"";
 
       position:absolute;
-
-      right:-80px;
+      right:-90px;
       top:-120px;
 
-      width:330px;
-      height:330px;
+      width:360px;
+      height:360px;
 
       border-radius:50%;
 
@@ -422,8 +391,7 @@
       z-index:2;
 
       display:grid;
-      grid-template-columns:minmax(0,1.5fr) minmax(300px,.72fr);
-
+      grid-template-columns:minmax(0,1.45fr) minmax(300px,.7fr);
       gap:32px;
       align-items:center;
     }
@@ -433,30 +401,19 @@
 
       color:var(--accent);
 
-      font-size:9.5px;
+      font-size:9px;
       font-weight:900;
-
       letter-spacing:.12em;
       text-transform:uppercase;
     }
 
-    .hero-role{
-      margin-bottom:12px;
-
-      color:var(--text-soft);
-
-      font-size:15px;
-      font-weight:750;
-    }
-
     .hero-description{
-      max-width:830px;
-
+      max-width:840px;
       margin-bottom:18px;
 
       color:var(--text-soft);
 
-      font-size:12.5px;
+      font-size:12px;
       line-height:1.8;
 
       text-align:justify;
@@ -466,7 +423,6 @@
     .tag-row{
       display:flex;
       flex-wrap:wrap;
-
       gap:7px;
     }
 
@@ -478,7 +434,7 @@
 
       background:var(--surface-soft);
 
-      font-size:9px;
+      font-size:8.8px;
       font-weight:800;
     }
 
@@ -496,9 +452,8 @@
 
       color:var(--text-soft);
 
-      font-size:8.8px;
+      font-size:8.4px;
       font-weight:900;
-
       letter-spacing:.1em;
       text-transform:uppercase;
     }
@@ -506,7 +461,6 @@
     .hero-stats{
       display:grid;
       grid-template-columns:1fr 1fr;
-
       gap:9px;
     }
 
@@ -524,116 +478,24 @@
 
       color:var(--text);
 
-      font-size:21px;
+      font-size:19px;
       line-height:1.05;
       font-weight:850;
     }
 
     .hero-stat span{
       display:block;
-
       margin-top:5px;
 
       color:var(--text-soft);
 
-      font-size:8.3px;
+      font-size:7.9px;
       line-height:1.4;
     }
 
 
     /* =====================================================
-       8. OVERVIEW / CONTRIBUTION
-       ===================================================== */
-
-    .overview-grid{
-      display:grid;
-      grid-template-columns:1.12fr .88fr;
-
-      gap:20px;
-      align-items:start;
-    }
-
-    .highlight{
-      padding:18px;
-
-      border:1px solid
-        color-mix(in srgb,var(--accent) 35%,var(--border));
-
-      border-left:4px solid var(--accent);
-      border-radius:13px;
-
-      background:var(--accent-soft);
-    }
-
-    .highlight p{
-      margin:0;
-
-      color:var(--text);
-
-      font-size:11px;
-      line-height:1.75;
-    }
-
-    .contribution-list{
-      display:grid;
-
-      gap:9px;
-
-      margin-top:15px;
-    }
-
-    .contribution-item{
-      padding:13px;
-
-      display:grid;
-      grid-template-columns:32px 1fr;
-
-      gap:10px;
-      align-items:start;
-
-      border:1px solid var(--border);
-      border-radius:11px;
-
-      background:var(--surface-soft);
-    }
-
-    .contribution-icon{
-      width:32px;
-      height:32px;
-
-      display:grid;
-      place-items:center;
-
-      border-radius:9px;
-
-      background:var(--surface);
-
-      color:var(--accent);
-
-      font-size:11px;
-      font-weight:900;
-    }
-
-    .contribution-item strong{
-      display:block;
-
-      font-size:10.5px;
-    }
-
-    .contribution-item span{
-      display:block;
-
-      margin-top:2px;
-
-      color:var(--text-soft);
-
-      font-size:9.2px;
-      line-height:1.5;
-    }
-
-
-    /* =====================================================
-       9. FIGURES
+       FIGURES
        ===================================================== */
 
     .figure{
@@ -645,19 +507,16 @@
       border-radius:14px;
 
       background:var(--surface-soft);
-
       box-shadow:var(--shadow-soft);
     }
 
     .figure button{
       width:100%;
-
       padding:0;
 
       display:block;
 
       border:0;
-
       background:#fff;
 
       cursor:zoom-in;
@@ -668,14 +527,13 @@
       height:auto;
 
       display:block;
-
       object-fit:contain;
 
-      transition:transform .28s ease;
+      transition:transform .25s ease;
     }
 
     .figure:hover img{
-      transform:scale(1.008);
+      transform:scale(1.006);
     }
 
     .figcaption{
@@ -687,70 +545,162 @@
 
       color:var(--text-soft);
 
-      font-size:8.8px;
+      font-size:8.7px;
       line-height:1.55;
     }
 
     .figure-grid{
       display:grid;
       grid-template-columns:1fr 1fr;
-
       gap:14px;
 
       margin-top:16px;
     }
 
     .figure-wide{
-      max-width:980px;
+      max-width:1040px;
       margin:17px auto 0;
     }
 
 
     /* =====================================================
-       10. SURVEY PROGRAM
+       CONTEXT / ROLE
+       ===================================================== */
+
+    .context-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      align-items:start;
+
+      margin-top:18px;
+    }
+
+    .context-metrics{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+
+      margin-top:16px;
+    }
+
+    .metric-card{
+      padding:14px;
+
+      border:1px solid var(--border);
+      border-radius:12px;
+
+      background:var(--surface-soft);
+    }
+
+    .metric-card strong{
+      display:block;
+
+      color:var(--accent);
+
+      font-size:18px;
+      line-height:1.05;
+      font-weight:850;
+    }
+
+    .metric-card span{
+      display:block;
+
+      margin-top:5px;
+
+      color:var(--text-soft);
+
+      font-size:8.2px;
+      line-height:1.42;
+    }
+
+    .role-list{
+      display:grid;
+      gap:9px;
+
+      margin-top:15px;
+    }
+
+    .role-item{
+      display:grid;
+      grid-template-columns:34px 1fr;
+      gap:10px;
+      align-items:start;
+
+      padding:12px;
+
+      border:1px solid var(--border);
+      border-radius:11px;
+
+      background:var(--surface-soft);
+    }
+
+    .role-number{
+      width:30px;
+      height:30px;
+
+      display:grid;
+      place-items:center;
+
+      border-radius:9px;
+
+      background:var(--accent);
+      color:#fff;
+
+      font-size:8px;
+      font-weight:900;
+    }
+
+    .role-item strong{
+      display:block;
+      margin-bottom:3px;
+
+      font-size:10px;
+    }
+
+    .role-item span{
+      display:block;
+
+      color:var(--text-soft);
+
+      font-size:8.7px;
+      line-height:1.5;
+    }
+
+
+    /* =====================================================
+       SURVEY PROGRAM
        ===================================================== */
 
     .survey-grid{
       display:grid;
       grid-template-columns:repeat(4,1fr);
-
       gap:10px;
 
       margin-top:17px;
     }
 
     .survey-card{
-      padding:15px;
+      padding:14px;
 
       border:1px solid var(--border);
-      border-radius:13px;
+      border-radius:12px;
 
       background:var(--surface-soft);
-
-      transition:
-        transform .18s ease,
-        border-color .18s ease;
-    }
-
-    .survey-card:hover{
-      transform:translateY(-2px);
-      border-color:var(--accent);
     }
 
     .survey-number{
-      margin-bottom:7px;
+      margin-bottom:6px;
 
       color:var(--accent);
 
       font-size:8px;
       font-weight:900;
-      letter-spacing:.08em;
     }
 
     .survey-card h3{
       margin-bottom:4px;
-
-      font-size:11px;
+      font-size:10.5px;
     }
 
     .survey-card p{
@@ -758,831 +708,600 @@
 
       color:var(--text-soft);
 
-      font-size:8.8px;
-      line-height:1.5;
-    }
-
-
-    /* =====================================================
-       11. FINDINGS
-       ===================================================== */
-
-    .finding-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-
-      gap:11px;
-
-      margin-top:17px;
-    }
-
-    .finding-card{
-      padding:16px;
-
-      border:1px solid var(--border);
-      border-radius:13px;
-
-      background:var(--surface-soft);
-    }
-
-    .finding-value{
-      margin-bottom:7px;
-
-      color:var(--accent);
-
-      font-size:23px;
-      font-weight:850;
-      line-height:1;
-    }
-
-    .finding-card strong{
-      display:block;
-
-      font-size:10.5px;
-    }
-
-    .finding-card p{
-      margin:5px 0 0;
-
-      color:var(--text-soft);
-
-      font-size:9px;
-      line-height:1.55;
-    }
-
-
-    /* =====================================================
-       12. FIELDWORK
-       ===================================================== */
-
-    .photo-grid{
-      display:grid;
-      grid-template-columns:.65fr 1.25fr 1.25fr;
-
-      gap:10px;
-
-      margin-top:16px;
-    }
-
-    .photo-card{
-      overflow:hidden;
-
-      min-height:260px;
-
-      border:1px solid var(--border);
-      border-radius:13px;
-
-      background:var(--surface-soft);
-    }
-
-    .photo-card img{
-      width:100%;
-      height:100%;
-
-      display:block;
-
-      object-fit:cover;
-    }
-
-
-    /* =====================================================
-       13. INSIGHT CARDS
-       ===================================================== */
-
-    .insight-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-
-      gap:12px;
-
-      margin-top:16px;
-    }
-
-    .insight-card{
-      padding:17px;
-
-      border:1px solid var(--border);
-      border-radius:13px;
-
-      background:var(--surface-soft);
-    }
-
-    .insight-card h3{
-      font-size:13px;
-    }
-
-    .insight-card p{
-      margin:0;
-
-      color:var(--text-soft);
-
-      font-size:9.8px;
-      line-height:1.65;
-    }
-
-
-
-    /* =====================================================
-       HOUSEHOLD TRAVEL SURVEY
-       ===================================================== */
-
-    .household-intro-grid{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:18px;
-      margin-top:17px;
-      align-items:start;
-    }
-
-    .household-summary{
-      padding:18px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:var(--surface-soft);
-    }
-
-    .household-summary h3{
-      font-size:14px;
-      margin-bottom:7px;
-    }
-
-    .household-summary p{
-      margin:0;
-      color:var(--text-soft);
-      font-size:9.8px;
-      line-height:1.65;
-    }
-
-    .ownership-card{
-      padding:18px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:var(--surface-soft);
-    }
-
-    .ownership-card h3{
-      font-size:13px;
-      margin-bottom:12px;
-    }
-
-    .ownership-bars{
-      display:grid;
-      gap:7px;
-    }
-
-    .ownership-row{
-      display:grid;
-      grid-template-columns:115px 1fr 42px;
-      gap:9px;
-      align-items:center;
-    }
-
-    .ownership-row span{
-      font-size:8.8px;
-      color:var(--text-soft);
-    }
-
-    .ownership-row strong{
-      font-size:8.8px;
-      text-align:right;
-      color:var(--text);
-    }
-
-    .ownership-track{
-      height:8px;
-      border-radius:999px;
-      background:var(--border);
-      overflow:hidden;
-    }
-
-    .ownership-fill{
-      height:100%;
-      border-radius:999px;
-      background:linear-gradient(90deg,var(--accent),var(--green));
-    }
-
-    .household-metric-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      margin-top:16px;
-    }
-
-    .household-metric{
-      padding:14px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:var(--surface-soft);
-    }
-
-    .household-metric strong{
-      display:block;
-      color:var(--accent);
-      font-size:19px;
-      line-height:1.1;
-    }
-
-    .household-metric span{
-      display:block;
-      margin-top:5px;
-      color:var(--text-soft);
-      font-size:8.7px;
-      line-height:1.45;
-    }
-
-    .household-group{
-      margin-top:22px;
-    }
-
-    .household-group-head{
-      margin-bottom:10px;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:14px;
-    }
-
-    .household-group-head h3{
-      margin:0;
-      font-size:16px;
-    }
-
-    .household-group-head p{
-      margin:0;
-      color:var(--text-soft);
-      font-size:8.8px;
-    }
-
-    @media(max-width:1040px){
-      .household-intro-grid{
-        grid-template-columns:1fr;
-      }
-
-      .household-metric-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-    }
-
-    @media(max-width:760px){
-      .household-metric-grid{
-        grid-template-columns:1fr;
-      }
-
-      .ownership-row{
-        grid-template-columns:95px 1fr 38px;
-      }
-
-      .household-group-head{
-        align-items:flex-start;
-        flex-direction:column;
-      }
-    }
-
-
-
-    /* =====================================================
-       NETWORK BASELINE
-       ===================================================== */
-
-    .network-strip{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      margin-top:18px;
-    }
-
-    .network-stat{
-      padding:14px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:var(--surface-soft);
-    }
-
-    .network-stat strong{
-      display:block;
-      color:var(--accent);
-      font-size:18px;
-      line-height:1.1;
-      font-weight:850;
-    }
-
-    .network-stat span{
-      display:block;
-      margin-top:5px;
-      color:var(--text-soft);
-      font-size:8.6px;
+      font-size:8.3px;
       line-height:1.45;
     }
 
 
     /* =====================================================
-       TRAFFIC COUNT — TRANSPORT PLANNER VIEW
+       TRAFFIC / LAND USE
        ===================================================== */
 
-    .count-method-grid{
+    .count-method{
       display:grid;
       grid-template-columns:repeat(5,1fr);
       gap:9px;
+
       margin-top:17px;
     }
 
-    .count-method{
+    .count-method-card{
       padding:13px;
+
       border:1px solid var(--border);
       border-radius:11px;
+
       background:var(--surface-soft);
+
       text-align:center;
     }
 
-    .count-method strong{
+    .count-method-card strong{
       display:block;
+
       color:var(--accent);
+
       font-size:17px;
       line-height:1.05;
     }
 
-    .count-method span{
+    .count-method-card span{
       display:block;
-      margin-top:4px;
+
+      margin-top:5px;
+
       color:var(--text-soft);
-      font-size:8.4px;
+
+      font-size:8px;
       line-height:1.4;
     }
 
-    .traffic-layout{
+    .mode-grid{
       display:grid;
-      grid-template-columns:.78fr 1.22fr;
+      grid-template-columns:.82fr 1.18fr;
       gap:16px;
+
       margin-top:18px;
       align-items:start;
     }
 
     .mode-panel{
-      padding:18px;
+      padding:17px;
+
       border:1px solid var(--border);
       border-radius:14px;
+
       background:var(--surface-soft);
     }
 
     .mode-panel h3{
-      margin-bottom:5px;
-      font-size:14px;
+      font-size:13px;
     }
 
     .mode-panel > p{
-      margin:0 0 14px;
+      margin:0 0 13px;
+
       color:var(--text-soft);
-      font-size:9.2px;
+
+      font-size:8.9px;
       line-height:1.55;
     }
 
     .mode-bars{
       display:grid;
-      gap:10px;
+      gap:9px;
     }
 
-    .mode-bar-row{
+    .mode-row{
       display:grid;
-      grid-template-columns:110px 1fr 48px;
-      gap:9px;
+      grid-template-columns:105px 1fr 45px;
+      gap:8px;
       align-items:center;
     }
 
-    .mode-bar-row span{
-      color:var(--text-soft);
-      font-size:8.8px;
+    .mode-row span,
+    .mode-row strong{
+      font-size:8.4px;
     }
 
-    .mode-bar-row strong{
-      color:var(--text);
-      font-size:8.8px;
+    .mode-row span{
+      color:var(--text-soft);
+    }
+
+    .mode-row strong{
       text-align:right;
     }
 
     .mode-track{
-      height:9px;
+      height:8px;
+
       overflow:hidden;
+
       border-radius:999px;
+
       background:var(--border);
     }
 
     .mode-fill{
       height:100%;
+
       border-radius:999px;
-      background:linear-gradient(90deg,var(--accent),var(--green));
+
+      background:
+        linear-gradient(90deg,var(--accent),var(--green));
     }
 
-    .traffic-message{
-      margin-top:14px;
-      padding:14px;
-      border:1px solid
-        color-mix(in srgb,var(--accent) 35%,var(--border));
-      border-left:4px solid var(--accent);
-      border-radius:12px;
-      background:var(--accent-soft);
+
+    /* PCU TABS */
+
+    .tab-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+
+      margin:16px 0 12px;
     }
 
-    .traffic-message p{
-      margin:0;
-      color:var(--text);
-      font-size:9.5px;
-      line-height:1.65;
-    }
+    .tab-button{
+      padding:8px 11px;
 
-    .node-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:13px;
-      margin-top:18px;
-    }
-
-    .node-card{
-      overflow:hidden;
       border:1px solid var(--border);
-      border-radius:15px;
+      border-radius:999px;
+
+      background:var(--surface);
+      color:var(--text-soft);
+
+      cursor:pointer;
+
+      font-size:8.7px;
+      font-weight:850;
+
+      transition:
+        background .17s ease,
+        color .17s ease,
+        border-color .17s ease;
+    }
+
+    .tab-button:hover,
+    .tab-button.active{
+      border-color:var(--accent);
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .tab-panel{
+      display:none;
+    }
+
+    .tab-panel.active{
+      display:block;
+    }
+
+
+    /* INTERSECTION EXPLORER */
+
+    .explorer{
+      margin-top:20px;
+
+      overflow:hidden;
+
+      border:1px solid var(--border);
+      border-radius:16px;
+
       background:var(--surface-soft);
       box-shadow:var(--shadow-soft);
     }
 
-    .node-card:last-child:nth-child(odd){
-      grid-column:1 / -1;
-      width:min(720px,100%);
-      justify-self:center;
+    .explorer-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(320px,.72fr);
+      min-height:580px;
     }
 
-    .node-media button{
+    .explorer-media{
+      position:relative;
+
+      min-height:580px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      overflow:hidden;
+
+      background:#fff;
+    }
+
+    .explorer-media button{
       width:100%;
+      height:100%;
       padding:0;
-      display:block;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
       border:0;
       background:#fff;
+
       cursor:zoom-in;
     }
 
-    .node-media img{
+    .explorer-media img{
       width:100%;
-      height:auto;
+      height:580px;
+
+      object-fit:contain;
+
       display:block;
     }
 
-    .node-body{
-      padding:15px;
-      border-top:1px solid var(--border);
+    .explorer-controls{
+      position:absolute;
+      left:14px;
+      right:14px;
+      bottom:14px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      pointer-events:none;
+    }
+
+    .arrow-group{
+      display:flex;
+      gap:7px;
+      pointer-events:auto;
+    }
+
+    .arrow-btn{
+      width:39px;
+      height:39px;
+
+      display:grid;
+      place-items:center;
+
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:10px;
+
+      background:rgba(18,37,48,.88);
+      color:#fff;
+
+      cursor:pointer;
+
+      font-weight:900;
+    }
+
+    .slide-count{
+      padding:7px 10px;
+
+      border-radius:999px;
+
+      background:rgba(18,37,48,.88);
+      color:#fff;
+
+      font-size:8px;
+      font-weight:850;
+
+      pointer-events:auto;
+    }
+
+    .explorer-copy{
+      padding:24px;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
 
     .node-type{
-      margin-bottom:6px;
+      margin-bottom:7px;
+
       color:var(--accent);
+
       font-size:7.8px;
       font-weight:900;
-      letter-spacing:.08em;
+      letter-spacing:.09em;
       text-transform:uppercase;
     }
 
-    .node-body h3{
-      margin-bottom:9px;
-      font-size:14px;
+    .explorer-copy h3{
+      margin-bottom:10px;
+
+      font-size:21px;
+      line-height:1.2;
+      letter-spacing:-.4px;
     }
 
     .node-metrics{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:7px;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px;
+
+      margin:10px 0 13px;
     }
 
     .node-metric{
-      padding:9px;
+      padding:11px;
+
       border:1px solid var(--border);
-      border-radius:9px;
+      border-radius:10px;
+
       background:var(--surface);
     }
 
     .node-metric strong{
       display:block;
-      color:var(--text);
-      font-size:11px;
-      line-height:1.1;
+
+      color:var(--accent);
+
+      font-size:14px;
+      line-height:1.05;
     }
 
     .node-metric span{
       display:block;
+
       margin-top:4px;
+
       color:var(--text-soft);
-      font-size:7.5px;
+
+      font-size:7.6px;
       line-height:1.35;
     }
 
-    .node-insight{
-      margin:11px 0 0;
+    .node-landuse{
+      margin:0 0 10px;
+
       color:var(--text-soft);
-      font-size:8.9px;
-      line-height:1.6;
-    }
 
-    .planner-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      margin-top:17px;
-    }
-
-    .planner-card{
-      padding:14px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:var(--surface-soft);
-    }
-
-    .planner-card span{
-      display:inline-block;
-      margin-bottom:6px;
-      color:var(--accent);
-      font-size:7.7px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-
-    .planner-card h3{
-      font-size:10.5px;
-      margin-bottom:5px;
-    }
-
-    .planner-card p{
-      margin:0;
-      color:var(--text-soft);
-      font-size:8.5px;
-      line-height:1.5;
-    }
-
-
-    /* =====================================================
-       PUBLIC TRANSPORT / MULTIMODAL METRICS
-       ===================================================== */
-
-    .transit-metric-grid{
-      display:grid;
-      grid-template-columns:repeat(5,1fr);
-      gap:9px;
-      margin-top:16px;
-    }
-
-    .transit-metric{
-      padding:13px;
-      border:1px solid var(--border);
-      border-radius:11px;
-      background:var(--surface-soft);
-    }
-
-    .transit-metric strong{
-      display:block;
-      color:var(--accent);
-      font-size:17px;
-      line-height:1.05;
-    }
-
-    .transit-metric span{
-      display:block;
-      margin-top:4px;
-      color:var(--text-soft);
-      font-size:8.2px;
-      line-height:1.4;
-    }
-
-    .rail-highlight{
-      margin-top:14px;
-      padding:15px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:
-        linear-gradient(
-          135deg,
-          var(--surface-soft),
-          var(--accent-soft)
-        );
-    }
-
-    .rail-highlight strong{
-      display:block;
-      margin-bottom:5px;
-      font-size:10.5px;
-    }
-
-    .rail-highlight p{
-      margin:0;
-      color:var(--text-soft);
       font-size:9px;
       line-height:1.6;
     }
 
+    .node-insight{
+      margin:0;
+
+      color:var(--text);
+
+      font-size:9.2px;
+      line-height:1.65;
+    }
+
+    .dots{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+
+      margin-top:17px;
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+
+      padding:0;
+
+      border:0;
+      border-radius:50%;
+
+      background:var(--border-strong);
+
+      cursor:pointer;
+    }
+
+    .dot.active{
+      width:24px;
+      border-radius:999px;
+      background:var(--accent);
+    }
+
 
     /* =====================================================
-       SPEED / DELAY METRICS
+       O-D
+       ===================================================== */
+
+    .finding-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+
+      margin-top:17px;
+    }
+
+    .finding{
+      padding:14px;
+
+      border:1px solid var(--border);
+      border-radius:12px;
+
+      background:var(--surface-soft);
+    }
+
+    .finding strong{
+      display:block;
+
+      color:var(--accent);
+
+      font-size:18px;
+      line-height:1.05;
+    }
+
+    .finding span{
+      display:block;
+
+      margin-top:5px;
+
+      color:var(--text-soft);
+
+      font-size:8.3px;
+      line-height:1.45;
+    }
+
+
+    /* =====================================================
+       PUBLIC TRANSPORT / PEDESTRIAN / PARKING
+       ===================================================== */
+
+    .transit-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:9px;
+
+      margin-top:16px;
+    }
+
+    .transit-card{
+      padding:13px;
+
+      border:1px solid var(--border);
+      border-radius:11px;
+
+      background:var(--surface-soft);
+    }
+
+    .transit-card strong{
+      display:block;
+
+      color:var(--accent);
+
+      font-size:16px;
+      line-height:1.05;
+    }
+
+    .transit-card span{
+      display:block;
+
+      margin-top:5px;
+
+      color:var(--text-soft);
+
+      font-size:8px;
+      line-height:1.4;
+    }
+
+
+    /* =====================================================
+       HOUSEHOLD
+       ===================================================== */
+
+    .household-tabs{
+      margin-top:18px;
+    }
+
+    .household-panel{
+      display:none;
+    }
+
+    .household-panel.active{
+      display:block;
+    }
+
+    .panel-message{
+      margin-top:11px;
+      padding:13px;
+
+      border:1px solid var(--border);
+      border-radius:11px;
+
+      background:var(--surface-soft);
+
+      color:var(--text-soft);
+
+      font-size:8.8px;
+      line-height:1.6;
+    }
+
+
+    /* =====================================================
+       SPEED / SAFETY
        ===================================================== */
 
     .speed-grid{
       display:grid;
       grid-template-columns:repeat(4,1fr);
       gap:10px;
+
       margin-top:16px;
     }
 
     .speed-card{
       padding:14px;
+
       border:1px solid var(--border);
       border-radius:12px;
+
       background:var(--surface-soft);
     }
 
     .speed-card strong{
       display:block;
+
       color:var(--accent);
+
       font-size:17px;
       line-height:1.05;
     }
 
     .speed-card span{
       display:block;
+
       margin-top:5px;
+
       color:var(--text-soft);
-      font-size:8.3px;
+
+      font-size:8.2px;
       line-height:1.45;
     }
 
-
-    @media(max-width:1040px){
-
-      .network-strip,
-      .planner-grid,
-      .speed-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .count-method-grid{
-        grid-template-columns:repeat(3,1fr);
-      }
-
-      .traffic-layout{
-        grid-template-columns:1fr;
-      }
-
-      .transit-metric-grid{
-        grid-template-columns:repeat(3,1fr);
-      }
-
-    }
-
-    @media(max-width:760px){
-
-      .network-strip,
-      .node-grid,
-      .planner-grid,
-      .speed-grid,
-      .transit-metric-grid,
-      .count-method-grid{
-        grid-template-columns:1fr;
-      }
-
-      .node-card:last-child:nth-child(odd){
-        grid-column:auto;
-        width:100%;
-      }
-
-      .mode-bar-row{
-        grid-template-columns:95px 1fr 42px;
-      }
-
-      .node-metrics{
-        grid-template-columns:1fr;
-      }
-
-    }
-
-
-    /* =====================================================
-       14. RECOMMENDATIONS
-       ===================================================== */
-
-    .recommendation-grid{
+    .recommend-grid{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
-
+      grid-template-columns:repeat(4,1fr);
       gap:10px;
 
       margin-top:17px;
     }
 
-    .recommendation{
-      padding:16px;
+    .recommend{
+      padding:14px;
 
       border:1px solid var(--border);
-      border-radius:13px;
+      border-radius:12px;
 
       background:var(--surface-soft);
     }
 
-    .recommendation span{
-      display:inline-block;
-
-      margin-bottom:7px;
-
-      color:var(--green);
-
-      font-size:8px;
-      font-weight:900;
-
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-
-    .recommendation h3{
-      font-size:11px;
-    }
-
-    .recommendation p{
-      margin:0;
-
-      color:var(--text-soft);
-
-      font-size:9px;
-      line-height:1.55;
-    }
-
-
-    /* =====================================================
-       15. REPORT OUTPUT
-       ===================================================== */
-
-    .output-banner{
-      display:grid;
-      grid-template-columns:1fr auto;
-
-      gap:20px;
-      align-items:center;
-
-      padding:19px;
-
-      border:1px solid var(--border);
-      border-radius:14px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--surface-soft),
-          var(--accent-soft)
-        );
-    }
-
-    .output-banner h3{
-      margin-bottom:5px;
-
-      font-size:14px;
-    }
-
-    .output-banner p{
-      margin:0;
-
-      max-width:800px;
-
-      color:var(--text-soft);
-
-      font-size:9.7px;
-      line-height:1.65;
-    }
-
-    .output-badge{
-      padding:11px 13px;
-
-      border:1px solid var(--border);
-      border-radius:11px;
-
-      background:var(--surface);
-
-      text-align:center;
-    }
-
-    .output-badge strong{
+    .recommend span{
       display:block;
+
+      margin-bottom:6px;
 
       color:var(--accent);
 
-      font-size:20px;
-      line-height:1.05;
+      font-size:7.6px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
     }
 
-    .output-badge span{
-      display:block;
+    .recommend h3{
+      font-size:10.5px;
+      margin-bottom:5px;
+    }
 
-      margin-top:4px;
+    .recommend p{
+      margin:0;
 
       color:var(--text-soft);
 
-      font-size:8px;
+      font-size:8.4px;
+      line-height:1.5;
     }
 
 
     /* =====================================================
-       16. FOOTER
+       FOOTER + MODAL
        ===================================================== */
 
     footer{
@@ -1591,23 +1310,15 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-
       gap:15px;
 
       color:var(--text-soft);
-
-      font-size:9px;
+      font-size:8.8px;
     }
-
-
-    /* =====================================================
-       17. IMAGE MODAL
-       ===================================================== */
 
     .image-modal{
       position:fixed;
       inset:0;
-
       z-index:10000;
 
       padding:20px;
@@ -1619,8 +1330,7 @@
       visibility:hidden;
       opacity:0;
 
-      background:rgba(5,12,17,.88);
-
+      background:rgba(5,12,17,.90);
       backdrop-filter:blur(8px);
 
       transition:
@@ -1647,7 +1357,6 @@
       display:block;
 
       border-radius:12px;
-
       background:#fff;
 
       box-shadow:0 30px 100px rgba(0,0,0,.45);
@@ -1655,7 +1364,6 @@
 
     .modal-close{
       position:absolute;
-
       top:-13px;
       right:-13px;
 
@@ -1676,22 +1384,37 @@
 
 
     /* =====================================================
-       18. RESPONSIVE
+       RESPONSIVE
        ===================================================== */
 
-    @media(max-width:1040px){
+    @media(max-width:1060px){
 
       .hero-grid,
-      .overview-grid{
+      .context-grid,
+      .mode-grid,
+      .explorer-grid{
         grid-template-columns:1fr;
       }
 
-      .survey-grid{
-        grid-template-columns:repeat(3,1fr);
+      .explorer-media{
+        min-height:620px;
       }
 
-      .recommendation-grid{
+      .explorer-media img{
+        height:620px;
+      }
+
+      .survey-grid,
+      .context-metrics,
+      .finding-grid,
+      .recommend-grid,
+      .speed-grid{
         grid-template-columns:repeat(2,1fr);
+      }
+
+      .count-method,
+      .transit-grid{
+        grid-template-columns:repeat(3,1fr);
       }
 
     }
@@ -1699,7 +1422,7 @@
     @media(max-width:760px){
 
       :root{
-        --topbar-h:58px;
+        --header-h:58px;
       }
 
       .page,
@@ -1722,44 +1445,36 @@
       }
 
       .hero-stats,
-      .figure-grid,
+      .survey-grid,
+      .context-metrics,
       .finding-grid,
-      .insight-grid,
-      .recommendation-grid{
+      .recommend-grid,
+      .speed-grid,
+      .count-method,
+      .transit-grid,
+      .figure-grid{
         grid-template-columns:1fr;
       }
 
-      .survey-grid{
-        grid-template-columns:repeat(2,1fr);
+      .explorer-media{
+        min-height:500px;
       }
 
-      .photo-grid{
-        grid-template-columns:1fr;
+      .explorer-media img{
+        height:500px;
       }
 
-      .photo-card{
-        min-height:240px;
-      }
-
-      .output-banner{
+      .node-metrics{
         grid-template-columns:1fr;
       }
 
       footer{
-        align-items:flex-start;
         flex-direction:column;
+        align-items:flex-start;
       }
 
       .brand span{
         display:none;
-      }
-
-    }
-
-    @media(max-width:480px){
-
-      .survey-grid{
-        grid-template-columns:1fr;
       }
 
     }
@@ -1782,12 +1497,11 @@
 
 <body>
 
-  <div id="scrollProgress"></div>
+  <div
+    class="scroll-progress"
+    id="scrollProgress"
+  ></div>
 
-
-  <!-- =====================================================
-       TOP BAR
-       ===================================================== -->
 
   <header class="topbar">
 
@@ -1800,23 +1514,22 @@
         </strong>
 
         <span>
-          Professional Experience · Urban & Transportation Planning
+          Transportation Planning · GIS · Survey Analytics
         </span>
 
       </div>
 
-
-      <div class="top-actions">
+      <div class="actions">
 
         <a
-          class="button"
+          class="btn"
           href="../index.html"
         >
           ← Portfolio
         </a>
 
         <button
-          class="button"
+          class="btn"
           id="themeToggle"
           type="button"
         >
@@ -1830,24 +1543,20 @@
   </header>
 
 
-  <!-- =====================================================
-       SECTION NAV
-       ===================================================== -->
-
   <nav class="section-nav">
 
     <div class="section-nav-inner">
 
       <a href="#overview">Overview</a>
-      <a href="#role">My Role</a>
-      <a href="#survey-program">Survey Program</a>
-      <a href="#traffic-counts">Traffic Counts</a>
-      <a href="#mobility">O–D & Regional Mobility</a>
-      <a href="#fieldwork">Fieldwork</a>
+      <a href="#context">Project Context</a>
+      <a href="#survey">Survey Program</a>
+      <a href="#traffic">Traffic + Land Use</a>
+      <a href="#od">O–D</a>
+      <a href="#public-transport">Public Transport</a>
       <a href="#household">Household Travel</a>
-      <a href="#accessibility">Accessibility</a>
-      <a href="#safety">Safety</a>
-      <a href="#recommendations">Planning Response</a>
+      <a href="#parking">Parking</a>
+      <a href="#speed">Speed & Safety</a>
+      <a href="#planning">Planning Output</a>
 
     </div>
 
@@ -1868,42 +1577,40 @@
 
       <div class="hero-grid">
 
-
         <div>
 
           <div class="hero-kicker">
-            Professional Project Case Study
+            Professional Experience · Fakirhat Upazila Master Plan
           </div>
 
           <h1>
             Traffic & Transportation Survey of Fakirhat Upazila
           </h1>
 
-          <div class="hero-role">
-            Assistant Urban Planner · Sheltech Consultants (Pvt.) Ltd.
-          </div>
-
           <p class="hero-description">
 
-            A comprehensive transportation baseline prepared to support the
-            Fakirhat Upazila Master Plan. The work integrated traffic counts,
-            pedestrian movement, origin–destination analysis, public transport,
-            parking, household travel, rail, travel-time and road-safety
-            evidence to identify mobility constraints and translate field data
-            into planning priorities.
+            A multi-component transportation planning assignment integrating
+            traffic and pedestrian counts, land-use context, origin–destination
+            analysis, public transport and pedestrian interviews, household
+            travel behaviour, parking, vehicle occupancy, speed-and-delay
+            analysis, rail assessment and road-safety evidence. The outputs were
+            developed as a transportation baseline for the Fakirhat Upazila
+            Master Plan.
 
           </p>
 
           <div class="tag-row">
 
-            <span class="tag">Transportation Planning</span>
-            <span class="tag">Traffic Survey</span>
+            <span class="tag">Traffic Count</span>
+            <span class="tag">PCU Analysis</span>
+            <span class="tag">Land Use × Mobility</span>
             <span class="tag">Origin–Destination</span>
+            <span class="tag">Household Travel</span>
             <span class="tag">Public Transport</span>
-            <span class="tag">Pedestrian Planning</span>
-            <span class="tag">GIS Mapping</span>
+            <span class="tag">Parking</span>
+            <span class="tag">Speed & Delay</span>
             <span class="tag">Road Safety</span>
-            <span class="tag">Master Plan Support</span>
+            <span class="tag">GIS</span>
 
           </div>
 
@@ -1919,46 +1626,23 @@
           <div class="hero-stats">
 
             <div class="hero-stat">
-
               <strong>17</strong>
-
-              <span>
-                strategically selected survey points
-              </span>
-
+              <span>strategically selected survey points</span>
             </div>
 
+            <div class="hero-stat">
+              <strong>12</strong>
+              <span>survey / workshop components</span>
+            </div>
 
             <div class="hero-stat">
-
               <strong>16 h</strong>
-
-              <span>
-                daily traffic-count window, 6 AM–10 PM
-              </span>
-
+              <span>traffic-count observation window per day</span>
             </div>
 
-
             <div class="hero-stat">
-
-              <strong>5,289</strong>
-
-              <span>
-                union-wise O–D trips recorded
-              </span>
-
-            </div>
-
-
-            <div class="hero-stat">
-
               <strong>3,007.75</strong>
-
-              <span>
-                peak PCU recorded at Nowapara More
-              </span>
-
+              <span>highest highlighted peak PCU · Nowapara</span>
             </div>
 
           </div>
@@ -1971,12 +1655,12 @@
 
 
     <!-- =====================================================
-         ROLE & PROJECT CONTEXT
+         PROJECT CONTEXT
          ===================================================== -->
 
     <section
       class="section-card"
-      id="role"
+      id="context"
     >
 
       <div class="section-label">
@@ -1984,20 +1668,21 @@
       </div>
 
       <h2>
-        From Field Survey to Planning Evidence
+        From Field Survey to Master-Plan Evidence
       </h2>
 
       <p class="section-subtitle">
 
-        The transportation work was designed as a master-plan evidence base,
-        combining direct field observation, structured interviews, GIS-based
-        spatial analysis, statistical summaries and stakeholder feedback.
+        The assignment combined direct observation, structured interviews,
+        GIS-based network analysis, statistical summaries and stakeholder
+        evidence. Survey locations were selected to represent movement intensity,
+        public transport activity, markets, congestion, regional gateways,
+        pedestrian activity and spatial coverage across the upazila.
 
       </p>
 
 
-      <div class="overview-grid">
-
+      <div class="context-grid">
 
         <div>
 
@@ -2005,106 +1690,60 @@
 
             <p>
 
-              The survey assessed road and railway networks, traffic and
-              pedestrian movement, origin–destination patterns, vehicle
-              occupancy, public transport, parking, household travel,
-              speed and delay, and road safety. The selected survey points
-              represented highways, intersections, bazaars, public transport
-              nodes, administrative centres and local roads across Fakirhat.
+              My professional work involved survey implementation and coordination,
+              transport-data processing, GIS mapping, interpretation of traffic and
+              travel patterns, technical reporting and translation of observed
+              conditions into planning recommendations.
 
             </p>
 
           </div>
 
 
-          <div class="contribution-list">
+          <div class="role-list">
 
-
-            <div class="contribution-item">
-
-              <div class="contribution-icon">
-                01
-              </div>
-
+            <div class="role-item">
+              <div class="role-number">01</div>
               <div>
-
-                <strong>
-                  Survey planning & coordination
-                </strong>
-
+                <strong>Field survey implementation</strong>
                 <span>
-                  Supported field survey implementation across traffic,
-                  pedestrian, O–D, public transport, parking and travel-time components.
+                  Traffic, pedestrian, O–D, public transport, parking,
+                  transport inventory and travel-time survey activities.
                 </span>
-
               </div>
-
             </div>
 
-
-            <div class="contribution-item">
-
-              <div class="contribution-icon">
-                02
-              </div>
-
+            <div class="role-item">
+              <div class="role-number">02</div>
               <div>
-
-                <strong>
-                  Data analysis & GIS
-                </strong>
-
+                <strong>GIS & spatial interpretation</strong>
                 <span>
-                  Converted survey outputs into interpretable charts, maps,
-                  network evidence and location-specific transport findings.
+                  Survey-point mapping, road-network context, O–D visualization,
+                  accessibility evidence and location-specific transport diagnostics.
                 </span>
-
               </div>
-
             </div>
 
-
-            <div class="contribution-item">
-
-              <div class="contribution-icon">
-                03
-              </div>
-
+            <div class="role-item">
+              <div class="role-number">03</div>
               <div>
-
-                <strong>
-                  Technical reporting
-                </strong>
-
+                <strong>Traffic & travel-behaviour analysis</strong>
                 <span>
-                  Contributed to synthesizing survey findings into the
-                  transportation baseline and planning recommendations.
+                  Peak-period interpretation, PCU, trip matrices, modal patterns,
+                  household travel and first/last-mile behaviour.
                 </span>
-
               </div>
-
             </div>
 
-
-            <div class="contribution-item">
-
-              <div class="contribution-icon">
-                04
-              </div>
-
+            <div class="role-item">
+              <div class="role-number">04</div>
               <div>
-
-                <strong>
-                  Stakeholder & safety engagement
-                </strong>
-
+                <strong>Technical reporting & planning recommendations</strong>
                 <span>
-                  Supported evidence presentation and road-safety discussion
-                  within the wider master-plan process.
+                  Converted survey evidence into transport problems,
+                  priority nodes and master-plan interventions.
                 </span>
-
               </div>
-
             </div>
 
           </div>
@@ -2117,19 +1756,17 @@
           <button
             type="button"
             data-image="survey-locations.webp"
-            data-alt="Transportation survey locations across Fakirhat Upazila"
+            data-alt="Updated transportation survey locations of Fakirhat Upazila"
           >
-
             <img
               src="./survey-locations.webp"
-              alt="Transportation survey locations across Fakirhat Upazila"
+              alt="Updated transportation survey locations of Fakirhat Upazila"
               loading="lazy"
             >
-
           </button>
 
           <figcaption class="figcaption">
-            Spatial coverage of transportation survey points across Fakirhat Upazila.
+            Updated survey-location map from the current transportation report.
           </figcaption>
 
         </figure>
@@ -2137,29 +1774,50 @@
       </div>
 
 
-      <div class="network-strip">
+      <div class="context-metrics">
 
-        <div class="network-stat">
+        <div class="metric-card">
           <strong>784.26 km</strong>
-          <span>Total LGED road network documented in the transport baseline.</span>
+          <span>LGED road network recorded across Fakirhat.</span>
         </div>
 
-        <div class="network-stat">
+        <div class="metric-card">
           <strong>43.19%</strong>
-          <span>Flexible pavement within the LGED road network.</span>
+          <span>Flexible pavement within the LGED network.</span>
         </div>
 
-        <div class="network-stat">
+        <div class="metric-card">
           <strong>32.75%</strong>
-          <span>Earthen road share, showing lower-order rural accessibility gaps.</span>
+          <span>Earthen-road share, concentrated on lower-order village roads.</span>
         </div>
 
-        <div class="network-stat">
+        <div class="metric-card">
           <strong>N7 · N805 · N807 · R771</strong>
-          <span>National and regional corridors structuring Fakirhat's external connectivity.</span>
+          <span>Higher-order corridors structuring regional connectivity.</span>
         </div>
 
       </div>
+
+
+      <figure class="figure figure-wide">
+
+        <button
+          type="button"
+          data-image="core-road-network.webp"
+          data-alt="Updated core and proposed core road network of Fakirhat Upazila"
+        >
+          <img
+            src="./core-road-network.webp"
+            alt="Updated core and proposed core road network of Fakirhat Upazila"
+            loading="lazy"
+          >
+        </button>
+
+        <figcaption class="figcaption">
+          Updated core-road and proposed core-road network, showing strategic inter-union connections and network redundancy.
+        </figcaption>
+
+      </figure>
 
     </section>
 
@@ -2170,7 +1828,7 @@
 
     <section
       class="section-card"
-      id="survey-program"
+      id="survey"
     >
 
       <div class="section-label">
@@ -2178,14 +1836,14 @@
       </div>
 
       <h2>
-        Multi-Component Transportation Survey
+        A Multi-Source Transportation Evidence Base
       </h2>
 
       <p class="section-subtitle">
 
-        The work combined observed movement, interview-based travel behaviour,
-        infrastructure inventories and stakeholder evidence rather than relying
-        on a single traffic-count dataset.
+        The current report includes twelve transport survey / workshop components,
+        combining observed movement, interview-based travel behaviour,
+        infrastructure inventory and safety evidence.
 
       </p>
 
@@ -2194,74 +1852,74 @@
 
         <article class="survey-card">
           <div class="survey-number">01</div>
-          <h3>Traffic Volume Survey</h3>
-          <p>Mid-block and intersection traffic counts.</p>
+          <h3>Traffic Volume</h3>
+          <p>Mid-block and intersection turning movement counts.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">02</div>
           <h3>Pedestrian Count</h3>
-          <p>Pedestrian intensity at critical movement points.</p>
+          <p>Peak pedestrian intensity and directional movement.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">03</div>
           <h3>Origin–Destination</h3>
-          <p>Roadside interviews to understand internal and external trip flows.</p>
+          <p>Roadside interviews for internal and external trip flows.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">04</div>
           <h3>Vehicle Occupancy</h3>
-          <p>Passenger occupancy across private, intermediate and public modes.</p>
+          <p>Passenger loading across public and intermediate modes.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">05</div>
           <h3>Public Transport Passenger</h3>
-          <p>Trip purpose, access, transfer and service-quality experience.</p>
+          <p>Trip purpose, transfers, access and service quality.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">06</div>
           <h3>Pedestrian Interview</h3>
-          <p>Walking behaviour, perceived safety and infrastructure demand.</p>
+          <p>Walking purpose, crossing safety and facility demand.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">07</div>
           <h3>Speed & Delay</h3>
-          <p>Route travel time, operating speed and location-specific delay.</p>
+          <p>Travel time and segment-level operating conditions.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">08</div>
-          <h3>Train Station Survey</h3>
-          <p>Katakhali Railway Station services, facilities and passenger needs.</p>
+          <h3>Train Station</h3>
+          <p>Katakhali Station function and passenger facilities.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">09</div>
-          <h3>Parking Survey</h3>
-          <p>Parking demand, duration, user behaviour and roadside pressure.</p>
+          <h3>Parking</h3>
+          <p>Demand, duration, roadside stopping and user perception.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">10</div>
           <h3>Transport Inventory</h3>
-          <p>Routes, operators and regional public-transport connectivity.</p>
+          <p>Routes, operators, frequency and regional connectivity.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">11</div>
           <h3>Household Travel</h3>
-          <p>Mode choice, trip distance, accessibility and road-condition experience.</p>
+          <p>Trip purpose, distance, cost, mode and accessibility.</p>
         </article>
 
         <article class="survey-card">
           <div class="survey-number">12</div>
           <h3>Safety Workshop</h3>
-          <p>Stakeholder validation of accident risk, road problems and priority interventions.</p>
+          <p>Accident-prone locations and stakeholder interventions.</p>
         </article>
 
       </div>
@@ -2269,134 +1927,116 @@
     </section>
 
 
-
     <!-- =====================================================
-         TRAFFIC COUNT & INTERSECTION DYNAMICS
+         TRAFFIC + LAND USE
          ===================================================== -->
 
     <section
       class="section-card"
-      id="traffic-counts"
+      id="traffic"
     >
 
       <div class="section-label">
-        Traffic Engineering
+        Traffic Engineering + Land Use
       </div>
 
       <h2>
-        Traffic Count, PCU & Pedestrian Conflict at Key Nodes
+        Updated Intersection Results: Land Use, Vehicle Flow & Pedestrian Demand
       </h2>
 
       <p class="section-subtitle">
 
-        The traffic-count component was designed as more than a simple
-        volume inventory. Directional turning movements, vehicle composition,
-        passenger-car-unit intensity, pedestrian peaks and surrounding
-        land-use functions were interpreted together to identify how individual
-        intersections perform within the wider transport system.
+        The updated report integrates the surrounding land-use pattern with
+        directional vehicle, PCU and pedestrian movements at each major
+        intersection. This makes it possible to interpret not only where traffic
+        is high, but why different nodes experience different peak periods and
+        conflict patterns.
 
       </p>
 
 
-      <div class="count-method-grid">
+      <div class="count-method">
 
-        <div class="count-method">
+        <div class="count-method-card">
           <strong>7</strong>
           <span>traffic + pedestrian count locations</span>
         </div>
 
-        <div class="count-method">
+        <div class="count-method-card">
           <strong>3 days</strong>
-          <span>including hat/bazar day where applicable</span>
+          <span>8–10 November 2024</span>
         </div>
 
-        <div class="count-method">
+        <div class="count-method-card">
           <strong>16 h/day</strong>
-          <span>survey period from 6:00 AM to 10:00 PM</span>
+          <span>6:00 AM–10:00 PM</span>
         </div>
 
-        <div class="count-method">
+        <div class="count-method-card">
           <strong>15 min</strong>
-          <span>directional counting interval</span>
+          <span>counting interval</span>
         </div>
 
-        <div class="count-method">
+        <div class="count-method-card">
           <strong>Video</strong>
-          <span>intersection and mid-block movement recording</span>
+          <span>manual counting + footage cross-check</span>
         </div>
 
       </div>
 
 
-      <div class="traffic-layout">
+      <div class="mode-grid">
 
         <div class="mode-panel">
 
           <h3>
-            LGED Road Vehicle Composition
+            Local-Road Vehicle Composition
           </h3>
 
           <p>
-            Local mobility is overwhelmingly carried by small, flexible and
-            intermediate modes rather than conventional large public transport.
+            LGED-road traffic is dominated by small, flexible modes,
+            emphasizing the importance of intermediate transport and
+            non-motorized mobility in local accessibility.
           </p>
 
           <div class="mode-bars">
 
-            <div class="mode-bar-row">
+            <div class="mode-row">
               <span>Auto van</span>
-              <div class="mode-track">
-                <div class="mode-fill" style="width:100%"></div>
-              </div>
-              <strong>40.00%</strong>
+              <div class="mode-track"><div class="mode-fill" style="width:100%"></div></div>
+              <strong>40%</strong>
             </div>
 
-            <div class="mode-bar-row">
+            <div class="mode-row">
               <span>Motorcycle</span>
-              <div class="mode-track">
-                <div class="mode-fill" style="width:95.9%"></div>
-              </div>
+              <div class="mode-track"><div class="mode-fill" style="width:95.9%"></div></div>
               <strong>38.37%</strong>
             </div>
 
-            <div class="mode-bar-row">
+            <div class="mode-row">
               <span>Bicycle</span>
-              <div class="mode-track">
-                <div class="mode-fill" style="width:39%"></div>
-              </div>
+              <div class="mode-track"><div class="mode-fill" style="width:39%"></div></div>
               <strong>15.58%</strong>
             </div>
 
-            <div class="mode-bar-row">
+            <div class="mode-row">
               <span>CNG</span>
-              <div class="mode-track">
-                <div class="mode-fill" style="width:7.7%"></div>
-              </div>
+              <div class="mode-track"><div class="mode-fill" style="width:7.7%"></div></div>
               <strong>3.06%</strong>
-            </div>
-
-            <div class="mode-bar-row">
-              <span>Other modes</span>
-              <div class="mode-track">
-                <div class="mode-fill" style="width:5.1%"></div>
-              </div>
-              <strong>≈3.0%</strong>
             </div>
 
           </div>
 
-
-          <div class="traffic-message">
-
+          <div
+            class="highlight"
+            style="margin-top:14px;"
+          >
             <p>
-
-              <strong>Transport-planning insight:</strong>
-              vehicle counts alone understate the role of heavy vehicles at
-              highway nodes. Comparing raw volume with PCU helps distinguish
-              local small-mode activity from regional freight and bus pressure.
-
+              <strong>Planning interpretation:</strong>
+              higher-order nodes combine local small-mode activity with heavier
+              buses and freight, so PCU and land-use context are essential for
+              understanding operational pressure.
             </p>
-
           </div>
 
         </div>
@@ -2406,24 +2046,18 @@
 
           <button
             type="button"
-            data-image="pcu-heatmap.webp"
-            data-alt="Location-wise passenger car unit heatmap across traffic-count sites"
+            data-image="traffic-count-locations.webp"
+            data-alt="Updated traffic and pedestrian count survey locations"
           >
-
             <img
-              src="./pcu-heatmap.webp"
-              alt="Location-wise passenger car unit heatmap across traffic-count sites"
+              src="./traffic-count-locations.webp"
+              alt="Updated traffic and pedestrian count survey locations"
               loading="lazy"
             >
-
           </button>
 
           <figcaption class="figcaption">
-
-            Time-of-day PCU heatmap. Higher-order highway and activity nodes
-            sustain substantially greater traffic pressure than local intersections,
-            confirming that congestion is spatially concentrated rather than corridor-wide.
-
+            Current traffic-count and pedestrian-count survey locations from the updated report.
           </figcaption>
 
         </figure>
@@ -2431,372 +2065,222 @@
       </div>
 
 
-      <div class="node-grid">
-
-
-        <!-- Katakhali -->
-
-        <article class="node-card">
-
-          <div class="node-media">
-
-            <button
-              type="button"
-              data-image="traffic-katakhali.webp"
-              data-alt="Katakhali Bus Stand peak vehicle and pedestrian directional counts"
-            >
-
-              <img
-                src="./traffic-katakhali.webp"
-                alt="Katakhali Bus Stand peak vehicle and pedestrian directional counts"
-                loading="lazy"
-              >
-
-            </button>
-
-          </div>
-
-          <div class="node-body">
-
-            <div class="node-type">
-              Highway + Bus / Rail Transfer Node
-            </div>
-
-            <h3>
-              Katakhali Bus Stand
-            </h3>
-
-            <div class="node-metrics">
-
-              <div class="node-metric">
-                <strong>1,956</strong>
-                <span>vehicles · 9:00–10:00 AM</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>2,824.5</strong>
-                <span>peak PCU</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>1,538</strong>
-                <span>pedestrians · 4:30–5:30 PM</span>
-              </div>
-
-            </div>
-
-            <p class="node-insight">
-
-              High highway PCU combines with bus stopping, parking, passenger
-              transfer and nearby railway activity. The mismatch between morning
-              vehicle and evening pedestrian peaks creates different management
-              needs across the day.
-
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- Bishwaroad -->
-
-        <article class="node-card">
-
-          <div class="node-media">
-
-            <button
-              type="button"
-              data-image="traffic-bishwaroad.webp"
-              data-alt="Fakirhat Bishwaroad peak vehicle and pedestrian directional counts"
-            >
-
-              <img
-                src="./traffic-bishwaroad.webp"
-                alt="Fakirhat Bishwaroad peak vehicle and pedestrian directional counts"
-                loading="lazy"
-              >
-
-            </button>
-
-          </div>
-
-          <div class="node-body">
-
-            <div class="node-type">
-              Regional Junction + Market / Transit Activity
-            </div>
-
-            <h3>
-              Fakirhat Bishwaroad
-            </h3>
-
-            <div class="node-metrics">
-
-              <div class="node-metric">
-                <strong>1,378</strong>
-                <span>vehicles · 12:15–1:15 PM</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>1,476.75</strong>
-                <span>peak PCU</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>968 / 909</strong>
-                <span>pedestrians on two busiest approaches</span>
-              </div>
-
-            </div>
-
-            <p class="node-insight">
-
-              Main-bazar access, bus counters, Mahendra stands and regional
-              through movement overlap here. The strongest pedestrian flows
-              follow the north–south activity corridor, reinforcing the need
-              for controlled stopping and protected crossings.
-
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- Nowapara -->
-
-        <article class="node-card">
-
-          <div class="node-media">
-
-            <button
-              type="button"
-              data-image="traffic-nowapara.webp"
-              data-alt="Nowapara More peak vehicle and pedestrian directional counts"
-            >
-
-              <img
-                src="./traffic-nowapara.webp"
-                alt="Nowapara More peak vehicle and pedestrian directional counts"
-                loading="lazy"
-              >
-
-            </button>
-
-          </div>
-
-          <div class="node-body">
-
-            <div class="node-type">
-              Regional Through-Traffic Node
-            </div>
-
-            <h3>
-              Nowapara More
-            </h3>
-
-            <div class="node-metrics">
-
-              <div class="node-metric">
-                <strong>2,048</strong>
-                <span>vehicles · 10:15–11:15 AM</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>3,007.75</strong>
-                <span>highest recorded peak PCU</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>446</strong>
-                <span>pedestrians · 2:00–3:00 PM</span>
-              </div>
-
-            </div>
-
-            <p class="node-insight">
-
-              Nowapara shows the clearest separation between vehicular and
-              pedestrian intensity: very high PCU but modest pedestrian demand.
-              The high PCU-to-volume relationship indicates substantial larger
-              and heavier vehicle presence, characteristic of a regional corridor.
-
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- Duckbangla -->
-
-        <article class="node-card">
-
-          <div class="node-media">
-
-            <button
-              type="button"
-              data-image="traffic-duckbangla.webp"
-              data-alt="Duckbangla More peak vehicle and pedestrian directional counts"
-            >
-
-              <img
-                src="./traffic-duckbangla.webp"
-                alt="Duckbangla More peak vehicle and pedestrian directional counts"
-                loading="lazy"
-              >
-
-            </button>
-
-          </div>
-
-          <div class="node-body">
-
-            <div class="node-type">
-              Market + Freight + Mixed-Use Activity Node
-            </div>
-
-            <h3>
-              Duckbangla More
-            </h3>
-
-            <div class="node-metrics">
-
-              <div class="node-metric">
-                <strong>2,218</strong>
-                <span>vehicles · 5:00–6:00 PM</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>2,207</strong>
-                <span>peak PCU</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>3,824</strong>
-                <span>pedestrians · 4:00–5:00 PM</span>
-              </div>
-
-            </div>
-
-            <p class="node-insight">
-
-              This is the strongest pedestrian activity node among the highlighted
-              intersections. Market closing, service trips, freight movement,
-              loading/unloading and public transport combine during the afternoon,
-              creating intense pedestrian–vehicle interaction.
-
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- Upazila More -->
-
-        <article class="node-card">
-
-          <div class="node-media">
-
-            <button
-              type="button"
-              data-image="traffic-upazila.webp"
-              data-alt="Fakirhat Upazila More peak vehicle and pedestrian directional counts"
-            >
-
-              <img
-                src="./traffic-upazila.webp"
-                alt="Fakirhat Upazila More peak vehicle and pedestrian directional counts"
-                loading="lazy"
-              >
-
-            </button>
-
-          </div>
-
-          <div class="node-body">
-
-            <div class="node-type">
-              Administrative + Service Node
-            </div>
-
-            <h3>
-              Fakirhat Upazila More
-            </h3>
-
-            <div class="node-metrics">
-
-              <div class="node-metric">
-                <strong>1,537</strong>
-                <span>vehicles · 10:15–11:15 AM</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>2,079</strong>
-                <span>peak PCU</span>
-              </div>
-
-              <div class="node-metric">
-                <strong>1,551</strong>
-                <span>pedestrians · 5:15–6:15 PM</span>
-              </div>
-
-            </div>
-
-            <p class="node-insight">
-
-              The junction has a clear bimodal pattern: morning vehicle demand
-              is tied to government, health and service trips, while evening
-              pedestrian demand reflects homeward and market-oriented travel.
-
-            </p>
-
-          </div>
-
-        </article>
+      <h3 style="margin-top:23px;">
+        Three-Day PCU Pattern
+      </h3>
+
+      <div class="tab-row">
+
+        <button
+          class="tab-button pcu-tab active"
+          type="button"
+          data-target="pcu1"
+        >
+          Day 1
+        </button>
+
+        <button
+          class="tab-button pcu-tab"
+          type="button"
+          data-target="pcu2"
+        >
+          Day 2
+        </button>
+
+        <button
+          class="tab-button pcu-tab"
+          type="button"
+          data-target="pcu3"
+        >
+          Day 3
+        </button>
 
       </div>
 
 
-      <div class="planner-grid">
+      <div
+        class="tab-panel pcu-panel active"
+        id="pcu1"
+      >
+        <figure class="figure figure-wide">
+          <button type="button" data-image="pcu-day1.webp" data-alt="PCU heatmap Day 1">
+            <img src="./pcu-day1.webp" alt="PCU heatmap Day 1" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Day 1 passenger-car-unit intensity across the seven traffic-count locations.
+          </figcaption>
+        </figure>
+      </div>
 
-        <article class="planner-card">
-          <span>Node Typology</span>
-          <h3>Not all busy junctions are busy for the same reason</h3>
-          <p>
-            Nowapara is primarily a regional vehicular node, while Duckbangla
-            is a pedestrian-intensive market and mixed-use node.
-          </p>
-        </article>
+      <div
+        class="tab-panel pcu-panel"
+        id="pcu2"
+      >
+        <figure class="figure figure-wide">
+          <button type="button" data-image="pcu-day2.webp" data-alt="PCU heatmap Day 2">
+            <img src="./pcu-day2.webp" alt="PCU heatmap Day 2" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Day 2 passenger-car-unit intensity across the seven traffic-count locations.
+          </figcaption>
+        </figure>
+      </div>
 
-        <article class="planner-card">
-          <span>Peak Timing</span>
-          <h3>Vehicle and pedestrian peaks often do not coincide</h3>
-          <p>
-            Different land uses create morning office peaks, midday market peaks
-            and afternoon/evening pedestrian return peaks.
-          </p>
-        </article>
+      <div
+        class="tab-panel pcu-panel"
+        id="pcu3"
+      >
+        <figure class="figure figure-wide">
+          <button type="button" data-image="pcu-day3.webp" data-alt="PCU heatmap Day 3">
+            <img src="./pcu-day3.webp" alt="PCU heatmap Day 3" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Day 3 passenger-car-unit intensity across the seven traffic-count locations.
+          </figcaption>
+        </figure>
+      </div>
 
-        <article class="planner-card">
-          <span>PCU Interpretation</span>
-          <h3>PCU exposes freight and bus pressure</h3>
-          <p>
-            A high PCU relative to raw vehicle count signals a heavier traffic
-            stream and greater operational demand on the junction.
-          </p>
-        </article>
 
-        <article class="planner-card">
-          <span>Intervention Logic</span>
-          <h3>Target the friction point rather than widen everything</h3>
-          <p>
-            Crossing control, organized loading, parking management and junction
-            operation are more appropriate at many hotspots than corridor-wide widening.
-          </p>
-        </article>
+      <h3 style="margin-top:24px;">
+        Interactive Intersection Explorer
+      </h3>
+
+      <p class="section-subtitle">
+        Each updated figure contains the land-use context in the upper panel and
+        the peak directional vehicle / PCU / pedestrian result in the lower panel.
+      </p>
+
+
+      <div
+        class="explorer"
+        id="trafficExplorer"
+      >
+
+        <div class="explorer-grid">
+
+          <div class="explorer-media">
+
+            <button
+              type="button"
+              id="trafficImageButton"
+              data-image="traffic-katakhali.webp"
+              data-alt="Katakhali Bus Stand updated land use and peak traffic result"
+            >
+
+              <img
+                id="trafficImage"
+                src="./traffic-katakhali.webp"
+                alt="Katakhali Bus Stand updated land use and peak traffic result"
+              >
+
+            </button>
+
+
+            <div class="explorer-controls">
+
+              <div class="arrow-group">
+
+                <button
+                  class="arrow-btn"
+                  id="trafficPrev"
+                  type="button"
+                  aria-label="Previous intersection"
+                >
+                  ←
+                </button>
+
+                <button
+                  class="arrow-btn"
+                  id="trafficNext"
+                  type="button"
+                  aria-label="Next intersection"
+                >
+                  →
+                </button>
+
+              </div>
+
+
+              <div
+                class="slide-count"
+                id="trafficCount"
+              >
+                01 / 07
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="explorer-copy">
+
+            <div
+              class="node-type"
+              id="trafficType"
+            >
+              Highway + Bus / Rail Transfer Node
+            </div>
+
+            <h3 id="trafficTitle">
+              Katakhali Bus Stand
+            </h3>
+
+
+            <div class="node-metrics">
+
+              <div class="node-metric">
+                <strong id="trafficVehicles">1,956</strong>
+                <span id="trafficVehicleLabel">vehicles · 9:00–10:00 AM</span>
+              </div>
+
+              <div class="node-metric">
+                <strong id="trafficPCU">2,824.5</strong>
+                <span>peak PCU</span>
+              </div>
+
+              <div class="node-metric">
+                <strong id="trafficPedestrians">1,538</strong>
+                <span id="trafficPedLabel">pedestrians · 4:30–5:30 PM</span>
+              </div>
+
+              <div class="node-metric">
+                <strong id="trafficFunction">Transfer</strong>
+                <span>dominant transport function</span>
+              </div>
+
+            </div>
+
+
+            <p
+              class="node-landuse"
+              id="trafficLanduse"
+            >
+              <strong>Land-use context:</strong>
+              commercial and mixed-use activity around the bus stand,
+              residential development along connecting roads, railway activity,
+              institutional uses and regional highway movement.
+            </p>
+
+
+            <p
+              class="node-insight"
+              id="trafficInsight"
+            >
+              High PCU, regional through traffic, bus stopping, passenger
+              transfer and roadside activity create strong vehicle–pedestrian
+              interaction and justify priority intersection management.
+            </p>
+
+
+            <div
+              class="dots"
+              id="trafficDots"
+            ></div>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -2804,156 +2288,230 @@
 
 
     <!-- =====================================================
-         MOBILITY
+         ORIGIN DESTINATION
          ===================================================== -->
 
     <section
       class="section-card"
-      id="mobility"
+      id="od"
     >
 
       <div class="section-label">
-        Origin–Destination & Regional Mobility
+        Origin–Destination Analysis
       </div>
 
       <h2>
-        Fakirhat Functions as Both a Local Trip Generator and a Regional Corridor
+        Internal Trip Structure & Regional Connectivity
       </h2>
 
       <p class="section-subtitle">
 
-        Roadside origin–destination interviews reveal a mobility system that
-        serves daily inter-union travel while simultaneously carrying strong
-        regional movements toward Khulna, Dhaka, Bagerhat, Barishal and other
-        centres. Intermediate modes remain central to local mobility.
+        The O–D survey used roadside interviews to capture trip origin,
+        destination, purpose, vehicle occupancy and journey characteristics.
+        The updated outputs include survey-location mapping, internal trip
+        distribution, external district connections, the inter-union matrix
+        and a spatial flow map.
 
       </p>
 
 
       <div class="finding-grid">
 
+        <div class="finding">
+          <strong>5,289</strong>
+          <span>union-wise trips recorded across the survey.</span>
+        </div>
 
-        <article class="finding-card">
+        <div class="finding">
+          <strong>1,939</strong>
+          <span>inter- and intra-union trips represented in the updated matrix.</span>
+        </div>
 
-          <div class="finding-value">
-            5,289
-          </div>
+        <div class="finding">
+          <strong>148</strong>
+          <span>largest individual inter-union flow: Bahirdia Mansa → Lakhpur.</span>
+        </div>
 
-          <strong>
-            Union-wise O–D trips
-          </strong>
-
-          <p>
-            A substantial internal movement matrix was captured across Fakirhat's unions.
-          </p>
-
-        </article>
-
-
-        <article class="finding-card">
-
-          <div class="finding-value">
-            26.02%
-          </div>
-
-          <strong>
-            Largest O–D modal share
-          </strong>
-
-          <p>
-            CNG / auto-rickshaw / auto-van represented the largest surveyed share.
-          </p>
-
-        </article>
-
-
-        <article class="finding-card">
-
-          <div class="finding-value">
-            23.4%
-          </div>
-
-          <strong>
-            Fakirhat Union share
-          </strong>
-
-          <p>
-            Fakirhat generated the largest union-wise trip share, followed by Lakhpur at 22.1%.
-          </p>
-
-        </article>
+        <div class="finding">
+          <strong>524</strong>
+          <span>trips received by Lakhpur, the strongest matrix destination.</span>
+        </div>
 
       </div>
 
 
-      <div class="rail-highlight">
+      <div class="tab-row">
 
-        <strong>
-          Multimodal opportunity — Katakhali Railway Station
-        </strong>
+        <button
+          class="tab-button od-tab active"
+          type="button"
+          data-target="odMatrix"
+        >
+          O–D Matrix
+        </button>
 
+        <button
+          class="tab-button od-tab"
+          type="button"
+          data-target="odFlows"
+        >
+          Spatial Flows
+        </button>
+
+        <button
+          class="tab-button od-tab"
+          type="button"
+          data-target="odInternal"
+        >
+          Internal Distribution
+        </button>
+
+        <button
+          class="tab-button od-tab"
+          type="button"
+          data-target="odExternal"
+        >
+          External Trips
+        </button>
+
+        <button
+          class="tab-button od-tab"
+          type="button"
+          data-target="odLocations"
+        >
+          Survey Locations
+        </button>
+
+      </div>
+
+
+      <div class="tab-panel od-panel active" id="odMatrix">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="od-matrix.webp" data-alt="Updated inter-union origin destination matrix">
+            <img src="./od-matrix.webp" alt="Updated inter-union origin destination matrix" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Updated inter-union O–D matrix. Strong flows include Bahirdia Mansa → Lakhpur, Fakirhat → Lakhpur and Lakhpur → Fakirhat.
+          </figcaption>
+        </figure>
+      </div>
+
+
+      <div class="tab-panel od-panel" id="odFlows">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="od-flow-map.webp" data-alt="Updated spatial O-D flow map">
+            <img src="./od-flow-map.webp" alt="Updated spatial O-D flow map" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Spatial representation of inter-union trip movements using graduated flow lines.
+          </figcaption>
+        </figure>
+      </div>
+
+
+      <div class="tab-panel od-panel" id="odInternal">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="od-internal-distribution.webp" data-alt="Distribution of origins and destinations within Fakirhat">
+            <img src="./od-internal-distribution.webp" alt="Distribution of origins and destinations within Fakirhat" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Updated internal origin/destination distribution across Fakirhat's unions.
+          </figcaption>
+        </figure>
+      </div>
+
+
+      <div class="tab-panel od-panel" id="odExternal">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="od-external-distribution.webp" data-alt="External trip distribution from Fakirhat to Bangladesh">
+            <img src="./od-external-distribution.webp" alt="External trip distribution from Fakirhat to Bangladesh" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            External trip distribution. Khulna is the strongest external destination, followed by other regional and national centres.
+          </figcaption>
+        </figure>
+      </div>
+
+
+      <div class="tab-panel od-panel" id="odLocations">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="od-survey-locations.webp" data-alt="Updated O-D roadside interview survey locations">
+            <img src="./od-survey-locations.webp" alt="Updated O-D roadside interview survey locations" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Updated roadside-interview survey locations used to capture gateway and internal movements.
+          </figcaption>
+        </figure>
+      </div>
+
+
+      <div
+        class="highlight"
+        style="margin-top:16px;"
+      >
         <p>
-
-          Katakhali Station sits on the Mongla–Benapole rail corridor and provides
-          a potentially important alternative to road travel and freight movement.
-          Survey findings indicate regular and affordable service but also reveal
-          passenger-experience gaps including inadequate seating, limited
-          disability-friendly facilities, absence of CCTV and digital information,
-          and weak security. Improving this node would strengthen multimodal
-          connectivity rather than relying only on road-based solutions.
-
+          <strong>Transport-planning insight:</strong>
+          Fakirhat is not simply a local circulation system. The O–D evidence
+          shows strong inter-union interaction together with external linkage,
+          particularly toward Khulna and the wider south-western region.
         </p>
-
       </div>
 
-
-      <div class="figure-grid">
-
-
-        <figure class="figure">
-
-          <button
-            type="button"
-            data-image="pcu-heatmap.webp"
-            data-alt="Location-wise PCU heatmap"
-          >
-
-            <img
-              src="./pcu-heatmap.webp"
-              alt="Location-wise PCU heatmap"
-              loading="lazy"
-            >
-
-          </button>
-
-          <figcaption class="figcaption">
-            Time-of-day variation in passenger-car-unit intensity across survey locations.
-          </figcaption>
-
-        </figure>
+    </section>
 
 
-        <figure class="figure">
+    <!-- =====================================================
+         PUBLIC TRANSPORT
+         ===================================================== -->
 
-          <button
-            type="button"
-            data-image="od-trip-matrix.webp"
-            data-alt="Origin destination trip matrix among unions"
-          >
+    <section
+      class="section-card"
+      id="public-transport"
+    >
 
-            <img
-              src="./od-trip-matrix.webp"
-              alt="Origin destination trip matrix among unions"
-              loading="lazy"
-            >
+      <div class="section-label">
+        Multimodal & User-Side Evidence
+      </div>
 
-          </button>
+      <h2>
+        Public Transport, Walking & Rail
+      </h2>
 
-          <figcaption class="figcaption">
-            Inter-union O–D matrix showing strong corridor relationships within Fakirhat.
-          </figcaption>
+      <p class="section-subtitle">
 
-        </figure>
+        Passenger and pedestrian interviews complement the traffic counts by
+        explaining who travels, why they travel, how they reach public transport
+        and which service or safety constraints affect everyday mobility.
+
+      </p>
+
+
+      <div class="transit-grid">
+
+        <div class="transit-card">
+          <strong>39.06</strong>
+          <span>average occupancy · large bus</span>
+        </div>
+
+        <div class="transit-card">
+          <strong>32.69</strong>
+          <span>average occupancy · medium bus</span>
+        </div>
+
+        <div class="transit-card">
+          <strong>7.97</strong>
+          <span>average occupancy · Mahindra</span>
+        </div>
+
+        <div class="transit-card">
+          <strong>52%</strong>
+          <span>first-mile access by walking</span>
+        </div>
+
+        <div class="transit-card">
+          <strong>47%</strong>
+          <span>last-mile access by walking</span>
+        </div>
 
       </div>
 
@@ -2962,20 +2520,87 @@
 
         <button
           type="button"
-          data-image="od-locations.webp"
-          data-alt="Origin destination survey locations"
+          data-image="fieldwork-strip.webp"
+          data-alt="Updated public transport passenger survey field photographs"
         >
-
           <img
-            src="./od-locations.webp"
-            alt="Origin destination survey locations"
+            src="./fieldwork-strip.webp"
+            alt="Updated public transport passenger survey field photographs"
             loading="lazy"
           >
-
         </button>
 
         <figcaption class="figcaption">
-          Spatial distribution of origin–destination survey locations.
+          Public transport passenger survey fieldwork shown in the updated report.
+        </figcaption>
+
+      </figure>
+
+
+      <div class="figure-grid">
+
+        <figure class="figure">
+          <button type="button" data-image="pt-trip-purpose.webp" data-alt="Public transport passenger trip purpose">
+            <img src="./pt-trip-purpose.webp" alt="Public transport passenger trip purpose" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Public transport passenger trip-purpose distribution.
+          </figcaption>
+        </figure>
+
+        <figure class="figure">
+          <button type="button" data-image="ped-trip-purpose.webp" data-alt="Pedestrian trip purpose">
+            <img src="./ped-trip-purpose.webp" alt="Pedestrian trip purpose" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Work, market/shopping and home-related travel dominate pedestrian trip purposes.
+          </figcaption>
+        </figure>
+
+      </div>
+
+
+      <div class="finding-grid">
+
+        <div class="finding">
+          <strong>49%</strong>
+          <span>identified accident risk as a pedestrian safety concern.</span>
+        </div>
+
+        <div class="finding">
+          <strong>42%</strong>
+          <span>identified absence of footpaths.</span>
+        </div>
+
+        <div class="finding">
+          <strong>52%</strong>
+          <span>considered footpaths necessary.</span>
+        </div>
+
+        <div class="finding">
+          <strong>63%</strong>
+          <span>supported zebra crossings.</span>
+        </div>
+
+      </div>
+
+
+      <figure class="figure figure-wide">
+
+        <button
+          type="button"
+          data-image="train-station.webp"
+          data-alt="Katakhali Railway Station"
+        >
+          <img
+            src="./train-station.webp"
+            alt="Katakhali Railway Station"
+            loading="lazy"
+          >
+        </button>
+
+        <figcaption class="figcaption">
+          Katakhali Railway Station: a strategic rail node with potential to strengthen multimodal connectivity.
         </figcaption>
 
       </figure>
@@ -2984,180 +2609,7 @@
 
 
     <!-- =====================================================
-         FIELDWORK
-         ===================================================== -->
-
-    <section
-      class="section-card"
-      id="fieldwork"
-    >
-
-      <div class="section-label">
-        Field Implementation
-      </div>
-
-      <h2>
-        Surveying Mobility on the Ground
-      </h2>
-
-      <p class="section-subtitle">
-
-        Roadside and passenger surveys were implemented directly at transport
-        activity points, allowing the analysis to combine spatial data with
-        observed travel behaviour and user experience.
-
-      </p>
-
-      <div class="transit-metric-grid">
-
-        <div class="transit-metric">
-          <strong>39.06</strong>
-          <span>average passengers in large buses</span>
-        </div>
-
-        <div class="transit-metric">
-          <strong>32.69</strong>
-          <span>average passengers in medium buses</span>
-        </div>
-
-        <div class="transit-metric">
-          <strong>7.97</strong>
-          <span>average Mahindra occupancy</span>
-        </div>
-
-        <div class="transit-metric">
-          <strong>52%</strong>
-          <span>first-mile access by walking</span>
-        </div>
-
-        <div class="transit-metric">
-          <strong>47%</strong>
-          <span>last-mile access by walking</span>
-        </div>
-
-      </div>
-
-
-
-      <div class="photo-grid">
-
-        <div class="photo-card">
-          <img
-            src="./field-survey-1.webp"
-            alt="Roadside transportation survey in Fakirhat"
-            loading="lazy"
-          >
-        </div>
-
-        <div class="photo-card">
-          <img
-            src="./field-survey-2.webp"
-            alt="Public transport passenger survey in Fakirhat"
-            loading="lazy"
-          >
-        </div>
-
-        <div class="photo-card">
-          <img
-            src="./field-survey-3.webp"
-            alt="Transportation interview survey in Fakirhat"
-            loading="lazy"
-          >
-        </div>
-
-      </div>
-
-
-      <div class="insight-grid">
-
-        <article class="insight-card">
-
-          <h3>
-            Public Transport
-          </h3>
-
-          <p>
-            Walking was the dominant first- and last-mile access mode.
-            Users generally valued affordability and availability, while
-            punctuality, cleanliness, seating, terminal conditions and
-            inclusivity remained important service gaps.
-          </p>
-
-        </article>
-
-
-        <article class="insight-card">
-
-          <h3>
-            Pedestrian Mobility
-          </h3>
-
-          <p>
-            Walking supports work, market and home-related travel, but
-            respondents identified accident risk, missing footpaths,
-            poor crossings and inadequate lighting as key concerns.
-          </p>
-
-        </article>
-
-      </div>
-
-
-      <div class="figure-grid">
-
-        <figure class="figure">
-
-          <button
-            type="button"
-            data-image="public-transport-trip-purpose.webp"
-            data-alt="Public transport passenger trip purposes"
-          >
-
-            <img
-              src="./public-transport-trip-purpose.webp"
-              alt="Public transport passenger trip purposes"
-              loading="lazy"
-            >
-
-          </button>
-
-          <figcaption class="figcaption">
-            Trip-purpose profile from the public transport passenger survey.
-          </figcaption>
-
-        </figure>
-
-
-        <figure class="figure">
-
-          <button
-            type="button"
-            data-image="pedestrian-trip-purpose.webp"
-            data-alt="Pedestrian trip purposes"
-          >
-
-            <img
-              src="./pedestrian-trip-purpose.webp"
-              alt="Pedestrian trip purposes"
-              loading="lazy"
-            >
-
-          </button>
-
-          <figcaption class="figcaption">
-            Work and market/shopping were major pedestrian trip purposes.
-          </figcaption>
-
-        </figure>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         HOUSEHOLD TRAVEL SURVEY
+         HOUSEHOLD TRAVEL
          ===================================================== -->
 
     <section
@@ -3170,498 +2622,222 @@
       </div>
 
       <h2>
-        Household Travel Survey — A Detailed View of Daily Mobility
+        Household Travel Behavior & Accessibility
       </h2>
 
       <p class="section-subtitle">
 
-        The household travel survey is one of the most comprehensive components
-        of the transportation study. It combines vehicle ownership, road-condition
-        perceptions, mode-choice determinants, trip purpose, distance, cost,
-        age/gender differences, first- and last-mile travel, union-level variation
-        and service accessibility. The survey was conducted over 39 consecutive
-        days from 25 October to 4 December 2025.
+        The updated report retains a detailed household travel component covering
+        road conditions, mode-choice factors, distance–cost relationships, trip
+        purpose, inclusive mobility, mode substitution, first/last-mile behavior,
+        union-level differences and service accessibility.
 
       </p>
 
 
-      <div class="household-intro-grid">
+      <div class="finding-grid">
 
-        <div class="household-summary">
-
-          <h3>
-            What the household survey captures
-          </h3>
-
-          <p>
-
-            Household-level travel data were derived from the socio-economic
-            survey using a stratified sampling framework. The analysis was
-            designed to explain not only which modes people use, but also
-            how distance, purpose, affordability, road conditions, service
-            access and demographic characteristics influence travel behaviour
-            across the eight unions of Fakirhat Upazila.
-
-          </p>
-
-          <div class="household-metric-grid">
-
-            <div class="household-metric">
-              <strong>39 days</strong>
-              <span>Continuous household survey period.</span>
-            </div>
-
-            <div class="household-metric">
-              <strong>8 unions</strong>
-              <span>Comparative union-level mobility analysis.</span>
-            </div>
-
-            <div class="household-metric">
-              <strong>66%</strong>
-              <span>Education trips occurring within 3 km.</span>
-            </div>
-
-            <div class="household-metric">
-              <strong>17%</strong>
-              <span>Work trips extending beyond 10 km.</span>
-            </div>
-
-          </div>
-
+        <div class="finding">
+          <strong>39 days</strong>
+          <span>household travel survey period.</span>
         </div>
 
+        <div class="finding">
+          <strong>&lt;1 km</strong>
+          <span>walking dominates the shortest trips.</span>
+        </div>
 
-        <div class="ownership-card">
+        <div class="finding">
+          <strong>1–5 km</strong>
+          <span>rickshaw/van and cycling become more important.</span>
+        </div>
 
-          <h3>
-            Household vehicle ownership by union
-          </h3>
-
-          <div class="ownership-bars">
-
-            <div class="ownership-row">
-              <span>Bahirdia Mansa</span>
-              <div class="ownership-track"><div class="ownership-fill" style="width:68%"></div></div>
-              <strong>68%</strong>
-            </div>
-
-            <div class="ownership-row">
-              <span>Betaga</span>
-              <div class="ownership-track"><div class="ownership-fill" style="width:84%"></div></div>
-              <strong>84%</strong>
-            </div>
-
-            <div class="ownership-row">
-              <span>Fakirhat</span>
-              <div class="ownership-track"><div class="ownership-fill" style="width:72%"></div></div>
-              <strong>72%</strong>
-            </div>
-
-            <div class="ownership-row">
-              <span>Lakhpur</span>
-              <div class="ownership-track"><div class="ownership-fill" style="width:81%"></div></div>
-              <strong>81%</strong>
-            </div>
-
-            <div class="ownership-row">
-              <span>Mulghar</span>
-              <div class="ownership-track"><div class="ownership-fill" style="width:62%"></div></div>
-              <strong>62%</strong>
-            </div>
-
-            <div class="ownership-row">
-              <span>Naldha Maubhog</span>
-              <div class="ownership-track"><div class="ownership-fill" style="width:70%"></div></div>
-              <strong>70%</strong>
-            </div>
-
-            <div class="ownership-row">
-              <span>Piljanga</span>
-              <div class="ownership-track"><div class="ownership-fill" style="width:69%"></div></div>
-              <strong>69%</strong>
-            </div>
-
-            <div class="ownership-row">
-              <span>Subhadia</span>
-              <div class="ownership-track"><div class="ownership-fill" style="width:75%"></div></div>
-              <strong>75%</strong>
-            </div>
-
-          </div>
-
+        <div class="finding">
+          <strong>&gt;20 km</strong>
+          <span>bus travel becomes dominant.</span>
         </div>
 
       </div>
 
 
-      <!-- Road environment & mode choice -->
+      <div class="household-tabs">
 
-      <div class="household-group">
+        <div class="tab-row">
 
-        <div class="household-group-head">
-          <h3>1. Road Environment & Mode-Choice Constraints</h3>
-          <p>Household perceptions translated into union-level planning evidence.</p>
-        </div>
-
-        <div class="figure-grid">
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="road-problems.webp"
-              data-alt="Union-wise road problems reported by households"
-            >
-
-              <img
-                src="./road-problems.webp"
-                alt="Union-wise road problems reported by households"
-                loading="lazy"
-              >
-
-            </button>
-
-            <figcaption class="figcaption">
-              Broken roads, waterlogging, drainage, road width, pavement and street-lighting problems vary strongly by union.
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="household-mode-choice-factors.webp"
-              data-alt="Factors considered when choosing a transport mode"
-            >
-
-              <img
-                src="./household-mode-choice-factors.webp"
-                alt="Factors considered when choosing a transport mode"
-                loading="lazy"
-              >
-
-            </button>
-
-            <figcaption class="figcaption">
-              Travel cost, time, vehicle availability, safety and comfort are major determinants of mode choice.
-            </figcaption>
-
-          </figure>
-
-        </div>
-
-      </div>
-
-
-      <!-- Distance, cost and purpose -->
-
-      <div class="household-group">
-
-        <div class="household-group-head">
-          <h3>2. Distance, Cost & Trip Purpose</h3>
-          <p>How household travel burden changes with mode and activity.</p>
-        </div>
-
-        <div class="figure-grid">
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="household-distance-cost.webp"
-              data-alt="Distance and cost relationship by transport mode"
-            >
-              <img
-                src="./household-distance-cost.webp"
-                alt="Distance and cost relationship by transport mode"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Mode-specific distance–cost relationships reveal different fare structures and travel burdens.
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="household-purpose-mode.webp"
-              data-alt="Purpose-wise trip mode distribution"
-            >
-              <img
-                src="./household-purpose-mode.webp"
-                alt="Purpose-wise trip mode distribution"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Education, market, work and other trip purposes show different modal combinations.
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="household-purpose-distance.webp"
-              data-alt="Purpose-wise trip distance"
-            >
-              <img
-                src="./household-purpose-distance.webp"
-                alt="Purpose-wise trip distance"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Education is highly localized, while work trips show the strongest long-distance component.
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="household-trip-cost.webp"
-              data-alt="Travel cost by trip purpose"
-            >
-              <img
-                src="./household-trip-cost.webp"
-                alt="Travel cost by trip purpose"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Work and other trips carry a comparatively higher financial burden than local education and market trips.
-            </figcaption>
-
-          </figure>
-
-        </div>
-
-      </div>
-
-
-      <!-- Inclusivity and substitution -->
-
-      <div class="household-group">
-
-        <div class="household-group-head">
-          <h3>3. Inclusive Mobility & Mode Substitution</h3>
-          <p>Age, gender, trip distance and access shape how residents move.</p>
-        </div>
-
-        <div class="figure-grid">
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="household-gender-age-mode.webp"
-              data-alt="Gender and age wise mode share of trips"
-            >
-              <img
-                src="./household-gender-age-mode.webp"
-                alt="Gender and age wise mode share of trips"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Gender- and age-specific mode shares highlight the importance of inclusive transport planning.
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="mode-substitution.webp"
-              data-alt="Mode substitution by trip distance"
-            >
-              <img
-                src="./mode-substitution.webp"
-                alt="Mode substitution by trip distance"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Walking dominates the shortest trips, followed by rickshaw/van, cycling, motorcycles and then public motorized modes as distance increases.
-            </figcaption>
-
-          </figure>
-
-        </div>
-
-
-        <figure class="figure figure-wide">
-
-          <button
-            type="button"
-            data-image="household-first-last-mile.webp"
-            data-alt="First-mile and last-mile mode share by trip purpose"
-          >
-            <img
-              src="./household-first-last-mile.webp"
-              alt="First-mile and last-mile mode share by trip purpose"
-              loading="lazy"
-            >
+          <button class="tab-button household-tab active" type="button" data-target="hhRoad">
+            Road & Mode Choice
           </button>
 
-          <figcaption class="figcaption">
-            Walking dominates first- and last-mile travel across trip purposes, indicating the importance of safe pedestrian access.
-          </figcaption>
+          <button class="tab-button household-tab" type="button" data-target="hhCost">
+            Distance, Cost & Purpose
+          </button>
 
-        </figure>
+          <button class="tab-button household-tab" type="button" data-target="hhInclusive">
+            Inclusive Mobility
+          </button>
 
-      </div>
+          <button class="tab-button household-tab" type="button" data-target="hhUnion">
+            Union Differences
+          </button>
 
-
-      <!-- Union differences -->
-
-      <div class="household-group">
-
-        <div class="household-group-head">
-          <h3>4. Union-Level Mobility Differences</h3>
-          <p>Accessibility and settlement structure produce different travel patterns across Fakirhat.</p>
-        </div>
-
-        <div class="figure-grid">
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="household-union-distance-mode.webp"
-              data-alt="Union-wise distribution of trip distance and travel mode"
-            >
-              <img
-                src="./household-union-distance-mode.webp"
-                alt="Union-wise distribution of trip distance and travel mode"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Short- and medium-distance travel dominates most unions, but the modal response differs with local accessibility.
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="household-union-purpose-distance.webp"
-              data-alt="Union-wise distribution of trip purpose and trip distance"
-            >
-              <img
-                src="./household-union-purpose-distance.webp"
-                alt="Union-wise distribution of trip purpose and trip distance"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Union-level trip purpose and distance profiles reveal differences in access to employment, markets and education.
-            </figcaption>
-
-          </figure>
+          <button class="tab-button household-tab" type="button" data-target="hhAccess">
+            Service Accessibility
+          </button>
 
         </div>
 
-      </div>
 
+        <div class="household-panel active" id="hhRoad">
 
-      <!-- Service access -->
+          <div class="figure-grid">
 
-      <div class="household-group">
+            <figure class="figure">
+              <button type="button" data-image="household-road-problems.webp" data-alt="Union-wise road problems">
+                <img src="./household-road-problems.webp" alt="Union-wise road problems" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Union-wise road-condition problems around households.
+              </figcaption>
+            </figure>
 
-        <div class="household-group-head">
-          <h3>5. Linking Travel Behaviour with Service Accessibility</h3>
-          <p>Household trip patterns were interpreted alongside spatial service-area analysis.</p>
+            <figure class="figure">
+              <button type="button" data-image="household-mode-choice.webp" data-alt="Factors considered when choosing transport mode">
+                <img src="./household-mode-choice.webp" alt="Factors considered when choosing transport mode" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Travel cost, time, vehicle availability, safety and comfort influence mode choice differently across unions.
+              </figcaption>
+            </figure>
+
+          </div>
+
         </div>
 
-        <div class="figure-grid">
 
-          <figure class="figure">
+        <div class="household-panel" id="hhCost">
 
-            <button
-              type="button"
-              data-image="education-service-area.webp"
-              data-alt="Education facility service area"
-            >
-              <img
-                src="./education-service-area.webp"
-                alt="Education facility service area"
-                loading="lazy"
-              >
+          <div class="figure-grid">
+
+            <figure class="figure">
+              <button type="button" data-image="household-distance-cost.webp" data-alt="Distance and cost by transport mode">
+                <img src="./household-distance-cost.webp" alt="Distance and cost by transport mode" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Mode-specific relationship between trip distance and travel cost.
+              </figcaption>
+            </figure>
+
+            <figure class="figure">
+              <button type="button" data-image="household-purpose-mode.webp" data-alt="Purpose-wise trip mode distribution">
+                <img src="./household-purpose-mode.webp" alt="Purpose-wise trip mode distribution" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Trip-purpose-specific modal patterns for education, market, work and other activities.
+              </figcaption>
+            </figure>
+
+          </div>
+
+          <figure class="figure figure-wide">
+            <button type="button" data-image="household-trip-cost.webp" data-alt="Travel cost for different trip purposes">
+              <img src="./household-trip-cost.webp" alt="Travel cost for different trip purposes" loading="lazy">
             </button>
-
             <figcaption class="figcaption">
-              Education facilities have relatively broad local coverage, consistent with the strong concentration of education trips within 3 km.
+              Travel-cost distribution by trip purpose.
             </figcaption>
-
-          </figure>
-
-
-          <figure class="figure">
-
-            <button
-              type="button"
-              data-image="market-service-area.webp"
-              data-alt="Market service area"
-            >
-              <img
-                src="./market-service-area.webp"
-                alt="Market service area"
-                loading="lazy"
-              >
-            </button>
-
-            <figcaption class="figcaption">
-              Market accessibility is more spatially concentrated, helping explain longer commercial trips in several peripheral unions.
-            </figcaption>
-
           </figure>
 
         </div>
 
-      </div>
+
+        <div class="household-panel" id="hhInclusive">
+
+          <div class="figure-grid">
+
+            <figure class="figure">
+              <button type="button" data-image="household-gender-age.webp" data-alt="Gender and age wise mode share">
+                <img src="./household-gender-age.webp" alt="Gender and age wise mode share" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Gender- and age-wise modal differences for inclusive transport interpretation.
+              </figcaption>
+            </figure>
+
+            <figure class="figure">
+              <button type="button" data-image="household-mode-substitution.webp" data-alt="Mode substitution by trip distance">
+                <img src="./household-mode-substitution.webp" alt="Mode substitution by trip distance" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Clear mode substitution as trip distance increases.
+              </figcaption>
+            </figure>
+
+          </div>
+
+          <figure class="figure figure-wide">
+            <button type="button" data-image="household-first-last-mile.webp" data-alt="First-mile and last-mile mode share by trip purpose">
+              <img src="./household-first-last-mile.webp" alt="First-mile and last-mile mode share by trip purpose" loading="lazy">
+            </button>
+            <figcaption class="figcaption">
+              First- and last-mile modal patterns by trip purpose.
+            </figcaption>
+          </figure>
+
+        </div>
 
 
-      <div
-        class="highlight"
-        style="margin-top:20px;"
-      >
+        <div class="household-panel" id="hhUnion">
 
-        <p>
+          <div class="figure-grid">
 
-          <strong>Planning message:</strong>
-          household travel behaviour is not uniform across Fakirhat.
-          Short local trips depend heavily on walking and intermediate modes,
-          while longer work and service trips increasingly depend on motorized
-          transport. This supports a combined strategy of better local roads,
-          drainage and lighting, safer walking, affordable intermediate/public
-          transport, and improved access to services in peripheral unions.
+            <figure class="figure">
+              <button type="button" data-image="household-union-distance-mode.webp" data-alt="Union-wise trip distance and mode">
+                <img src="./household-union-distance-mode.webp" alt="Union-wise trip distance and mode" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Union-wise differences in trip distance and modal choice.
+              </figcaption>
+            </figure>
 
-        </p>
+            <figure class="figure">
+              <button type="button" data-image="household-union-purpose-distance.webp" data-alt="Union-wise trip purpose and trip distance">
+                <img src="./household-union-purpose-distance.webp" alt="Union-wise trip purpose and trip distance" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Union-level variation in trip purpose and distance.
+              </figcaption>
+            </figure>
+
+          </div>
+
+        </div>
+
+
+        <div class="household-panel" id="hhAccess">
+
+          <div class="figure-grid">
+
+            <figure class="figure">
+              <button type="button" data-image="education-service-area.webp" data-alt="Education facility service area">
+                <img src="./education-service-area.webp" alt="Education facility service area" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Service-area analysis for education facilities.
+              </figcaption>
+            </figure>
+
+            <figure class="figure">
+              <button type="button" data-image="market-service-area.webp" data-alt="Market service area">
+                <img src="./market-service-area.webp" alt="Market service area" loading="lazy">
+              </button>
+              <figcaption class="figcaption">
+                Service-area analysis for markets and commercial access.
+              </figcaption>
+            </figure>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -3669,71 +2845,237 @@
 
 
     <!-- =====================================================
-         ACCESSIBILITY
+         PARKING
          ===================================================== -->
 
     <section
       class="section-card"
-      id="accessibility"
+      id="parking"
     >
 
       <div class="section-label">
-        Parking & Local Accessibility
+        Parking & Node Operations
       </div>
 
       <h2>
-        Operational Pressure Around Activity Nodes
+        Roadside Parking Is an Operational Constraint
       </h2>
 
       <p class="section-subtitle">
 
-        Parking and local-access conditions reinforce the household findings:
-        important transport nodes face roadside stopping, short-duration parking,
-        loading and passenger pick-up activity, while peripheral areas experience
-        stronger infrastructure deficiencies.
+        Parking demand is concentrated around key activity and transport nodes.
+        Short-duration stopping, passenger pick-up/drop-off and the absence of
+        formal parking areas reduce effective road capacity around important
+        intersections.
 
       </p>
 
+
       <div class="finding-grid">
 
-        <article class="finding-card">
-          <div class="finding-value">95%</div>
-          <strong>Dedicated parking considered necessary</strong>
-          <p>Survey responses show strong demand for organized parking facilities.</p>
-        </article>
+        <div class="finding">
+          <strong>94%</strong>
+          <span>reported no specific parking area.</span>
+        </div>
 
-        <article class="finding-card">
-          <div class="finding-value">94%</div>
-          <strong>Reported no specific parking area</strong>
-          <p>Roadside parking is concentrated around important transport and activity nodes.</p>
-        </article>
+        <div class="finding">
+          <strong>95%</strong>
+          <span>considered dedicated parking necessary.</span>
+        </div>
 
-        <article class="finding-card">
-          <div class="finding-value">87%</div>
-          <strong>Dissatisfied with existing parking</strong>
-          <p>The evidence supports formal pick-up/drop-off areas and regulated local transport stands.</p>
-        </article>
+        <div class="finding">
+          <strong>87%</strong>
+          <span>were dissatisfied with current parking conditions.</span>
+        </div>
+
+        <div class="finding">
+          <strong>54%</strong>
+          <span>identified passenger availability as a reason for parking.</span>
+        </div>
 
       </div>
+
+
+      <div class="figure-grid">
+
+        <figure class="figure">
+          <button type="button" data-image="parking-locations.webp" data-alt="Updated parking survey locations">
+            <img src="./parking-locations.webp" alt="Updated parking survey locations" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Updated parking survey locations across Fakirhat.
+          </figcaption>
+        </figure>
+
+        <figure class="figure">
+          <button type="button" data-image="parking-time.webp" data-alt="Usual parking time">
+            <img src="./parking-time.webp" alt="Usual parking time" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Short-duration parking reinforces the need for organized passenger loading and stopping areas.
+          </figcaption>
+        </figure>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SPEED / SAFETY
+         ===================================================== -->
+
+    <section
+      class="section-card"
+      id="speed"
+    >
+
+      <div class="section-label">
+        Operations & Road Safety
+      </div>
+
+      <h2>
+        Delay Is Localized Rather Than Corridor-Wide
+      </h2>
+
+      <p class="section-subtitle">
+
+        Travel-time results distinguish slower, activity-affected sections from
+        relatively free-flowing corridors. The safety assessment then connects
+        those operating conditions with accident-prone locations, roadside
+        activity and infrastructure deficiencies.
+
+      </p>
+
+
+      <div class="speed-grid">
+
+        <div class="speed-card">
+          <strong>≈28–69 km/h</strong>
+          <span>Route A car-speed range across segments.</span>
+        </div>
+
+        <div class="speed-card">
+          <strong>20–30 sec</strong>
+          <span>localized delay around Katakhali Bus Stand.</span>
+        </div>
+
+        <div class="speed-card">
+          <strong>≈54–72 km/h</strong>
+          <span>Route B car speeds, showing smoother operation.</span>
+        </div>
+
+        <div class="speed-card">
+          <strong>Targeted</strong>
+          <span>management is more appropriate than corridor-wide treatment.</span>
+        </div>
+
+      </div>
+
 
       <figure class="figure figure-wide">
 
         <button
           type="button"
-          data-image="parking-time.webp"
-          data-alt="Usual parking time"
+          data-image="travel-time-routes.webp"
+          data-alt="Updated travel time survey routes"
         >
-
           <img
-            src="./parking-time.webp"
-            alt="Usual parking time"
+            src="./travel-time-routes.webp"
+            alt="Updated travel time survey routes"
             loading="lazy"
           >
-
         </button>
 
         <figcaption class="figcaption">
-          Short-duration parking dominates, consistent with passenger pick-up and drop-off activity.
+          Updated Route A and Route B travel-time survey corridors.
+        </figcaption>
+
+      </figure>
+
+
+      <div class="tab-row">
+
+        <button class="tab-button speed-tab active" type="button" data-target="speedCar1">
+          Car · Direction 1
+        </button>
+
+        <button class="tab-button speed-tab" type="button" data-target="speedCar2">
+          Car · Reverse
+        </button>
+
+        <button class="tab-button speed-tab" type="button" data-target="speedM1">
+          Mahindra · Direction 1
+        </button>
+
+        <button class="tab-button speed-tab" type="button" data-target="speedM2">
+          Mahindra · Reverse
+        </button>
+
+      </div>
+
+
+      <div class="tab-panel speed-panel active" id="speedCar1">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="speed-car-forward.webp" data-alt="Car speed map direction 1">
+            <img src="./speed-car-forward.webp" alt="Car speed map direction 1" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Segment-level car operating speeds on the two selected routes.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="tab-panel speed-panel" id="speedCar2">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="speed-car-reverse.webp" data-alt="Car speed map reverse direction">
+            <img src="./speed-car-reverse.webp" alt="Car speed map reverse direction" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Reverse-direction car operating speeds.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="tab-panel speed-panel" id="speedM1">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="speed-mahindra-forward.webp" data-alt="Mahindra speed map direction 1">
+            <img src="./speed-mahindra-forward.webp" alt="Mahindra speed map direction 1" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Mahindra operating speeds show stronger sensitivity to roadside activity and junction conditions.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="tab-panel speed-panel" id="speedM2">
+        <figure class="figure figure-wide">
+          <button type="button" data-image="speed-mahindra-reverse.webp" data-alt="Mahindra speed map reverse direction">
+            <img src="./speed-mahindra-reverse.webp" alt="Mahindra speed map reverse direction" loading="lazy">
+          </button>
+          <figcaption class="figcaption">
+            Reverse-direction Mahindra operating speeds.
+          </figcaption>
+        </figure>
+      </div>
+
+
+      <figure class="figure figure-wide">
+
+        <button
+          type="button"
+          data-image="accident-locations.webp"
+          data-alt="Accident-prone locations in Fakirhat Upazila"
+        >
+          <img
+            src="./accident-locations.webp"
+            alt="Accident-prone locations in Fakirhat Upazila"
+            loading="lazy"
+          >
+        </button>
+
+        <figcaption class="figcaption">
+          Accident-prone locations identified through police records and the road-safety planning process.
         </figcaption>
 
       </figure>
@@ -3742,152 +3084,12 @@
 
 
     <!-- =====================================================
-         SAFETY / SPEED
+         PLANNING OUTPUT
          ===================================================== -->
 
     <section
       class="section-card"
-      id="safety"
-    >
-
-      <div class="section-label">
-        Operations & Road Safety
-      </div>
-
-      <h2>
-        Target Critical Nodes, Not Just Entire Corridors
-      </h2>
-
-      <p class="section-subtitle">
-
-        The travel-time analysis showed that delay is strongly location-specific.
-        The safety workshop similarly identified concentrated accident and
-        congestion risks around selected highway interfaces, markets,
-        intersections and roadside activity zones.
-
-      </p>
-
-      <div class="speed-grid">
-
-        <div class="speed-card">
-          <strong>28–69 km/h</strong>
-          <span>typical Route A car-speed range across segments</span>
-        </div>
-
-        <div class="speed-card">
-          <strong>20–30 sec</strong>
-          <span>localized delay around Katakhali Bus Stand</span>
-        </div>
-
-        <div class="speed-card">
-          <strong>54–72 km/h</strong>
-          <span>Route B car speeds, indicating comparatively smooth flow</span>
-        </div>
-
-        <div class="speed-card">
-          <strong>Node-specific</strong>
-          <span>main diagnosis: delays are concentrated, not corridor-wide</span>
-        </div>
-
-      </div>
-
-
-
-      <div class="insight-grid">
-
-        <article class="insight-card">
-
-          <h3>
-            Speed & Delay
-          </h3>
-
-          <p>
-            Route A showed localized slowdowns around Katakhali Bus Stand and
-            other developed sections, while Route B generally operated more
-            smoothly. The evidence supports targeted junction, parking and
-            access management rather than indiscriminate corridor widening.
-          </p>
-
-        </article>
-
-
-        <article class="insight-card">
-
-          <h3>
-            Road-Safety Risk
-          </h3>
-
-          <p>
-            Overspeeding, weak markings and signage, poor visibility,
-            highway-access level differences, roadside markets and
-            unregulated parking were identified as important risk factors.
-          </p>
-
-        </article>
-
-      </div>
-
-
-      <div class="figure-grid">
-
-
-        <figure class="figure">
-
-          <button
-            type="button"
-            data-image="travel-time-routes.webp"
-            data-alt="Travel time survey routes"
-          >
-
-            <img
-              src="./travel-time-routes.webp"
-              alt="Travel time survey routes"
-              loading="lazy"
-            >
-
-          </button>
-
-          <figcaption class="figcaption">
-            Travel-time survey routes used to diagnose segment-level operating conditions.
-          </figcaption>
-
-        </figure>
-
-
-        <figure class="figure">
-
-          <button
-            type="button"
-            data-image="accident-locations.webp"
-            data-alt="Accident-prone locations in Fakirhat Upazila"
-          >
-
-            <img
-              src="./accident-locations.webp"
-              alt="Accident-prone locations in Fakirhat Upazila"
-              loading="lazy"
-            >
-
-          </button>
-
-          <figcaption class="figcaption">
-            Accident locations used alongside stakeholder evidence to identify road-safety priorities.
-          </figcaption>
-
-        </figure>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         RECOMMENDATIONS
-         ===================================================== -->
-
-    <section
-      class="section-card"
-      id="recommendations"
+      id="planning"
     >
 
       <div class="section-label">
@@ -3895,92 +3097,106 @@
       </div>
 
       <h2>
-        From Survey Findings to Master-Plan Priorities
+        From Survey Findings to Transport Interventions
       </h2>
 
       <p class="section-subtitle">
 
-        The value of the survey lies in translating observed mobility conditions
-        into practical infrastructure, public-transport, accessibility and
-        safety responses for the master plan.
+        The strength of the assignment is the translation of multiple survey
+        streams into location-specific, multimodal and accessibility-oriented
+        recommendations for the master-plan process.
 
       </p>
 
 
-      <div class="recommendation-grid">
+      <div class="recommend-grid">
 
-        <article class="recommendation">
-          <span>Road Network</span>
-          <h3>Upgrade local and core roads</h3>
-          <p>Address deteriorated village/core roads and strengthen strategic inter-union links.</p>
+        <article class="recommend">
+          <span>Intersections</span>
+          <h3>Target critical nodes</h3>
+          <p>
+            Improve circulation, turning movements and access management at
+            Katakhali, Bishwaroad, Duckbangla and other major activity nodes.
+          </p>
         </article>
 
-        <article class="recommendation">
-          <span>Junctions</span>
-          <h3>Target critical activity nodes</h3>
-          <p>Improve intersection management where traffic, markets and passenger stopping overlap.</p>
+        <article class="recommend">
+          <span>Walking</span>
+          <h3>Protect pedestrian movement</h3>
+          <p>
+            Provide crossings, footpaths, lighting and traffic-calming measures
+            where pedestrian demand and vehicular conflict overlap.
+          </p>
         </article>
 
-        <article class="recommendation">
-          <span>Pedestrians</span>
-          <h3>Provide footpaths and safe crossings</h3>
-          <p>Prioritize markets, schools, transport nodes and high-conflict crossing locations.</p>
-        </article>
-
-        <article class="recommendation">
-          <span>Parking</span>
-          <h3>Organize stands and pick-up zones</h3>
-          <p>Reduce carriageway obstruction through designated parking and passenger loading areas.</p>
-        </article>
-
-        <article class="recommendation">
+        <article class="recommend">
           <span>Public Transport</span>
-          <h3>Improve passenger facilities</h3>
-          <p>Strengthen reliability, terminals, seating and inclusive facilities for diverse users.</p>
+          <h3>Organize stopping and transfer</h3>
+          <p>
+            Formalize loading/unloading, public transport stands and passenger
+            facilities at high-demand nodes.
+          </p>
         </article>
 
-        <article class="recommendation">
-          <span>Safety</span>
-          <h3>Implement location-specific road-safety measures</h3>
-          <p>Use signage, markings, speed management, lighting and targeted redesign at high-risk points.</p>
+        <article class="recommend">
+          <span>Parking</span>
+          <h3>Manage roadside stopping</h3>
+          <p>
+            Provide designated parking and short-duration pick-up/drop-off
+            areas rather than allowing uncontrolled carriageway occupation.
+          </p>
+        </article>
+
+        <article class="recommend">
+          <span>Road Network</span>
+          <h3>Strengthen core links</h3>
+          <p>
+            Improve strategic local-road connections and network redundancy
+            between unions and the Upazila Headquarters.
+          </p>
+        </article>
+
+        <article class="recommend">
+          <span>Rural Access</span>
+          <h3>Upgrade lower-order roads</h3>
+          <p>
+            Prioritize damaged, earthen and HBB village roads together with
+            drainage, culverts and street lighting.
+          </p>
+        </article>
+
+        <article class="recommend">
+          <span>Rail</span>
+          <h3>Improve multimodal potential</h3>
+          <p>
+            Strengthen Katakhali Railway Station passenger facilities and its
+            integration with local road-based transport.
+          </p>
+        </article>
+
+        <article class="recommend">
+          <span>Road Safety</span>
+          <h3>Apply hotspot-specific measures</h3>
+          <p>
+            Address speed, markings, visibility, highway-access conflicts,
+            roadside markets and other conditions identified at accident-prone locations.
+          </p>
         </article>
 
       </div>
 
 
       <div
-        class="output-banner"
-        style="margin-top:19px;"
+        class="highlight"
+        style="margin-top:18px;"
       >
-
-        <div>
-
-          <h3>
-            Professional Output
-          </h3>
-
-          <p>
-
-            The underlying deliverable is a comprehensive transportation survey
-            report prepared as evidence for the Fakirhat Upazila Master Plan.
-            This portfolio page presents selected methods, findings and figures
-            rather than reproducing the entire technical document.
-
-          </p>
-
-        </div>
-
-
-        <div class="output-badge">
-
-          <strong>DSR</strong>
-
-          <span>
-            master-plan transportation evidence base
-          </span>
-
-        </div>
-
+        <p>
+          <strong>Professional takeaway:</strong>
+          this work demonstrates the full transportation-planning workflow:
+          field survey design → traffic and travel-behavior analysis → GIS
+          visualization → diagnosis of network and node problems → master-plan
+          recommendations.
+        </p>
       </div>
 
     </section>
@@ -3989,11 +3205,11 @@
     <footer>
 
       <span>
-        Professional experience · Sheltech Consultants (Pvt.) Ltd.
+        Professional portfolio · Transportation Planning · Fakirhat Upazila
       </span>
 
       <a
-        class="button"
+        class="btn"
         href="../index.html"
       >
         Back to Portfolio
@@ -4005,7 +3221,7 @@
 
 
   <!-- =====================================================
-       IMAGE VIEWER
+       IMAGE MODAL
        ===================================================== -->
 
   <div
@@ -4046,11 +3262,11 @@
       document.getElementById("themeToggle");
 
 
-    const savedTheme =
-      localStorage.getItem("jobCaseTheme");
+    const storedTheme =
+      localStorage.getItem("fakirhatProfessionalTheme");
 
 
-    if(savedTheme === "dark"){
+    if(storedTheme === "dark"){
       document.body.classList.add("dark");
     }
 
@@ -4063,7 +3279,7 @@
 
 
         localStorage.setItem(
-          "jobCaseTheme",
+          "fakirhatProfessionalTheme",
           document.body.classList.contains("dark")
             ? "dark"
             : "light"
@@ -4088,14 +3304,14 @@
         window.innerHeight;
 
 
-      const percentage =
+      const pct =
         maxScroll > 0
           ? (window.scrollY / maxScroll) * 100
           : 0;
 
 
       scrollProgress.style.width =
-        percentage + "%";
+        pct + "%";
 
     }
 
@@ -4136,7 +3352,8 @@
 
                 link.classList.toggle(
                   "active",
-                  link.getAttribute("href") === "#" + entry.target.id
+                  link.getAttribute("href") ===
+                  "#" + entry.target.id
                 );
 
               });
@@ -4159,7 +3376,393 @@
 
 
     /* =====================================================
-       IMAGE VIEWER
+       GENERIC TABS
+       ===================================================== */
+
+    function initTabs(buttonSelector,panelSelector){
+
+      const buttons =
+        [...document.querySelectorAll(buttonSelector)];
+
+
+      const panels =
+        [...document.querySelectorAll(panelSelector)];
+
+
+      buttons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            buttons.forEach(item =>
+              item.classList.remove("active")
+            );
+
+
+            panels.forEach(panel =>
+              panel.classList.remove("active")
+            );
+
+
+            button.classList.add("active");
+
+
+            const target =
+              document.getElementById(button.dataset.target);
+
+
+            if(target){
+              target.classList.add("active");
+            }
+
+          }
+        );
+
+      });
+
+    }
+
+
+    initTabs(".pcu-tab",".pcu-panel");
+    initTabs(".od-tab",".od-panel");
+    initTabs(".household-tab",".household-panel");
+    initTabs(".speed-tab",".speed-panel");
+
+
+    /* =====================================================
+       TRAFFIC EXPLORER
+       UPDATED REPORT FIGURES ONLY
+       ===================================================== */
+
+    const trafficSlides = [
+
+      {
+        title:"Katakhali Bus Stand",
+        type:"Highway + Bus / Rail Transfer Node",
+        image:"traffic-katakhali.webp",
+        vehicles:"1,956",
+        vehicleLabel:"vehicles · 9:00–10:00 AM",
+        pcu:"2,824.5",
+        pedestrians:"1,538",
+        pedLabel:"pedestrians · 4:30–5:30 PM",
+        function:"Transfer",
+        landuse:
+          "<strong>Land-use context:</strong> commercial and mixed-use activity around the bus stand, residential development along connecting roads, railway activity, institutional uses and regional highway movement.",
+        insight:
+          "High PCU, regional through traffic, bus stopping, passenger transfer and roadside activity create strong vehicle–pedestrian interaction and justify priority intersection management."
+      },
+
+      {
+        title:"Fakirhat Bishwaroad",
+        type:"Regional Junction + Market / Transit Activity",
+        image:"traffic-bishwaroad.webp",
+        vehicles:"1,378",
+        vehicleLabel:"vehicles · 12:15–1:15 PM",
+        pcu:"1,476.75",
+        pedestrians:"968 / 909",
+        pedLabel:"pedestrians · two busiest approaches",
+        function:"Market",
+        landuse:
+          "<strong>Land-use context:</strong> dense residential and commercial development, mixed-use frontage, Main Bazar access, community facilities, bus counters and Mahindra stands.",
+        insight:
+          "Regional traffic overlaps with market access and high pedestrian movement. Controlled stopping, public-transport management and protected crossings are more important than treating the junction only as a through-traffic location."
+      },
+
+      {
+        title:"Nowapara More",
+        type:"Regional Through-Traffic Node",
+        image:"traffic-nowapara.webp",
+        vehicles:"2,048",
+        vehicleLabel:"vehicles · 10:15–11:15 AM",
+        pcu:"3,007.75",
+        pedestrians:"446",
+        pedLabel:"pedestrians · 2:00–3:00 PM",
+        function:"Through",
+        landuse:
+          "<strong>Land-use context:</strong> dispersed residential and agricultural development with comparatively limited commercial and institutional concentration.",
+        insight:
+          "Nowapara combines the highest highlighted PCU with comparatively modest pedestrian demand, confirming its function as a regional vehicular corridor rather than a pedestrian-intensive activity centre."
+      },
+
+      {
+        title:"Duckbangla More",
+        type:"Market + Freight + Mixed-Use Activity Node",
+        image:"traffic-duckbangla.webp",
+        vehicles:"2,218",
+        vehicleLabel:"vehicles · 5:00–6:00 PM",
+        pcu:"2,207",
+        pedestrians:"3,824",
+        pedLabel:"pedestrians · 4:00–5:00 PM",
+        function:"Mixed-use",
+        landuse:
+          "<strong>Land-use context:</strong> Fakirhat Main Market, commercial and mixed-use frontage, residential development, administrative/health services and freight-generating activities toward Bahirdia-Mansa.",
+        insight:
+          "This is the strongest highlighted pedestrian activity node. Market closing, return trips, freight, loading/unloading and public transport overlap in the afternoon, creating significant pedestrian–vehicle conflict."
+      },
+
+      {
+        title:"Fakirhat Upazila More",
+        type:"Administrative + Service Node",
+        image:"traffic-upazila.webp",
+        vehicles:"1,537",
+        vehicleLabel:"vehicles · 10:15–11:15 AM",
+        pcu:"2,079",
+        pedestrians:"1,551",
+        pedLabel:"pedestrians · 5:15–6:15 PM",
+        function:"Services",
+        landuse:
+          "<strong>Land-use context:</strong> residential surroundings with concentrated administrative, commercial, educational, health and community facilities around the Upazila Headquarters.",
+        insight:
+          "The different vehicle and pedestrian peaks reveal a clear daily functional cycle: morning demand is driven by administrative and service access, while evening walking reflects return-home and market-related movement."
+      },
+
+      {
+        title:"Jalchatra More",
+        type:"Local Accessibility Node",
+        image:"traffic-jalchatra.webp",
+        vehicles:"344",
+        vehicleLabel:"vehicles · 5:00–6:00 PM",
+        pcu:"443.3",
+        pedestrians:"573",
+        pedLabel:"pedestrians across approaches · derived total",
+        function:"Local",
+        landuse:
+          "<strong>Land-use context:</strong> predominantly residential surroundings with limited localized commercial and service activity.",
+        insight:
+          "Vehicular pressure is modest but pedestrian movement is distributed across several approaches. The appropriate response is local crossing protection, roadside management and traffic calming rather than large-scale capacity expansion."
+      },
+
+      {
+        title:"Faraji Moral, Lakhpur",
+        type:"Local Junction + Residential / Agricultural Context",
+        image:"traffic-faraji.webp",
+        vehicles:"649",
+        vehicleLabel:"vehicles · 4:30–5:30 PM",
+        pcu:"704.65",
+        pedestrians:"157",
+        pedLabel:"pedestrian peak · 7:00–8:00 PM",
+        function:"Local",
+        landuse:
+          "<strong>Land-use context:</strong> mainly residential and agricultural development with comparatively limited commercial and service activity.",
+        insight:
+          "The junction shows a late-afternoon vehicle peak followed by a later pedestrian peak, reflecting homeward travel first and localized social/commercial activity later in the evening."
+      }
+
+    ];
+
+
+    let trafficIndex = 0;
+
+
+    const trafficImage =
+      document.getElementById("trafficImage");
+
+    const trafficImageButton =
+      document.getElementById("trafficImageButton");
+
+    const trafficTitle =
+      document.getElementById("trafficTitle");
+
+    const trafficType =
+      document.getElementById("trafficType");
+
+    const trafficVehicles =
+      document.getElementById("trafficVehicles");
+
+    const trafficVehicleLabel =
+      document.getElementById("trafficVehicleLabel");
+
+    const trafficPCU =
+      document.getElementById("trafficPCU");
+
+    const trafficPedestrians =
+      document.getElementById("trafficPedestrians");
+
+    const trafficPedLabel =
+      document.getElementById("trafficPedLabel");
+
+    const trafficFunction =
+      document.getElementById("trafficFunction");
+
+    const trafficLanduse =
+      document.getElementById("trafficLanduse");
+
+    const trafficInsight =
+      document.getElementById("trafficInsight");
+
+    const trafficCount =
+      document.getElementById("trafficCount");
+
+    const trafficDots =
+      document.getElementById("trafficDots");
+
+
+    function renderTrafficDots(){
+
+      trafficDots.innerHTML = "";
+
+
+      trafficSlides.forEach((slide,index) => {
+
+        const dot =
+          document.createElement("button");
+
+
+        dot.className =
+          "dot" +
+          (index === trafficIndex ? " active" : "");
+
+
+        dot.type =
+          "button";
+
+
+        dot.setAttribute(
+          "aria-label",
+          "View " + slide.title
+        );
+
+
+        dot.addEventListener(
+          "click",
+          () => {
+
+            trafficIndex = index;
+
+            renderTrafficSlide();
+
+          }
+        );
+
+
+        trafficDots.appendChild(dot);
+
+      });
+
+    }
+
+
+    function renderTrafficSlide(){
+
+      const slide =
+        trafficSlides[trafficIndex];
+
+
+      trafficImage.src =
+        "./" + slide.image;
+
+
+      trafficImage.alt =
+        slide.title +
+        " updated land use and peak traffic result";
+
+
+      trafficImageButton.dataset.image =
+        slide.image;
+
+
+      trafficImageButton.dataset.alt =
+        trafficImage.alt;
+
+
+      trafficTitle.textContent =
+        slide.title;
+
+
+      trafficType.textContent =
+        slide.type;
+
+
+      trafficVehicles.textContent =
+        slide.vehicles;
+
+
+      trafficVehicleLabel.textContent =
+        slide.vehicleLabel;
+
+
+      trafficPCU.textContent =
+        slide.pcu;
+
+
+      trafficPedestrians.textContent =
+        slide.pedestrians;
+
+
+      trafficPedLabel.textContent =
+        slide.pedLabel;
+
+
+      trafficFunction.textContent =
+        slide.function;
+
+
+      trafficLanduse.innerHTML =
+        slide.landuse;
+
+
+      trafficInsight.textContent =
+        slide.insight;
+
+
+      trafficCount.textContent =
+        String(trafficIndex + 1).padStart(2,"0") +
+        " / " +
+        String(trafficSlides.length).padStart(2,"0");
+
+
+      renderTrafficDots();
+
+    }
+
+
+    document
+      .getElementById("trafficPrev")
+      .addEventListener(
+        "click",
+        () => {
+
+          trafficIndex =
+            (
+              trafficIndex -
+              1 +
+              trafficSlides.length
+            ) %
+            trafficSlides.length;
+
+
+          renderTrafficSlide();
+
+        }
+      );
+
+
+    document
+      .getElementById("trafficNext")
+      .addEventListener(
+        "click",
+        () => {
+
+          trafficIndex =
+            (
+              trafficIndex +
+              1
+            ) %
+            trafficSlides.length;
+
+
+          renderTrafficSlide();
+
+        }
+      );
+
+
+    renderTrafficSlide();
+
+
+    /* =====================================================
+       IMAGE MODAL
        ===================================================== */
 
     const imageModal =
@@ -4174,38 +3777,55 @@
       document.getElementById("modalClose");
 
 
-    document
-      .querySelectorAll("[data-image]")
-      .forEach(button => {
+    function attachModalTriggers(){
 
-        button.addEventListener(
-          "click",
-          () => {
+      document
+        .querySelectorAll("[data-image]")
+        .forEach(button => {
 
-            modalImage.src =
-              "./" + button.dataset.image;
-
-
-            modalImage.alt =
-              button.dataset.alt || "Project figure";
-
-
-            imageModal.classList.add("show");
-
-
-            imageModal.setAttribute(
-              "aria-hidden",
-              "false"
-            );
-
-
-            document.body.style.overflow =
-              "hidden";
-
+          if(button.dataset.modalBound === "true"){
+            return;
           }
-        );
 
-      });
+
+          button.dataset.modalBound =
+            "true";
+
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              modalImage.src =
+                "./" + button.dataset.image;
+
+
+              modalImage.alt =
+                button.dataset.alt ||
+                "Transportation research figure";
+
+
+              imageModal.classList.add("show");
+
+
+              imageModal.setAttribute(
+                "aria-hidden",
+                "false"
+              );
+
+
+              document.body.style.overflow =
+                "hidden";
+
+            }
+          );
+
+        });
+
+    }
+
+
+    attachModalTriggers();
 
 
     function closeModal(){
