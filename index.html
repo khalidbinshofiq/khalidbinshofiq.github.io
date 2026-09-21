@@ -515,14 +515,40 @@
     .experience-description{ max-width: 760px; margin: 9px 0 0; color: var(--text-soft); font-size: 11px; line-height: 1.65; }
 
     /* =====================================================
-       17. ACHIEVEMENTS
+       17. ACHIEVEMENTS & CERTIFICATES
        ===================================================== */
     .achievement-grid{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
-    .achievement-card{ overflow: hidden; border: 1px solid var(--border); border-radius: 13px; background: var(--surface-soft); }
+    .achievement-card{
+      overflow: hidden; display: flex; flex-direction: column;
+      border: 1px solid var(--border); border-radius: 13px; background: var(--surface-soft);
+    }
     .achievement-images{ height: 160px; overflow: hidden; display: flex; gap: 4px; background: var(--surface-hover); }
     .achievement-images img{ width: 100%; min-width: 0; object-fit: cover; }
-    .achievement-images.two img{ width: 50%; }
-    .achievement-info{ padding: 14px; }
+    /* Certificate images: whole certificate visible, click to enlarge */
+    .achievement-images.certificate{
+      width: 100%; padding: 10px; border: 0;
+      align-items: center; justify-content: center;
+      cursor: zoom-in;
+    }
+    .achievement-images.certificate img{
+      width: 100%; height: 100%; object-fit: contain; border-radius: 4px;
+      transition: transform .25s ease;
+    }
+    .achievement-images.certificate:hover img{ transform: scale(1.03); }
+    /* Text banner for the award (no photo) */
+    .achievement-banner{
+      height: 160px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 7px; text-align: center;
+      background: linear-gradient(135deg, var(--accent), var(--green)); color: #fff;
+    }
+    .achievement-banner .rank{ font-size: 44px; line-height: 1; font-weight: 800; letter-spacing: -1px; }
+    .achievement-banner .rank sup{ font-size: 18px; }
+    .achievement-banner .rank-label{ font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; opacity: .92; }
+    .achievement-info{ flex: 1; display: flex; flex-direction: column; padding: 14px; }
+    .achievement-type{
+      margin-bottom: 4px; color: var(--accent);
+      font-size: 8.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    }
     .achievement-info strong{ display: block; margin-bottom: 5px; font-size: 12px; }
     .achievement-info p{ margin: 0; color: var(--text-soft); font-size: 10px; line-height: 1.5; }
 
@@ -1293,23 +1319,28 @@
         </section>
 
         <!-- ===============================================
-             ACHIEVEMENTS
+             ACHIEVEMENTS & CERTIFICATES
+             Certificate images open in the preview window
+             when clicked.
              =============================================== -->
         <section class="section-card reveal" id="achievements">
           <div class="section-head">
             <div>
               <div class="section-label">Recognition</div>
-              <h2>Achievements</h2>
+              <h2>Achievements & Certificates</h2>
             </div>
           </div>
 
           <div class="achievement-grid">
+
+            <!-- 2nd Runner-Up (text banner, no photos) -->
             <article class="achievement-card">
-              <div class="achievement-images two">
-                <img src="1.png" alt="EnvoFrame achievement" loading="lazy">
-                <img src="2.jpeg" alt="EnvoFrame competition" loading="lazy">
+              <div class="achievement-banner">
+                <div class="rank">2<sup>nd</sup></div>
+                <div class="rank-label">Runner-Up</div>
               </div>
               <div class="achievement-info">
+                <div class="achievement-type">Award</div>
                 <strong>2nd Runner-Up</strong>
                 <p>EnvoFrame SDG Awareness Videography Competition, North South University, 2023.</p>
                 <div class="card-actions">
@@ -1318,11 +1349,18 @@
               </div>
             </article>
 
+            <!-- Climate Science Olympiad -->
             <article class="achievement-card">
-              <div class="achievement-images">
+              <button class="achievement-images certificate preview-button" type="button"
+                data-title="Climate Science Olympiad — Finalist"
+                data-preview="Picture1.jpg"
+                data-link="Picture1.jpg"
+                data-type="image"
+                aria-label="View Climate Science Olympiad certificate">
                 <img src="Picture1.jpg" alt="Climate Science Olympiad certificate" loading="lazy">
-              </div>
+              </button>
               <div class="achievement-info">
+                <div class="achievement-type">Competition</div>
                 <strong>Finalist</strong>
                 <p>Climate Science Olympiad, 2023.</p>
                 <div class="card-actions">
@@ -1330,6 +1368,55 @@
                 </div>
               </div>
             </article>
+
+            <!-- GIS Intermediate Certificate -->
+            <article class="achievement-card">
+              <button class="achievement-images certificate preview-button" type="button"
+                data-title="GIS Intermediate Certificate"
+                data-preview="images/GIS%20Intermediate%20Certificate.jpg"
+                data-link="images/GIS%20Intermediate%20Certificate.jpg"
+                data-type="image"
+                aria-label="View GIS Intermediate Certificate">
+                <img src="images/GIS%20Intermediate%20Certificate.jpg" alt="GIS Intermediate Certificate" loading="lazy">
+              </button>
+              <div class="achievement-info">
+                <div class="achievement-type">Certificate</div>
+                <strong>GIS Intermediate Certificate</strong>
+                <p>Intermediate-level training in GIS and spatial analysis.</p>
+                <div class="card-actions">
+                  <button class="mini-button preview-button" type="button"
+                    data-title="GIS Intermediate Certificate"
+                    data-preview="images/GIS%20Intermediate%20Certificate.jpg"
+                    data-link="images/GIS%20Intermediate%20Certificate.jpg"
+                    data-type="image">View Certificate</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- TIA Certificate -->
+            <article class="achievement-card">
+              <button class="achievement-images certificate preview-button" type="button"
+                data-title="TIA Certificate"
+                data-preview="images/TIA%20Certificate.jpg"
+                data-link="images/TIA%20Certificate.jpg"
+                data-type="image"
+                aria-label="View TIA Certificate">
+                <img src="images/TIA%20Certificate.jpg" alt="TIA Certificate" loading="lazy">
+              </button>
+              <div class="achievement-info">
+                <div class="achievement-type">Certificate</div>
+                <strong>TIA Certificate</strong>
+                <p>Professional training in Traffic Impact Assessment (TIA).</p>
+                <div class="card-actions">
+                  <button class="mini-button preview-button" type="button"
+                    data-title="TIA Certificate"
+                    data-preview="images/TIA%20Certificate.jpg"
+                    data-link="images/TIA%20Certificate.jpg"
+                    data-type="image">View Certificate</button>
+                </div>
+              </div>
+            </article>
+
           </div>
         </section>
 
@@ -1603,6 +1690,7 @@
       modalDescription.textContent = description;
       modalCurrentLink = link || preview || "#";
       modalOpen.href = modalCurrentLink;
+      modalOpen.textContent = type === "image" ? "Open Full Image" : "Open Project";
       modalPreview.innerHTML = "";
       modalPreview.classList.remove("show");
 
@@ -1657,7 +1745,7 @@
       }
     });
 
-    /* Preview buttons */
+    /* Preview buttons (research, experience, certificates) */
     document.querySelectorAll(".preview-button").forEach(button => {
       button.addEventListener("click", event => {
         event.stopPropagation();
@@ -1787,6 +1875,9 @@
       { title: "Education", subtitle: "Academic background", type: "Section", href: "#education" },
       { title: "Tools & Platforms", subtitle: "GIS, programming and data science", type: "Section", href: "#skills-badges" },
       { title: "Professional Experience", subtitle: "Sheltech Consultants", type: "Section", href: "#professional-experience" },
+      { title: "Achievements & Certificates", subtitle: "Awards, competitions and training certificates", type: "Section", href: "#achievements" },
+      { title: "GIS Intermediate Certificate", subtitle: "Training certificate", type: "Certificate", href: "#achievements" },
+      { title: "TIA Certificate", subtitle: "Traffic Impact Assessment training", type: "Certificate", href: "#achievements" },
       { title: "GeoAI", subtitle: "Research interest", type: "Interest", href: "#current-research" },
       { title: "Urban Growth", subtitle: "Research interest", type: "Interest", href: "#current-research" },
       { title: "Remote Sensing", subtitle: "Research and technical skill", type: "Interest", href: "#current-research" },
