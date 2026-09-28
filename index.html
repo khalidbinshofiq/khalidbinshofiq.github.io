@@ -289,127 +289,203 @@
     .card-actions{ margin-top: auto; padding-top: 14px; display: flex; flex-wrap: wrap; gap: 7px; }
 
     /* =====================================================
-       13. RECENT PROJECTS — IMAGE / VIDEO PREVIEW SLIDER
+       13. RECENT PROJECTS — BENTO GALLERY
+       All projects are listed in the RECENT_PROJECTS array
+       (JavaScript, near the bottom). Cards are built from it.
        ===================================================== */
-    .recent-project-showcase{
-      display: grid; grid-template-columns: minmax(0,1.45fr) minmax(280px,.75fr);
-      gap: 20px; align-items: stretch;
+    .pg-head{ flex-wrap: wrap; }
+    .pg-stats{ flex: 0 0 auto; display: flex; gap: 7px; }
+    .pg-stat{
+      min-width: 74px; padding: 9px 12px;
+      border: 1px solid var(--border); border-radius: 12px; background: var(--surface-soft);
     }
-    /* Fixed preview frame */
-    .recent-preview-box{
-      position: relative; min-width: 0; overflow: hidden; aspect-ratio: 16 / 9;
-      border: 1px solid var(--border); border-radius: 15px;
-      background: var(--surface-soft); box-shadow: 0 4px 14px rgba(30,55,70,.07);
-      outline: none; touch-action: pan-y;
+    .pg-stat strong{ display: block; color: var(--text); font-size: 20px; line-height: 1; font-weight: 800; letter-spacing: -.5px; }
+    .pg-stat span{
+      display: block; margin-top: 5px; color: var(--text-soft);
+      font-size: 8.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase;
     }
-    /* All slides live in this moving strip */
-    .recent-preview-track{
-      width: 100%; height: 100%; display: flex; will-change: transform;
-      transition: transform .32s cubic-bezier(.22,.80,.30,1);
+
+    /* Filter chips */
+    .pg-filters{ margin: 0 0 16px; display: flex; flex-wrap: wrap; gap: 7px; }
+    .pg-chip{
+      padding: 7px 8px 7px 12px; display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: var(--surface); color: var(--text-soft); cursor: pointer;
+      font-size: 11px; font-weight: 800;
+      transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
     }
-    .recent-preview-slide{
-      position: relative; flex: 0 0 100%; width: 100%; height: 100%;
-      overflow: hidden; background: var(--surface-soft); cursor: pointer;
+    .pg-chip:hover{ color: var(--text); transform: translateY(-1px); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .pg-chip .pg-chip-n{
+      min-width: 21px; padding: 2px 6px; border-radius: 999px;
+      background: var(--surface-hover); color: var(--text-soft);
+      font-size: 9.5px; line-height: 1.3; text-align: center;
     }
-    .recent-preview-slide img,
-    .recent-preview-slide video{
+    .pg-chip.active{ border-color: var(--accent); background: var(--accent); color: #fff; }
+    .pg-chip.active .pg-chip-n{ background: rgba(255,255,255,.22); color: #fff; }
+    html[data-theme="dark"] .pg-chip.active{ color: #06222c; }
+    html[data-theme="dark"] .pg-chip.active .pg-chip-n{ background: rgba(0,0,0,.16); color: #06222c; }
+
+    /* Grid: 3 columns, fixed row height, spans make the bento shape */
+    #recent-projects{ container-type: inline-size; }
+    .pg-grid{
+      display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+      grid-auto-rows: 215px; grid-auto-flow: dense; gap: 14px;
+    }
+    /* Row height follows the column width so every card keeps a ~3:2 shape */
+    @supports (width: 1cqw){
+      .pg-grid{ grid-auto-rows: calc((100cqw - 28px) / 3 / 1.5); }
+    }
+    .pg-grid:not(.is-filtered) .pg-card.size-feature{ grid-column: span 2; grid-row: span 2; }
+    .pg-grid:not(.is-filtered) .pg-card.size-tall{ grid-row: span 2; }
+    .pg-grid:not(.is-filtered) .pg-card.size-wide{ grid-column: span 2; }
+    .pg-grid:not(.is-expanded):not(.is-filtered) .pg-card.is-extra{ display: none; }
+
+    /* Card */
+    .pg-card{
+      position: relative; min-width: 0; overflow: hidden; isolation: isolate;
+      border-radius: 16px; background: #0b151b;
+      box-shadow: 0 4px 16px rgba(20,40,55,.10);
+      transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
+      animation: pgIn .6s cubic-bezier(.2,.8,.2,1) backwards;
+      animation-delay: calc(var(--i, 0) * 55ms);
+    }
+    .pg-card:hover{ transform: translateY(-4px); box-shadow: 0 20px 44px rgba(10,30,45,.24); }
+    @keyframes pgIn{ from{ opacity: 0; transform: translateY(16px) scale(.985); } }
+
+    .pg-media{ position: absolute; inset: 0; z-index: 0; background: #0b151b; }
+    .pg-card.is-light .pg-media{ background: #f2f4f6; }
+    .pg-media img,
+    .pg-media video{
       width: 100%; height: 100%; display: block; object-fit: cover;
-      user-select: none; -webkit-user-drag: none;
-      transition: transform .42s ease;
+      transition: transform .7s cubic-bezier(.2,.8,.2,1);
     }
-    /* Video slides sit on a dark background while loading */
-    .recent-preview-slide.is-video{ background: #0b1418; }
-    .recent-preview-slide:hover img,
-    .recent-preview-slide:hover video{ transform: scale(1.025); }
-    /* Fallback if a screenshot or video path is wrong */
-    .recent-preview-fallback{
-      position: absolute; inset: 0; display: none;
-      align-items: center; justify-content: center; padding: 34px; text-align: center;
-      background:
-        radial-gradient(circle at 25% 20%, var(--accent-soft), transparent 43%),
-        linear-gradient(135deg, var(--surface-soft), var(--surface-hover));
+    .pg-card:hover .pg-media img,
+    .pg-card:hover .pg-media video{ transform: scale(1.06); }
+    .pg-media .pg-loop{ position: absolute; inset: 0; opacity: 0; transition: opacity .5s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+    .pg-card.is-playing .pg-loop{ opacity: 1; }
+
+    /* Fallback when a thumbnail path is wrong */
+    .pg-fallback{
+      position: absolute; inset: 0; display: none; place-items: center; padding: 20px; text-align: center;
+      background: radial-gradient(circle at 25% 20%, rgba(88,183,212,.35), transparent 50%), linear-gradient(135deg,#123040,#0b151b);
+      color: rgba(255,255,255,.7); font-size: 30px;
     }
-    .recent-preview-slide.image-error .recent-preview-fallback{ display: flex; }
-    .recent-preview-slide.image-error img,
-    .recent-preview-slide.image-error video{ display: none; }
-    .recent-fallback-icon{
-      width: 58px; height: 58px; margin: 0 auto 13px; display: grid; place-items: center;
-      border: 1px solid var(--border); border-radius: 15px;
-      background: var(--surface); color: var(--accent); font-size: 24px; box-shadow: var(--shadow);
+    .pg-card.media-error .pg-fallback{ display: grid; }
+    .pg-card.media-error .pg-media img{ display: none; }
+
+    /* Readability shade */
+    .pg-card::after{
+      content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(to top, rgba(5,12,17,.93) 0%, rgba(5,12,17,.62) 30%, rgba(5,12,17,.08) 62%, rgba(5,12,17,0) 100%);
+      transition: opacity .3s ease;
     }
-    .recent-fallback-title{ max-width: 430px; color: var(--text); font-size: 17px; line-height: 1.4; font-weight: 800; }
-    .recent-fallback-text{ margin-top: 6px; color: var(--text-soft); font-size: 10.5px; }
-    /* Dark shade improves readability of floating controls */
-    .recent-preview-shade{
-      position: absolute; inset: 0; z-index: 3; pointer-events: none;
-      background: linear-gradient(to top, rgba(8,22,30,.31), transparent 43%);
+
+    .pg-card:hover::after,
+    .pg-card:focus-within::after{
+      background: linear-gradient(to top, rgba(5,12,17,.95) 0%, rgba(5,12,17,.78) 42%, rgba(5,12,17,.2) 78%, rgba(5,12,17,.05) 100%);
     }
-    .recent-project-badge{
-      position: absolute; top: 13px; left: 13px; z-index: 6; padding: 6px 10px;
-      border: 1px solid rgba(255,255,255,.55); border-radius: 999px;
-      background: rgba(255,255,255,.93); color: #17252e;
-      box-shadow: 0 6px 18px rgba(0,0,0,.10); backdrop-filter: blur(9px);
-      font-size: 9.5px; font-weight: 800;
+
+    /* Text overlay */
+    .pg-overlay{ position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 14px 15px 14px; color: #fff; pointer-events: none; }
+    .pg-kicker{
+      color: #8fd8ee; font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
     }
-    /* Arrows */
-    .recent-preview-arrow{
-      position: absolute; top: 50%; z-index: 7; width: 42px; height: 42px;
+    .pg-title{
+      margin: 3px 0 0; color: #fff; font-size: 15px; line-height: 1.28; font-weight: 800; letter-spacing: -.2px;
+      text-shadow: 0 1px 12px rgba(0,0,0,.35);
+    }
+    .pg-meta{
+      margin-top: 4px; overflow: hidden; color: rgba(255,255,255,.74);
+      font-size: 10px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis;
+    }
+    .pg-desc{
+      max-height: 0; margin: 0; overflow: hidden; opacity: 0;
+      color: rgba(255,255,255,.84); font-size: 11px; line-height: 1.55;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+      transition: max-height .4s ease, opacity .3s ease, margin .3s ease;
+    }
+    .pg-card:hover .pg-desc,
+    .pg-card:focus-within .pg-desc{ max-height: 54px; margin-top: 7px; opacity: 1; }
+    .pg-grid:not(.is-filtered) .size-tall .pg-desc{ max-height: 72px; margin-top: 7px; opacity: 1; -webkit-line-clamp: 4; }
+    .pg-cta{ display: none; }
+
+    /* Badges */
+    .pg-badges{
+      position: absolute; top: 11px; left: 11px; right: 54px; z-index: 3;
+      display: flex; flex-wrap: wrap; gap: 6px; pointer-events: none;
+    }
+    .pg-badge{
+      padding: 5px 9px; border-radius: 999px;
+      background: rgba(255,255,255,.93); color: #14232c;
+      box-shadow: 0 4px 14px rgba(0,0,0,.16); backdrop-filter: blur(8px);
+      font-size: 9.5px; line-height: 1.2; font-weight: 800;
+    }
+    .pg-new{
+      padding: 5px 8px; border-radius: 999px; background: #d9480f; color: #fff;
+      box-shadow: 0 4px 14px rgba(217,72,15,.35);
+      font-size: 8.5px; line-height: 1.3; font-weight: 800; letter-spacing: .09em; text-transform: uppercase;
+    }
+
+    /* Whole-card preview button + small "open in new tab" link */
+    .pg-hit{
+      position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%;
+      padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: pointer;
+    }
+    .pg-hit:focus-visible{ outline: 3px solid #58b7d4; outline-offset: -3px; }
+    .pg-open{
+      position: absolute; top: 10px; right: 10px; z-index: 4; width: 34px; height: 34px;
       display: grid; place-items: center;
-      border: 1px solid rgba(255,255,255,.40); border-radius: 11px;
-      background: rgba(18,34,44,.80); color: #fff; cursor: pointer;
-      touch-action: manipulation; user-select: none; -webkit-tap-highlight-color: transparent;
-      font-size: 18px; box-shadow: 0 7px 20px rgba(0,0,0,.16); backdrop-filter: blur(8px);
-      transform: translateY(-50%);
-      transition: background .18s ease, transform .18s ease;
+      border: 1px solid rgba(255,255,255,.28); border-radius: 10px;
+      background: rgba(10,20,26,.62); color: #fff; backdrop-filter: blur(8px);
+      font-size: 14px; font-weight: 800;
+      opacity: 0; transform: translateY(-4px);
+      transition: opacity .2s ease, transform .2s ease, background .2s ease;
     }
-    .recent-preview-arrow:hover{ background: var(--accent); transform: translateY(-50%) scale(1.05); }
-    .recent-preview-arrow.prev{ left: 13px; }
-    .recent-preview-arrow.next{ right: 13px; }
-    /* Dots + counter */
-    .recent-preview-footer{
-      position: absolute; left: 14px; right: 14px; bottom: 13px; z-index: 7;
-      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    .pg-open:hover{ background: #146f8d; }
+    .pg-open:focus-visible{ opacity: 1; transform: none; outline: 3px solid #58b7d4; outline-offset: 2px; }
+    .pg-card:hover .pg-open{ opacity: 1; transform: none; }
+
+    /* Video progress line */
+    .pg-progress{
+      position: absolute; left: 0; bottom: 0; z-index: 4; width: 0; height: 3px;
+      background: linear-gradient(90deg, #58b7d4, #68bea7); pointer-events: none;
     }
-    .recent-preview-dots{ display: flex; align-items: center; gap: 6px; }
-    .recent-preview-dot{
-      width: 7px; height: 7px; padding: 0; border: 0; border-radius: 999px;
-      background: rgba(255,255,255,.72); cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.15);
-      transition: width .23s ease, background .23s ease;
+
+    /* Featured card: video on top, info band below */
+    .pg-grid:not(.is-filtered) .pg-card.size-feature{ display: flex; flex-direction: column; }
+    .pg-grid:not(.is-filtered) .size-feature .pg-media{ position: relative; inset: auto; flex: 1 1 auto; min-height: 0; }
+    .pg-grid:not(.is-filtered) .size-feature::after{ display: none; }
+    .pg-grid:not(.is-filtered) .size-feature .pg-progress{ bottom: auto; top: 0; }
+    .pg-grid:not(.is-filtered) .size-feature .pg-overlay{
+      position: relative; flex: 0 0 auto;
+      display: grid; grid-template-columns: minmax(0,1fr) auto; column-gap: 18px; align-items: center;
+      padding: 12px 16px 13px;
+      background: linear-gradient(180deg,#10202a,#0b151b); border-top: 1px solid rgba(255,255,255,.07);
     }
-    .recent-preview-dot.active{ width: 27px; background: #fff; }
-    .recent-preview-count{
-      padding: 6px 10px; border-radius: 999px; background: rgba(18,34,44,.80);
-      color: #fff; font-size: 9px; font-weight: 800; backdrop-filter: blur(8px);
+    .pg-grid:not(.is-filtered) .size-feature .pg-title{ font-size: 18px; letter-spacing: -.4px; }
+    .pg-grid:not(.is-filtered) .size-feature .pg-desc{ display: none; }
+    .pg-grid:not(.is-filtered) .size-feature .pg-cta{
+      grid-column: 2; grid-row: 1 / span 4;
+      padding: 10px 15px; display: inline-flex; align-items: center; gap: 7px;
+      border-radius: 11px; background: #146f8d; color: #fff;
+      font-size: 12px; font-weight: 800; white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(20,111,141,.35);
+      transition: background .2s ease, transform .2s ease;
     }
-    /* Autoplay timer line */
-    .recent-slider-progress{
-      position: absolute; left: 0; right: 0; bottom: 0; z-index: 8; height: 3px;
-      overflow: hidden; background: rgba(255,255,255,.20);
-    }
-    .recent-slider-progress-bar{ width: 0%; height: 100%; background: #fff; }
-    .recent-slider-progress-bar.running{
-      animation: recentSliderProgress var(--recent-slide-time, 5000ms) linear forwards;
-    }
-    @keyframes recentSliderProgress{ from{ width: 0%; } to{ width: 100%; } }
-    /* Project information panel (does not slide) */
-    .recent-project-info{
-      min-width: 0; padding: 21px; display: flex; flex-direction: column; justify-content: center;
-      border: 1px solid var(--border); border-radius: 15px; background: var(--surface-soft);
-    }
-    .recent-info-number{
-      margin-bottom: 8px; color: var(--accent);
-      font-size: 9.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
-    }
-    .recent-info-title{ margin: 0; color: var(--text); font-size: 19px; line-height: 1.35; font-weight: 800; letter-spacing: -.3px; }
-    .recent-info-meta{ margin-top: 8px; color: var(--accent); font-size: 10.5px; line-height: 1.5; font-weight: 700; }
-    .recent-info-description{ margin: 12px 0 0; color: var(--text-soft); font-size: 11.5px; line-height: 1.7; }
-    .recent-info-actions{ margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
-    /* Full recent-project viewer */
+    .pg-grid:not(.is-filtered) .size-feature:hover .pg-cta{ background: #1a86aa; transform: translateY(-1px); }
+    .pg-grid:not(.is-filtered) .size-feature .pg-text{ grid-column: 1; min-width: 0; }
+
+    /* Show all */
+    .pg-more{ margin-top: 16px; display: flex; justify-content: center; }
+    .pg-more .button{ min-width: 210px; }
+    .pg-empty{ grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--text-soft); font-size: 12px; }
+
+    /* Full viewer (modal) */
     .recent-project-modal-backdrop{
       position: fixed; inset: 0; z-index: 9000; padding: 18px;
       display: flex; align-items: center; justify-content: center;
       visibility: hidden; opacity: 0;
-      background: rgba(5,12,17,.85); backdrop-filter: blur(10px);
+      background: rgba(5,12,17,.86); backdrop-filter: blur(10px);
       transition: opacity .2s ease, visibility .2s ease;
     }
     .recent-project-modal-backdrop.show{ visibility: visible; opacity: 1; }
@@ -418,38 +494,84 @@
       display: flex; flex-direction: column;
       border: 1px solid var(--border); border-radius: 17px;
       background: var(--surface); box-shadow: 0 35px 120px rgba(0,0,0,.45);
+      transform: translateY(12px) scale(.99); transition: transform .25s ease;
     }
+    .recent-project-modal-backdrop.show .recent-project-modal{ transform: none; }
     .recent-project-modal-head{
-      min-height: 58px; padding: 11px 15px;
+      min-height: 60px; padding: 10px 14px 10px 16px;
       display: flex; align-items: center; justify-content: space-between; gap: 15px;
       border-bottom: 1px solid var(--border);
     }
+    .pv-heading{ min-width: 0; display: flex; align-items: center; gap: 11px; }
+    .pv-count{
+      flex: 0 0 auto; padding: 5px 9px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 10px; font-weight: 800; font-variant-numeric: tabular-nums;
+    }
+    .pv-titles{ min-width: 0; }
     .recent-project-modal-title{
-      min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-      color: var(--text); font-size: 13px; font-weight: 800;
+      overflow: hidden; color: var(--text); font-size: 14px; line-height: 1.3; font-weight: 800;
+      white-space: nowrap; text-overflow: ellipsis;
     }
-    .recent-project-modal-actions{ flex: 0 0 auto; display: flex; align-items: center; gap: 8px; }
-    .recent-project-modal-body{ flex: 1; min-height: 0; background: #eef2f4; }
-    .recent-project-modal-body iframe{ width: 100%; height: 100%; display: block; border: 0; background: #fff; }
+    .pv-meta{ overflow: hidden; color: var(--text-soft); font-size: 10.5px; white-space: nowrap; text-overflow: ellipsis; }
+    .recent-project-modal-actions{ flex: 0 0 auto; display: flex; align-items: center; gap: 7px; }
+    .pv-nav{ width: 40px; padding: 0; font-size: 15px; }
+    .recent-project-modal-body{ position: relative; flex: 1; min-height: 0; background: #0b1216; }
+    .recent-project-modal-body iframe{ width: 100%; height: 100%; display: block; border: 0; background: #0b1216; }
     .recent-project-modal-body img,
-    .recent-project-modal-body video{ width: 100%; height: 100%; display: block; object-fit: contain; background: #111; }
-
-    @media(max-width:950px){
-      .recent-project-showcase{ grid-template-columns: 1fr; }
-      .recent-project-info{ padding: 18px; }
+    .recent-project-modal-body video{ width: 100%; height: 100%; display: block; object-fit: contain; background: #0b1216; }
+    .recent-project-modal-body.is-light,
+    .recent-project-modal-body.is-light img{ background: #eef2f4; }
+    .pv-loading{
+      position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;
+      color: rgba(255,255,255,.7); font-size: 11px; font-weight: 700; letter-spacing: .06em;
     }
-    @media(max-width:620px){
-      .recent-preview-box{ aspect-ratio: 4 / 3; }
-      .recent-preview-arrow{ width: 37px; height: 37px; }
-      .recent-info-title{ font-size: 17px; }
+    .pv-loading::before{
+      content: ""; width: 30px; height: 30px; margin: 0 auto 10px; display: block;
+      border: 3px solid rgba(255,255,255,.15); border-top-color: #58b7d4; border-radius: 50%;
+      animation: pvSpin .8s linear infinite;
+    }
+    @keyframes pvSpin{ to{ transform: rotate(360deg); } }
+    .pv-external{
+      position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: #fff;
+    }
+    .pv-external img{ position: absolute; inset: 0; object-fit: cover; opacity: .14; filter: blur(4px); }
+    .pv-external div{ position: relative; max-width: 420px; }
+    .pv-external p{ margin: 0 0 16px; color: #fff; font-size: 13px; line-height: 1.6; }
+
+    /* Responsive */
+    @media(max-width:760px){
+      .pg-grid{ grid-template-columns: repeat(2,minmax(0,1fr)); grid-auto-rows: 200px; gap: 12px; }
+      @supports (width: 1cqw){
+        .pg-grid{ grid-auto-rows: calc((100cqw - 12px) / 2 / 1.45); }
+      }
+      .pg-stats{ width: 100%; }
+      .pg-stat{ flex: 1; }
+    }
+    @media(max-width:560px){
+      .pg-grid{ grid-template-columns: 1fr; grid-auto-rows: auto; }
+      .pg-grid .pg-card{ grid-column: auto !important; grid-row: auto !important; aspect-ratio: 16 / 11; }
+      .pg-grid:not(.is-filtered) .pg-card.size-tall{ aspect-ratio: 4 / 5; }
+      .pg-grid:not(.is-filtered) .pg-card.size-feature{ aspect-ratio: auto; }
+      .pg-grid:not(.is-filtered) .size-feature .pg-media{ flex: none; aspect-ratio: 16 / 9; }
+      .pg-grid:not(.is-filtered) .size-feature .pg-overlay{ grid-template-columns: 1fr; row-gap: 12px; }
+      .pg-grid:not(.is-filtered) .size-feature .pg-cta{ grid-column: 1; grid-row: auto; justify-self: start; }
+      .pg-desc{ max-height: 54px; margin-top: 7px; opacity: 1; -webkit-line-clamp: 2; }
+      .pv-count, .pv-meta, .recent-modal-open-text{ display: none; }
       .recent-project-modal-backdrop{ padding: 7px; }
       .recent-project-modal{ width: 100%; height: 96vh; border-radius: 12px; }
-      .recent-modal-open-text{ display: none; }
+    }
+    @media(hover:none){
+      .pg-open{ opacity: 1; transform: none; }
     }
     @media(prefers-reduced-motion:reduce){
-      .recent-preview-track{ transition: none; }
-      .recent-slider-progress-bar{ animation: none !important; }
+      .pg-card{ animation: none; }
+      .pg-card:hover .pg-media img,
+      .pg-card:hover .pg-media video{ transform: none; }
     }
+    .pg-card[hidden]{ display: none !important; }
+    /* Cards animate in when the section scrolls into view */
+    #recent-projects.reveal:not(.visible) .pg-card{ animation: none; }
 
     /* =====================================================
        14. THESIS
@@ -950,152 +1072,30 @@
         </section>
 
         <!-- ===============================================
-             RECENT PROJECTS — SCREENSHOT / VIDEO SLIDER
+             RECENT PROJECTS — BENTO GALLERY
+             Cards are generated from RECENT_PROJECTS in the
+             JavaScript at the bottom of this file. To add a
+             project, add one entry to that list.
              =============================================== -->
         <section class="section-card reveal" id="recent-projects">
-          <div class="section-head">
+          <div class="section-head pg-head">
             <div>
               <div class="section-label">Selected Work</div>
               <h2>Recent Projects</h2>
               <p class="section-subtitle">
-                Selected geospatial visualization, simulation and mapping projects.
-                The preview changes automatically; hover over it to pause and explore.
+                Interactive maps, 3D terrain stories and data animations on water, climate,
+                hazards and cities. Click any card to explore it here, or use ↗ to open it in a new tab.
               </p>
             </div>
+            <div class="pg-stats" id="pgStats" aria-label="Project counts"></div>
           </div>
 
-          <div class="recent-project-showcase">
+          <div class="pg-filters" id="pgFilters" aria-label="Filter projects"></div>
 
-            <!-- FIXED PREVIEW BOX -->
-            <div class="recent-preview-box" id="recentPreviewBox" tabindex="0" aria-label="Recent project slideshow">
+          <div class="pg-grid" id="pgGrid"></div>
 
-              <div class="recent-preview-track" id="recentPreviewTrack">
-
-                <!-- 01 — Dhaka Terrain Story (VIDEO)
-                     muted + playsinline lets browsers autoplay it.
-                     The slider waits for the whole video before moving on. -->
-                <div class="recent-preview-slide is-video" data-index="0">
-                  <video
-                    src="images/Dhaka_Terrain_Story.mp4#t=0.1"
-                    muted loop playsinline
-                    preload="metadata"
-                    disablepictureinpicture
-                    aria-label="Dhaka Terrain Story video preview"
-                  ></video>
-                  <div class="recent-preview-fallback">
-                    <div>
-                      <div class="recent-fallback-icon">▶</div>
-                      <div class="recent-fallback-title">Dhaka Terrain Story</div>
-                      <div class="recent-fallback-text">Video unavailable. Open the full project to watch it.</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 02 — 3D Terrain -->
-                <div class="recent-preview-slide" data-index="1">
-                  <img src="images/3D%20Terrain.jpg" alt="3D Bangladesh Terrain and Bathymetry preview" draggable="false">
-                  <div class="recent-preview-fallback">
-                    <div>
-                      <div class="recent-fallback-icon">◫</div>
-                      <div class="recent-fallback-title">3D Bangladesh Terrain and Bathymetry</div>
-                      <div class="recent-fallback-text">Screenshot unavailable. Open the full project to explore it.</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 03 — Flood Simulation -->
-                <div class="recent-preview-slide" data-index="2">
-                  <img src="images/flood%20simulation.jpg" alt="3D Flood Simulation preview" draggable="false">
-                  <div class="recent-preview-fallback">
-                    <div>
-                      <div class="recent-fallback-icon">◫</div>
-                      <div class="recent-fallback-title">3D Flood Simulation</div>
-                      <div class="recent-fallback-text">Screenshot unavailable. Open the full project to explore it.</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 04 — Coastal Habitat -->
-                <div class="recent-preview-slide" data-index="3">
-                  <img src="images/coastal%20projects.jpg" alt="Coastal Habitat Mapping preview" draggable="false">
-                  <div class="recent-preview-fallback">
-                    <div>
-                      <div class="recent-fallback-icon">◫</div>
-                      <div class="recent-fallback-title">Habitat Mapping of Coastal Regions of Bangladesh</div>
-                      <div class="recent-fallback-text">Screenshot unavailable. Open the full project to explore it.</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 05 — Space Syntax -->
-                <div class="recent-preview-slide" data-index="4">
-                  <img src="images/SpaceSyntaxAnalysis.png" alt="Space Syntax Analysis preview" draggable="false">
-                  <div class="recent-preview-fallback">
-                    <div>
-                      <div class="recent-fallback-icon">◫</div>
-                      <div class="recent-fallback-title">Space Syntax Analysis</div>
-                      <div class="recent-fallback-text">Screenshot unavailable. Open the full image to explore it.</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 06 — Bivariate Climate Map -->
-                <div class="recent-preview-slide" data-index="5">
-                  <img src="images/World%20Bivariate%20Climate%20Map.jpeg" alt="World Bivariate Climate Map preview" draggable="false">
-                  <div class="recent-preview-fallback">
-                    <div>
-                      <div class="recent-fallback-icon">◫</div>
-                      <div class="recent-fallback-title">World Bivariate Climate Map</div>
-                      <div class="recent-fallback-text">Screenshot unavailable. Open the full image to explore it.</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 07 — Land Cover Map of South America -->
-                <div class="recent-preview-slide" data-index="6">
-                  <img src="images/Land%20Cover%203D%20Poster.jpeg" alt="3D Land Cover Map of South America preview" draggable="false">
-                  <div class="recent-preview-fallback">
-                    <div>
-                      <div class="recent-fallback-icon">◫</div>
-                      <div class="recent-fallback-title">3D Land Cover Map of South America</div>
-                      <div class="recent-fallback-text">Screenshot unavailable. Open the full image to explore it.</div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="recent-preview-shade"></div>
-
-              <span class="recent-project-badge" id="recentProjectBadge">▶ Video Story</span>
-
-              <button class="recent-preview-arrow prev" id="recentPrev" type="button" aria-label="Previous project">←</button>
-              <button class="recent-preview-arrow next" id="recentNext" type="button" aria-label="Next project">→</button>
-
-              <div class="recent-preview-footer">
-                <div class="recent-preview-dots" id="recentDots" aria-label="Recent project navigation"></div>
-                <div class="recent-preview-count" id="recentCount">01 / 07</div>
-              </div>
-
-              <div class="recent-slider-progress">
-                <div class="recent-slider-progress-bar" id="recentProgress"></div>
-              </div>
-            </div>
-
-            <!-- PROJECT INFORMATION (stays fixed while slides move) -->
-            <div class="recent-project-info">
-              <div class="recent-info-number" id="recentInfoNumber">Project 01</div>
-              <h3 class="recent-info-title" id="recentInfoTitle">Dhaka Terrain Story</h3>
-              <div class="recent-info-meta" id="recentInfoMeta">3D Terrain · Animation · Storytelling · Dhaka</div>
-              <p class="recent-info-description" id="recentInfoDescription">
-                Animated 3D terrain story of Dhaka, visualizing the city's elevation and landscape through a cinematic fly-through.
-              </p>
-              <div class="recent-info-actions">
-                <a class="button primary" id="recentOpenProject" href="images/Dhaka_Terrain_Story.mp4" target="_blank" rel="noopener">Open Full Project ↗</a>
-                <button class="button ghost" id="recentPreviewProject" type="button">Preview</button>
-              </div>
-            </div>
-
+          <div class="pg-more">
+            <button class="button ghost" id="pgMore" type="button" aria-controls="pgGrid" aria-expanded="false">Show all projects ↓</button>
           </div>
         </section>
 
@@ -1103,12 +1103,20 @@
         <div class="recent-project-modal-backdrop" id="recentProjectModalBackdrop" aria-hidden="true">
           <div class="recent-project-modal" role="dialog" aria-modal="true" aria-labelledby="recentProjectModalTitle">
             <div class="recent-project-modal-head">
-              <div class="recent-project-modal-title" id="recentProjectModalTitle">Project Preview</div>
+              <div class="pv-heading">
+                <span class="pv-count" id="pvCount">01 / 01</span>
+                <div class="pv-titles">
+                  <div class="recent-project-modal-title" id="recentProjectModalTitle">Project Preview</div>
+                  <div class="pv-meta" id="pvMeta"></div>
+                </div>
+              </div>
               <div class="recent-project-modal-actions">
+                <button class="button ghost pv-nav" id="pvPrev" type="button" aria-label="Previous project">←</button>
+                <button class="button ghost pv-nav" id="pvNext" type="button" aria-label="Next project">→</button>
                 <a class="button primary" id="recentProjectModalOpen" href="#" target="_blank" rel="noopener">
                   <span class="recent-modal-open-text">Open Full Project</span> ↗
                 </a>
-                <button class="button ghost" id="recentProjectModalClose" type="button" aria-label="Close recent project preview">✕</button>
+                <button class="button ghost" id="recentProjectModalClose" type="button" aria-label="Close project viewer">✕</button>
               </div>
             </div>
             <div class="recent-project-modal-body" id="recentProjectModalBody"></div>
@@ -1869,8 +1877,7 @@
 
     const searchDatabase = [
       { title: "Current Research", subtitle: "GeoAI, urban growth and transportation research", type: "Section", href: "#current-research" },
-      { title: "Recent Projects", subtitle: "3D GIS and visualization portfolio", type: "Section", href: "#recent-projects" },
-      { title: "Dhaka Terrain Story", subtitle: "Animated 3D terrain video of Dhaka", type: "Project", href: "#recent-projects" },
+      { title: "Recent Projects", subtitle: "Interactive maps, 3D stories and data animations", type: "Section", href: "#recent-projects" },
       { title: "Thesis", subtitle: "Urban growth research", type: "Section", href: "#thesis" },
       { title: "Education", subtitle: "Academic background", type: "Section", href: "#education" },
       { title: "Tools & Platforms", subtitle: "GIS, programming and data science", type: "Section", href: "#skills-badges" },
@@ -1929,6 +1936,10 @@
 
         result.addEventListener("click", () => {
           closeSearch();
+          if(typeof item.project === "number" && window.openRecentProject){
+            window.openRecentProject(item.project);
+            return;
+          }
           if(item.href.startsWith("#")){
             document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" });
           }
@@ -1972,454 +1983,530 @@
     });
 
     /* ===================================================
-       RECENT PROJECTS — SCREENSHOT / VIDEO PREVIEW SLIDER
-       Image slides stay for AUTO_DELAY; video slides play
-       muted and the slider waits until the video finishes.
+       RECENT PROJECTS — BENTO GALLERY
+       ---------------------------------------------------
+       One entry per project; the order here is the order on the page.
+         size   : "feature" (big 2×2) · "tall" (1×2) · "wide" (2×1) · "" (normal)
+         type   : "interactive" · "video" · "map"   (drives the filter chips)
+         thumb  : picture on the card
+         loop   : short muted clip that plays on the card (video projects only)
+         open   : the full project (shown in the viewer and opened by ↗)
+         view   : how the viewer shows it: "iframe" · "video" · "image" · "external"
+         frame  : optional different URL for the viewer iframe (e.g. Google Drive /preview)
+         light  : true for pictures with a white background
+         isNew  : shows the NEW label
+       Until "Show all" is pressed only the first RECENT_VISIBLE cards are shown.
+       Their sizes are chosen to fill complete rows
+       (feature + tall, 3 normal, tall + wide + 2 normal = 5 rows).
        =================================================== */
+    const RECENT_PROJECTS = [
+      {
+        title: "When the Mountain Fell: The Trishuli Flood",
+        place: "Nepal",
+        meta: "3D Terrain · Glacial Hazard · Debris Flow · Storytelling",
+        description: "A 3D terrain story following the debris flow from the north face of Langtang Lirung down the Trishuli River, past Syafrubesi, Betrawati and Devighat.",
+        type: "video", badge: "▶ Video · 0:58", size: "feature", isNew: true,
+        thumb: "projects/thumbs/nepal-trishuli-flood.webp",
+        loop: "projects/previews/nepal-trishuli-flood.mp4",
+        open: "videos/nepal_trishuli_flood_3d_2.mp4", view: "video",
+        cta: "▶ Watch the story"
+      },
+      {
+        title: "One Bay, One Year: Bay of Bengal Currents",
+        place: "Bay of Bengal",
+        meta: "Oceanography · Particle Flow · Sea Temperature",
+        description: "A year of daily ocean surface currents in the Bay of Bengal, drawn as flowing particles and coloured by sea surface temperature.",
+        type: "video", badge: "▶ Video · 0:36", size: "tall", isNew: true,
+        thumb: "projects/thumbs/bay-of-bengal-currents.webp",
+        loop: "projects/previews/bay-of-bengal-currents.mp4",
+        open: "videos/bay_of_bengal_currents.mp4", view: "video"
+      },
+      {
+        title: "Night Lights of Every Country",
+        place: "Global",
+        meta: "VIIRS 2024 · Interactive Globe · Rankings",
+        description: "A 3D globe of 2024 VIIRS night-time lights. Compare how brightly each country shines and rank nations per km² or per person.",
+        type: "interactive", badge: "◉ Interactive", size: "", isNew: true,
+        thumb: "projects/thumbs/night-lights-globe.webp",
+        open: "projects/night-lights-globe.html", view: "iframe"
+      },
+      {
+        title: "Every Cyclone That Hit Bangladesh",
+        place: "Bangladesh",
+        meta: "NOAA IBTrACS · Hazards · 1877–2025",
+        description: "150 years of cyclone tracks passing within 100 km of Bangladesh, with a guided story, a tower of storms by year and the deadliest events.",
+        type: "interactive", badge: "◉ Interactive", size: "", isNew: true,
+        thumb: "projects/thumbs/bangladesh-cyclone-tower.webp",
+        open: "projects/bangladesh-cyclone-tower.html", view: "iframe"
+      },
+      {
+        title: "Dhaka Terrain Story",
+        place: "Dhaka",
+        meta: "3D Terrain · Land Cover · Animation",
+        description: "A cinematic 3D terrain of Dhaka District that moves through elevation, water and flooding, vegetation, land cover, built-up area and population.",
+        type: "video", badge: "▶ Video · 0:22", size: "", light: true,
+        thumb: "projects/thumbs/dhaka-terrain-story.webp",
+        loop: "projects/previews/dhaka-terrain-story.mp4",
+        open: "images/Dhaka_Terrain_Story.mp4", view: "video"
+      },
+      {
+        title: "How GPS Finds the Shortest Path",
+        place: "Dhaka",
+        meta: "Network Analysis · Dijkstra · Road Network",
+        description: "Dijkstra's algorithm searching Dhaka's road network node by node, from Mirpur to Motijheel, until it finds the 11.1 km shortest route.",
+        type: "video", badge: "▶ Video · 0:13", size: "tall", isNew: true,
+        thumb: "projects/thumbs/dhaka-dijkstra.webp",
+        loop: "projects/previews/dhaka-dijkstra.mp4",
+        open: "videos/dhaka_dijkstra.mp4", view: "video"
+      },
+      {
+        title: "The World's River Pulse",
+        place: "Global",
+        meta: "GEOGLOWS v2 · 3D Map · Daily Discharge since 2025",
+        description: "Every big river on Earth, every day since January 2025. Height is that day's discharge; colour shows how close each river runs to its highest flow since 1940.",
+        type: "interactive", badge: "◉ Interactive", size: "wide", isNew: true,
+        thumb: "projects/thumbs/world-river-pulse.webp",
+        open: "projects/world-river-pulse.html", view: "iframe"
+      },
+      {
+        title: "Earth's Fire Calendar",
+        place: "Global",
+        meta: "ESA Fire_cci · Globe · 2001–2020",
+        description: "Twenty years of monthly burned area on a globe. Watch Africa's fire belt swing north and south of the equator with the dry season.",
+        type: "interactive", badge: "◉ Interactive", size: "", isNew: true,
+        thumb: "projects/thumbs/earth-fire-calendar.webp",
+        open: "projects/earth-fire-calendar.html", view: "iframe"
+      },
+      {
+        title: "36 Months of Bangladesh Rain",
+        place: "Bangladesh",
+        meta: "CHIRPS v3 · 3D Map · 2023–2026",
+        description: "Bangladesh rainfall as a 3D surface, with a new map every five days for three years. Pick a division to zoom in and chart its rain.",
+        type: "interactive", badge: "◉ Interactive", size: "", isNew: true,
+        thumb: "projects/thumbs/bangladesh-rain-3d.webp",
+        open: "projects/bangladesh-rain-3d.html", view: "iframe"
+      },
+
+      /* ---- shown after "Show all" ---- */
+      {
+        title: "Dhaka Demographic Explorer",
+        place: "Dhaka",
+        meta: "Census 2022 · WorldPop · Walk & Cycle Catchments",
+        description: "Drop a pin anywhere in Dhaka and see who lives inside a walking, cycling or radius catchment, using the 2022 census and a population grid.",
+        type: "interactive", badge: "◉ Interactive", size: "wide", isNew: true,
+        thumb: "projects/thumbs/dhaka-demographic-explorer.webp",
+        open: "projects/dhaka-demographic-explorer.html", view: "iframe"
+      },
+      {
+        title: "Where Bangladesh's Water Comes From",
+        place: "Bangladesh",
+        meta: "GEOGLOWS · CHIRPS · River Flow · 2025–2026",
+        description: "Animated river water from the Ganges, the Brahmaputra and local rain, showing how each source fills Bangladesh's rivers day by day.",
+        type: "interactive", badge: "◉ Interactive", size: "", isNew: true,
+        thumb: "projects/thumbs/bangladesh-water-story.webp",
+        open: "projects/bangladesh-water-story.html", view: "iframe"
+      },
+      {
+        title: "3D Bangladesh Terrain and Bathymetry",
+        place: "Bangladesh",
+        meta: "3D Mapping · Terrain · Bathymetry",
+        description: "Interactive three-dimensional visualization of Bangladesh terrain and bathymetric characteristics.",
+        type: "interactive", badge: "◉ Interactive 3D", size: "", light: true,
+        thumb: "projects/thumbs/3d-bangladesh-terrain.webp",
+        /* External GitHub Pages may refuse iframes, so it opens in a new tab. */
+        open: "https://khalidbinshofiq.github.io/khalidbinshofiq/", view: "external"
+      },
+      {
+        title: "3D Flood Simulation",
+        place: "Simulation",
+        meta: "Flood · 3D Simulation · Spatial Analysis",
+        description: "Three-dimensional flood simulation illustrating spatial inundation and urban-environmental conditions.",
+        type: "video", badge: "▶ Simulation", size: "", light: true,
+        thumb: "projects/thumbs/3d-flood-simulation.webp",
+        open: "https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing",
+        frame: "https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview",
+        view: "iframe"
+      },
+      {
+        title: "Habitat Mapping of Coastal Bangladesh",
+        place: "Cox's Bazar",
+        meta: "Habitat · Coastal GIS · Remote Sensing",
+        description: "Habitat maps of Cox's Bazar, Maheshkhali Island and Kutubdia for the district master plan, built from satellite data checked with field surveys.",
+        type: "map", badge: "◫ Map Series", size: "", light: true,
+        thumb: "projects/thumbs/coastal-habitat-mapping.webp",
+        open: "research/habitat.html", view: "iframe"
+      },
+      {
+        title: "Space Syntax Analysis",
+        place: "Kaliganj",
+        meta: "Urban Form · Angular Segment Analysis · Road Network",
+        description: "Angular segment analysis of the Kaliganj road network, comparing normalised choice and integration across several search radii.",
+        type: "map", badge: "◫ Map", size: "", light: true,
+        thumb: "projects/thumbs/space-syntax-analysis.webp",
+        open: "images/SpaceSyntaxAnalysis.png", view: "image"
+      },
+      {
+        title: "World Bivariate Climate Map",
+        place: "Global",
+        meta: "Cartography · Climate · Bivariate Mapping",
+        description: "Bivariate cartographic visualization designed to communicate two climate dimensions simultaneously across the world.",
+        type: "map", badge: "◫ Map", size: "", light: true,
+        thumb: "projects/thumbs/world-bivariate-climate.webp",
+        open: "images/World%20Bivariate%20Climate%20Map.jpeg", view: "image"
+      },
+      {
+        title: "3D Land Cover Map of South America",
+        place: "South America",
+        meta: "Land Cover · 3D Cartography · Remote Sensing",
+        description: "Three-dimensional land-cover map of South America combining land-cover classes with terrain relief to show regional landscape patterns.",
+        type: "map", badge: "◫ 3D Poster", size: "",
+        thumb: "projects/thumbs/south-america-land-cover.webp",
+        open: "images/Land%20Cover%203D%20Poster.jpeg", view: "image"
+      }
+    ];
+
+    const RECENT_VISIBLE = 9;
+
     (() => {
+      const grid = document.getElementById("pgGrid");
+      if(!grid) return;
 
-      const recentProjects = [
-        {
-          title: "Dhaka Terrain Story",
-          meta: "3D Terrain · Animation · Storytelling · Dhaka",
-          badge: "▶ Video Story",
-          description: "Animated 3D terrain story of Dhaka, visualizing the city's elevation and landscape through a cinematic fly-through.",
-          open: "images/Dhaka_Terrain_Story.mp4",
-          previewType: "video",
-          preview: "images/Dhaka_Terrain_Story.mp4"
-        },
-        {
-          title: "3D Bangladesh Terrain and Bathymetry",
-          meta: "3D Mapping · Terrain · Bathymetry · Visualization",
-          badge: "Interactive 3D",
-          description: "Interactive three-dimensional visualization of Bangladesh terrain and bathymetric characteristics.",
-          open: "https://khalidbinshofiq.github.io/khalidbinshofiq/",
-          /* External GitHub Pages may refuse iframes — Preview opens it directly. */
-          previewType: "external",
-          preview: "https://khalidbinshofiq.github.io/khalidbinshofiq/"
-        },
-        {
-          title: "3D Flood Simulation",
-          meta: "Flood · 3D Simulation · Spatial Analysis",
-          badge: "Simulation",
-          description: "Three-dimensional flood simulation illustrating spatial inundation and urban-environmental conditions.",
-          open: "https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/view?usp=sharing",
-          previewType: "iframe",
-          preview: "https://drive.google.com/file/d/1QferSxE1JlJT88g9bynRx6BPirqv8vDT/preview"
-        },
-        {
-          title: "Habitat Mapping of Coastal Regions of Bangladesh",
-          meta: "Habitat · Coastal GIS · Remote Sensing",
-          badge: "Coastal GIS",
-          description: "Geospatial habitat mapping and spatial analysis of environmentally sensitive coastal regions of Bangladesh.",
-          open: "research/habitat.html",
-          previewType: "iframe",
-          preview: "research/habitat.html"
-        },
-        {
-          title: "Space Syntax Analysis",
-          meta: "Urban Form · Network Analysis · Spatial Configuration",
-          badge: "Spatial Analysis",
-          description: "Visual analysis of spatial configuration and connectivity using a space-syntax-oriented urban analysis workflow.",
-          open: "images/SpaceSyntaxAnalysis.png",
-          previewType: "image",
-          preview: "images/SpaceSyntaxAnalysis.png"
-        },
-        {
-          title: "World Bivariate Climate Map",
-          meta: "Cartography · Climate · Bivariate Mapping",
-          badge: "Cartography",
-          description: "Bivariate cartographic visualization designed to communicate two climate dimensions simultaneously across the world.",
-          open: "images/World%20Bivariate%20Climate%20Map.jpeg",
-          previewType: "image",
-          preview: "images/World%20Bivariate%20Climate%20Map.jpeg"
-        },
-        {
-          title: "3D Land Cover Map of South America",
-          meta: "Land Cover · 3D Cartography · Remote Sensing",
-          badge: "3D Cartography",
-          description: "Three-dimensional land-cover visualization of South America combining thematic land-cover classes with terrain relief to communicate regional landscape patterns.",
-          open: "images/Land%20Cover%203D%20Poster.jpeg",
-          previewType: "image",
-          preview: "images/Land%20Cover%203D%20Poster.jpeg"
-        }
+      const filtersBox = document.getElementById("pgFilters");
+      const statsBox = document.getElementById("pgStats");
+      const moreButton = document.getElementById("pgMore");
+      const section = document.getElementById("recent-projects");
+
+      const backdrop = document.getElementById("recentProjectModalBackdrop");
+      const viewerBody = document.getElementById("recentProjectModalBody");
+      const viewerTitle = document.getElementById("recentProjectModalTitle");
+      const viewerMeta = document.getElementById("pvMeta");
+      const viewerCount = document.getElementById("pvCount");
+      const viewerOpen = document.getElementById("recentProjectModalOpen");
+      const viewerPrev = document.getElementById("pvPrev");
+      const viewerNext = document.getElementById("pvNext");
+      const viewerClose = document.getElementById("recentProjectModalClose");
+
+      const FILTERS = [
+        { key: "all", label: "All" },
+        { key: "interactive", label: "Interactive" },
+        { key: "video", label: "Video & Animation" },
+        { key: "map", label: "Maps & Posters" }
       ];
+      const FALLBACK_ICON = { interactive: "◉", video: "▶", map: "◫" };
+      const CTA = { interactive: "Explore →", video: "▶ Watch", map: "View map →" };
 
-      const box = document.getElementById("recentPreviewBox");
-      if(!box) return;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const saveData = !!(navigator.connection && navigator.connection.saveData);
 
-      const track = document.getElementById("recentPreviewTrack");
-      const slides = Array.from(track.querySelectorAll(".recent-preview-slide"));
-      const badge = document.getElementById("recentProjectBadge");
-      const number = document.getElementById("recentInfoNumber");
-      const title = document.getElementById("recentInfoTitle");
-      const meta = document.getElementById("recentInfoMeta");
-      const description = document.getElementById("recentInfoDescription");
-      const openButton = document.getElementById("recentOpenProject");
-      const previewButton = document.getElementById("recentPreviewProject");
-      const prevButton = document.getElementById("recentPrev");
-      const nextButton = document.getElementById("recentNext");
-      const dots = document.getElementById("recentDots");
-      const count = document.getElementById("recentCount");
-      const progress = document.getElementById("recentProgress");
-      const modalBackdrop = document.getElementById("recentProjectModalBackdrop");
-      const modalTitle = document.getElementById("recentProjectModalTitle");
-      const modalBody = document.getElementById("recentProjectModalBody");
-      const modalOpen = document.getElementById("recentProjectModalOpen");
-      const modalClose = document.getElementById("recentProjectModalClose");
+      let activeFilter = "all";
+      let expanded = false;
+      let hoveredCard = null;
+      let viewerList = [];
+      let viewerPos = 0;
+      let lastFocus = null;
 
-      /* Slide time for IMAGE slides (5000 = 5 seconds).
-         Video slides automatically use the video's own length. */
-      const AUTO_DELAY = 5000;
+      const pad = value => String(value).padStart(2, "0");
+      const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+      const countOf = key => key === "all" ? RECENT_PROJECTS.length : RECENT_PROJECTS.filter(p => p.type === key).length;
 
-      /* Used for a video slide only until its length is known. */
-      const VIDEO_FALLBACK_DELAY = 22000;
+      /* ---------- Stats + filter chips ---------- */
+      statsBox.innerHTML = [
+        [RECENT_PROJECTS.length, "Projects"],
+        [countOf("interactive"), "Interactive"],
+        [countOf("video"), "Videos"]
+      ].map(([n, label]) => `<div class="pg-stat"><strong>${n}</strong><span>${label}</span></div>`).join("");
 
-      document.documentElement.style.setProperty("--recent-slide-time", AUTO_DELAY + "ms");
-
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-
-      let currentIndex = 0;
-      let timer = null;
-      let paused = false;
-      let dragging = false;
-      let dragStartX = 0;
-      let dragEndX = 0;
-
-      /* ---------- Video helpers ---------- */
-      function slideVideo(index){
-        return slides[index] ? slides[index].querySelector("video") : null;
-      }
-
-      function playCurrentVideo(){
-        const video = slideVideo(currentIndex);
-        if(!video || reducedMotion) return;
-        video.muted = true;
-        const attempt = video.play();
-        if(attempt && attempt.catch){
-          attempt.catch(() => {});
-        }
-      }
-
-      function pauseAllVideos(){
-        slides.forEach((_, index) => {
-          const video = slideVideo(index);
-          if(video) video.pause();
-        });
-      }
-
-      /* ---------- Broken screenshot / video protection ---------- */
-      slides.forEach((slide, index) => {
-        const media = slide.querySelector("img, video");
-        if(!media) return;
-
-        media.addEventListener("error", () => {
-          slide.classList.add("image-error");
-        });
-
-        media.addEventListener(media.tagName === "VIDEO" ? "loadeddata" : "load", () => {
-          slide.classList.remove("image-error");
-        });
-
-        /* Once the video length is known, re-time the slider. */
-        if(media.tagName === "VIDEO"){
-          media.addEventListener("loadedmetadata", () => {
-            if(index === currentIndex && timer){
-              startAuto();
-            }
+      FILTERS.forEach(filter => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "pg-chip" + (filter.key === activeFilter ? " active" : "");
+        chip.dataset.filter = filter.key;
+        chip.setAttribute("aria-pressed", filter.key === activeFilter ? "true" : "false");
+        chip.innerHTML = `${esc(filter.label)} <span class="pg-chip-n">${countOf(filter.key)}</span>`;
+        chip.addEventListener("click", () => {
+          activeFilter = filter.key;
+          filtersBox.querySelectorAll(".pg-chip").forEach(c => {
+            const on = c.dataset.filter === activeFilter;
+            c.classList.toggle("active", on);
+            c.setAttribute("aria-pressed", on ? "true" : "false");
           });
-        }
+          applyLayout(true);
+        });
+        filtersBox.appendChild(chip);
       });
 
-      /* ---------- Dots ---------- */
-      function buildDots(){
-        dots.innerHTML = "";
-        recentProjects.forEach((_, index) => {
-          const dot = document.createElement("button");
-          dot.type = "button";
-          dot.className = "recent-preview-dot";
-          dot.setAttribute("aria-label", `Show project ${index + 1}`);
-          dot.addEventListener("click", event => {
-            event.stopPropagation();
-            goToProject(index);
-            restartAuto();
+      /* ---------- Cards ---------- */
+      const cards = RECENT_PROJECTS.map((project, index) => {
+        const card = document.createElement("article");
+        card.className = "pg-card";
+        if(project.size) card.classList.add("size-" + project.size);
+        if(project.light) card.classList.add("is-light");
+        if(index >= RECENT_VISIBLE) card.classList.add("is-extra");
+        card.dataset.index = index;
+        card.dataset.type = project.type;
+
+        const media = document.createElement("div");
+        media.className = "pg-media";
+        /* The picture is always there; a video card fades its looping clip in on top once it plays. */
+        const image = document.createElement("img");
+        image.src = project.thumb;
+        image.alt = "";
+        image.decoding = "async";
+        image.loading = index < 4 ? "eager" : "lazy";
+        image.draggable = false;
+        image.addEventListener("error", () => card.classList.add("media-error"));
+        media.appendChild(image);
+
+        let loopVideo = null;
+        if(project.loop){
+          loopVideo = document.createElement("video");
+          loopVideo.className = "pg-loop";
+          loopVideo.muted = true;
+          loopVideo.loop = true;
+          loopVideo.playsInline = true;
+          loopVideo.preload = "none";
+          loopVideo.dataset.src = project.loop;
+          loopVideo.disablePictureInPicture = true;
+          loopVideo.setAttribute("muted", "");
+          loopVideo.setAttribute("playsinline", "");
+          loopVideo.setAttribute("aria-hidden", "true");
+          loopVideo.addEventListener("playing", () => card.classList.add("is-playing"));
+          /* If the clip cannot play, keep the picture and stop trying. */
+          loopVideo.addEventListener("error", () => { card.classList.remove("is-playing"); loopVideo.remove(); });
+          media.appendChild(loopVideo);
+        }
+        media.insertAdjacentHTML("beforeend", `<div class="pg-fallback">${FALLBACK_ICON[project.type] || "◫"}</div>`);
+        card.appendChild(media);
+
+        card.insertAdjacentHTML("beforeend", `
+          <div class="pg-badges">
+            <span class="pg-badge">${esc(project.badge)}</span>
+            ${project.isNew ? '<span class="pg-new">New</span>' : ""}
+          </div>
+          <div class="pg-overlay">
+            <div class="pg-text">
+              <div class="pg-kicker">${pad(index + 1)} · ${esc(project.place)}</div>
+              <h3 class="pg-title">${esc(project.title)}</h3>
+              <div class="pg-meta">${esc(project.meta)}</div>
+              <p class="pg-desc">${esc(project.description)}</p>
+            </div>
+            <span class="pg-cta" aria-hidden="true">${esc(project.cta || CTA[project.type] || "Open →")}</span>
+          </div>
+          <button class="pg-hit" type="button" aria-label="Preview ${esc(project.title)}"></button>
+          <a class="pg-open" href="${esc(project.open)}" target="_blank" rel="noopener"
+             title="Open in a new tab" aria-label="Open ${esc(project.title)} in a new tab">↗</a>
+          ${project.loop ? '<div class="pg-progress"></div>' : ""}`);
+
+        card.querySelector(".pg-hit").addEventListener("click", () => openViewer(index));
+
+        if(loopVideo){
+          const bar = card.querySelector(".pg-progress");
+          loopVideo.addEventListener("timeupdate", () => {
+            if(loopVideo.duration) bar.style.width = (loopVideo.currentTime / loopVideo.duration * 100) + "%";
           });
-          dots.appendChild(dot);
+          card.addEventListener("mouseenter", () => { hoveredCard = card; syncVideos(); });
+          card.addEventListener("mouseleave", () => { if(hoveredCard === card) hoveredCard = null; syncVideos(); });
+        }
+
+        grid.appendChild(card);
+        return card;
+      });
+
+      /* ---------- Filtering + show all ---------- */
+      function replayEntrance(card, order){
+        card.style.setProperty("--i", order);
+        card.style.animation = "none";
+        void card.offsetWidth;
+        card.style.animation = "";
+      }
+
+      function applyLayout(animate){
+        const filtering = activeFilter !== "all";
+        grid.classList.toggle("is-filtered", filtering);
+        grid.classList.toggle("is-expanded", expanded);
+
+        let order = 0;
+        cards.forEach(card => {
+          const match = !filtering || card.dataset.type === activeFilter;
+          card.hidden = !match;
+          const onScreen = match && (filtering || expanded || !card.classList.contains("is-extra"));
+          if(onScreen && animate) replayEntrance(card, order++);
         });
+
+        moreButton.parentElement.style.display = filtering || RECENT_PROJECTS.length <= RECENT_VISIBLE ? "none" : "";
+        moreButton.textContent = expanded ? "Show fewer projects ↑" : `Show all ${RECENT_PROJECTS.length} projects ↓`;
+        moreButton.setAttribute("aria-expanded", expanded ? "true" : "false");
+        requestAnimationFrame(syncVideos);
       }
 
-      function updateDots(){
-        dots.querySelectorAll(".recent-preview-dot").forEach((dot, index) => {
-          dot.classList.toggle("active", index === currentIndex);
-        });
-      }
-
-      function twoDigits(value){
-        return String(value).padStart(2, "0");
-      }
-
-      /* ---------- Move strip + update info panel ---------- */
-      function goToProject(index){
-        if(index >= recentProjects.length) index = 0;
-        if(index < 0) index = recentProjects.length - 1;
-
-        currentIndex = index;
-        track.style.transform = `translate3d(-${currentIndex * 100}%,0,0)`;
-
-        const project = recentProjects[currentIndex];
-        badge.textContent = project.badge;
-        number.textContent = `Project ${twoDigits(currentIndex + 1)}`;
-        title.textContent = project.title;
-        meta.textContent = project.meta;
-        description.textContent = project.description;
-        openButton.href = project.open;
-        count.textContent = `${twoDigits(currentIndex + 1)} / ${twoDigits(recentProjects.length)}`;
-
-        /* Only the visible slide's video plays, from the start. */
-        pauseAllVideos();
-        const video = slideVideo(currentIndex);
-        if(video){
-          try{ video.currentTime = 0; } catch{}
-          playCurrentVideo();
-        }
-
-        updateDots();
-        restartProgress();
-      }
-
-      function nextProject(){ goToProject(currentIndex + 1); }
-      function previousProject(){ goToProject(currentIndex - 1); }
-
-      /* ---------- Progress + autoplay ---------- */
-      /* How long the current slide stays, and how much time has passed
-         (a video keeps playing while the viewer hovers over it). */
-      function currentTiming(){
-        const video = slideVideo(currentIndex);
-
-        if(!video){
-          return { total: AUTO_DELAY, elapsed: 0 };
-        }
-
-        if(!isFinite(video.duration) || video.duration <= 0){
-          return { total: VIDEO_FALLBACK_DELAY, elapsed: 0 };
-        }
-
-        const total = Math.round(video.duration * 1000);
-        const elapsed = Math.min(Math.round(video.currentTime * 1000), total - 1000);
-
-        return { total, elapsed: Math.max(0, elapsed) };
-      }
-
-      function restartProgress(timing){
-        progress.classList.remove("running");
-        const t = timing || currentTiming();
-        progress.style.setProperty("--recent-slide-time", t.total + "ms");
-        progress.style.animationDelay = `-${t.elapsed}ms`;
-        void progress.offsetWidth;
-        if(!paused && !reducedMotion){
-          progress.classList.add("running");
-        }
-      }
-
-      function stopAuto(){
-        clearTimeout(timer);
-        timer = null;
-        progress.classList.remove("running");
-      }
-
-      function startAuto(){
-        stopAuto();
-        if(paused || reducedMotion) return;
-
-        const timing = currentTiming();
-        restartProgress(timing);
-
-        timer = setTimeout(() => {
-          nextProject();
-          startAuto();
-        }, timing.total - timing.elapsed);
-      }
-
-      function restartAuto(){
-        stopAuto();
-        startAuto();
-      }
-
-      /* ---------- Arrow navigation ---------- */
-      [prevButton, nextButton].forEach(button => {
-        button.addEventListener("pointerdown", event => event.stopPropagation());
-      });
-
-      prevButton.addEventListener("click", event => {
-        event.stopPropagation();
-        previousProject();
-        restartAuto();
-      });
-
-      nextButton.addEventListener("click", event => {
-        event.stopPropagation();
-        nextProject();
-        restartAuto();
-      });
-
-      /* ---------- Pause on hover (video keeps looping) ---------- */
-      box.addEventListener("mouseenter", () => {
-        paused = true;
-        stopAuto();
-      });
-
-      box.addEventListener("mouseleave", () => {
-        paused = false;
-        startAuto();
-      });
-
-      /* ---------- Keyboard ---------- */
-      box.addEventListener("keydown", event => {
-        if(event.key === "ArrowRight"){
-          event.preventDefault();
-          nextProject();
-          restartAuto();
-        }
-        if(event.key === "ArrowLeft"){
-          event.preventDefault();
-          previousProject();
-          restartAuto();
-        }
-        if(event.key === "Enter"){
-          event.preventDefault();
-          openCurrentPreview();
-        }
-      });
-
-      /* ---------- Swipe / drag ---------- */
-      box.addEventListener("pointerdown", event => {
-        if(event.target.closest("button, a")) return;
-        if(event.pointerType === "mouse" && event.button !== 0) return;
-
-        dragging = true;
-        dragStartX = event.clientX;
-        dragEndX = dragStartX;
-        stopAuto();
-        box.setPointerCapture?.(event.pointerId);
-      });
-
-      box.addEventListener("pointermove", event => {
-        if(!dragging) return;
-        dragEndX = event.clientX;
-      });
-
-      function finishDrag(){
-        if(!dragging) return;
-        dragging = false;
-
-        const difference = dragEndX - dragStartX;
-        if(Math.abs(difference) > 45){
-          if(difference < 0) nextProject();
-          else previousProject();
-        }
-        startAuto();
-      }
-
-      box.addEventListener("pointerup", finishDrag);
-      box.addEventListener("pointercancel", finishDrag);
-
-      /* ---------- Full project preview ---------- */
-      function openCurrentPreview(){
-        const project = recentProjects[currentIndex];
-
-        if(project.previewType === "external"){
-          window.open(project.open, "_blank", "noopener");
-          return;
-        }
-
-        modalTitle.textContent = project.title;
-        modalOpen.href = project.open;
-        modalBody.innerHTML = "";
-
-        if(project.previewType === "image"){
-          const fullImage = document.createElement("img");
-          fullImage.src = project.preview;
-          fullImage.alt = project.title;
-          modalBody.appendChild(fullImage);
-        }
-        else if(project.previewType === "video"){
-          /* Pause the small looping preview while the full player is open. */
-          pauseAllVideos();
-          const fullVideo = document.createElement("video");
-          fullVideo.src = project.preview;
-          fullVideo.controls = true;
-          fullVideo.autoplay = true;
-          fullVideo.playsInline = true;
-          fullVideo.setAttribute("aria-label", project.title);
-          modalBody.appendChild(fullVideo);
+      moreButton.addEventListener("click", () => {
+        expanded = !expanded;
+        if(expanded){
+          grid.classList.add("is-expanded");
+          let order = 0;
+          cards.forEach(card => { if(card.classList.contains("is-extra")) replayEntrance(card, order++); });
+          applyLayout(false);
         }
         else{
-          const iframe = document.createElement("iframe");
-          iframe.src = project.preview;
-          iframe.title = project.title;
-          iframe.allowFullscreen = true;
-          iframe.setAttribute("loading", "eager");
-          modalBody.appendChild(iframe);
+          applyLayout(false);
+          if(section.getBoundingClientRect().top < 0){
+            section.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+          }
         }
+      });
 
-        modalBackdrop.classList.add("show");
-        modalBackdrop.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
+      /* ---------- Card videos: play while on screen or hovered ---------- */
+      const videoCards = cards.filter(card => card.querySelector(".pg-loop"));
+      const onScreen = new Set();
+
+      function shouldPlay(card){
+        if(card.hidden || card.offsetParent === null) return false;
+        if(document.hidden || backdrop.classList.contains("show")) return false;
+        if(card === hoveredCard) return true;
+        if(reducedMotion || saveData) return false;
+        return onScreen.has(card);
       }
 
-      function closeRecentProjectModal(){
-        modalBackdrop.classList.remove("show");
-        modalBackdrop.setAttribute("aria-hidden", "true");
-        /* Removes iframe/video so it cannot continue playing. */
-        modalBody.innerHTML = "";
-        document.body.style.overflow = "";
-        /* Resume the small preview video if it is on screen. */
-        playCurrentVideo();
-      }
-
-      previewButton.addEventListener("click", openCurrentPreview);
-
-      /* Clicking the slide previews it; a drag/swipe does not. */
-      slides.forEach((slide, index) => {
-        slide.addEventListener("click", () => {
-          if(index !== currentIndex) return;
-          if(Math.abs(dragEndX - dragStartX) > 8) return;
-          openCurrentPreview();
+      function syncVideos(){
+        videoCards.forEach(card => {
+          const video = card.querySelector(".pg-loop");
+          if(!video) return;
+          if(shouldPlay(card)){
+            if(!video.getAttribute("src")) video.src = video.dataset.src;
+            video.muted = true;
+            const attempt = video.play();
+            if(attempt && attempt.catch) attempt.catch(() => {});
+          }
+          else if(!video.paused){
+            video.pause();
+          }
         });
-      });
+      }
 
-      modalClose.addEventListener("click", closeRecentProjectModal);
+      if("IntersectionObserver" in window){
+        const videoObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting && entry.intersectionRatio >= .35) onScreen.add(entry.target);
+            else onScreen.delete(entry.target);
+          });
+          syncVideos();
+        }, { threshold: [0, .35, .7] });
+        videoCards.forEach(card => videoObserver.observe(card));
+      }
 
-      modalBackdrop.addEventListener("click", event => {
-        if(event.target === modalBackdrop){
-          closeRecentProjectModal();
+      document.addEventListener("visibilitychange", syncVideos);
+
+      /* ---------- Full viewer with previous / next ---------- */
+      function listForViewer(index){
+        const list = RECENT_PROJECTS.map((_, i) => i).filter(i => activeFilter === "all" || RECENT_PROJECTS[i].type === activeFilter);
+        return list.includes(index) ? list : RECENT_PROJECTS.map((_, i) => i);
+      }
+
+      function renderViewer(){
+        const index = viewerList[viewerPos];
+        const project = RECENT_PROJECTS[index];
+
+        viewerTitle.textContent = project.title;
+        viewerMeta.textContent = `${project.place} · ${project.meta}`;
+        viewerCount.textContent = `${pad(viewerPos + 1)} / ${pad(viewerList.length)}`;
+        viewerOpen.href = project.open;
+        viewerPrev.disabled = viewerNext.disabled = viewerList.length < 2;
+
+        viewerBody.innerHTML = "";
+        viewerBody.classList.toggle("is-light", !!project.light && project.view === "image");
+
+        if(project.view === "image"){
+          const image = document.createElement("img");
+          image.src = project.open;
+          image.alt = project.title;
+          viewerBody.appendChild(image);
         }
-      });
+        else if(project.view === "video"){
+          const video = document.createElement("video");
+          video.src = project.open;
+          video.poster = project.thumb;
+          video.controls = true;
+          video.playsInline = true;
+          video.setAttribute("aria-label", project.title);
+          viewerBody.appendChild(video);
+          const attempt = video.play();
+          if(attempt && attempt.catch){
+            attempt.catch(() => { video.muted = true; video.play().catch(() => {}); });
+          }
+        }
+        else if(project.view === "external"){
+          viewerBody.insertAdjacentHTML("beforeend", `
+            <div class="pv-external">
+              <img src="${esc(project.thumb)}" alt="">
+              <div>
+                <p>${esc(project.description)}<br>This project runs on its own page.</p>
+                <a class="button primary" href="${esc(project.open)}" target="_blank" rel="noopener">Open ${esc(project.title)} ↗</a>
+              </div>
+            </div>`);
+        }
+        else{
+          const loading = document.createElement("div");
+          loading.className = "pv-loading";
+          loading.textContent = "LOADING";
+          const frame = document.createElement("iframe");
+          frame.src = project.frame || project.open;
+          frame.title = project.title;
+          frame.allowFullscreen = true;
+          frame.setAttribute("allow", "fullscreen; autoplay");
+          frame.addEventListener("load", () => loading.remove());
+          viewerBody.append(loading, frame);
+        }
+      }
+
+      function openViewer(index){
+        const project = RECENT_PROJECTS[index];
+        if(!project) return;
+        viewerList = listForViewer(index);
+        viewerPos = viewerList.indexOf(index);
+        lastFocus = document.activeElement;
+        renderViewer();
+        backdrop.classList.add("show");
+        backdrop.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        syncVideos();
+        viewerClose.focus({ preventScroll: true });
+      }
+
+      function stepViewer(direction){
+        viewerPos = (viewerPos + direction + viewerList.length) % viewerList.length;
+        renderViewer();
+      }
+
+      function closeViewer(){
+        backdrop.classList.remove("show");
+        backdrop.setAttribute("aria-hidden", "true");
+        viewerBody.innerHTML = "";
+        document.body.style.overflow = "";
+        syncVideos();
+        if(lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+      }
+
+      viewerPrev.addEventListener("click", () => stepViewer(-1));
+      viewerNext.addEventListener("click", () => stepViewer(1));
+      viewerClose.addEventListener("click", closeViewer);
+      backdrop.addEventListener("click", event => { if(event.target === backdrop) closeViewer(); });
 
       window.addEventListener("keydown", event => {
-        if(event.key === "Escape" && modalBackdrop.classList.contains("show")){
-          closeRecentProjectModal();
-        }
+        if(!backdrop.classList.contains("show")) return;
+        if(event.key === "Escape"){ closeViewer(); return; }
+        const tag = document.activeElement ? document.activeElement.tagName : "";
+        if(tag === "VIDEO" || tag === "INPUT") return;
+        if(event.key === "ArrowRight"){ event.preventDefault(); stepViewer(1); }
+        if(event.key === "ArrowLeft"){ event.preventDefault(); stepViewer(-1); }
       });
 
-      document.addEventListener("visibilitychange", () => {
-        if(document.hidden){
-          stopAuto();
-          pauseAllVideos();
-        }
-        else{
-          if(!modalBackdrop.classList.contains("show")){
-            playCurrentVideo();
-          }
-          startAuto();
-        }
+      /* Let the site search open projects directly */
+      window.openRecentProject = openViewer;
+      RECENT_PROJECTS.forEach((project, index) => {
+        searchDatabase.push({ title: project.title, subtitle: `${project.place} · ${project.meta}`, type: "Project", href: "#recent-projects", project: index });
       });
 
-      /* Initialize */
-      buildDots();
-      goToProject(0);
-      startAuto();
-
+      applyLayout(false);
     })();
 
     /* ===================================================
