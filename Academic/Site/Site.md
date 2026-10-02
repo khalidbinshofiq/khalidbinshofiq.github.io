@@ -1,22 +1,8 @@
-## <i>**📘 Project:** Preparation Neighborhood Plan of an Residential Area. </i> <br>
-[![shitft](https://img.shields.io/static/v1?label=Project%20Presentation&message=%20&color=FFD700&style=for-the-badge)](presentation.pdf) <br>
+---
+layout: null
+title: Site & Area Planning Studio
+---
+<script>location.replace("index.html");</script>
+<noscript><meta http-equiv="refresh" content="0; url=index.html"></noscript>
 
-[![shitft](https://img.shields.io/static/v1?label=Project%20Report&message=%20&color=0A66C2&style=for-the-badge)](Report.pdf) <br>
-<br>
-<p align="left">
-    <img src="./1.jpg" alt="Social and Resource Map" width="100%">
-</p>
-
-<p align="left">
-    <img src="./2.jpg" alt="Social and Resource Map" width="100%">
-</p>
-
-<p align="left">
-    <img src="./3.jpg" alt="Social and Resource Map" width="70%">
-</p>
-
-<p align="left">
-    <img src="./4.jpg" alt="Social and Resource Map" width="70%">
-</p>
-
-
+This page has moved to [Site & Area Planning Studio](index.html).
